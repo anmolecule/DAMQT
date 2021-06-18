@@ -1,0 +1,2353 @@
+﻿!  Copyright 2017-2018, Rafael Lopez, Gabriel Urquiza Carvalho
+! 
+!  This file is part of Zernike_Jacobi_320 package.
+!  Zernike_Jacobi_320 is distributed in the hope that it will be useful,
+!  but WITHOUT ANY WARRANTY; without even the implied warranty of
+!  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!  GNU General Public License for more details.
+! 
+!  You should have received a copy of the GNU General Public License
+!  along with Zernike_Jacobi_320.  If not, see <http://www.gnu.org/licenses/>.
+!
+!------------------------------------------------------------------------
+! 
+! Program for computation of Zernike 3D and Jacobi moments of a molecular density of STO
+!
+! Version of March 2018
+!
+
+  program DAMZernike_Jacobi_STO_MPI_320
+    USE MPI
+    USE Zernike_Jacobi_STO_MPI_D
+    USE PARALELO
+    implicit none
+    integer(KINT) :: i, ia, ierr, j, k, l, la, leninamelist, lenrnamelist, m, ma
+    integer(KINT), allocatable, dimension(:) :: inamelist
+    integer(KINT) :: icfaux(2)
+    real(KREAL) :: aux
+    logical :: lden, lsgbs, lsgbsgz
+    logical :: lnamelist(9)
+    real(KREAL4) :: tarray(2), tiempo, dtime
+    real(KREAL), allocatable :: rnamelist(:)
+    external :: omeganlm_jacobi, omeganlm_zernike, frad_jacobi, frad_zernike
+    namelist / options / iswindows, jmax, kmax0, lechelon, ljacobi, longoutput, lexpansion, lrstarrel, lvalence, lzdo, &
+            nquadpoints, kexpansion, rstar, thresmult, thresoverlap
+    call MPI_INIT(ierr)
+    call MPI_COMM_SIZE(MPI_COMM_WORLD, nprocs, ierr)
+    call MPI_COMM_RANK(MPI_COMM_WORLD, myrank, ierr)
+    abort = 0
+    abortroot = 0
+    if (myrank .eq. 0) write(6,"('number of processors = ', i3)") nprocs
+
+!    Defaults for the NAMELIST OPTIONS
+    kexpansion = 10          ! Highest k in expansion functions
+    kmax0 = 200              ! length of expansion of radial functions for STO translation
+    jmax = 100               ! length of the series used for comuting  the starting BesselI functions
+    lechelon = .false.       ! if true number of functions per l equal to max(lexpansion+1,kexpansion)-l
+    lexpansion = 20          ! Highest l in expansion functions
+    ljacobi = .false.        ! if .true. uses Jacobi P(0,2+2l) polynomials as radial functions instead of Zernike 3D
+    longoutput = .false.     ! If .true. a more detailed output is given
+    lrstarrel = .false.      ! If .true. ball radius equal to distance of farthest atom plus rstar
+    lvalence = .false.       ! If .true. only valence electrons are considered
+    lzdo = .false.           ! If .true. ZDO approximation holds
+    nquadpoints = 128        ! Number of quadrature points
+    rstar = 10.d0            ! Ball radius for expansion
+    thresmult = 1.d-10       ! Threshold for printing multipole moments
+    thresoverlap = 1.d-12    ! Threshold for distributions cutoff
+    iswindows = .false.      ! .true. if running on a MS-windows system
+!    End of Defaults for the NAMELIST OPTIONS
+    if (iswindows) then
+        dirsep = "\\"
+        i = index(projectname,dirsep,.true.)    ! Checks position of last directory name separator
+        if (i .eq. 0) then    ! This is intended for MinGW, whose directory separator in windows is also /
+            dirsep = "/"
+            i = index(projectname,dirsep,.true.)    ! Checks position of last directory name separator
+        endif
+    else
+        dirsep = "/"
+        i = index(projectname,dirsep,.true.)    ! Checks position of last directory name separator
+    end if
+    if (myrank .eq. 0) then
+        read(5,OPTIONS)    !    Reads the namelist OPTIONS
+        read(5,*) projectname
+        write(6,"(1x,'project name : ',a,/,1x,'==============')") projectname
+        write(6,"('lexpansion = ', i3, ' kexpansion = ', i3,/)") lexpansion, kexpansion
+
+        if (lzdo) then
+            write(6,"(/'IMPORTANT: ZDO approximation used, expands only one-center part of density',/)")
+        endif
+
+        leninamelist = 5
+        lenrnamelist = 3
+        icfaux(1) = leninamelist
+        icfaux(2) = lenrnamelist
+!        Checks if files .sgbs or .sgbs.gz and .den or .den.gz exist. If yes, read geometry, basis set and density with subroutine leedamm2c
+!        otherwise read them with subroutine leedatgen
+        lsgbs = .false.
+        lsgbsgz = .false.
+        inquire(file=trim(projectname)//".sgbs", exist=lsgbs, iostat=ierr)
+        if (ierr .ne. 0 .or. .not. lsgbs) then
+            inquire(file=trim(projectname)//".sgbs.gz", exist=lsgbs, iostat=ierr)
+            if (ierr .eq. 0 .and. lsgbs) then
+                call system ("gunzip "//trim(projectname)//".sgbs.gz")
+                lsgbsgz = .true.
+            endif
+        endif
+        lden = .false.
+        ldengz = .false.
+        if (lsgbs) then
+            inquire(file=trim(projectname)//".den", exist=lden, iostat=ierr)
+            if (ierr .ne. 0 .or. .not. lden) then
+                inquire(file=trim(projectname)//".den.gz", exist=lden, iostat=ierr)
+                if (ierr .eq. 0 .and. lden) then
+                    call system ("gunzip "//trim(projectname)//".den.gz")
+                    ldengz = .true.
+                endif
+            endif
+        endif
+        lnamelist = (/ lechelon, lden, lsgbs, ljacobi, longoutput, lrstarrel, iswindows, lvalence, lzdo /)
+    endif
+    CALL MPI_BCAST(projectname,len(projectname),MPI_CHARACTER,0,MPI_COMM_WORLD,ierr)
+    CALL MPI_BCAST(lnamelist,9,MPI_LOGICAL,0,MPI_COMM_WORLD,ierr)
+    CALL MPI_BCAST(icfaux,2,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
+    if (myrank .gt. 0) then
+        leninamelist = icfaux(1)
+        lenrnamelist = icfaux(2)
+    endif
+
+    allocate(inamelist(leninamelist), rnamelist(lenrnamelist), stat = ierr)
+    if (ierr .ne. 0) then
+        write(6,"('Memory error', i5, ' when allocating inamelist and rnamelist in processor ',i3)") ierr, myrank
+        abort = 1
+    endif
+    CALL MPI_REDUCE(abort,abortroot,1,MPI_INTEGER,MPI_SUM,0,MPI_COMM_WORLD,ierr)
+    CALL MPI_BCAST(abortroot,1,MPI_LOGICAL,0,MPI_COMM_WORLD,ierr)
+    if (abortroot .gt. 0) then
+            call error(1,'Stop')
+    endif
+    if (myrank .eq. 0 .and. longoutput) write(6,"('Size of inamelist   = ', i15, ' bytes')") size(inamelist)
+    if (myrank .eq. 0 .and. longoutput) write(6,"('Size of rnamelist   = ', i15, ' bytes')") size(rnamelist)
+
+    if (myrank .eq. 0)    then
+        inamelist(:) = (/ kmax0, jmax, lexpansion, kexpansion, nquadpoints /)
+        rnamelist(:) = (/ rstar, thresmult, thresoverlap /)
+    endif
+    CALL MPI_BCAST(inamelist,leninamelist,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
+    if (lenrnamelist .gt. 0) then
+        CALL MPI_BCAST(rnamelist,lenrnamelist,MPI_REAL8,0,MPI_COMM_WORLD,ierr)
+    endif
+    if (myrank .ne. 0) then
+        lechelon = lnamelist(1); lden = lnamelist(2); lsgbs = lnamelist(3); ljacobi = lnamelist(4)
+        longoutput = lnamelist(5); lrstarrel = lnamelist(6); iswindows = lnamelist(7)
+        lvalence = lnamelist(8) ; lzdo = lnamelist(9)
+        kmax0 = inamelist(1); jmax = inamelist(2); lexpansion = inamelist(3); kexpansion = inamelist(4); nquadpoints = inamelist(5)
+        rstar = rnamelist(1); thresmult = rnamelist(2); thresoverlap = rnamelist(3)
+    endif
+
+    mxltot = mxldst + lexpansion
+
+    call consta    !    Computes and stores several auxiliary constants and functions
+    CALL MPI_REDUCE(abort,abortroot,1,MPI_INTEGER,MPI_SUM,0,MPI_COMM_WORLD,ierr)
+    CALL MPI_BCAST(abortroot,1,MPI_LOGICAL,0,MPI_COMM_WORLD,ierr)
+    if (abortroot .gt. 0) then
+        call error(1,'Stop')
+    endif
+    call MPI_BARRIER(MPI_COMM_WORLD, ierr)
+
+!    Reads geometry, basis set and density matrix generated by an external program 
+
+    if (lsgbs .and. lden) then
+        call leedatm2c        ! Reads input from SMILES files
+    else        ! Reads input from general input file
+        call leedatgen
+    endif
+
+    if (myrank .eq. 0) then
+        write(6,"(/'****  rstar = ', e17.10, ' ****     Number of quadrature points = ', i5,/)") rstar, nquadpoints
+    endif
+
+
+    CALL MPI_REDUCE(abort,abortroot,1,MPI_INTEGER,MPI_SUM,0,MPI_COMM_WORLD,ierr)
+    CALL MPI_BCAST(abortroot,1,MPI_LOGICAL,0,MPI_COMM_WORLD,ierr)
+    if (abortroot .gt. 0) then
+        call error(1,'Stop')
+    endif
+    call MPI_BARRIER(MPI_COMM_WORLD, ierr)
+    if (myrank .eq. 0) then
+        if (ldengz) then    ! restores files back to their original gzipped status
+            call system ("gzip "//trim(projectname)//".den")
+        endif
+        if (lsgbsgz) then
+            call system ("gzip "//trim(projectname)//".sgbs")
+        endif
+    endif
+
+    if (ncen .lt. nprocs) then
+        if (myrank .eq. 0) write(6,"('Number of centers lower than number of processors.',/,'Rerun with a lower &
+                &number of processors (lower than or equal to the number of centers).')")
+        abort = 1
+    endif
+    CALL MPI_REDUCE(abort,abortroot,1,MPI_INTEGER,MPI_SUM,0,MPI_COMM_WORLD,ierr)
+    CALL MPI_BCAST(abortroot,1,MPI_LOGICAL,0,MPI_COMM_WORLD,ierr)
+    if (abortroot .gt. 0) then
+        call error(1,'Stop')
+    endif
+
+!     If   22 < lexpansion+lmaxbase <= 26, reads ckplm values from an external (binary) file
+
+    if (lexpansion+lmaxbase+2*((nmlmaxbase-1)/2) .gt. mxlckplm) then
+        call read_ckplmextra
+        if (lexpansion+lmaxbase+2*((nmlmaxbase-1)/2) .gt. mxlckplmextra) then
+            write(6,"('WARNING!!! Highest value of l in expansion (',i3,') larger than maximum allowed.'&
+                    &'\nSets it to the maximum available (',i3,')')") lexpansion, mxlckplmextra-lmaxbase
+            lexpansion = mxlckplmextra-(lmaxbase+2*((nmlmaxbase-1)/2))
+        endif
+    endif
+
+!    Computation of Zernike 3D or Jacobi moments
+
+    if (lechelon) kexpansion = max(lexpansion, kexpansion)
+    if (ljacobi) then
+        call expand(omeganlm_jacobi, frad_jacobi)
+    else
+        call expand(omeganlm_zernike, frad_zernike)
+    endif
+    tiempo = dtime(tarray)
+    call MPI_FINALIZE(ierr)
+    stop
+    end
+!
+!    ***************************************************************
+!
+  subroutine leedatm2c
+    USE Zernike_Jacobi_STO_MPI_D
+    USE PARALELO
+    implicit none
+    integer(KINT) :: i, ia, ib, igrespec, ierr, indgr, iopsim, ios, ivclass, ivopsim, j, k, m2cmxcap, m2cmxfun, m2cmxcen
+    integer(KINT) :: nbasis, nclassgr, numelem
+    real(KREAL) :: distmax, rab, repnuc, umbrznm2c, vchar, vchari, zntot
+    real(KREAL) :: centcharge(3), rijk(3,3)
+    character(6) grupo
+    character(5) repirred
+    logical lcmplxgr, ldst, lgrespec
+    logical :: cierto
+!    Reads the geometry and basis set (actually, it reads more data than required, because of the format of the *.sgbs file
+!    generated by SMILES. These "extra" data are just skipped)
+    open(15,file=trim(projectname)//".sgbs",form='unformatted', iostat=ierr)
+    if (ierr .ne. 0) then
+        write(6,"('Error ', i5, ' Cannot open file ', a, ' in processor ',i3)") ierr, trim(projectname)//".sgbs", myrank
+        abort = 1
+    endif
+    rewind(15)
+    read(15) umbrznm2c
+    if (longoutput) write(6,"('umbrznm2c = ', e22.15)") umbrznm2c
+    read(15) m2cmxcap, m2cmxfun, m2cmxcen
+    if (longoutput) write(6,"('m2cmxcap, m2cmxfun, m2cmxcen = ', 3(1x,i4))")  m2cmxcap, m2cmxfun, m2cmxcen
+    read(15) ncen
+    read(15) nbas, ncaps
+    read(15) repnuc
+    if (myrank .eq. 0) then
+        write(6,"('ncen = ', i3)") ncen
+        write(6,"('Nuclear repulsion = ', e22.15)") repnuc
+        write(6,"('Number of basis functions = ', i4)") nbas
+        write(6,"('Number of function shells = ', i4)") ncaps
+    endif
+
+!    Allocates memory for geometry and basis set
+
+    allocate(atmnam(ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating atmnam in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(ll(ncaps), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating ll in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(lmaxc(ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating lmaxc in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(lsdisf(ncaps,ncaps), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating lsfisf in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(nf(ncaps), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating nf in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(ngini(ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating ngini in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(ngfin(ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating ngfin in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(nn(ncaps), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating nn in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(nzn(ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating nzn in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(rcen(3,ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating rcen in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(rnor(ncaps), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating rnor in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(xia(mxgauss), xib(mxgauss), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating xxia and xib in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(xx(ncaps), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating xx in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(zn(ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating zn in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(av(0:2*mxn+4*mxl), bv(0:2*mxn+4*mxl), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating av and bv in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+!    Reads the basis set
+    lmaxbase = 0
+    nmaxbase = 0
+    i = 0
+    do ia = 1, ncen
+        read(15) ngini(ia), ngfin(ia)
+        lmaxc(ia) = 0
+        if (ngini(ia) .le. 0) cycle
+        do k = ngini(ia), ngfin(ia)
+            i = i + 1
+            read(15) nf(i), nn(i), ll(i), xx(i), rnor(i)
+            if (nn(i) .gt. nmaxbase) nmaxbase = nn(i)
+            if (ll(i) .gt. lmaxbase) lmaxbase = ll(i)
+            if (nn(i)-ll(i) .gt. nmlmaxbase) nmlmaxbase = nn(i)-ll(i)
+            if (ll(i) .gt. lmaxc(ia)) lmaxc(ia) = ll(i)
+        enddo
+    enddo
+    if (lmaxbase .gt. mxl) then
+        write(6,"('Basis functions with not allowed values of  l. ')")
+        write(6,"('Highest allowed value: ', i2 , ' Highest value in basis set: ', i2)") mxl, lmaxbase
+        abort = 1
+        return
+    endif
+    do i = 1, 3
+        read(15) rijk(i,1), rijk(i,2), rijk(i,3)
+    enddo
+!    Reads the geometry and nuclear charges
+    centcharge = 0.d0
+    zntot = 0.d0
+    do ia = 1, ncen
+        read(15) rcen(1,ia), rcen(2,ia), rcen(3,ia), zn(ia)
+        centcharge = centcharge + zn(ia) * rcen(:,ia)
+        zntot = zntot + zn(ia)
+        if (abs(zn(ia)-re(int(zn(ia) + umbrzn))) .gt. umbrzn) then
+            nzn(ia) = 0
+        else
+            nzn(ia) = int(zn(ia) + umbrzn)
+        endif
+        atmnam(ia) = atmnms(nzn(ia))
+    enddo
+!     Transforms the coordinates to get the center of positive (nucelar) charges at the origin of coordinates
+    centcharge = centcharge / zntot
+    if (dot_product(centcharge,centcharge) .gt. 1.d-14) then
+        write(6,"('Position of the center of positive charges: ',3(1x,e22.15))") centcharge
+        write(6,"('Shifts the nuclear coordinates to put the center of positive charges at the origin')")
+        do ia = 1, ncen
+            rcen(1,ia) = rcen(1,ia) - centcharge(1)
+            rcen(2,ia) = rcen(2,ia) - centcharge(2)
+            rcen(3,ia) = rcen(3,ia) - centcharge(3)
+        enddo
+    endif
+    if (lrstarrel) then
+        distmax = 0.d0
+        do ia = 1, ncen
+            distmax = max(distmax,dot_product(rcen(:,ia),rcen(:,ia)))
+        enddo
+        rstar = rstar + sqrt(distmax)
+    endif
+    close(15)
+
+!    Marks the blocks of negligible charge distributions the matrix in array lsdisf
+
+    if (.not. lzdo) then
+        do ia = 1, ncen
+            do ib = 1, ia-1
+                rab = sqrt((rcen(1,ia)-rcen(1,ib))**2+(rcen(2,ia)-rcen(2,ib))**2+(rcen(3,ia)-rcen(3,ib))**2)
+                do i = ngini(ia), ngfin(ia)
+                    do j = ngini(ib), ngfin(ib)
+                        call abintegs(nn(i), ll(i), xx(i), nn(j), ll(j), xx(j), rab)
+                        call overlap(nn(i)-ll(i), ll(i), xx(i), rnor(i), nn(j)-ll(j), ll(j), xx(j), rnor(j), rab, ldst)
+                        lsdisf(i,j) = ldst
+                        lsdisf(j,i) = ldst
+                    enddo
+                enddo
+            enddo
+            do i = ngini(ia), ngfin(ia)
+                do j = ngini(ia), i
+                    lsdisf(i,j) = .true.
+                    lsdisf(j,i) = .true.
+                enddo
+            enddo
+        enddo
+    endif
+
+!    Allocates the array containing the density matrix
+    allocate(dmat(nbas,nbas), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating dmat in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+    if (longoutput) write(6,"('Estimated highest size of dmat   = ', i15, ' bytes')") size(dmat)
+
+!    Reads the density matrix as written by the direct minimization program of SMILES
+    open(16,file=trim(projectname)//".den",form='unformatted', iostat=ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Error ', i5, ' Cannot open file ', a, ' in processor ',i3)") ierr, trim(projectname)//".den", myrank
+        abort = 1
+        return
+    endif
+    read(16, iostat = ios) nbasis, ((dmat(i,j), i=1,nbasis), j=1,nbasis)
+
+!     write(6,"('densidad')")
+!     do i = 1, nbasis
+!         write(6,"(7(1x,e22.15))") dmat(i,1:nbasis)
+!     enddo
+
+    if ( ios .ne. 0 .or. nbas .ne. nbasis ) then
+        write(6,"('ERROR reading density matrix. Check whether the density matrix correspond to this basis set.')")
+        abort = 1
+        return
+    endif
+    close(16)
+
+!    prints out the input data to standard output
+    if (myrank .eq. 0) then
+        write(6,"(27x,'GEOMETRY')")
+        write(6,"(/t1, ' no. of center:', t22, 'x', t34, 'y', t46, 'z', t58, 'charge', t70, 'n. of shells')")
+        do ia = 1, ncen
+            if (ngini(ia) .gt. 0) then
+                write(6,"(t6, i5, t15, f12.7, t27, f12.7, t39, f12.7, t53, f10.5, t75, i3)") &
+                        ia, rcen(1,ia), rcen(2,ia), rcen(3,ia) , zn(ia), ngfin(ia)-ngini(ia)+1
+            else
+                write(6,"(t6, i5, t15, f12.7, t27, f12.7, t39, f12.7, t53, f10.5, t75, i3)") &
+                        ia, rcen(1,ia), rcen(2,ia), rcen(3,ia) , zn(ia), 0
+            endif
+        enddo
+        if (longoutput) then
+            write(6,"(27x,'STO BASIS SET')")
+            write(6,"(/t1,' shell:',t15,'n',t27,'l',t45,'exp',t67,'rnor')")
+            do i = 1, ncaps
+                write(6,"(t2, i5, t14, i2, t25, i3, t40, f12.7, t57, d22.15)") i, nn(i), ll(i), xx(i), rnor(i)
+            enddo
+        endif
+        write(6,"('Number of basis functions = ', i8)") nbas
+
+        call totalchargeSTO
+    endif
+    return
+    end
+!
+!    ***************************************************************
+!
+  subroutine leedatgen
+    USE Zernike_Jacobi_STO_MPI_D
+    USE PARALELO
+    implicit none
+    logical :: ldst, lsgbs, lsgbsden, lsgbsdengz
+    integer(KINT) :: i, ia, ib, ierr, indnf, iunit, j, k, nbasis, ngi, ngf
+    integer(KINT), allocatable :: nshells(:)
+    real(KREAL) :: rab, zntot
+    real(KREAL) :: centcharge(3)
+
+!     Checks if file .sgbsden or .sgbsden.gz exist. If yes, read geometry, basis set and density from it. Otherwise,
+!     read these data from standard input.
+    lsgbsden = .false.
+    lsgbsdengz = .false.
+    inquire(file=trim(projectname)//".sgbsden", exist=lsgbsden, iostat=ierr)
+    if (ierr .ne. 0 .or. .not. lsgbsden) then
+        inquire(file=trim(projectname)//".sgbsden.gz", exist=lsgbsden, iostat=ierr)
+        if (ierr .eq. 0 .and. lsgbsden) then
+            call system ("gunzip "//trim(projectname)//".sgbsden.gz")
+            lsgbsdengz = .true.
+        endif
+    endif
+    if (lsgbsden) then
+        iunit = 17
+        open(iunit,file=trim(projectname)//".sgbsden",form='formatted', iostat=ierr)
+        if (ierr .ne. 0) then
+            write(6,"('Memory error', i5, ' when opening file ', a, '.sgbsden in processor ',i3)") ierr, trim(projectname), myrank
+            abort = 1
+            return
+        endif
+    else
+        iunit = 5
+    endif
+
+!    Reads the number of centers
+    read(iunit,*) ncen
+!    Allocates memory for geometry and basis set
+    ncaps = mxcap ! just for allocating
+
+    allocate(atmnam(ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating atmnam in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(av(0:2*mxn+4*mxl), bv(0:2*mxn+4*mxl), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating av and bv in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(ll(ncaps), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating ll in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(lmaxc(ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating lmaxc in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(lsdisf(ncaps,ncaps), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating lsfisf in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(nf(ncaps), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating nf in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(ngini(ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating ngini in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(ngfin(ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating ngfin in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(nn(ncaps), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating nn in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(nshells(ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating nshells in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(nzn(ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating nzn in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(rcen(3,ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating rcen in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(rnor(ncaps), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating rnor in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(xx(ncaps), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating xx in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(zn(ncen), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating zn in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+!    Reads geometry, nuclear charge and number of function shells per center
+
+    centcharge = 0.d0
+    zntot = 0.d0
+    ncaps = 0
+    do ia = 1, ncen
+        read(iunit,*) rcen(1,ia), rcen(2,ia), rcen(3,ia), zn(ia), nshells(ia)
+        centcharge = centcharge + zn(ia) * rcen(:,ia)
+        if (nshells(ia) .le. 0) cycle
+        if (ncaps + nshells(ia) .gt. mxcap) then
+            write(6,"('Error: maximum number of shells in basis set exceeded')")
+            abort = 1
+            return
+        endif
+        zntot = zntot + zn(ia)
+        if (abs(zn(ia)-re(int(zn(ia) + umbrzn))) .gt. umbrzn) then
+            nzn(ia) = 0
+        else
+            nzn(ia) = int(zn(ia) + umbrzn)
+        endif
+        atmnam(ia) = atmnms(nzn(ia))
+        ncaps = ncaps + nshells(ia)
+    enddo
+!     Transforms the coordinates to get the center of positive (nucelar) charges at the origin of coordinates
+    centcharge = centcharge / zntot
+    if (dot_product(centcharge,centcharge) .gt. 1.d-14) then
+        write(6,"('Position of the center of positive charges: ',3(1x,e22.15))") centcharge
+        write(6,"('Shifts the nuclear coordinates to put the center of positive charges at the origin')")
+        do ia = 1, ncen
+            rcen(1,ia) = rcen(1,ia) - centcharge(1)
+            rcen(2,ia) = rcen(2,ia) - centcharge(2)
+            rcen(3,ia) = rcen(3,ia) - centcharge(3)
+        enddo
+    endif
+
+!    Reads the basis set
+
+    lmaxbase = 0
+    nmaxbase = 0
+    nbas = 0
+    i = 0
+    ngi = 1
+    ngf = 0
+    indnf = 1
+    do ia = 1, ncen
+        if (nshells(ia) .gt. 0) then
+            ngini(ia) = ngi
+            ngf = ngi + nshells(ia) - 1
+            ngfin(ia) = ngf
+            ngi = ngf + 1
+            lmaxc(ia) = 0
+            do k = ngini(ia), ngfin(ia)
+                i = i + 1
+                read(iunit,*) nn(i), ll(i), xx(i)
+                rnor(i) = sqrt( (dos*xx(i))**(2*nn(i)+1) / fact(2*nn(i)) )
+                nf(i) = indnf
+                indnf = indnf + 2*ll(i) + 1
+                nbas = nbas + 2*ll(i) + 1
+                if (nn(i) .gt. nmaxbase) nmaxbase = nn(i)
+                if (ll(i) .gt. lmaxbase) lmaxbase = ll(i)
+                if (nn(i)-ll(i) .gt. nmlmaxbase) nmlmaxbase = nn(i)-ll(i)
+                if (ll(i) .gt. lmaxc(ia)) lmaxc(ia) = ll(i)
+            enddo
+        else
+            ngini(ia) = -1
+            ngfin(ia) = -1
+        endif
+    enddo
+
+    if (lmaxbase .gt. mxl) then
+        write(6,"('Basis functions with not allowed values of  l. ')")
+        write(6,"('Highest allowed value: ', i2 , ' Highest value in basis set: ', i2)") mxl, lmaxbase
+        abort = 1
+        return
+    endif
+    nbasis = nbas
+
+!    Allocates the array containing the density matrix
+
+    allocate(dmat(nbas,nbas), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating dmat in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+    if (longoutput) write(6,"('Estimated highest size of dmat   = ', i15, ' bytes')") size(dmat)
+
+!    Reads the density matrix in lower triangle form:  read ((dmat(i,j), j = 1, i), i = 1, nbasis)
+    read(iunit,*) ((dmat(i,j),j=1,i),i=1,nbasis)
+    do i = 2, nbasis
+        do j = 1, i-1
+            dmat(j,i) = dmat(i,j)
+        enddo
+    enddo
+    if (iunit .eq. 17) close(iunit)
+
+!    Reads the density matrix (full)
+!     read(5,*) ((dmat(i,j),j=1,nbasis),i=1,nbasis)
+
+!    Marks the blocks of negligible charge distributions the matrix in array lsdisf
+
+    if (.not. lzdo) then
+        do ia = 1, ncen
+            do ib = 1, ia-1
+                rab = sqrt((rcen(1,ia)-rcen(1,ib))**2+(rcen(2,ia)-rcen(2,ib))**2+(rcen(3,ia)-rcen(3,ib))**2)
+                do i = ngini(ia), ngfin(ia)
+                    do j = ngini(ib), ngfin(ib)
+                        call abintegs(nn(i), ll(i), xx(i), nn(j), ll(j), xx(j), rab)
+                        call overlap(nn(i)-ll(i), ll(i), xx(i), rnor(i), nn(j)-ll(j), ll(j), xx(j), rnor(j), rab, ldst)
+                        lsdisf(i,j) = ldst
+                        lsdisf(j,i) = ldst
+                    enddo
+                enddo
+            enddo
+            do i = ngini(ia), ngfin(ia)
+                do j = ngini(ia), i
+                    lsdisf(i,j) = .true.
+                    lsdisf(j,i) = .true.
+                enddo
+            enddo
+        enddo
+    endif
+
+!    Creates files ".sgbs"  and  ".den" if they don't exist for the programs of density analysis and related properties (DAMQT)
+    if (myrank .eq. 0) then
+        inquire(file=trim(projectname)//".sgbs", exist=lsgbs, iostat=ierr)
+        if (ierr .ne. 0 .or. .not. lsgbs) inquire(file=trim(projectname)//".sgbs.gz", exist=lsgbs, iostat=ierr)
+        if (.not. lsgbs) then
+            open(15,file=trim(projectname)//".sgbs",form='unformatted', iostat=ierr)
+            if (ierr .ne. 0) then
+                write(6,"('Error ', i5, ' Cannot open file ', a, ' in processor ',i3)") ierr, trim(projectname)//".sgbs", myrank
+            endif
+            rewind(15)
+            write(15) cero
+            write(15) ncaps, nbasis, mxcen
+            write(15) ncen
+            write(15) nbas, ncaps
+            write(15) cero
+            i = 0
+            do ia = 1, ncen
+                write(15) ngini(ia), ngfin(ia)
+                if (ngini(ia) .le. 0) cycle
+                do k = ngini(ia), ngfin(ia)
+                    i = i + 1
+                    write(15) nf(i), nn(i), ll(i), xx(i), rnor(i)
+                enddo
+            enddo
+!    orientation of the original axis system in the final system (coincident: for compatibility with old codes)
+            write(15) uno, cero, cero
+            write(15) cero, uno, cero
+            write(15) cero, cero, uno
+!    Geometry and nuclear charges
+            do ia = 1, ncen
+                write(15) rcen(1,ia), rcen(2,ia), rcen(3,ia), zn(ia)
+            enddo
+            write(15) "      "    ! grupo
+            write(15) 0        ! indgr
+            write(15) .false.    ! lgrespec
+            write(15) .false.    ! lcmplxgr
+            write(15) 1, 1        ! nclassgr, numelem
+            write(15) 1        ! ivclass
+            write(15) 0.d0        ! vchar
+            write(15) 1        ! ivopsim
+            write(15) (1, j = 1, ncen)    ! iopsim
+            write(15) "     "    ! repirred
+            write(15) ((lsdisf(i,j), j = 1, ncaps), i = 1, ncaps)
+            close(15)
+            open(15,file=trim(projectname)//".den",form='unformatted')
+            write(15) nbasis, ((dmat(i,j), i=1,nbasis), j=1,nbasis)
+            close(15)
+        endif
+
+!    prints out the input data to standard output
+        write(6,"(27x,'GEOMETRY')")
+        write(6,"(/t1, ' no. of center:', t22, 'x', t34, 'y', t46, 'z', t58, 'charge', t70, 'n. of shells')")
+        do i = 1, ncen
+            if (ngini(i) .gt. 0) then
+                write(6,"(t6, i5, t15, f12.7, t27, f12.7, t39, f12.7, t53, f10.5, t75, i3)") &
+                        i, rcen(1,i), rcen(2,i), rcen(3,i) , zn(i), ngfin(i)-ngini(i)+1
+            else
+                write(6,"(t6, i5, t15, f12.7, t27, f12.7, t39, f12.7, t53, f10.5, t75, i3)") &
+                        i, rcen(1,i), rcen(2,i), rcen(3,i) , zn(i), 0
+            endif
+        enddo
+        if (longoutput) then
+            write(6,"(27x,'STO BASIS SET')")
+            write(6,"(/t1,' shell:',t15,'n',t27,'l',t45,'exp',t67,'rnor')")
+            do i = 1, ncaps
+                write(6,"(t2, i5, t14, i2, t25, i3, t40, f12.7, t57, d22.15)") i, nn(i), ll(i), xx(i), rnor(i)
+            enddo
+        endif
+        write(6,"('Number of basis functions = ', i8)") nbas
+    endif
+    deallocate(nshells)
+    return
+    end
+!
+!    ***************************************************************
+!
+!    Subroutine for expanding the density of a molecule in orthogonal polynomials times spherical harmonics 
+!    centered at origin
+! 
+  subroutine expand(clmn_subr, frad_fun)
+    USE MPI
+    USE Zernike_Jacobi_STO_MPI_D
+    USE PARALELO
+    implicit none
+    integer(KINT) :: i, i1, i2, ia, ib, ierr, ir, ishift, j, k, kml, knt, kntdst, kntdstef, kntdsteftot, kntdsttot, kntproc
+    integer(KINT) :: l, la, lb, lc, ldmrot, lk, lm, lma, lmb, lmin, m, ma, mb, mc
+    integer(KINT) :: n, na, nb, nc, nfa, nfb, nga1, nga2, ngb1, ngb2, nu
+    integer(KINT), allocatable :: kntdstprocs(:), kntdstefprocs(:)
+    real(KREAL) :: amodule, aux, az, bpmodule, bpx, bpy, bpz, bux, bx, bx2, bz, cosalfa, cosbeta, cosgamma, cux
+    real(KREAL) :: den, dosx, exa, exb, factor, pmodule, prdesc, rab, rabinv, rn, rna, rnab, sgn, sinalfa, sinbeta
+    real(KREAL) :: singamma, suma, t, t2, umbraux, w, x, xa, xab, xb, xinv, xip, xjp, xkp, xy, ya, yab, yb, yip, yjp, ykp
+    real(KREAL) :: za, zab, zb, zip, zjp, zkp
+    logical :: laux, lrotar
+    real(KREAL) :: roaux(-mxl:mxl,-mxl:mxl)
+    real(KREAL), allocatable :: fcent(:,:)
+    real(KREAL4) :: tarray(2), tiempo, tarraynw(2), tiemponw, dtime
+    real(KREAL) :: akl(0:kexpansion), am(nquadpoints), vinvariant(0:kexpansion)
+    real(KREAL4), allocatable :: timeprocs(:)
+    interface
+        subroutine clmn_subr
+        end subroutine clmn_subr
+    end interface
+    interface
+        subroutine frad_fun
+        end subroutine frad_fun
+    end interface
+    tiempo = dtime(tarray)
+    ldimaux = lexpansion + lmaxbase + nmaxbase
+    ldmrot = max(lmaxbase,lexpansion)
+!    Allocates memory for arrays cfa, cfb, dl, fa, fcent, flm, flmmamb, ftot, rl, rlt
+
+    allocate(cfa(mxgauss), cfb(mxgauss), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating cfa and cfb in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(dl(-ldmrot:ldmrot,-ldmrot:ldmrot,0:ldmrot), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating dl in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(fcent(nquadpoints,(lexpansion+1)**2), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating fcent in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(flm(nquadpoints,-lmaxbase:lmaxbase,-lmaxbase:lmaxbase,(lexpansion+1)**2), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating flm in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(flmmamb((ldimaux+1)*(ldimaux+1),-lmaxbase:lmaxbase,-lmaxbase:lmaxbase), stat = ierr)  ! allocates input data arrays
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating flmmamb in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(ftot(nquadpoints,(lexpansion+1)**2), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating ftot in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(gkl(-1:kexpansion), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating gkl in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(radfunction(nquadpoints, 0:kexpansion), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating radfunction in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(rl(-ldmrot:ldmrot,-ldmrot:ldmrot,0:ldmrot), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating rl in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(rlt((ldmrot+1)*(2*ldmrot+1)*(2*ldmrot+3)/3), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating rlt in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(rquad01(nquadpoints), rquadscal(nquadpoints), rquadaux(nquadpoints), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating rquad01 in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    allocate(weights01(nquadpoints), weights(nquadpoints), vaux(nquadpoints), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating weights01 in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    if (myrank .eq. 0) then
+        allocate(ftotacum(nquadpoints,(lexpansion+1)**2), timeprocs(2*nprocs), kntdstprocs(nprocs), kntdstefprocs(nprocs), &
+            stat = ierr)
+        if (ierr .ne. 0)  then
+            write(6,"('Memory error', i5, ' when allocating ftotacum, timeprocs, kntdstprocs and kntdstefprocs in processor ', &
+                i3)") ierr, myrank
+            abort = 1
+            return
+        endif
+    endif
+
+!     Chebyshev quadrature rule:     rquad01: abscissae in the interval [0,1]
+!                             rquadscal: abscissae in the interval [0,r^*]
+!                            weights01: weights in the interval [0,1] 
+!                             weights: weights in the interval [0,r^*]
+    do i = 1, nquadpoints
+        rquad01(i) = umed * ( uno - cos( pi*(dble(i)-umed) / dble(nquadpoints) ) )
+        weights01(i) = pi * sqrt(1.d0 - (2.d0*rquad01(i)-1.d0)*(2.d0*rquad01(i)-1.d0)) / (2.d0*nquadpoints)
+    enddo
+!
+!    Legendre quadrature rules (available up to order 120)
+!     call qgleg(nquadpoints, rquad01, weights01, 0.d0, 1.d0, 0.d0)
+
+    rquadscal = rstar * rquad01
+
+!     write(6,"('quadrature abscissae in the interval [0,1]: ', 8(1x,e17.10))") rquad01
+!     write(6,"('quadrature abscissae in the interval [0,r^*]: ', 8(1x,e17.10))") rquadscal
+!     write(6,"('quadrature weights in the interval [0,1]: ', 8(1x,e17.10))") rquad01
+
+    ftot = 0.d0
+    kntdst = 0
+    kntdstef = 0
+    kntproc = -1
+    do ia = 1, ncen    ! Do over centers (ia)
+        if (ngini(ia) .le. 0) cycle    ! If center without associated basis set, cycles
+        nga1 = ngini(ia)
+        nga2 = ngfin(ia)
+        xa = rcen(1,ia)
+        ya = rcen(2,ia)
+        za = rcen(3,ia)
+        do ib = 1, ia                  ! Do over centers (ib)
+            if (lzdo .and. ia .ne. ib) cycle
+            if (ngini(ib) .le. 0) cycle    ! If center without associated basis set, skips to next center ib
+            kntproc = kntproc + 1
+            if (mod(kntproc,nprocs) .ne. myrank) cycle
+            ngb1 = ngini(ib)
+            ngb2 = ngfin(ib)
+            xb = rcen(1,ib)
+            yb = rcen(2,ib)
+            zb = rcen(3,ib)
+
+!     Computes Euler angles to orient the frame so that A center lies on the local z axis and center B lies on the local xz plane
+
+            pmodule = sqrt(xa*xa + ya*ya)
+            amodule = sqrt(xa*xa + ya*ya + za*za)
+            if (pmodule .gt. 1.d-15) then
+                cosalfa = xa / pmodule
+                sinalfa = ya / pmodule
+            else
+                cosalfa = uno
+                sinalfa = cero
+            endif
+            if (amodule .gt. 1.d-15) then
+                cosbeta = za / amodule
+                sinbeta = pmodule / amodule
+            else
+                cosbeta = uno
+                sinbeta = cero
+            endif
+
+!     Rotates unitary vectors an angle alfa around z axis and an angle beta around y axis
+
+            xip = cosalfa * cosbeta
+            yip = sinalfa * cosbeta
+            zip = -sinbeta
+            xjp = -sinalfa
+            yjp = cosalfa
+            zjp = cero
+            xkp = cosalfa * sinbeta
+            ykp = sinalfa * sinbeta
+            zkp = cosbeta
+            prdesc = xb*xkp + yb * ykp + zb * zkp
+            bpx = xb - prdesc * xkp
+            bpy = yb - prdesc * ykp
+            bpz = zb - prdesc * zkp
+            bpmodule = sqrt(bpx*bpx+bpy*bpy+bpz*bpz)
+            if (bpmodule .lt. 1.d-12) then
+                cosgamma = uno
+                singamma = cero
+            else
+                cosgamma = (bpx*xip+bpy*yip+bpz*zip) / bpmodule
+                singamma = (bpx*xjp+bpy*yjp+bpz*zjp) / bpmodule
+            endif
+            lrotar = .false.
+            if (((max(lmaxc(ia), lmaxc(ib), lexpansion)) .gt. 0) .and. ( (cosalfa  .ne. uno) .or. (cosbeta  .ne. uno) &
+                            .or. (cosgamma .ne. uno) ) ) then
+                lrotar = .true.
+                call rotar (ldmrot, cosalfa, sinalfa, cosbeta, sinbeta, cosgamma, singamma)
+
+!    Stores the transpose of rl multiplied and divided by the angular normalization to give radial factors which multiply UNNORMALIZED spherical harmonics
+
+                knt = 0
+                do i = 0, ldmrot
+                    do k = -i, i
+                        do j = -i, i
+                            knt = knt + 1
+                            rlt(knt) = rl(k,j,i) * ang(ind(i)+abs(k)+1) / ang(ind(i)+abs(j)+1)
+                        enddo
+                    enddo
+                enddo
+            endif
+
+!     Some auxiliary variables depending only on the centers A and B 
+
+            az = max(sqrt(xa*xa+ya*ya+za*za), toldstorig)  ! Sets the minimum distance to origin equal to toldstorig to prevent division yb zero
+            if (az .gt. toldstorig) then
+                bz = (xb*xa+yb*ya+zb*za) / az
+            else
+                bz = zb
+            endif
+            bx2 = xb*xb+yb*yb+zb*zb-bz*bz
+            if (bx2 .lt. 1.d-15) then
+                bx = cero
+                bz = sign(max(abs(bz), toldstorig),bz)   ! Sets the minimum distance to origin equal to toldstorig to prevent division by zero
+            else
+                bx = sqrt(bx2)
+            endif
+
+!             Loop over the distributions
+
+            fcent = cero    ! array for accumulating radial factors corresponding to centers AB
+            do i1 = nga1, nga2
+                na = nn(i1)
+                la = ll(i1)
+                exa = xx(i1)
+                rna= rnor(i1)
+                nfa = nf(i1)
+                do i2 = ngb1, ngb2
+                    nb = nn(i2)
+                    lb = ll(i2)
+                    exb = xx(i2)
+                    nfb = nf(i2)
+                    rnab = rna * rnor(i2)        ! Radial normalization of the STOs
+                    kntdst = kntdst + (2*la+1) * (2*lb+1)
+                    if ((ia .ne. ib) .and. (.not. lsdisf(i1,i2))) cycle    ! If the distribution is negligible, skips to next
+                    kntdstef = kntdstef + (2*la+1) * (2*lb+1)
+!    Reads the pertinent block of density matrix and rotates it to the AB aligned system. Loads the result in roblk.
+!    Angular normalization factors are introduced at the end of the loading process.
+                    if (lrotar) then
+                        do i = -la, la
+                            ishift = i+la+nfa
+                            do j = -lb, lb
+                                roblk(i,j) = dmat(ishift,j+lb+nfb)
+                            enddo
+                        enddo
+!                        Rotation on center B
+                        do i = -la, la
+                            do j = -lb, lb
+                                roaux(i,j) = dot_product(roblk(i,-lb:lb),rl(-lb:lb,j,lb))
+                            enddo
+                        enddo
+!                        Rotation on center A and introduction of the angular and radial normalization
+                        do i = -la, la
+                            do j = -lb, lb
+                                roblk(i,j) = ang(ind(la)+abs(i)+1) * ang(ind(lb)+abs(j)+1) * rnab &
+                                        * dot_product(roaux(-la:la,j), rl(-la:la,i,la))
+                            enddo
+                        enddo
+                    else
+!                         Introduction of the angular and radial normalization in case of no rotation
+                        do i = -la, la
+                            ishift = i+la+nfa
+                            do j = -lb, lb
+                                roblk(i,j) = ang(ind(la)+abs(i)+1) * ang(ind(lb)+abs(j)+1) * rnab * dmat(ishift,j+lb+nfb)
+                            enddo
+                        enddo
+                    endif
+
+!                     Computes the radial factors associated to the translation of the distribution
+
+                    call fradAB(na, la, exa, nb, lb, exb, az, bx, bz)
+
+!                    Multiplies the radial factors by the density matrix and accumulates
+
+                    do j = -lb, lb
+                        do i = -la, la
+                            aux = roblk(i,j)
+                            if (ia .ne. ib) aux = aux + aux
+                            do lm = 1, (lexpansion+1) * (lexpansion+1)
+                                fcent(1:nquadpoints,lm) = fcent(1:nquadpoints,lm) + aux * flm(1:nquadpoints,i,j,lm)
+                            enddo
+                        enddo
+                    enddo
+
+                enddo
+            enddo
+
+!    Rotates the radial factors back to the molecular axis system and accumulates
+!
+!    IMPORTANT !!!     The radial factors computed here are those multiplying UNNORMALIZED real spherical harmonics in the
+!                expansion of the density
+!
+            if (lrotar) then
+                lm = 0
+                kml = 0
+                do l = 0, lexpansion
+                    do m = -l, l
+                        lm = lm + 1
+                        lk = l*(l+1)+1
+                        do k = -l, l
+                            kml = kml + 1
+                            ftot(1:nquadpoints,lm) = ftot(1:nquadpoints,lm) + fcent(1:nquadpoints,lk+k) * rlt(kml)
+                        enddo
+                    enddo
+                enddo
+            else
+                lm = 0
+                do l = 0, lexpansion
+                    do m = -l, l
+                        lm = lm + 1
+                        ftot(1:nquadpoints,lm) = ftot(1:nquadpoints,lm) + fcent(1:nquadpoints,lm)
+                    enddo
+                enddo
+            endif
+        enddo    ! End of Do over centers (ib)
+    enddo    ! End of Do over centers (ia)
+
+    tiempo = dtime(tarray)
+    CALL MPI_GATHER(tarray, 2, MPI_REAL4, timeprocs, 2, MPI_REAL4, 0, MPI_COMM_WORLD, ierr)
+    CALL MPI_GATHER(kntdst, 1, MPI_INTEGER, kntdstprocs, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, ierr)
+    CALL MPI_GATHER(kntdstef, 1, MPI_INTEGER, kntdstefprocs, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, ierr)
+    n = nquadpoints*(lexpansion+1)*(lexpansion+1)
+    CALL MPI_REDUCE(ftot, ftotacum, n, MPI_REAL8, MPI_SUM, 0, MPI_COMM_WORLD, ierr)
+    CALL MPI_REDUCE(kntdst, kntdsttot, 1, MPI_INTEGER, MPI_SUM, 0, MPI_COMM_WORLD, ierr)
+    CALL MPI_REDUCE(kntdstef, kntdsteftot, 1, MPI_INTEGER, MPI_SUM, 0, MPI_COMM_WORLD, ierr)
+    deallocate(cfa, cfb, dl, fcent, flm, flmmamb, ftot, rl, rlt)
+
+    if (myrank .eq. 0) then
+
+!         tiemponw = dtime(tarraynw)
+
+        do i = 0, nprocs-1
+            aux = kntdstefprocs(i+1)
+            bux = kntdstprocs(i+1)
+            aux = 100.d0*aux / bux
+            write(6,"(/1x, 'In processor no, ' i3, &
+                /5x, 'Total number of different distributions = ',i10, &
+                /5x, 'Total number of non-negligible different distributions = ',i10, 3x,'( ',f6.2,'% )', &
+                /5x, 'Timing in seconds for radial factors (user, system, total): ', &
+                /5x,'(',e12.5,',',e12.5,',',e12.5')')") &
+                i, kntdstprocs(i+1), kntdstefprocs(i+1), aux, timeprocs(2*i+1),timeprocs(2*i+2),timeprocs(2*i+1)+timeprocs(2*i+2)
+        enddo
+
+        aux = kntdsteftot
+        bux = kntdsttot
+        aux = 100.d0*aux / bux
+        write(6,"(//'Total number of different distributions = ',i10)") kntdsttot
+        write(6,"('Total number of non-negligible different distributions = ',i10, 3x,'( ',f6.2,'% )',/)") kntdsteftot, aux
+
+!     Prints the values of radial factors in quadrature points (unseal for testing)
+!     do lm = 1, (lexpansion+1)*(lexpansion+1)
+!         if (abs(ftot(1,lm)) .gt. 1.d-10) &
+!             write(6,"('ftot(',i3,') = ', 8(1x,e17.10))") lm, ftot(1:nquadpoints,lm)
+!     enddo
+
+!     Computes the multipolar moments from the radial factors (unseal for testing)
+!     lm = 0
+!     weights = weights01 * rstar
+!     do l = 0, lexpansion
+!         weights = weights * rquadscal * rquadscal
+!         do m = -l, l
+!             lm = lm + 1
+!             aux = 4.d0 * pi * dot_product(weights, ftot(1:nquadpoints,lm)) * ri(l+l+1)
+!             if (abs(aux) .gt. 1.d-15) write(6,"('qlm(',i2,',',i3,') = ',e22.15)") l, m, aux
+!         enddo
+!     enddo
+
+!     Computes Zernike 3D or Jacobi moments (integrals with normalized Zernike 3D or Jacobi functions)
+
+        allocate(omeganlm(0:kexpansion,(lexpansion+1)*(lexpansion+1)), stat = ierr)
+        if (ierr .ne. 0)  then
+            write(6,"('Memory error', i5, ' when allocating omeganlm in processor ',i3)") ierr, myrank
+            abort = 1
+            return
+        endif
+
+        omeganlm = cero
+        call clmn_subr
+
+!     Computes molecular multipoles from Zernike 3D or Jacobi expansions
+
+        call multipoles
+
+!         tiemponw = dtime(tarraynw)
+!         write(6,"(1x,'Timing in seconds for projection (user, system, total):',/5x,'(',e12.5,',',e12.5,',',e12.5')')") &
+!             tarraynw(1), tarraynw(2), tarraynw(1)+tarraynw(2)
+!         write(6,"(1x,'Elapsed time = ', e12.5)") tiemponw
+
+!     Writes Zernike 3D or Jacobi moments to .zernike or .jacobi file
+
+        if (ljacobi) then
+            open(99,file=trim(projectname)//".jacobi",form='formatted', iostat=ierr)
+            if (ierr .ne. 0) then
+                write(6,"('Cannot open file.', a, '.jacobi in processor ',i3)") projectname, myrank
+                abort = 1
+            endif
+        else
+            open(99,file=trim(projectname)//".zernike",form='formatted', iostat=ierr)
+            if (ierr .ne. 0) then
+                write(6,"('Cannot open file.', a, '.zernike in processor ',i3)") projectname, myrank
+                abort = 1
+            endif
+        endif
+
+        write(99,*) rstar
+        write(99,*) lexpansion, kexpansion
+        do l = 0, lexpansion
+            do m = -l, l
+                write(99,"(8(1x,e22.15))") omeganlm(0:kexpansion,l*(l+1)+m+1)
+            enddo
+        enddo
+
+!     Computes and prints fingerprints (rotationally invariant) associated to Zernike 3D or Jacobi expansions
+        if (ljacobi) then
+            write(6,"(/'Rotationally invariant fingerprints for Jacobi expansion: sqrt( sum_{m=-l}^l |c_kl^m|^2 )',/91(1H=),/)")
+        else
+            write(6,"(/'Rotationally invariant fingerprints for Zernike 3D expansion: sqrt( sum_{m=-l}^l |c_kl^m|^2 )',/95(1H=),/)")
+        endif
+        tiemponw = dtime(tarraynw)
+        lm = 0
+        n = kexpansion
+        do l = 0, lexpansion
+            vinvariant = 0.d0
+            do m = -l, l
+                lm = lm + 1
+                vinvariant = vinvariant + omeganlm(0:n,lm)*omeganlm(0:n,lm)
+            enddo
+            write(6,"('l = ', i3, ': ', 8(1x,e17.10))") l, sqrt(vinvariant)
+        enddo
+        tiemponw = dtime(tarraynw)
+        write(6,"(1x,//80('='),/'IMPORTANT !!! Computation of invariant fingerprints is not parallelized',/)")
+        write(6,"(1x,'Timing in seconds for invariant fingerprints (user, system, total):',/5x,'(',e12.5,',',e12.5,',',e12.5')')") &
+                tarraynw(1), tarraynw(2), tarraynw(1)+tarraynw(2)
+        write(6,"(1x,'Elapsed time = ', e12.5)") tiemponw
+    endif
+    return
+    end
+!
+!    ***************************************************************
+!
+!     Computes the Zernike 3D Moments (expansion coefficients of radial factors flm in Zernike 3D functions )
+!
+  subroutine omeganlm_zernike
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    integer(KINT) :: k, l, m, n
+    weights =  sqrt(rstar) * weights01
+    rquadaux = rstar * rquad01 * rquad01
+    n = kexpansion
+    do l = 0, lexpansion    ! Loop over Zernike's functions
+        weights = weights * rquadaux
+        call zernike3DR(l)
+        if (lechelon) n = kexpansion - l
+        do k = 0, n
+            vaux = weights * radfunction(1:nquadpoints,k)
+            do m = -l, l
+                omeganlm(k,l*(l+1)+m+1) = dot_product(vaux,ftotacum(1:nquadpoints, l*(l+1)+m+1)) / ang(ind(l)+abs(m)+1)
+            enddo
+        enddo
+    enddo
+    return
+    end
+!
+!    ***************************************************************
+!
+!     Computes the Zernike 3D expansions of radial factors in the quadrature points
+!
+  subroutine frad_zernike
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    integer(KINT) :: i, k, l, m, n
+    ftot = 0.d0
+    rquadaux = 1.d0 / (rstar*sqrt(rstar))
+    n = kexpansion
+    do l = 0, lexpansion    ! Loop over Zernike's functions
+        call zernike3DR(l)
+        if (lechelon) n = kexpansion - l
+        do k = 0, n
+            vaux = rquadaux * radfunction(1:nquadpoints,k)
+            do m = -l, l
+                do i = 1, nquadpoints
+                    ftot(i,l*(l+1)+m+1) = ftot(i,l*(l+1)+m+1) + omeganlm(k,l*(l+1)+m+1) * vaux(i) * ang(ind(l)+abs(m)+1)
+                enddo
+            enddo
+        enddo
+        rquadaux = rquadaux * rquad01
+    enddo
+    return
+    end
+!
+!    ***************************************************************
+!
+!     Computes the radial part of Zernike 3D functions divided by (r/r*)^l in the quadrature points
+! 
+  subroutine zernike3DR(l)
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    integer(KINT) :: i, jshift, k, kshift, l, n
+    real(KREAL) :: rqsq(nquadpoints)
+    rqsq = rquad01 * rquad01
+    jshift = (kexpansion+1)*l+1
+    kshift = 2*l+7
+    if (lechelon) then
+        n = kexpansion - l
+    else
+        n = kexpansion
+    endif
+    do i = 1, nquadpoints
+        gkl(-1) = 0.d0
+        gkl(0) = 1.d0
+        radfunction(i,0) = root(2*l+3)
+        do k = 0, n-1
+            gkl(k+1) = (cfgkl1(jshift+k) - cfgkl2(jshift+k) * rqsq(i)) * gkl(k) - cfgkl3(jshift+k) * gkl(k-1)
+            radfunction(i,k+1) = akgkl(k+1) * root(kshift+4*k) * gkl(k+1)
+        enddo
+    enddo
+    return
+    end
+!
+!    ***************************************************************
+!
+!     Computes the Jacobi Moments (expansion coefficients of radial factors flm in Jacobi P(0,2+2l) polynomials)
+!
+  subroutine omeganlm_jacobi
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    integer(KINT) :: k, l, m, n
+    weights =  sqrt(rstar) * weights01
+    rquadaux = rstar * rquad01 * rquad01
+    n = kexpansion
+    do l = 0, lexpansion    ! Loop over Zernike's functions
+        weights = weights * rquadaux
+        call jacobiP(l)
+        if (lechelon) n = kexpansion - l
+        do k = 0, n
+            vaux = weights * radfunction(1:nquadpoints,k)
+            do m = -l, l
+                omeganlm(k,l*(l+1)+m+1) = dot_product(vaux,ftotacum(1:nquadpoints, l*(l+1)+m+1)) / ang(ind(l)+abs(m)+1)
+            enddo
+        enddo
+    enddo
+    return
+    end
+!
+!    ***************************************************************
+!
+!     Computes the Jacobi ( P(0,2+2l) ) expansions of radial factors in the quadrature points
+!
+  subroutine frad_jacobi
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    integer(KINT) :: i, k, l, m, n
+    real(KREAL) :: aux
+    ftot = 0.d0
+    rquadaux = 1.d0 / (rstar*sqrt(rstar))
+    n = kexpansion
+    do l = 0, lexpansion    ! Loop over Zernike's functions
+        call jacobiP(l)
+        if (lechelon) n = kexpansion - l
+        do k = 0, n
+            vaux = rquadaux * radfunction(1:nquadpoints,k)
+            do m = -l, l
+                do i = 1, nquadpoints
+                    ftot(i,l*(l+1)+m+1) = ftot(i,l*(l+1)+m+1) + omeganlm(k,l*(l+1)+m+1) * vaux(i) * ang(ind(l)+abs(m)+1)
+                enddo
+            enddo
+        enddo
+        rquadaux = rquadaux * rquad01
+    enddo
+    return
+    end
+!
+!**********************************************************************
+! 
+!     Computes the Jacobi polynomials P(0,2+2l)(2t-1)
+!
+  subroutine jacobiP(l)
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    integer(KINT) :: k, l, n
+    real(KREAL) :: t
+    if (lechelon) then
+        n = kexpansion - l
+    else
+        n = kexpansion
+    endif
+    radfunction(1:nquadpoints,0) = 1.d0
+    radfunction(1:nquadpoints,1) = 4.d0 * rquad01 - 3.d0 + dble(l+l) * (rquad01 - 1.d0)
+    do k = 1, n-1
+        radfunction(1:nquadpoints,k+1) = (dble(2*k+2*l+3) * (dble((k+l+1)*(k+l+2)) * (2.d0*rquad01-1.d0) - dble((l+1)*(l+1))) &
+                * radfunction(1:nquadpoints,k) - dble(k*(k+l+2)*(k+2*l+2))*radfunction(1:nquadpoints,k-1)) &
+                / dble((k+1)*(k+l+1)*(k+2*l+3))
+    enddo
+    do k = 0, n
+        radfunction(1:nquadpoints,k) = radfunction(1:nquadpoints,k) * root(2*(k+l)+3)
+    enddo
+    return
+    end
+!
+!    ***************************************************************
+!
+! Computes the multipolar moments from the Zernike 3D expansion or Jacobi expansion ( P^(0,2+2l) ). 
+! Only the first Zernike 3D or Jacobi polynomial (n = l) of each  (l,m)  
+! contributes to the corresponding multipolar moment, the remaining ones integrate to zero.
+! Multipolar moments defined here as the coefficients that multiply the unnormalized irregular harmonics in the long-range 
+! expansion of the electrostatic potential, q(l,m), are displayed in the third column.
+! Rotationally invariant multipole moments: q(l,m) * sqrt((1+delta(m,0)) *  (l+|m|)!/(l-|m|)! ) 
+! are listed in fourth column.
+! Modules of the rotationally invariant multipole moments are displayed in the fifth column for each l
+!
+  subroutine multipoles
+    USE Zernike_Jacobi_MPI_D
+    implicit none
+    integer(KINT) :: l, lm, m, n
+    real(KREAL) :: aux, bux, buxmod
+    if (lvalence) then
+        write(6,"(//'Non-vanishing multipole components of electron valence computed from the expansion')")
+    else
+        write(6,"(//'Non-vanishing multipole components of electron cloud computed from the expansion')")
+    endif
+    write(6,"(82(1H=),//t5,'l', t10, 'm', t23,'q(l,m)',t45,'q(l,m) * sqrt((1+delta(m,0)) (l+|m|)!/(l-|m|)!)',t98,'qlmod'/)")
+    lm = 0
+    do l = 0, lexpansion
+        buxmod = 0.d0
+        do m = -l, l
+            lm = lm + 1
+            aux = omeganlm(0,lm) * fact(l-abs(m)) * facti(l+abs(m)) * sqrt(rstar**(2*l+3) * ri(2*l+3)) &
+                    / (ang(ind(l)+abs(m)+1))
+            if (m .ne. 0) aux = aux + aux
+            bux = aux * sqrt(fact(l+abs(m)) * facti(l-abs(m)))
+            if (m .eq. 0) bux = raiz2 * bux
+            buxmod = buxmod + bux * bux
+            if (m .lt. l) then
+                if (abs(aux) .gt. thresmult) write(6,"(t4,i2,t8,i3,t16,1x,e22.15,15x,e22.15)") l, m, -aux, -bux
+            else
+                write(6,"(t4,i2,t8,i3,t16,1x,e22.15,15x,e22.15,14x,e22.15,/)") l, m, -aux, -bux, sqrt(buxmod)
+            endif
+        enddo
+    enddo
+    return
+    end
+
+!**********************************************************************
+!    subroutine consta
+!
+!    Computes and stores auxiliary constants
+!        re(i) = dfloat(i)
+!        r1(i) = 1.d0 / dfloat(i)
+!        fact(i) = dfloat(i!)
+!        facti(i) = 1.d0 / dfloat(i!)
+!        ind(i) = i*(i+1)/2
+!        root(i) = dfloat(sqrt(i))
+!        rooti(i) = 1.d0 / dfloat(sqrt(i))
+!        ang(l*(l+1)/2+m+1) = sqrt( (2*l+1) * fact(l-m) 
+!            / (2 * pi * (1 + delta(m,0)) * fact(l+m)) )
+!
+!**********************************************************************
+  subroutine consta
+    USE Zernike_Jacobi_STO_MPI_D
+    USE PARALELO
+    implicit none
+    integer(KINT) :: i, ierr, ikt, ip, j, k, k1, k12, knt, kntlm, l, l1, l1l1, l2, l2l2, la, lb, lm, lp
+    integer(KINT) :: m, m1, m1a, m2, m2a, ma, mb, md, ms, mxang, n, np, nu
+    real(KREAL) :: aux, aux1, aux2, auxk, auxm, bux, cux, sd, sgn, ss
+!    auxiliary parameters and functions
+    pi = acos(-uno)
+    raizpi = sqrt(pi)
+    pimed = umed * pi
+    pimedsqr = sqrt(pimed)   ! Sqrt[pi/2]
+    re(0) = cero
+    ri(0) = 1.d300
+    do i = 1, mxreal
+        re(i) = re(i-1) + uno        ! dfloat(i)
+        re(-i) = -re(i)
+        ri(i) = uno / re(i)           ! uno / dfloat(i)
+        ri(-i) = -ri(i)
+    enddo
+    fact(0) = uno
+    facti(0) = uno
+    do i = 1, mxfact
+        fact(i) = fact(i-1) * re(i)               !  i!
+        facti(i) = uno / fact(i)                    !  uno / i!
+    enddo
+    mxind = (mxltot+1)*(mxltot+2)/2
+    allocate(ind(0:mxind), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating ind and ang in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+    ind(0) = 0
+    do i = 1, mxind
+        ind(i) = ind(i-1) + i         !  i*(i+1)/2
+    enddo
+    root(0) = cero
+    do i = 1, mxroot
+        root(i) = sqrt(re(i))        !  sqrt(i)
+        rooti(i) = uno / root(i)     !  uno / sqrt(i)
+    enddo
+
+    mxang = max(lexpansion,mxl)
+    allocate(ang((mxang+1)*(mxang+2)/2), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating akgkl, cfgkl1, cfgkl2, cfgkl3, app, bpp in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+!    ang(l*(l+1)/2+m+1) = sqrt( (2*l+1) * fact(l-m) / (2 * pi * (1 + delta(m,0)) * fact(l+m)) )
+    ang(1) = umed / raizpi
+    lm = 1
+    do l = 1, mxang
+        lm = lm + 1
+        ang(lm) = ang(1) * sqrt(re(2*l+1))
+        aux = ang(lm) * raiz2
+        do m = 1, l
+            lm = lm + 1
+            aux = aux / sqrt(re(l-m+1)*re(l+m))
+            ang(lm) = aux
+        enddo
+    enddo
+
+!     Computes and stores the coefficients for recursion of Zernike 3D functions
+    n = (kexpansion+1)*(lexpansion+1)
+    allocate(akgkl(0:kexpansion), cfgkl1(n), cfgkl2(n), cfgkl3(n), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating cffk21, cffk22 and cffk23 in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+    akgkl(0) = 1.d0        ! akgkl(k) = (-1)^k (k-1/2)! / (sqrt(pi) * k!)
+    do k = 0, kexpansion-1
+        akgkl(k+1) = - re(2*k+1) * ri(2*k+2) * akgkl(k)
+    enddo
+    knt = 0
+    do l = 0, lexpansion
+        do k = 0, kexpansion
+            knt = knt + 1
+            cfgkl1(knt) = re(4*k+2*l+3) * dble(4*k*(2*k+2*l+3)+4*l*(l+2)+3) &
+                    * ri(2*k+2*l+3) * ri(2*k+1) * ri(4*k+2*l+1)
+            cfgkl2(knt) = re(4*k+2*l+3) * re(4*k+2*l+5) * ri(2*k+2*l+3) * ri(2*k+1)
+            cfgkl3(knt) = dble(4*k*k) * re(4*k+2*l+5) * re(2*k+2*l+1) &
+                    * ri(4*k+2*l+1) * ri(2*k+2*l+3) * ri(2*k-1) * ri(2*k+1)
+        enddo
+    enddo
+! 
+!    Coefficients  cfbk0  and  cfbk1  are used in the recursion of Bessel K functions redefined as:
+!        bk(n) = Exp[z]  BesselK[n+1/2,z] / (n+1/2)!
+!        cfbk0(i) = 1 / ((2i+1)  (2i+3))
+!        cfbk1(i) = (2i+1) / (2i+3)
+    allocate(cfbk1(0:mxk), cfbk0(0:mxk), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating cffk21, cffk22 and cffk23 in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    do i = 0, mxk
+        cfbk0(i) = 1.d0 / (re(i+i+3) * re(i+i+1))
+        cfbk1(i) = re(i+i+1) / re(i+i+3)
+    enddo
+
+!    Tabulates    ckplm   coefficients for radial factors of distributions
+    lm = (mxlckplm+1) * (mxlckplm+2) * (2*mxlckplm+3) / 6
+    allocate(ckplm(0:mxk,lm), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating ckplm in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    call subckplm(mxk, mxk, mxlckplm, lm, ckplm)
+
+!    Tabulates   cffk   coefficients for radial factors of 2s functions 
+    allocate(cffk21(0:mxk), cffk22(0:mxk), cffk23(0:mxk), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating cffk21, cffk22 and cffk23 in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+
+    do i = 1, mxk
+        cffk21(i) = -2.d0*re(i)
+        cffk22(i) = re(2*i+1)
+        cffk23(i) = -2.d0*re(i+1)
+    enddo
+
+    cffk21(0) = 0.d0
+    cffk22(0) = 1.d0
+    cffk23(0) = -2.d0
+!    Constants for overlap integrals with ellipsoidal coordinates
+    allocate (ap((mxn+1)*(mxn+1)*(mxn+3)))
+    if (ierr .ne. 0) then
+        write(6,"('Memory error', i5, ' when allocating ap in processor ',i3)") ierr, myrank
+        abort = 1
+    endif
+    allocate (alfasol((2*mxl+1)*(mxl+1)*(mxl+2)*(30+mxl*(43+17*mxl))/60))
+    if (ierr .ne. 0) then
+        write(6,"('Memory error', i5, ' when allocating alfasol in processor ',i3)") ierr, myrank
+        abort = 1
+    endif
+    allocate (ipntap(0:mxn,0:mxn))
+    if (ierr .ne. 0) then
+        write(6,"('Memory error', i5, ' when allocating ipntap in processor ',i3)") ierr, myrank
+        abort = 1
+    endif
+    allocate (ipntalfa((mxl+1)*(mxl+2)/2,0:mxl))
+    if (ierr .ne. 0) then
+        write(6,"('Memory error', i5, ' when allocating ipntalfa in processor ',i3)") ierr, myrank
+        abort = 1
+    endif
+!    ap(n,np,p) = (-1)**p * Sum[ n! np! (-1)**i / ((n-i)! (np-p-i)! (p-i)! i!) , {i,Max(0,p-np),min(n,p)}]
+!        these constants are stored in a one-dimension array: ap(n,np,p)->an(ipntap(n,np)+p)
+!        where ipntap(n,np) is a pointer to the ap(n,np,0) element in the array
+    ipntap(0,0) = 1
+    ap(1) = uno    !    ap(0,0,0)
+    ipntap(0,1) = 2
+    ap(2) = uno    !    ap(0,1,0)
+    ap(3) = -uno    !    ap(0,1,1)
+    knt = 3
+    do np = 2, mxn
+        knt = knt + 1
+        ipntap(0,np) = knt
+        ap(knt) = uno    !    ap(0,np,0) = 1
+        do ip = 1, np-1
+            knt = knt + 1
+            ap(knt) = ap(ipntap(0,np-1)+ip) - ap(ipntap(0,np-1)+ip-1)
+        enddo
+        knt = knt + 1
+        ap(knt) = - ap(ipntap(0,np-1)+np-1)
+    enddo
+    do n = 1, mxn
+        do np = 0, mxn
+            knt = knt + 1
+            ipntap(n,np) = knt
+            ap(knt) = uno    !    ap(n,np,0) = 1
+            do ip = 1, n+np-1
+                knt = knt + 1
+                ap(knt) = ap(ipntap(n-1,np)+ip) + ap(ipntap(n-1,np)+ip-1)
+            enddo
+            knt = knt + 1
+            ap(knt) = ap(ipntap(n-1,np)+n+np-1)
+        enddo
+    enddo
+!    algorithm for allocaling the position of an element \alpha_{kj}^{LM \, L'M} in the array alfa:
+!        \alpha_{kj}^{LM \, L'M} -> alfasol( ipntalfa( l + m*(2*mxl-m+1) /2 + 1 ,L') + k^2 + j )
+    knt = 1
+    kntlm = 0
+    auxm = uno    !    auxm = (-1)**m * 2**m * ( (m-1/2)! m! / sqrt(pi) )**2
+    do m = 0, mxl
+        kntlm = kntlm + 1
+        ipntalfa(kntlm,m) = knt
+        auxk = auxm
+        alfasol(knt) = auxk * facti(m) * facti(m)
+        knt = knt + 1
+        do k = 1, m+m
+            auxk = -auxk
+            do i = 0, k-1
+                if (m-k+i .ge. 0 .and. m .ge. i) then
+                    alfasol(knt) = auxk * facti(m-k+i) * facti(m-i) * facti(k-i) * facti(i)
+                else
+                    alfasol(knt) = cero
+                endif
+                knt = knt + 1
+                alfasol(knt) = cero
+                knt = knt + 1
+            enddo
+            if (m .ge. k) then
+                alfasol(knt) = auxk * facti(m) * facti(m-k) * facti(k)
+            else
+                alfasol(knt) = cero
+            endif
+            knt = knt + 1
+        enddo
+        do lp = m, mxl-1
+            ipntalfa(kntlm,lp+1) = knt
+            aux1 = -re(lp+lp+1) * ri(lp-m+1)
+            aux2 = -re(lp+m) * ri(lp-m+1)
+            do k = 0, lp+m+1
+                do j = 0, k+k
+                    if (k .lt. lp+m+1) then
+                        bux = alfasol(ipntalfa(kntlm,lp)+k*k+j)
+                    else
+                        bux = cero
+                    endif
+                    cux = cero
+                    if (k .gt. 0) then
+                        if (j .gt. 0 .and. j .lt. k+k) bux = bux - alfasol(ipntalfa(kntlm,lp)+(k-1)*(k-1)+j-1)
+                        if (lp .gt. m) then
+                            if (k .le. lp+m) then
+                                if (j .le. k+k-2) cux = cux + alfasol(ipntalfa(kntlm,lp-1)+(k-1)*(k-1)+j)
+                                if (j .gt. 0) then
+                                    if (j .lt. k+k) cux = cux - dos * alfasol(ipntalfa(kntlm,lp-1)+(k-1)*(k-1)+j-1)
+                                    if (j .gt. 1) cux = cux + alfasol(ipntalfa(kntlm,lp-1)+(k-1)*(k-1)+j-2)
+                                endif
+                            endif
+                        endif
+                    endif
+                    alfasol(knt) = aux1 * bux + aux2 * cux
+                    if (abs(alfasol(knt)) .lt. alfacutoff) alfasol(knt) = cero
+                    knt = knt + 1
+                enddo
+            enddo
+        enddo
+        do l = m, mxl-1
+            kntlm = kntlm + 1
+            ipntalfa(kntlm,m) = knt
+            aux1 = re(l+l+1) * ri(l-m+1)
+            aux2 = -re(l+m) * ri(l-m+1)
+            do k = 0, l+m+1
+                do j = 0, k+k
+                    if (k .lt. l+m+1) then
+                        bux = alfasol(ipntalfa(kntlm-1,m)+k*k+j)
+                    else
+                        bux = cero
+                    endif
+                    cux = cero
+                    if (k .gt. 0) then
+                        if (j .gt. 0 .and. j .lt. k+k) bux = bux + alfasol(ipntalfa(kntlm-1,m)+(k-1)*(k-1)+j-1)
+                        if (l .gt. m) then
+                            if (k .le. l+m) then
+                                if (j .le. k+k-2) cux = cux + alfasol(ipntalfa(kntlm-2,m)+(k-1)*(k-1)+j)
+                                if (j .gt. 0) then
+                                    if (j .lt. k+k) cux = cux + dos * alfasol(ipntalfa(kntlm-2,m)+(k-1)*(k-1)+j-1)
+                                    if (j .gt. 1) cux = cux + alfasol(ipntalfa(kntlm-2,m)+(k-1)*(k-1)+j-2)
+                                endif
+                            endif
+                        endif
+                    endif
+                    alfasol(knt) = aux1 * bux + aux2 * cux
+                    if (abs(alfasol(knt)) .lt. alfacutoff) alfasol(knt) = cero
+                    knt = knt + 1
+                enddo
+            enddo
+            do lp = m, mxl-1
+                ipntalfa(kntlm,lp+1) = knt
+                aux1 = -re(lp+lp+1) * ri(lp-m+1)
+                aux2 = -re(lp+m) * ri(lp-m+1)
+                do k = 0, l+lp+2
+                    do j = 0, k+k
+                        if (k .lt. l+lp+2) then
+                            bux = alfasol(ipntalfa(kntlm,lp)+k*k+j)
+                        else
+                            bux = cero
+                        endif
+                        cux = cero
+                        if (k .gt. 0) then
+                            if (j .gt. 0 .and. j .lt. k+k) bux = bux - alfasol(ipntalfa(kntlm,lp)+(k-1)*(k-1)+j-1)
+                            if (lp .gt. m) then
+                                if (k .le. l+lp+1) then
+                                    if (j .le. k+k-2) cux = cux + alfasol(ipntalfa(kntlm,lp-1)+(k-1)*(k-1)+j)
+                                    if (j .gt. 0) then
+                                        if (j .lt. k+k) cux = cux - dos * alfasol(ipntalfa(kntlm,lp-1)+(k-1)*(k-1)+j-1)
+                                        if (j .gt. 1) cux = cux + alfasol(ipntalfa(kntlm,lp-1)+(k-1)*(k-1)+j-2)
+                                    endif
+                                endif
+                            endif
+                        endif
+                        alfasol(knt) = aux1 * bux + aux2 * cux
+                        if (abs(alfasol(knt)) .lt. alfacutoff) alfasol(knt) = cero
+                        knt = knt + 1
+                    enddo
+                enddo
+            enddo
+        enddo
+        auxm = - auxm * re(m+1) * re(m+1) * re(m+m+1) * re(m+m+1)
+    enddo
+    return
+    end
+!
+!    ***************************************************************
+!
+  subroutine read_ckplmextra
+    USE Zernike_Jacobi_STO_MPI_D
+    USE PARALELO
+    implicit none
+    integer(4) :: ierr, ip, k, kmax, knt, l, lm, lmax, lmin, m
+
+    lm = (mxlckplmextra+1) * (mxlckplmextra+2) * (2*mxlckplmextra+3) / 6 - (mxlckplm+1) * (mxlckplm+2) * (2*mxlckplm+3) / 6
+    allocate(ckplmextra(0:mxkextra,lm), stat = ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when allocating ckplmextra in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+    open (unit=10, file="ckplm_l23-26", form='unformatted', action = 'read', access='stream', iostat=ierr)
+    if (ierr .ne. 0)  then
+        write(6,"('Memory error', i5, ' when opening file ckplm_l23-26 in processor ',i3)") ierr, myrank
+        abort = 1
+        return
+    endif
+    read(10,end=9999) lmin
+    if (lmin .ne. mxlckplm+1) then
+        write(6,"('Error in file ckplm_l23-26',/,'lmin (',i3,') must be equal to mxlckplm + 1 (',i3,')')") &
+                lmin, mxlckplm + 1
+        abort = 1
+        return
+    endif
+    read(10,end=9999) lmax
+    if (lmax .gt. mxlckplmextra) then
+        write(6,"('Error in file ckplm_l23-26',/,'lmax (',i3,') must be less or equal than mxlckplmextra (',i3,')')") &
+                lmax, mxlckplmextra
+        abort = 1
+        return
+    endif
+    read(10,end=9999) kmax
+    if (kmax .gt. mxkextra) then
+        write(6,"('Error in file ckplm_l23-26',/,'kmax (',i3,') must be less or equal than mxkextra (',i3,')')") &
+                kmax, mxkextra
+        abort = 1
+        return
+    endif
+    knt = 0
+    do l = lmin, lmax
+        do m = 0, l
+            do ip = 0, l
+                knt = knt + 1
+                do k = 0, kmax
+                    read(10,end=9999) ckplmextra(k,knt)
+                enddo
+            enddo
+        enddo
+    enddo
+    return
+9999 continue
+    if (ierr .ne. 0) then
+        write(6,"('Insufficient number of elements in file ckplm_l23-26 in processor ',i3)") myrank
+        abort = 1
+        return
+    endif
+    end
+    
+!**********************************************************************
+!
+!   subroutine rotar
+!
+!    this subroutine yields the rotation matrices rl(m',m;l) of reals spherical harmonics
+!    receives the trigonometric functions of Euler angles defining the rotation
+!
+!**********************************************************************
+  subroutine rotar(lmax, cosal, sinal, cosbet, sinbet, cosga, singa)
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    integer(KINT) :: l, lmax
+    real(KREAL) :: cosag, cosal, cosamg, cosbet, cosga, sinag, sinal, sinamg, singa, sinbet, tgbet2
+!    Initial matrices d0, r0, d1 and r1
+    rl(:,:,:) = cero
+    dl(:,:,:) = cero
+    dl(0,0,0)  = uno
+    rl(0,0,0)  = uno
+    if(lmax.eq.0) return
+    dl(1,1,1)  = (uno + cosbet) * umed
+    dl(1,0,1)  =-sinbet/raiz2
+    dl(1,-1,1) = (uno - cosbet) * umed
+    dl(0,1,1)  =-dl(1,0,1)
+    dl(0,0,1)  = dl(1,1,1)-dl(1,-1,1)
+    dl(0,-1,1) = dl(1,0,1)
+    dl(-1,1,1) = dl(1,-1,1)
+    dl(-1,0,1) = dl(0,1,1)
+    dl(-1,-1,1)= dl(1,1,1)
+    cosag  = cosal * cosga - sinal * singa
+    cosamg = cosal * cosga + sinal * singa
+    sinag  = sinal * cosga + cosal * singa
+    sinamg = sinal * cosga - cosal * singa
+    rl(0,0,1)  = dl(0,0,1)
+    rl(1,0,1)  = raiz2 * dl(0,1,1) * cosal
+    rl(-1,0,1) = raiz2 * dl(0,1,1) * sinal
+    rl(0,1,1)  = raiz2 * dl(1,0,1) * cosga
+    rl(0,-1,1) =-raiz2 * dl(1,0,1) * singa
+    rl(1,1,1)  = dl(1,1,1) * cosag - dl(1,-1,1) * cosamg
+    rl(1,-1,1) =-dl(1,1,1) * sinag - dl(1,-1,1) * sinamg
+    rl(-1,1,1) = dl(1,1,1) * sinag - dl(1,-1,1) * sinamg
+    rl(-1,-1,1)= dl(1,1,1) * cosag + dl(1,-1,1) * cosamg
+!    the remaining matrices are calculated using symmetry and recurrence relations by means of the subroutine dlmn.
+    if ( abs(sinbet) .lt. 1.d-14 ) then
+        tgbet2 = cero
+    elseif ( abs(sinbet) .lt. 1.d-10 ) then
+        tgbet2 = cero
+        write(6,"('WARNING in ROTAR: sinbet = ', e17.10, ' takes  0')") sinbet
+    else
+        tgbet2 = ( uno - cosbet ) / sinbet
+    endif
+    do l = 2, lmax
+        call dlmn(l, sinal, cosal, cosbet, tgbet2, singa, cosga)
+    enddo
+    return
+    end
+!**********************************************************************
+!
+!   subroutine dlmn
+!
+!   this subroutine generates the matrices dl(m',m;l) for a fixed value
+!   of the orbital quantum number l, and it needs the dl(l-2;m',m) and 
+!   dl(l-1;m',m) matrices. this subroutine uses symmetry and recurrence
+!   relations. the matrices dl(m',m;l) are the rotation matrices for   
+!   complex spherical harmonics
+!
+!**********************************************************************
+  subroutine dlmn(l, sinal, cosal, cosbet, tgbet2, singa, cosga)
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    integer(KINT) :: iinf, isup, l, m, mp
+    real(KREAL) :: al, al1, ali, aux, cosag, cosagm, cosal, cosaux, cosbet, cosga, cosmal, cosmga, cux, d1, d2
+    real(KREAL) :: sgn, sinag, sinagm, sinal, singa, sinmal, sinmga, tal1, tgbet2
+    iinf=1-l
+    isup=-iinf
+!    computation of the dl(m',m;l) matrix, mp is m' and m is m.
+!    first row by recurrence: see equations 19 and 20 of reference (6)
+    dl(l,l,l) = dl(isup,isup,l-1) * (uno + cosbet) * umed
+    dl(l,-l,l) = dl(isup,-isup,l-1) * (uno - cosbet) * umed
+    do m = isup, iinf, -1
+        dl(l,m,l) = -tgbet2 * root(l+m+1) * rooti(l-m) * dl(l,m+1,l)
+    enddo
+!    the rows of the upper quarter triangle of the dl(m',m;l) matrix see equation 21 of reference (6)
+    al = l
+    al1 = al - uno
+    tal1 = al + al1
+    ali = uno / al1
+    cosaux = cosbet * al * al1
+    do mp = l-1, 0, -1
+        aux = rooti(l+mp) * rooti(l-mp) * ali
+        cux = root(l+mp-1) * root(l-mp-1) * al
+        do m = isup, iinf, -1
+            dl(mp,m,l) = aux * rooti(l+m) * rooti(l-m) * (tal1 * (cosaux - re(m) * re(mp)) * dl(mp,m,l-1) &
+                    - root(l+m-1) * root(l-m-1) * cux * dl(mp,m,l-2) )
+        enddo
+        iinf=iinf+1
+        isup=isup-1
+    enddo
+!    the remaining elements of the dl(m',m;l) matrix are calculated using the corresponding symmetry relations:
+!        reflection ---> ((-1)**(m-m')) dl(m,m';l) = dl(m',m;l), m'<=m
+!        inversion ---> ((-1)**(m-m')) dl(-m',-m;l) = dl(m',m;l)
+!    reflection
+    sgn = uno
+    iinf = -l
+    isup = l-1
+    do m = l, 1, -1
+        do mp = iinf, isup
+            dl(mp,m,l) = sgn * dl(m,mp,l)
+            sgn = -sgn
+        enddo
+        iinf=iinf+1
+        isup=isup-1
+    enddo
+!    inversion
+    iinf=-l
+    isup=iinf
+    do m = l-1, -l, -1
+        sgn = -uno
+        do mp = isup, iinf,- 1
+            dl(mp,m,l) = sgn * dl(-mp,-m,l)
+            sgn = -sgn
+        enddo
+        isup=isup+1
+    enddo
+!    computation of the rotation matrices rl(m',m;l) for real spherical harmonics using the matrices dl(m',m;l) 
+!    for complex spherical harmonics: see equations 10 to 18 of reference (6)
+    rl(0,0,l) = dl(0,0,l)
+    cosmal = cosal
+    sinmal = sinal
+    sgn = - uno
+    do mp = 1, l
+        cosmga = cosga
+        sinmga = singa
+        aux = raiz2 * dl(0,mp,l)
+        rl(mp,0,l) = aux * cosmal
+        rl(-mp,0,l)= aux * sinmal
+        do m = 1, l
+            aux = raiz2 * dl(m,0,l)
+            rl(0,m,l) = aux * cosmga
+            rl(0,-m,l)=-aux * sinmga
+            d1 = dl(-mp,-m,l)
+            d2 = sgn * dl(mp,-m,l)
+            cosag = cosmal * cosmga - sinmal * sinmga
+            cosagm= cosmal * cosmga + sinmal * sinmga
+            sinag = sinmal * cosmga + cosmal * sinmga
+            sinagm= sinmal * cosmga - cosmal * sinmga
+            rl(mp,m,l)  = d1 * cosag + d2 * cosagm
+            rl(mp,-m,l) =-d1 * sinag + d2 * sinagm
+            rl(-mp,m,l) = d1 * sinag + d2 * sinagm
+            rl(-mp,-m,l)= d1 * cosag - d2 * cosagm
+            aux    = cosmga * cosga - sinmga * singa
+            sinmga = sinmga * cosga + cosmga * singa
+            cosmga = aux
+        enddo
+        sgn = - sgn
+        aux    = cosmal * cosal - sinmal * sinal
+        sinmal = sinmal * cosal + cosmal * sinal
+        cosmal = aux
+    enddo
+    return
+    end
+!
+!    -------------------------------------------------------------------------------------------------------
+!
+!    Integrals:      A_j(\beta) = \int_1^\infty d\xi \; \xi^j \; e^{-\beta \, \xi}
+!    and
+!                B_j(\nu) = \int_{-1}^1 d\nu \; \nu^j \; e^{-\nu \, \xi}
+!
+  subroutine abintegs(na, la, za, nb, lb, zb, R)
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    integer(KINT) :: i, imax, j, jlim, jmx, la, lb, na, nb
+    real(KREAL), parameter :: threshb = 1.d-18, threshg = 1.d-18
+    real(KREAL) :: beta, betai, expb, expg, expgi, expgj, g2, gamma, gammai, R, si, suma, za, zb
+!
+!    Integrals:  A_j(\beta) = \int_1^\infty d\xi \; \xi^j \; e^{-\beta \, \xi}
+!
+    beta = umed * (za+zb) * R
+    expb = exp(-beta)
+    betai = uno / beta
+    av(0) = expb * betai
+    jmx = na + nb + 2*(la+lb)
+    do j = 1, jmx
+        av(j) = (re(j) * av(j-1) + expb) * betai
+    enddo
+!
+!    Integrals:  B_j(\nu) = \int_{-1}^1 d\nu \; \nu^j \; e^{-\nu \, \xi}
+!
+    gamma = umed * (za-zb) * R
+    g2 = gamma * gamma
+    expg = exp(gamma)
+    expgi = uno / expg
+    jlim = abs(gamma)
+    if(jmx .lt. jlim) jlim = jmx
+    if (abs(gamma) .lt. threshg) then
+        bv(0) = dos
+    else
+        gammai = uno / gamma
+        bv(0) = dos * sinh(gamma) * gammai
+    endif
+    expgj = expg
+    do j = 1, jlim        !    ascending recursion from j = 0 to jlim
+        expgj = -expgj
+        bv(j) = gammai * (expgj - expgi + re(j) * bv(j-1) )
+    enddo
+    if (jmx .gt. jlim) then
+        jmx = 2*((jmx+1)/2)    ! Using an even value for jmx  prevents possible accuracy loss in bv(jmx)
+        suma = cero
+        si = ri(jmx+1) * ri(jmx+2)
+        imax = 100
+        do i = 0, imax
+            suma = suma + si * ( (re(jmx+2+i+i)+gamma) * expgi + (re(jmx+2+i+i)-gamma) * expg )
+            if (si .lt. suma*threshb) go to 100
+            si = si * g2 * ri(jmx+i+i+3) * ri(jmx+i+i+4)
+        enddo
+        suma = suma + si * ( (re(jmx+2+i+i)+gamma) * expgi + (re(jmx+2+i+i)-gamma) * expg )
+        write(6,"('The series for the integral B(',i3,',',e22.15,') did not converge with the prescribed accuracy after ', &
+                i4,' terms')") jmx, gamma, imax
+        write(6,"('Value of the series= ', e22.15, '  last summand = ', e22.15)") &
+                suma, si * ( (re(jmx+2+i+i)+gamma) * expgi + (re(jmx+2+i+i)-gamma) * expg )
+100     continue
+        bv(jmx) = suma
+        expgj = expg
+        do j = jmx-1, jlim+1, -1
+            expgj = - expgj
+            bv(j) = ri(j+1) * (expgj + expgi + gamma * bv(j+1) )
+        enddo
+    endif
+    return
+    end
+!
+!    -------------------------------------------------------------------------------------------------------
+!
+  subroutine overlap(na, la, za, rna, nb, lb, zb, rnb, R, ldst)
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    logical :: ldst
+    integer(KINT) :: ialfa, iap, ip, j, k, la, lb, m, na, nb
+    real(KREAL) :: aux, suma, sumkj, R, rna, rnb, za, zb
+    iap = ipntap(na,nb)
+    aux = pt25 * sqrt(re(la+la+1)*re(lb+lb+1)) * (umed * R)**(na+nb+la+lb+1) * rna * rnb ! Includes normalization of functions with m = 0
+    ialfa = ipntalfa(la+1,lb)
+    suma = cero
+    do ip = 0, na+nb
+        sumkj = cero
+        do k = 0, la+lb
+            do j = 0, k+k
+                sumkj = sumkj + av(na+nb+k+k-j-ip) * bv(j+ip) * alfasol(ialfa+k*k+j)
+            enddo
+        enddo
+        suma = suma + sumkj * ap(iap+ip)
+    enddo
+    if(abs(aux * suma) .lt. thresoverlap) then
+        ldst = .false.
+    else
+        ldst = .true.
+    endif
+! write(6,"('abs(aux * suma) = ', e17.10, ' thresoverlap = ', e17.10, ' ldst = ', l)") abs(aux * suma), thresoverlap, ldst
+    return
+    end
+!
+!    -------------------------------------------------------------------------------------------------------
+!
+  subroutine totalchargeSTO
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    integer(KINT) :: i, i1, i2, ia, ib, ierr, ii, ishift, j, la, lb, lrotar, m, na, nb, nfa, nfb, nga1, nga2, ngb1, ngb2
+    real(KREAL) :: aux, charge, cosal, cosbet, cosga, rab, rna, rnab, rnb, sinal, sinbet, singa, xab, xy, yab, za, zb, zab
+    real(KREAL) :: roaux(-mxl:mxl,-mxl:mxl)
+    allocate(sol(0:mxl), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating sol. Stop')
+    allocate(rl(-mxl:mxl,-mxl:mxl,0:mxl), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating rl. Stop')
+    allocate(dl(-mxl:mxl,-mxl:mxl,0:mxl), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating dl. Stop')
+    charge = cero
+    do ia = 1, ncen
+        if (ngini(ia) .le. 0) cycle
+        nga1 = ngini(ia)
+        nga2 = ngfin(ia)
+        do i1 = nga1, nga2
+            na = nn(i1)
+            la = ll(i1)
+            za = xx(i1)
+            rna = rnor(i1)
+            nfa = nf(i1)
+            do i2 = nga1, nga2
+                nb = nn(i2)
+                lb = ll(i2)
+                if (la .ne. lb) cycle
+                zb = xx(i2)
+                rnb = rnor(i2)
+                nfb = nf(i2)
+                aux = rna * rnb * fact(na+nb) / (za+zb)**(na+nb+1)
+                do m = -min(la,lb), min(la,lb)
+                    charge = charge + dmat(nfa+la+m,nfb+lb+m) * aux
+                enddo
+            enddo
+        enddo
+        if (lzdo) cycle
+        do ib = 1, ncen
+            if (ia .eq. ib .or. ngini(ib) .le. 0) cycle
+            ngb1 = ngini(ib)
+            ngb2 = ngfin(ib)
+            do i1 = nga1, nga2
+                na = nn(i1)
+                la = ll(i1)
+                za = xx(i1)
+                rna= rnor(i1)
+                nfa = nf(i1)
+                do i2 = ngb1, ngb2
+                    nb = nn(i2)
+                    lb = ll(i2)
+                    zb = xx(i2)
+                    rnb = rnor(i2)
+                    nfb = nf(i2)
+!    Computes Euler angles and rotation matrices from the AB aligned axis system to the molecular system and conversely
+                    xab = rcen(1,ib) - rcen(1,ia)
+                    yab = rcen(2,ib) - rcen(2,ia)
+                    zab = rcen(3,ib) - rcen(3,ia)
+                    xy = sqrt(xab*xab + yab*yab)
+                    rab = sqrt(xab*xab + yab*yab + zab*zab)
+                    if (rab .lt. 1.d-10) then
+                        write(6,"('Centers ',i4,' and ',i4,' coincide. Stop')") ia, ib
+                        call error(1,' Stop')
+                    endif
+                    if (xy .gt. 1.d-10) then
+                        sinal = yab / xy
+                        cosal = xab / xy
+                    else
+                        sinal = cero
+                        cosal = uno
+                    endif
+                    sinbet = xy / rab
+                    cosbet = zab / rab
+                    singa = cero
+                    cosga = uno
+                    lrotar = max(la,lb)
+                    call rotar (lrotar, cosal, sinal, cosbet, sinbet, cosga, singa)
+!    Reads the pertinent block of density matrix and rotates it to the AB aligned system. Loads the result in array roblk.
+!    Angular normalization factors are introduced at the end of the loading process.
+                    do i = -la, la
+                        ishift = i+la+nfa
+                        do j = -lb, lb
+                            roblk(i,j) = dmat(ishift,j+lb+nfb)
+                        enddo
+                    enddo
+!    Rotation on center B!     allocate(rl(-mxl:mxl,-mxl:mxl,0:mxl), stat = ierr)
+!     if (ierr .ne. 0) call error(1,'Memory error when allocating rl. Stop')
+                    do i = -la, la
+                        do j = -lb, lb
+                            roaux(i,j) = dot_product(roblk(i,-lb:lb),rl(-lb:lb,j,lb))
+                        enddo
+                    enddo
+!    Rotation on center A
+                    do i = -la, la
+                        do j = -lb, lb
+                            roblk(i,j) =  dot_product(roaux(-la:la,j), rl(-la:la,i,la))
+                        enddo
+                    enddo
+                    call abintegs(na, la, za, nb, lb, zb, rab)
+                    call overlapalt(na-la, la, za, nb-lb, lb, zb, rab)
+                    do m = -min(la,lb), min(la,lb)
+                        charge = charge + rna * rnb * ang(ind(la)+abs(m)+1) * ang(ind(lb)+abs(m)+1) * roblk(m,m) &
+                                * sol(abs(m))
+                    enddo
+                enddo
+            enddo
+        enddo
+    enddo
+    if (lzdo) then
+        write(6,"(/'Total valence electron charge computed from density matrix = ', e22.15,/)") -charge
+    else
+        write(6,"(/'Total electron charge computed from density matrix = ', e22.15,/)") -charge
+    endif
+    deallocate(dl, rl, sol)
+    return
+    end
+!
+!    -------------------------------------------------------------------------------------------------------
+!
+  subroutine overlapalt(na, la, za, nb, lb, zb, R)
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    integer(KINT) :: ialfa, iap, ip, j, k, la, lb, m, na, nb
+    real(KREAL) :: aux, suma, sumkj, R, za, zb
+    iap = ipntap(na,nb)
+    aux = pi * (umed * R)**(na+nb+la+lb+1)
+    do m = 0, min(la,lb)
+        ialfa = ipntalfa(la+m*(2*mxl-m+1)/2 + 1, lb)
+        suma = cero
+        do ip = 0, na+nb
+            sumkj = cero
+            do k = 0, la+lb
+                do j = 0, k+k
+                    sumkj = sumkj + av(na+nb+k+k-j-ip) * bv(j+ip) * alfasol(ialfa+k*k+j)
+                enddo
+            enddo
+            suma = suma + sumkj * ap(iap+ip)
+        enddo
+        sol(m) = aux * suma
+    enddo
+    sol(0) = sol(0) + sol(0)
+    return
+    end
+!
+!    -------------------------------------------------------------------------------------------------------
+!
+  subroutine testoverlap(na, la, za, rna, nb, lb, zb, rnb, R, ldst)
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    logical :: ldst
+    integer(KINT) :: ialfa, iap, ip, j, k, la, lb, m, na, nb
+    real(KREAL) :: aux, suma, sumkj, R, rna, rnb, za, zb
+    iap = ipntap(na,nb)
+    aux = pt25 * sqrt(re(la+la+1)*re(lb+lb+1)) * (umed * R)**(na+nb+la+lb+1) * rna * rnb ! Includes normalization of functions with m = 0
+    ialfa = ipntalfa(la+1,lb)
+    suma = cero
+    do ip = 0, na+nb
+        sumkj = cero
+        do k = 0, la+lb
+            do j = 0, k+k
+                sumkj = sumkj + av(na+nb+k+k-j-ip) * bv(j+ip) * alfasol(ialfa+k*k+j)
+            enddo
+        enddo
+        suma = suma + sumkj * ap(iap+ip)
+    enddo
+    if(abs(aux * suma) .lt. thresoverlap) then
+        ldst = .false.
+    else
+        ldst = .true.
+    endif
+    return
+    end
+!
+!    -------------------------------------------------------------------------------------------------------
+!
+  subroutine error(ierr, msg)
+    USE Zernike_Jacobi_STO_MPI_D
+    implicit none
+    integer(KINT) :: ierr
+    character(*) :: msg
+    write(6,"(a)") msg
+    write(6,"('Error code = ', i4)") ierr
+    stop
+    end

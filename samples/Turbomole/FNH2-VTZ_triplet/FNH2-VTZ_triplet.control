@@ -1,0 +1,69 @@
+$maxcor    500
+$coord    file=coord
+$scfconv    7
+$thize    0.10000000E-04
+$forceinit on
+   diag=default
+$scforbitalshift    automatic=.1
+$rundimensions
+dim(fock,dens)=1129
+   natoms=4
+   nshell=24
+   nbf(CAO)=46
+   nbf(AO)=44
+   dim(trafo[SAO<-->AO/CAO])=50
+   rhfshells=2
+$atoms
+f 2 \
+   basis = f TZP
+n 1 \
+   basis = n TZP
+h 3-4 \
+   basis = h DZ
+$scfintunit
+unit=30 size=0 file=twoint
+$cosmo_out    file=out.ccf
+$title    TmoleXProject
+$uhfmo_beta   file=beta
+$uhfmo_alpha   file=alpha
+$basis    file=basis
+$operating system unix
+$forceapprox    file=forceapprox
+$thime    5
+$jbas    file=auxbasis
+$tmole
+$optimize
+ internal off
+ redundant off
+ cartesian on
+ global off
+$symmetry    c1
+$drvopt
+cartesian  on
+   basis      off
+   global     off
+   hessian    on
+   dipole     on
+   nuclear polarizability
+$scfiterlimit    30
+$uhf
+$scfdamp     start=0.700 step=0.050 min=0.100
+$scfdump
+$subtitle
+SP,Hartree-Fock/no-RI,charge 0,c1,mixed basis set,
+$energy    file=energy
+$scfdiis
+$lock off
+$last SCF energy change = -154.53857
+$dipole from dscf
+  x    -0.00000000000004    y    -0.00000000000002    z    -1.56760057822813    a.u.
+   | dipole | =    3.9844733497  debye
+$alpha shells
+ a       1-10                                   ( 1 )
+$beta shells
+ a       1-8                                    ( 1 )
+ a       1-8                                    ( 1 )
+$grad    file=gradient
+$last step     dscf
+$orbital_max_rnorm 0.49194083328684E-04
+$end

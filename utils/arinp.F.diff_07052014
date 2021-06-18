@@ -1,0 +1,24 @@
+--- arinp.F	2014-05-07 11:31:59.279666540 +0200
++++ arinp.F_new_07052014	2014-05-07 10:03:30.685300149 +0200
+@@ -1070,7 +1070,7 @@
+       if(iso.le.jso) then
+ c      write(line,'(i3,1x,a3)') lso,ityp(lai)
+       write (line,'(I4,''.'',I1,1X,A3)') lso,lai,ityp(lai)
+-      ib0 = 10
++      ib0 = 11
+       lso=lso+1
+       iso=iso+1
+       end if
+@@ -1119,9 +1119,9 @@
+       if(zet(icon,icons).lt.1.d8) then
+       write(nlist,430) line,zet(icon,icons),(eta(ircr,icon,icons),
+      1     ircr=ircr1,ircr2)
+-430   format(1x,(a),f15.6,(t40,6f12.6))
+-431   format(1x,(a),f18.6,(t40,6f12.6))
+-432   format(1x,(a),f15.4,(t40,6f12.6))
++430   format(1x,(a),f15.6,(t40,10e16.8))
++431   format(1x,(a),f18.6,(t40,10e16.8))
++432   format(1x,(a),f15.4,(t40,10e16.8))
+       else
+       ll=len_trim(line)
+       if(ll.le.19) then

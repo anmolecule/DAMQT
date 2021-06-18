@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>VShader.vert</file>
+        <file>FShader.frag</file>
+    </qresource>
+</RCC>
