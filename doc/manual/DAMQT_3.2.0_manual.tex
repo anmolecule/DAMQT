@@ -61,7 +61,7 @@
 % Calligraphic letters
 \usepackage{calligra,mathrsfs}
 
-\usepackage{showlabels}
+% \usepackage{showlabels}
 
 %\linenumbers
 \topmargin -1cm
@@ -82,7 +82,7 @@ Anmol Kumar\footnote{Department of Chemistry, Indian Institute of Technology Kan
 Kanpur 208016, India}}
 
 \begin{document}
-\renewcommand{\showlabelfont}{\small\slshape\color{red}}
+% \renewcommand{\showlabelfont}{\small\slshape\color{red}}
 \newcommand{\azul}[1]{{\color{blue}{#1}}}
 \newcommand{\llaves}[1]{{\{#1\}}}
 \definecolor{negro}{rgb}{0,0,0}
@@ -360,6 +360,7 @@ DAMQT is a package for the analysis and visualization of the molecular electron 
 atoms and molecules, and several related properties like 
 density deformations, electrostatic potential, molecular topography, sigma holes, electric field, Hellmann-Feynman forces, 
 molecular orbitals and density fingerprints in Zernike-Canterakis and Jacobi functions. 
+Furthermore, cluster optimization for non-bonding interacting systems has been recently added to the package.
 
 The method used is based on the DAM\index{DAM} partition of the electron density
 into atomic fragments by means of a least
@@ -369,6 +370,8 @@ fundamentals, see for instance, J. Fern\'andez Rico, et al. Comput. Chem. 25
 included in these articles}. On the other hand, density fingerprints are computed
 as expansions of Zernike-Canterakis or Jacobi functions inside a ball of user-supplied radius
 using translation techniques of Slater or Gaussian basis functions\footnote{For details see G. Urquiza-Carvalho et al. J. Comput. Chem. 39 (2018) 2022}.
+Cluster optimization is carried out by means of the EPIC procedure (Gadre S, Babu K Resonance 4 (1999) 40).
+
 
 In the DAM partition, the electron density of every atomic fragment is expanded in
 products of radial factors times regular spherical harmonics centered at its
@@ -413,6 +416,8 @@ molecular orbitals for 2D plotting and 3D visualization with the GUI.
 Programs for Zernike-Canterakis or Jacobi expansions
 of MED and their grid generation for plotting appear also in this level, as they can be launched from the GUI 
 without requiring partition/expansion of MED.
+Finally, cluster optimization by EPIC procedure (MESPIMIZER) is implemented within the 3D viewer, albeit
+it requires DAM partition/expansion for host molecule. 
 
 Second level corresponds to the programs which carry out the
 DAM partition/expansion of density for Gaussian and Slater densities. They are available both for scalar and parallel 
@@ -433,13 +438,17 @@ document.
 
 DAMQT 3.2.0 is supplied for Linux and MS Windows under GNU's GPL license. 
 The package includes the code sources as well as other ancillary files). 
-Sources can be modified and distributed according to GPL terms.
+Sources can be modified and distributed according to GPLv3 terms.
 
 The minimum requirements for installation are 200Mb of RAM memory and 150Mb of
 disk storage. Memory requirements strongly depend on the size of the systems to be 
 treated. Access to Fortran 90 and C++ compilers and a python interpreter is also required. 
 
 Qt-project's Qt library 5.9 or higher (including development libraries), and OpenGL 3.3 or higher must be installed for the Linux version. 
+
+\texttt{OpenBabel} will be required for cluster optimization using openbabel atom charges.
+
+\texttt{ffmpeg} may be necessary for creating movies from captures.
 
 \subsection{Linux and MacOS installation \label{sec:1.1}\index{installation!linux}}
 
@@ -500,6 +509,20 @@ so that you have only to click on this file and follow the installer instruction
 Samples folder will be installed in the {\it AppData/Local} folder.
 To prevent unwanted data losses, this folder will not be removed upon uninstalling 
 DAMQT. It should be removed by hand if required.
+
+To use cluster optimization with openbabel atom charges, \texttt{OpenBabel} package must be installed
+and the pertaining executable must be accessible. Include the directory containing the executable
+in the user's \texttt{PATH}, and beware that the \texttt{BABEL\_DATADIR} variable is included
+among the user's environment variables. Check that it points to the suitable folder ({\it qeq.txt} file 
+must be present therein). An OpenBabel-3.1.1 installer is included in the directory 
+{\it windows} of the package for completeness. 
+
+It is important that \texttt{OpenBabel} is installed and the pertaining environment variables set before
+launching a DAMQT session for cluster optimization. Otherwise, the executable or some auxiliary files
+will not be found and optimization may fail.
+
+To create movies from captures, check that \texttt{ffmpeg} or any other suitable program is accessible by
+including the pertining folder in the user's \texttt{PATH} variable. 
 
 \subsection{Starting DAMQT \label{sec:1.3}\index{installation!starting DAMQT}}
 
@@ -2030,7 +2053,8 @@ of the contour lines and labels causes the point to be displayed together with
 its coordinates and function value (only in contour plots) (fig \ref{fig:3_13}). Click {\it left button} to cancel the
 effects of this operation.
 
-\item Holding the \texttt{Shift} key pressed and moving the mouse, a rectangular
+\item Holding the \texttt{Shift} key pressed together with the {\it left button} 
+and moving the mouse, a rectangular
 region can be selected for zooming. Use keys \zoomin\index{2D plotter!zoomin} 
 and \zoomout\index{2D plotter!zoom}  in the upper right corner of the viewer to navigate 
 through zoom selections.
@@ -2051,9 +2075,9 @@ viewer} in the right menu.
 A new 3D viewer with menu for loading molecules data is opened (see fig \ref{fig:4_2}). 
 Several viewers can be present in the same session, each one having its own menu.
 
-The menu contains eleven items: {\it Add molecule}, {\it Geometry measures}, {\it Rotations}, {\it 
+The menu contains twelve items: {\it Add molecule}, {\it Geometry measures}, {\it Rotations}, {\it 
 Translations}, {\it Axes}, {\it Manage capture},
-{\it Manage lights}, {\it Manage balls and sticks}, {\it Manage viewport} 
+{\it Manage lights}, {\it Manage balls and sticks}, {\it Manage viewport},  
 {\it Optimize cluster}, {\it Save geometry} and {\it Save/retrieve settings}, which will be 
 described in the following sections. The menu
 can be undocked and docked back in the same way as in 2D viewer.
@@ -2104,7 +2128,7 @@ Cartesian coordinates in Angstrom. Notice in this point that distances must be
 given in bohr in the \ggbs{ } file, whereas they are given
 in Angstrom in file \xyz{ }; this is so for compatibility of \xyz{ } files
 with
-gOpenMol and other packages. The line after NCEN must be empty or contain a comment and it will not processed.
+gOpenMol and other packages. The line after NCEN must be empty or contain a comment and it will not be processed.
 
 To prevent misbehavior, adding molecules will not be allowed if a cluster
 built with the cluster optimizer is present --see section \ref{sec:4.10}.
@@ -2121,7 +2145,7 @@ a menu is opened for handling options corresponding to the molecule. The content
 If at least one molecule is active (box checked),
 rotation and translation operations will be performed on all active molecules (local molecular frames). 
 When all the molecules are inactive, rotations and translations are performed on the system as a whole
-(laboratory frame). It is important to distinguish this behavior to that corresponding to the transformation of
+(laboratory frame). It is important to distinguish this behavior from that corresponding to the transformation of
 active molecules, specially when all the molecules in the canvas are centered at the origin. In this case,
 both transformations may look the same, but they are different, and careless handling of both types of
 transformations may cause unexpected behavior when displaying. 
@@ -2154,7 +2178,7 @@ Keeping {\it shift key} pressed the rotation is reversed.
 
 Finally, these transformations can be made also in the corresponding menus, 
 either those appearing in the main menu, for
-the laboratory frame, or those in the molecular editor --see section {sec:4.13}-- for the local molecular frames.
+the laboratory frame, or those in the molecular editor --see section \ref{sec:4.13}-- for the local molecular frames.
 
 \begin{figure}[H]
 \begin{center}
@@ -2175,7 +2199,7 @@ submenus.
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=0.20\linewidth]{damqt320_measures.png}
+\includegraphics[width=0.15\linewidth]{damqt320_measures.png}
 \end{center}
 \caption{{Measures window}\label{fig:4_2_1}}
 \end{figure}
@@ -2286,9 +2310,8 @@ defined by centers 1, 2, and 4.
 The last selection will appear in the bottom of the menu window --fig \ref{fig:4_2_8}-- 
 and the results can be displayed in the viewer --fig \ref{fig:4_2_9}-- 
 or in a separate window --fig \ref{fig:4_2_10}.
-In this case, when more than one molecule has been loaded in the viewer, the tetrads of 
-centers are collected within parenthesis
-with a subscript indicating the molecule order index.
+A subscript\index{3D graphics!molecule subscript} indicates the molecule which contains the center (molecule 
+index).
 
 \hspace*{0mm}
 \begin{tabular}{lcr}
@@ -2438,7 +2461,7 @@ High resolution can be achieved by suitable scaling.
     \begin{figure}[H]
         \begin{center}
             \vspace*{0mm}
-            \includegraphics[width=0.5\linewidth]{damqt320_lights.png}
+            \includegraphics[width=0.48\linewidth]{damqt320_lights.png}
         \end{center}
         \vspace*{1mm}
         \caption{Lights \label{fig:4_7}}
@@ -2497,37 +2520,26 @@ the surface {\it Wire frame} mode is chosen --see \ref{sec:4.13.9}.
 
 % \hspace*{-2mm}
 \begin{tabular}{lcr}
-\begin{minipage}{.3\linewidth}
+\begin{minipage}{.45\linewidth}
     \begin{figure}[H]
         \begin{center}
 %             \hspace*{-5mm}
-            \includegraphics[width=0.79\linewidth]{damqt320_balls_sticks.png}
+            \includegraphics[width=0.4\linewidth]{damqt320_balls_sticks.png}
         \end{center}
-        \vspace*{5mm}
+%         \vspace*{5mm}
         \caption{Balls and sticks \label{fig:4_8}}
     \end{figure}
 \end{minipage}
 &
-\begin{minipage}{.3\linewidth}
+\begin{minipage}{.45\linewidth}
     \begin{figure}[H]
         \begin{center}
             \vspace*{0mm}
-            \includegraphics[width=0.7\linewidth]{damqt320_viewport.png}
+            \includegraphics[width=0.4\linewidth]{damqt320_viewport.png}
         \end{center}
-        \vspace*{5mm}
+%         \vspace*{5mm}
         \caption{Viewport\label{fig:4_9_1}}
     \end{figure}
-\end{minipage}
-&
-\begin{minipage}{.3\linewidth}
-\begin{figure}[H]
-    \begin{center}
-        % \vspace*{-5mm}
-        \includegraphics[width=0.74\linewidth]{damqt320_3D_settings.png}
-    \end{center}
-    \vspace*{5mm}
-    \caption{Save/retrieve \label{fig:4_12}}
-\end{figure}
 \end{minipage}
 \end{tabular}
 
@@ -2542,7 +2554,7 @@ the surface {\it Wire frame} mode is chosen --see \ref{sec:4.13.9}.
         \hspace*{5mm}
         \includegraphics[width=0.3\linewidth]{Clipping_plane_3.png}
     \end{center}
-    \vspace*{5mm}
+%     \vspace*{5mm}
     \caption{3D surface slices \label{fig:4_9_2}}
 \end{figure}
 
@@ -2552,12 +2564,14 @@ the surface {\it Wire frame} mode is chosen --see \ref{sec:4.13.9}.
 
 The {\it Optimize cluster}\index{optimize cluster} button displays a menu 
 --see fig \ref{fig:4_10_1}-- with options for 
-cluster building using the EPIC method as proposed by Gadre et al. 
+cluster building using the EPIC method as proposed by Gadre et al.\footnotemark
 \footnotetext{Gadre S, Babu K Resonance 4 (1999) 40}
 In this procedure clusters are generated by adding {\it guest} molecules to 
 a {\it host} molecule. Therefore, at least only one molecule must be
-added to the canvas. If only one molecule is present, it will act as host.
+added to the canvas. If only one molecule is present, it will act both as host
+and guest, in the template mode.
 
+\vspace*{5mm}
 
 % \hspace*{-2mm}
 \begin{tabular}{lcr}
@@ -2595,8 +2609,10 @@ added to the canvas. If only one molecule is present, it will act as host.
 \end{minipage}
 \end{tabular}
 
+\vspace*{5mm}
+
 There are two ways to build a cluster. The first one can be chosen by 
-checking the button under the legend {\it  Choose guests from canvas}, and
+checking the button with the legend {\it  Choose guests from canvas}, and
 requires at least two molecules loaded. The molecule loaded 
 first will be the host, and the remaining ones will act as guests.
 In this way, a starting point will be prepared from the molecules as 
@@ -2645,15 +2661,7 @@ The starting geometry can be recovered by pressing the button labeled
 as {\it Reset}.
 
 In the animation, an interpolation between computed frames is made to smooth
-the movements. Two interpolation schemes are implemented: one based on interpolating 
-quaternions used for rotations, and another impying a linear 
-interpolation of coordinates.
-The first scheme, albeit a bit more lengthy, is preferred as it keeps the
-geometries of the molecules undistorted (only rotations and translations
-of the molecule as a whole are allowed). On the contrary, linear interpolation
-may cause distortions on the molecular geometries and 
-the appearance of {\it ghost} bonding in the interpolated frames.
-
+the movements. 
 The animation can be recorded\index{3D graphics!cluster recording} 
 in a similar way as that employed for rotations
 by checking the box labeled as
@@ -2667,11 +2675,16 @@ removed to allow loading further molecules in the canvas.
 In appendix \ref{A6}, some strategies to facilitate usage of cluster optimization
 are discussed.
 
+\vspace*{5mm}
+
+\begin{tabular}{lcr}
+\hspace*{-3mm}
+\begin{minipage}{.5\linewidth}
 \subsection{Save geometry \label{sec:4.11}\index{3D graphics!geometry saving}}
 
 Pressing the button {\it Save geometry}\index{save geometry}
 a window is open for saving a file with the Cartesian
-coordinates of all molecules displayed in the canvas.
+coordinates (in angstrom) of all molecules displayed in the canvas.
 First molecule is labeled as {\it host} and the following ones,
 as {\it guests}.
 
@@ -2693,21 +2706,23 @@ an entry will be placed in the main menu of the viewer with one checkbox to
 activate/deactivate the molecule for translation/rotation operations and three buttons
 labeled as {\it Edit}, {\it Hide} and {\it Delete}.
 
-\vspace*{-1mm}
-\begin{tabular}{lr}
-\hspace*{-3mm}
-\begin{minipage}{.5\linewidth}
 The {\it Hide} button will toggle between hiding and showing the structure and 
 surfaces corresponding to the molecule. The label itself will change to {\it Show} when the 
 molecule is hidden. 
 
-The {\it Delete} button displays a window asking for confirmation 
-of the molecule deletion --see fig \ref{fig:4_13_1}. Acceptation causes the corresponding molecule 
-and all properties related to it (structure, surfaces, critical points, field lines, etc)
-to be removed from the viewer.
 \end{minipage}
 &
 \begin{minipage}{.5\linewidth}
+
+\begin{figure}[H]
+    \begin{center}
+        % \vspace*{-5mm}
+        \includegraphics[width=0.5\linewidth]{damqt320_3D_settings.png}
+    \end{center}
+    \vspace*{5mm}
+    \caption{Save/retrieve \label{fig:4_12}}
+\end{figure}
+
 \begin{figure}[H]
     \begin{center}
         % \vspace*{-5mm}
@@ -2719,16 +2734,26 @@ to be removed from the viewer.
 \end{minipage}
 \end{tabular}
 
+\vspace*{5mm}
+
+
+The {\it Delete} button displays a window asking for confirmation 
+of the molecule deletion --see fig \ref{fig:4_13_1}. Acceptation causes the corresponding molecule 
+and all properties related to it (structure, surfaces, critical points, field lines, etc)
+to be removed from the viewer.
+
 % \newpage
 
-\vspace*{-1mm}
+% \vspace*{-1mm}
 \begin{tabular}{lr}
 \hspace*{-3mm}
 \begin{minipage}{.5\linewidth}
+
 The {\it Edit} button\index{3D graphics!edit molecule} opens a window with a menu for editing the molecule as
-shown in fig \ref{fig:4_13_2}. Eight options for edition appear in the menu: 
+shown in fig \ref{fig:4_13_2}. Ten options for edition appear in the menu: 
 {\it Molecular skeleton}, {\it Labels}, {\it Rotations},
-{\it Translations}, {\it Field lines}, {\it Critical points}, {\it Add surface}, and
+{\it Translations}, {\it Axes}, {\it Hellmann-Feynman forces},  
+{\it 3D Field lines}, {\it Critical points}, {\it Add surface}, and
 {\it Add grid for isosurfaces}. Each button opens a window with a suitable menu to
 carry out the pertaining operations. A brief description of these options follow.
 
@@ -2837,7 +2862,7 @@ frames and making movies. In this case, animation ends when recording finishes.
     \begin{figure}[H]
         \begin{center}
             % \vspace*{-5mm}
-            \includegraphics[width=0.5\linewidth]{damqt320_rotations}
+            \includegraphics[width=0.64\linewidth]{damqt320_rotations}
         \end{center}
 %         \vspace*{16mm}
         \caption{Rotations menu \label{fig:4_13_3_1}}
@@ -3206,16 +3231,17 @@ and field lines.
 The 3D viewer supports the mouse events\index{mouse operations} summarized below.
 \begin{itemize}
 \item Holding the {\it left button}\index{3D graphics!rotations}, horizontal mouse displacements cause
-rotation around the space-fixed $y$ axis, and vertical displacements, rotation
-around the space-fixed $x$ axis.
+rotation around the space-fixed $y$ axis (screen vertical), and vertical displacements, rotation
+around the space-fixed $x$ axis (screen horizontal).
 \item Holding the {\it right button}, mouse displacements cause
-rotation around the space-fixed $z$ axis.
+rotation around the space-fixed $z$ axis (screen perpendicular).
 \item Holding together the \texttt{Shift} key and {\it left button}\index{3D graphics!translations}, horizontal
 mouse displacements cause translation along the space-fixed $x$ axis, and
 vertical displacements, translation along the space-fixed $y$ axis.
 \item Holding together the \texttt{Shift} key and the {\it right button}, mouse
 displacements cause translation along the space-fixed $z$ axis ({\it zooming})\index{3D graphics!molecule zooming}.
-\item Holding the \texttt{Ctrl} key and double clicking on a molecule structure or surface toggles molecule activation\index{3D graphics!molecule activation}.
+\item Holding the \texttt{Ctrl} key and double clicking on a molecule structure or surface toggles molecule activation\index{3D graphics!molecule activation}. If more than one molecule is present in the region, it
+operates on the molecule loaded first.
 \item Double clicking the {\it left button}\index{3D graphics!!atom selection} on a nucleus toggles atom selection. This action takes effect 
 when the {\it Only selected} box is checked in the {\it Labels} menu of the molecule editor \ref{sec:4.13.2}.
 \item Double clicking the {\it left button} on a critical 
@@ -3372,8 +3398,8 @@ and density elements, and preventing the above mentioned
 issue when very high quality basis sets are used.
 
 Finally, it must be recalled that molecular orbitals attained in a 
-UHF\index{MOLPRO interface!UHF orbitals} calculations are different in \out{ } file 
-from those of \xml{ } file. In \out{ } file appear separated in two sets corresponding 
+UHF\index{MOLPRO interface!UHF orbitals} calculation are different in \out{ } file 
+from those of \xml{ } file. In \out{ } file they appear separated in two sets corresponding 
 to positive and negative spin components, whereas in the \xml{ } file natural orbitals 
 are stored. As a consequence, the two interfaces will yield different orbitals.
 
@@ -4255,17 +4281,17 @@ procedure is followed. Here we propose some steps that may be helpful
 for this purpose, starting from scratch.
 
 The preliminary steps are common to other DAMQT applications, and they will be
-just mentioned without much detail, and we will focus here in what are more 
-specific tasks for cluster optimization usinf EPIC.
+just mentioned without much detail. We will focus here in what are more 
+specific tasks for cluster optimization using EPIC.
 
 \begin{enumerate}
 \item Select which molecule will play as {\it host} and which other
 will be treated as guests in the cluster (both could be the same).
-This distinction is important, as more information required for host than for 
+This distinction is important, as more information is required for host than for 
 guests.
 
 \item Start a project from a molecular calculation for the host with any 
-standard package compatible by DAMQT.
+standard package compatible with DAMQT.
 
 \item Carry out the DAM analysis --sec \ref{sec:2.2}-- and compute the 
 MESP critical points --sec \ref{sec:2.6}.
@@ -4303,14 +4329,14 @@ and displaced to suitable starting positions. Displaying some geometric paramete
 \item Remember that translations and rotations act on the activate molecules.
 Activation can be toggled in the corresponding checkbox or with mouse, by
 \texttt{Ctrl} + {\it Double click}.  When more than one molecule 
-(either active or inactive) are placed in the same region, the latter
-only acts on the molecule loaded first.
+(either active or inactive) are placed in the same region, the latter action
+only operates on the molecule loaded first.
 
 \item Deactivating all molecules, the system can be translated or rotated as
 a whole. You can use this fact for improving perception of the actual 
 positions.
 
-\item Keeping the option {\it Choose guest from canvas} checked, press
+\item With the option {\it Choose guest from canvas} checked, press
 the {\it Exec} button  --see fig \ref{fig:A6_2}-- to start optimization.
 
 \item Previously loaded molecules will be hidden, the cluster 
@@ -4350,12 +4376,12 @@ the process has been completed.
 
 
 \item A file {\it *.xyz\_frames} has been created, containing the geometries
-at the starting, intermediate and ending points. The path and name 
+at the starting, intermediate and ending positions. The path and name 
 of this file are supplied
 in suitable boxes --see fig \ref{fig:A6_5}. 
 
 \item File {\it *.xyz\_frames} can be used
-for animation by loading in the pertaining box --see fig \ref{fig:A6_5}.
+for animation by loading it in the pertaining box --see fig \ref{fig:A6_6}.
 The animation can be started by pressing button labeled as {\it Replay}.
 Notice that geometric parameters have not been shown during optimization.
 You can chose them now, as indicated in section \ref{sec:4.2}, to be displayed 
@@ -4387,7 +4413,7 @@ during animation. The starting geometry of the cluster can be restored by pressi
 
 \item Animation can be recorded by checking the box labeled as
 {\it Record optimization} and pressing the {\it Replay} button.
-Meanwhile recording is in progress, a message will appear as
+While recording is in progress, a message will appear as
 shown in fig \ref{fig:A6_7}
 
 % \vspace*{-1.cm}
@@ -4453,7 +4479,7 @@ only selected CPs are wanted as initial points, check the pertaining box too
 \item Push the {\it Exec} button to start optimization.
 
 \item Notice that cluster can be translated or rotated while
-optimizing to change the viewpoint --see fig \ref{fig:A6_9}.
+optimizing to change the viewpoint --see fig \ref{fig:A6_10}.
 These changes will be applied also when recording. In this regard, 
 it is important to note that recording is made by capturing the 
 pixels of the canvas. As a consequence, any change that may appear in
@@ -4471,6 +4497,32 @@ In MS-Windows some capture formats are not allowed, in particular this happens w
 
 When 3D display editor is undocked, values in spinboxes can be changed only with the right arrows. All the features are 
 restored when the menu is docked back.
+
+\section*{Credits and acknowledgements}
+
+DAMQT is an opensource project and, as such, it has profitted from the 
+unselfish work of many other people involved in free software and opensource developments.
+Here we will explicitly acknowledge the most conspicuous but we want to extend our warmest
+recognition to all the people who have contributed in a variety of manners, from solving doubts
+to providing useful pieces of codes for some specific purposes.
+
+We thank ...
+
+Dr. George Benthien, for his Fortran character string utilities and math evaluation module \\
+(https://gbenthien.net/strings/index.html)
+
+Raghavendra Chandrashekara, for his implementation of marching cubes algorithm
+based on source code provided by Paul Bourke and Cory Gene Bloyd, 
+who are also gratefully acknowledged.
+
+Qt project for allowing us to use Qt library and tools for open source development.
+
+StackOveflow contributors and managers, for their invaluable help in solving many doubts 
+and providing useful pieces of code for specific tasks.
+
+OpenBabel, VLC and ffmpeg developers for their outstanding work and generosity offering
+their excellent products for free distribution and usage.
+
 
 \newpage
 
