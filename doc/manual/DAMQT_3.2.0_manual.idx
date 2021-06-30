@@ -133,6 +133,7 @@
 \indexentry{3D graphics!molecule subscript|hyperpage}{31}
 \indexentry{angles measurement|hyperpage}{31}
 \indexentry{dihedral angles measurement|hyperpage}{31}
+\indexentry{3D graphics!molecule subscript|hyperpage}{32}
 \indexentry{3D graphics!lab rotations|hyperpage}{32}
 \indexentry{3D graphics!lab rotations|hyperpage}{32}
 \indexentry{3D graphics!record lab rotations|hyperpage}{32}
@@ -147,8 +148,8 @@
 \indexentry{light source|hyperpage}{33}
 \indexentry{ambient light|hyperpage}{33}
 \indexentry{light power|hyperpage}{33}
-\indexentry{3D graphics!balls and sticks|hyperpage}{33}
-\indexentry{balls and sticks|hyperpage}{33}
+\indexentry{3D graphics!balls and sticks|hyperpage}{34}
+\indexentry{balls and sticks|hyperpage}{34}
 \indexentry{3D graphics!bonding threshold|hyperpage}{34}
 \indexentry{3D graphics!viewport|hyperpage}{34}
 \indexentry{viewport|hyperpage}{34}
@@ -175,8 +176,8 @@
 \indexentry{3D graphics!animate rotations|hyperpage}{38}
 \indexentry{3D graphics!record animation|hyperpage}{38}
 \indexentry{3D graphics!translations|hyperpage}{38}
-\indexentry{3D graphics!axes|hyperpage}{39}
-\indexentry{3D graphics!Hellmann-Feyman forces|hyperpage}{39}
+\indexentry{3D graphics!axes|hyperpage}{38}
+\indexentry{3D graphics!Hellmann-Feyman forces|hyperpage}{38}
 \indexentry{3D graphics!3D lines|hyperpage}{39}
 \indexentry{3D graphics!electric field|hyperpage}{39}
 \indexentry{3D graphics!density gradient|hyperpage}{39}
@@ -184,19 +185,19 @@
 \indexentry{3D graphics!critical points|hyperpage}{40}
 \indexentry{3D graphics!MED critical points|hyperpage}{40}
 \indexentry{3D graphics!MESP critical points|hyperpage}{40}
-\indexentry{3D graphics!surfaces|hyperpage}{41}
-\indexentry{3D graphics!sigma hole surfaces|hyperpage}{41}
-\indexentry{3D graphics!basins|hyperpage}{41}
+\indexentry{3D graphics!surfaces|hyperpage}{40}
+\indexentry{3D graphics!sigma hole surfaces|hyperpage}{40}
+\indexentry{3D graphics!basins|hyperpage}{40}
 \indexentry{3D graphics!high quality isosurfaces|hyperpage}{41}
-\indexentry{3D graphics!isosurfaces|hyperpage}{42}
-\indexentry{3D graphics!MED isosurfaces|hyperpage}{42}
-\indexentry{3D graphics!MESP isosurfaces|hyperpage}{42}
-\indexentry{3D graphics!molecular orbitals|hyperpage}{42}
+\indexentry{3D graphics!isosurfaces|hyperpage}{41}
+\indexentry{3D graphics!MED isosurfaces|hyperpage}{41}
+\indexentry{3D graphics!MESP isosurfaces|hyperpage}{41}
+\indexentry{3D graphics!molecular orbitals|hyperpage}{41}
 \indexentry{3D graphics!surface color|hyperpage}{42}
-\indexentry{3D graphics!solid surfaces|hyperpage}{43}
-\indexentry{3D graphics!wired surfaces|hyperpage}{43}
-\indexentry{3D graphics!transparency|hyperpage}{43}
-\indexentry{3D graphics!translucency correction|hyperpage}{43}
+\indexentry{3D graphics!solid surfaces|hyperpage}{42}
+\indexentry{3D graphics!wired surfaces|hyperpage}{42}
+\indexentry{3D graphics!transparency|hyperpage}{42}
+\indexentry{3D graphics!translucency correction|hyperpage}{42}
 \indexentry{3D graphics!high quality isosurfaces|hyperpage}{43}
 \indexentry{3D graphics!analytical normals|hyperpage}{43}
 \indexentry{isoden@\textsl{isoden} file|hyperpage}{43}

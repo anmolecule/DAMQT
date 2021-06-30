@@ -28,10 +28,10 @@
     \subitem add molecule, \hyperpage{29}
     \subitem analytical normals, \hyperpage{43}
     \subitem animate rotations, \hyperpage{38}
-    \subitem axes, \hyperpage{39}
+    \subitem axes, \hyperpage{38}
     \subitem background color, \hyperpage{33}
-    \subitem balls and sticks, \hyperpage{33}
-    \subitem basins, \hyperpage{41}
+    \subitem balls and sticks, \hyperpage{34}
+    \subitem basins, \hyperpage{40}
     \subitem bonding threshold, \hyperpage{34}
     \subitem capture, \hyperpage{33}
     \subitem clipping planes, \hyperpage{34}
@@ -46,25 +46,25 @@
     \subitem geometry measures, \hyperpage{30}
     \subitem geometry saving, \hyperpage{36}
     \subitem gradient path, \hyperpage{39}
-    \subitem Hellmann-Feyman forces, \hyperpage{39}
+    \subitem Hellmann-Feyman forces, \hyperpage{38}
     \subitem high quality isosurfaces, \hyperpage{41}, \hyperpage{43}
     \subitem image capture, \hyperpage{33}
-    \subitem isosurfaces, \hyperpage{42}
+    \subitem isosurfaces, \hyperpage{41}
     \subitem lab axes, \hyperpage{33}
     \subitem lab rotations, \hyperpage{32}
     \subitem lab translations, \hyperpage{33}
     \subitem labels, \hyperpage{37}
     \subitem lights, \hyperpage{33}
     \subitem MED critical points, \hyperpage{40}
-    \subitem MED isosurfaces, \hyperpage{42}
+    \subitem MED isosurfaces, \hyperpage{41}
     \subitem MESP critical points, \hyperpage{40}
-    \subitem MESP isosurfaces, \hyperpage{42}
-    \subitem molecular orbitals, \hyperpage{42}
+    \subitem MESP isosurfaces, \hyperpage{41}
+    \subitem molecular orbitals, \hyperpage{41}
     \subitem molecular skeleton, \hyperpage{37}
     \subitem molecule activation, \hyperpage{43}
     \subitem molecule editor, \hyperpage{36}
     \subitem molecule rotations, \hyperpage{38}
-    \subitem molecule subscript, \hyperpage{31}
+    \subitem molecule subscript, \hyperpage{31, 32}
     \subitem molecule zooming, \hyperpage{43}
     \subitem mouse, \hyperpage{43}
     \subitem record animation, \hyperpage{38}
@@ -73,17 +73,17 @@
     \subitem rotations, \hyperpage{30}, \hyperpage{43}
     \subitem save/retrieve settings, \hyperpage{36}
     \subitem show molecule editor, \hyperpage{37}
-    \subitem sigma hole surfaces, \hyperpage{41}
-    \subitem solid surfaces, \hyperpage{43}
+    \subitem sigma hole surfaces, \hyperpage{40}
+    \subitem solid surfaces, \hyperpage{42}
     \subitem surface color, \hyperpage{42}
-    \subitem surfaces, \hyperpage{41}
+    \subitem surfaces, \hyperpage{40}
     \subitem translation keys, \hyperpage{30}
     \subitem translations, \hyperpage{30}, \hyperpage{38}, 
 		\hyperpage{43}
-    \subitem translucency correction, \hyperpage{43}
-    \subitem transparency, \hyperpage{43}
+    \subitem translucency correction, \hyperpage{42}
+    \subitem transparency, \hyperpage{42}
     \subitem viewport, \hyperpage{34}
-    \subitem wired surfaces, \hyperpage{43}
+    \subitem wired surfaces, \hyperpage{42}
     \subitem zoom, \hyperpage{30}
   \item 3D grid
     \subitem grid definition, \hyperpage{13}
@@ -106,7 +106,7 @@
   \indexspace
 
   \item background color, \hyperpage{27}, \hyperpage{33}
-  \item balls and sticks, \hyperpage{33}
+  \item balls and sticks, \hyperpage{34}
   \item bond skeleton, \hyperpage{12}
 
   \indexspace
