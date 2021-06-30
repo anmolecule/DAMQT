@@ -6,11 +6,14 @@
 
 \oddsidemargin 2.2cm
 \topmargin 0cm
+\textheight 15cm
 
 %opening
 % \title{}
 % \author{}
 \begin{document}
+
+\pagestyle{empty}
 
 % 
 % \maketitle
@@ -35,24 +38,27 @@ fill=orange!30]
 \begin{tikzpicture}[node distance=1.5cm]
  \node (stdpack) [startstop] {Standard Packages for Molecular Calculations};
  
- \node (AuxNode1)   [below of=stdpack] {};
+ \node (AuxNode1)   [below of=stdpack, yshift=-1.0cm] {};
  \node (AuxNode2w)  [text width=0cm, left of=AuxNode1, xshift=-1.5cm] {};
  \node (AuxNode2e)  [text width=0cm, right of=AuxNode1, xshift=0.5cm] {};
  \node (interfaces) [process1, below of=AuxNode2w] {Interfaces};
  \node (GUI)        [process1, below of=AuxNode2e] {GUI};
- \node (AuxNode3)   [below of = stdpack, xshift=4.cm, yshift=-1.5cm] {};
- \node (AuxNode4nu)  [right of = AuxNode3, yshift=3cm] {};
- \node (AuxNode4nd)  [right of = AuxNode3, yshift=1cm] {};
- \node (AuxNode4su)  [right of = AuxNode3, yshift=-1cm] {};
- \node (AuxNode4sd)  [right of = AuxNode3, yshift=-3cm] {};
+ \node (AuxNode3)   [below of = stdpack, xshift=4.cm, yshift=-2.5cm] {};
+ \node (AuxNode4nu)  [right of = AuxNode3, yshift=4cm] {};
+ \node (AuxNode4nd)  [right of = AuxNode3, yshift=2cm] {};
+ \node (AuxNode4su)  [right of = AuxNode3, yshift=0cm] {};
+ \node (AuxNode4sd)  [right of = AuxNode3, yshift=-2cm] {};
+ \node (AuxNode4ss)  [right of = AuxNode3, yshift=-4cm] {};
  \node (AuxNode5nu)  [left of = AuxNode4nu, xshift=0.cm] {};
  \node (AuxNode5nd)  [left of = AuxNode4nd, xshift=0.cm] {};
  \node (AuxNode5su)  [left of = AuxNode4su, xshift=0.cm] {};
  \node (AuxNode5sd)  [left of = AuxNode4sd, xshift=0.cm] {};
+ \node (AuxNode5ss)  [left of = AuxNode4ss, xshift=0.cm] {};
  \node (DAMORB)     [process1, right of=AuxNode4nu, xshift=-1.cm] {DAMORB};
  \node (DAMORBMPI)  [process1, right of=AuxNode4nd, xshift=-1.cm] {DAMORBMPI};
  \node (DAMZERNIKE) [process1, right of=AuxNode4su, xshift=-1.cm] {DAMZERNIKE};
  \node (DAMZERNIKEMPI)  [process1, right of=AuxNode4sd, xshift=-0.8cm] {DAMZERNIKE\_MPI};
+ \node (DAMMESPIMIZER)  [process1, right of=AuxNode4ss, xshift=-0.25cm] {DAMMESPIMIZER (EPIC)};
  \node (AuxNode6n)  [right of = DAMZERNIKE, xshift=1.1cm] {};
  \node (AuxNode6s)  [right of = DAMZERNIKEMPI, xshift=0.9cm] {};
  \node (AuxNode7)  [below of = AuxNode6n, yshift=0.5cm] {};
@@ -63,44 +69,53 @@ fill=orange!30]
  \node (AuxNode10s)  [right of = AuxNode9s, xshift=-1cm] {};
  \node (DAMDENZERNIKE) [process1, right of=AuxNode10n, xshift=1.cm] {DAMDENZERNIKE};
  \node (DAMDENZERNIKEMPI)  [process1, right of=AuxNode10s, xshift=1cm] {DAMDENZERNIKE\_MPI};
- \newcount\cnt
- \def\cnt{-10cm}
+
+ \newcount\cntx
+ \def\cntx{-10cm}
+ \newcount\cnty
+ \def\cnty{-2.0cm}
  \node (AuxNode16w)  [below of = interfaces, xshift=0.cm] {};
  \node (AuxNode16e)  [below of = GUI, xshift=0.cm] {};
  \node (AuxNode17)   [below of = interfaces, xshift=2.5cm] {};
  \node (AuxNode18)   [below of = AuxNode17, yshift=0.5cm] {};
  \node (DAMQT)      [process2, below of = AuxNode17, yshift=0.cm] {DAM, GDAM, DAM\_MPI, GDAM\_MPI};
- \node (AuxNode19)   [below of = AuxNode17, yshift=-1.5cm] {};
- \node (AuxNode19w)  [below of = AuxNode17, xshift=\cnt, yshift=-1.5cm] {};
- \node (AuxNode19e)  [below of = AuxNode17, xshift=\cnt+26cm, yshift=-1.5cm] {};
- \node (AuxNode20a) [below of = AuxNode17, xshift=\cnt, yshift=-1.5cm] {};
+ \node (AuxNode19)   [below of = AuxNode17, yshift=-2.5cm] {};
+ \node (AuxNode19w)  [below of = AuxNode17, xshift=\cntx, yshift=\cnty] {};
+ \node (AuxNode19e)  [below of = AuxNode17, xshift=\cntx+26cm, yshift=\cnty] {};
+ \node (AuxNode20a) [below of = AuxNode17, xshift=\cntx, yshift=\cnty] {};
  \node[text width=8em] (DAMDEN)     [process3, below of = AuxNode20a, yshift=0.5cm] {DAMDEN \\ DAMISODEN};
- \node (AuxNode20b) [below of = AuxNode17, xshift={\cnt+2cm}, yshift=-1.5cm] {};
+ \node (AuxNode20b) [below of = AuxNode17, xshift={\cntx+2cm}, yshift=\cnty] {};
  \node (DAMDENMPI)  [process3, below of = AuxNode20b, yshift=-1.cm] {DAMDEN\_MPI};
- \node (AuxNode20c) [below of = AuxNode17, xshift=\cnt+4cm, yshift=-1.5cm] {};
+ \node (AuxNode20c) [below of = AuxNode17, xshift=\cntx+4cm, yshift=\cnty] {};
  \node[text width=8em] (DAMPOT)     [process3, below of = AuxNode20c, yshift=0.5cm] {DAMPOT DAMISOPOT};
- \node (AuxNode20d) [below of = AuxNode17, xshift=\cnt+6cm, yshift=-1.5cm] {};
+ \node (AuxNode20d) [below of = AuxNode17, xshift=\cntx+6cm, yshift=\cnty] {};
  \node (DAMPOTMPI)  [process3, below of = AuxNode20d, yshift=-1.cm] {DAMPOT\_MPI};
- \node (AuxNode20e) [below of = AuxNode17, xshift=\cnt+8cm, yshift=-1.5cm] {};
+ \node (AuxNode20e) [below of = AuxNode17, xshift=\cntx+8cm, yshift=\cnty] {};
  \node (DAMTOPOGRAPHY)   [process3, below of = AuxNode20e, yshift=0.5cm] {DAMTOPOGRAPHY};
- \node (AuxNode20f) [below of = AuxNode17, xshift=\cnt+10cm, yshift=-1.5cm] {};
+ \node (AuxNode20f) [below of = AuxNode17, xshift=\cntx+10cm, yshift=\cnty] {};
  \node (DAMTOPOGRAPHYMPI)  [process3, below of = AuxNode20f, yshift=-1.cm] {DAMTOPOGRAPHY\_MPI};
- \node (AuxNode20g) [below of = AuxNode17, xshift=\cnt+12cm, yshift=-1.5cm] {};
+ \node (AuxNode20g) [below of = AuxNode17, xshift=\cntx+12cm, yshift=\cnty] {};
  \node (DAMSGHOLE)   [process3, below of = AuxNode20g, yshift=0.5cm] {DAMSGHOLE}; 
- \node (AuxNode20h) [below of = AuxNode17, xshift=\cnt+14.2cm, yshift=-1.5cm] {};
+ \node (AuxNode20h) [below of = AuxNode17, xshift=\cntx+14.2cm, yshift=\cnty] {};
  \node (DAMSGHOLEMPI)[process3, below of = AuxNode20h, yshift=-1.cm] {DAMSGHOLE\_MPI};
- \node (AuxNode20i) [below of = AuxNode17, xshift=\cnt+16cm, yshift=-1.5cm] {};
+ \node (AuxNode20i) [below of = AuxNode17, xshift=\cntx+16cm, yshift=\cnty] {};
  \node (DAMFIELD)   [process3, below of = AuxNode20i, yshift=0.5cm] {DAMFIELD}; 
- \node (AuxNode20j) [below of = AuxNode17, xshift=\cnt+18cm, yshift=-1.5cm] {};
+ \node (AuxNode20j) [below of = AuxNode17, xshift=\cntx+18cm, yshift=\cnty] {};
  \node (DAMFIELDPNT)    [process3, below of = AuxNode20j, yshift=-1.cm] {DAMFIELDPNT};
- \node (AuxNode20k) [below of = AuxNode17, xshift=\cnt+20cm, yshift=-1.5cm] {};
+ \node (AuxNode20k) [below of = AuxNode17, xshift=\cntx+20cm, yshift=\cnty] {};
  \node (DAMDENGRAD) [process3, below of = AuxNode20k, yshift=0.5cm] {DAMDENGRAD};
- \node (AuxNode20l) [below of = AuxNode17, xshift=\cnt+22cm, yshift=-1.5cm] {};
+ \node (AuxNode20l) [below of = AuxNode17, xshift=\cntx+22cm, yshift=\cnty] {};
  \node (DAMFORCES) [process3, below of = AuxNode20l, yshift=-1.cm] {DAMFORCES};
- \node (AuxNode20m) [below of = AuxNode17, xshift=\cnt+24cm, yshift=-1.5cm] {};
+ \node (AuxNode20m) [below of = AuxNode17, xshift=\cntx+24cm, yshift=\cnty] {};
  \node (DAMFRAD) [process3, below of = AuxNode20m, yshift=0.5cm] {DAMFRAD};
- \node (AuxNode20n) [below of = AuxNode17, xshift=\cnt+26cm, yshift=-1.5cm] {};
+ \node (AuxNode20n) [below of = AuxNode17, xshift=\cntx+26cm, yshift=\cnty] {};
  \node (DAMMULTROT) [process3, below of = AuxNode20n, yshift=-1.cm] {DAMMULTROT};
+ 
+ \node (AuxNode11n) [below of = DAMQT, xshift=1.cm, yshift=1.0cm] {};
+ \node (AuxNode11s) [below of = AuxNode11n, yshift=0.7cm] {};
+ \node (AuxNode11e) [left of = DAMMESPIMIZER, xshift=-23,yshift=-0.3cm] {};
+ \draw [line] (AuxNode11n.center) -- (AuxNode11s.center);
+ \draw [arrow] (AuxNode11s.center) -- (AuxNode11e.center);
  
  \draw [line] (stdpack.south) -- (AuxNode1.center);
  \draw [line] (AuxNode1.center) -- (AuxNode2w.center);
@@ -108,11 +123,12 @@ fill=orange!30]
  \draw [line] (AuxNode2w.center) -- (interfaces.north);
  \draw [line] (AuxNode2e.center) -- (GUI.north);
  \draw [line] (GUI.east) -- (AuxNode3.center);
- \draw [line] (AuxNode5sd.center) -- (AuxNode5nu.center);
+ \draw [line] (AuxNode5ss.center) -- (AuxNode5nu.center);
  \draw [arrow] (AuxNode5nu.center) -- (DAMORB);
  \draw [arrow] (AuxNode5nd.center) -- (DAMORBMPI);
  \draw [arrow] (AuxNode5su.center) -- (DAMZERNIKE);
  \draw [arrow] (AuxNode5sd.center) -- (DAMZERNIKEMPI);
+ \draw [arrow] (AuxNode5ss.center) -- (DAMMESPIMIZER);
  \draw [line]  (DAMZERNIKE.east) -- (AuxNode6n.center);
  \draw [line]  (DAMZERNIKEMPI.east) -- (AuxNode6s.center);
  \draw [line]  (AuxNode6n.center) -- (AuxNode6s.center);
