@@ -189,12 +189,15 @@
     ! If xyz file does not contain partial charges, obabel is used to get initial charges.
     if (nocharge) then
         if (iswindows) then
-            exec = '"c:' // dirsep // "Program Files" // dirsep // "OpenBabel-3.1.1" // dirsep // &
-            & 'obabel.exe" -ixyz '//trim(adjustl(basename))//trim(adjustl(extn)) &
+!            exec = '"c:' // dirsep // "Program Files" // dirsep // "OpenBabel-3.1.1" // dirsep // &
+            exec = &
+            & '"obabel.exe" -ixyz '//trim(adjustl(basename))//trim(adjustl(extn)) &
             & //" --partialcharge qtpie -omol2 -O " &
             & //trim(adjustl(basename))//".mol2"
             print*,exec
             call system(exec, icmdout)
+            !write(6,*) 'llama a execute_command_line'
+            !call execute_command_line(exec,cmdstat=icmdout,cmdmsg=acmdout)
         else
             exec = "obabel -ixyz "//trim(adjustl(basename))//trim(adjustl(extn)) &
             & //" --partialcharge qtpie -omol2 -O " &
@@ -204,7 +207,13 @@
         endif
 
         if (icmdout/=0) then
-            print *,"Exiting Code. Input xyz file does not contain charge &
+            print *,"Exiting Code: ", icmdout
+            if (iswindows) then
+                print *,"Exiting Code: ", icmdout
+            else
+                print *,"Exiting Code: ", icmdout, ' Exiting message: ', acmdout
+            endif
+            print*, "Maybe input xyz file does not contain charge &
                 &and openbabel is not installed on your computer."
             print *,"If you believe you have charges in input xyz file, insert nocharge = .false. in options and rerun."
             stop
