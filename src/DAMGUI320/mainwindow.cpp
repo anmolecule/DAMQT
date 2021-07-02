@@ -1,4 +1,4 @@
-﻿//  Copyright 2008-2019, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+﻿//  Copyright 2008-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 //  Guillermo Ramirez, David Zorrilla, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
 // 
 //  This file is part of DAMQT.
@@ -653,7 +653,7 @@ bool MainWindow::mustSave()
 void MainWindow::about()
 {
     QMessageBox::about(this,tr("About DAMQT"), "<h2>"+tr("DAMQT 3.2")+"</h2>" "<p>"
-        +tr("Copyright &copy; 2008-2019")+"</p>"
+        +tr("Copyright &copy; 2008-2021")+"</p>"
         "<p>"+tr("DAMQT is a program for the analysis of electron molecular density, "
         "electrostatic potential and field and Hellman-Feynman forces on nuclei.")
         +"</p>" "<p>"+tr("Developed in the Departamento de Quimica-Fisica Aplicada of "

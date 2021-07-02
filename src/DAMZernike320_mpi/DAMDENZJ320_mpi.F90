@@ -1,4 +1,4 @@
-!  Copyright 2013-2018, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+!  Copyright 2013-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 !  Guillermo Ramirez
 ! 
 !  This file is part of DAM320.
@@ -29,7 +29,7 @@
 ! Version of March 2018
 !
 ! #define DBLPRCGRID    ! Uncomment this line  if double precision grid is wanted
-  program DAMDENZernike2017_mpi
+  program DAMDENZernike_mpi
     USE MPI
     USE DAMDENZERNIKEMPI320_D
     USE strings, only: lowercase

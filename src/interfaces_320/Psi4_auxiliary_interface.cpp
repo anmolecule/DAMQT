@@ -1,14 +1,14 @@
-//  Copyright 2013-2020, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+//  Copyright 2013-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 //  Guillermo Ramirez, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
 // 
 //  This file is part of DAM320.
 // 
-//  DAM2017 is free software: you can redistribute it and/or modify
+//  DAM320 is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 // 
-//  DAM2017 is distributed in the hope that it will be useful,
+//  DAM320 is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.

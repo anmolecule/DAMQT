@@ -26,12 +26,12 @@
 !	This subroutine was first generated with notebook integrales3C-7.nb and then modified by hand
 !	Prepared for 0 <= l <= 22
 !
-!	¡OJO! ¡OJO! ¡OJO! ¡OJO! ¡OJO! ¡OJO! ¡OJO! ¡OJO!
+!	OJO! OJO! OJO! OJO! OJO! OJO! OJO! OJO!
 !
 !	The ckplm defined herein differ from those appearing in the article of J. Comp. Chem. (2005) 26, 846-855
 !	(Translation of STO Charge Distributions) in a factor (-1)**m
 !
-!	¡OJO! ¡OJO! ¡OJO! ¡OJO! ¡OJO! ¡OJO! ¡OJO! ¡OJO!
+!	OJO! OJO! OJO! OJO! OJO! OJO! OJO! OJO!
 
     integer(4) :: ip, k, kdim, kmax, knt, l, lmax, ldim, m
     real(8) :: ckplm(0:kdim,ldim), den(0:lmax)

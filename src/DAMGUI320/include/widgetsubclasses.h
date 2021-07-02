@@ -1,4 +1,4 @@
-//  Copyright 2008-2018, Rafael Lopez, Alfredo Aguado, Octavio Roncero
+//  Copyright 2008-2021, Rafael Lopez, Alfredo Aguado, Octavio Roncero
 //  This file is part of the package VIEWER
 //
 //  Author: Rafael Lopez

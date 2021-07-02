@@ -1,3 +1,20 @@
+!  Copyright 2011-2021, Rafael Lopez, Gabriel Urquiza Carvalho
+!
+!  This file is part of Zernike_Jacobi_320 package.
+!  Zernike_Jacobi_320 is distributed in the hope that it will be useful,
+!  but WITHOUT ANY WARRANTY; without even the implied warranty of
+!  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+!  GNU General Public License for more details.
+!
+!  You should have received a copy of the GNU General Public License
+!  along with Zernike_Jacobi_320.  If not, see <http://www.gnu.org/licenses/>.
+!
+!------------------------------------------------------------------------
+!
+! Program for computation of Zernike 3D and Jacobi moments of a molecular density of STO
+!
+! Version of March 2018
+!
 !===============================================================================================
 !                 MODULE Zernike_Jacobi_D
 !===============================================================================================

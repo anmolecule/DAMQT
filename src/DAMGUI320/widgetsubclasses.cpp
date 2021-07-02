@@ -1,5 +1,8 @@
-//  Copyright 2008-2019, Rafael Lopez, Alfredo Aguado, Octavio Roncero
-//  This file is part of the package VIEWER
+//  Copyright 2008-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+//  Guillermo Ramirez, David Zorrilla, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
+//
+//  This file is part of DAMQT.
+//
 //
 //  Author: Rafael Lopez
 //  rafael.lopez@uam.es
