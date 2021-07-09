@@ -57,14 +57,19 @@ glWidget::glWidget(QString *name, QWidget *parent) : QWidget(parent)
     cylradius = 0.05;
     deltaAngles = 4.f;
     delay = 100;
+    displayEPIC = true;
     disthressq = pow((INIT_BOND_THRESHOLD * ANGSTROM_TO_BOHR),2);
     dltinterval = (MAX_INTERVAL-MIN_INTERVAL)/float(INTERVAL_SCALE);
     elem = new Elements();
+    energycolor = QColor(255, 172, 0, 255);
+    energyfont = QFont("Helvetica", 18, QFont::Bold);
+    energyprecision = 4;
     fov = PERSPECTIVE_ANGLE;
     framesfile = "";
     fullmolname = QString("");
     gdockrewidth = 1;
     guestfromcanvas = true;
+    hartree = false;
     interpoints = 10;
     interval = MAX_INTERVAL - dltinterval * INTERVAL_INI;
     lightcolor = QColor(230,230,230);
@@ -539,7 +544,7 @@ void glWidget::create_optimize_cluster_menu(){
     QDLwindow->mespimizerdialog->setmolecules(molecules);
     QDLwindow->mespimizerdialog->setTXTframesfile(mespimizerfile);
     QDLwindow->mespimizerdialog->setrecordfile(mespimirecordfilename);
-//    QDLwindow->mespimizerdialog->setguessfromcanvas(guestfromcanvas);
+    QDLwindow->mespimizerdialog->setguessfromcanvas(guestfromcanvas);
     QDLwindow->mespimizerdialog->setclustername(clustername);
     QDLwindow->mespimizerdialog->setframesfile(framesfile);
     QDLwindow->mespimizerdialog->setspeed(speed);
@@ -548,6 +553,11 @@ void glWidget::create_optimize_cluster_menu(){
     QDLwindow->mespimizerdialog->setSPBtemplatemax(molecules->length());
     QDLwindow->mespimizerdialog->setSPBtemplate(templateindex);
     QDLwindow->mespimizerdialog->setCHKoptimizeselect(onlyselcp);
+    QDLwindow->mespimizerdialog->setdisplayEPIC(displayEPIC);
+    QDLwindow->mespimizerdialog->setenergyprecision(energyprecision);
+    QDLwindow->mespimizerdialog->setenergyfont(energyfont);
+    QDLwindow->mespimizerdialog->setenergycolor(energycolor);
+    QDLwindow->mespimizerdialog->sethartree(hartree);
 
     BTNoptimizeCluster = new QPushButton();
     BTNoptimizeCluster->setText(tr("Optimize cluster"));
@@ -568,7 +578,11 @@ void glWidget::create_optimize_cluster_menu(){
     connections << connect(QDLwindow->mespimizerdialog, SIGNAL(recordoptim_changed(bool)), this, SLOT(recordoptim_changed(bool)));
     connections << connect(QDLwindow->mespimizerdialog, SIGNAL(template_changed(int)), this, SLOT(template_changed(int)));
     connections << connect(QDLwindow->mespimizerdialog, SIGNAL(optimizeselect_changed(bool)), this, SLOT(optimizeselect_changed(bool)));
-
+    connections << connect(QDLwindow->mespimizerdialog, SIGNAL(displayepic_changed(bool)), this, SLOT(setdisplayEPIC(bool)));
+    connections << connect(QDLwindow->mespimizerdialog, SIGNAL(energyprecision_changed(int)), this, SLOT(setenergyprecision(int)));
+    connections << connect(QDLwindow->mespimizerdialog, SIGNAL(font_clicked(QFont)), this, SLOT(setenergyfont(QFont)));
+    connections << connect(QDLwindow->mespimizerdialog, SIGNAL(fontcolor_clicked(QColor)), this, SLOT(setenergycolor(QColor)));
+    connections << connect(QDLwindow->mespimizerdialog, SIGNAL(hartree_units(bool)), this, SLOT(sethartree(bool)));
 
     if (optimvisible)
         BTNoptimizeCluster_clicked();
@@ -905,8 +919,14 @@ void glWidget::create_measures(){
                                 SLOT(update_dihedrals(QVector<centerData>*,QVector<QMatrix4x4>*)));
     msrs_connections << connect(window, SIGNAL(update_distances(QVector<centerData>*,QVector<QMatrix4x4>*)), msrs,
                                 SLOT(update_distances(QVector<centerData>*,QVector<QMatrix4x4>*)));
-
-    msrs_connections << connect(window, SIGNAL(remove_distance(int)), msrs, SLOT(distance_remove(int)));
+    msrs_connections << connect(window, SIGNAL(remove_distance(QVector<centerData>*,int)), msrs,
+                                SLOT(distance_remove(QVector<centerData>*,int)));
+    msrs_connections << connect(window, SIGNAL(resetlastselectangles()), msrs,
+                                SLOT(resetlastselectangles()));
+    msrs_connections << connect(window, SIGNAL(resetlastselectdihedrals()), msrs,
+                                SLOT(resetlastselectdihedrals()));
+    msrs_connections << connect(window, SIGNAL(resetlastselectdist()), msrs,
+                                SLOT(resetlastselectdist()));
 }
 
 //  End of function create_measures
@@ -1348,9 +1368,10 @@ bool glWidget::addcluster(QString filename){
         molecules->last()->setpath(QDLwindow->mespimizerdialog->getmespimizerpath());
 //        molecules->last()->setrotation(rotation.normalized());
         molecules->last()->setvisible(true);
-        molecules->last()->initatomactive(false);
+//        molecules->last()->initatomactive(false);
         molecules->last()->set_ProjectFolder(ProjectFolder);
         molecules->last()->set_ProjectName(ProjectName);
+        window->setdisplayEPIC(displayEPIC);
         connections << connect(molecules->last(), SIGNAL(updatedisplay()), this, SLOT(updatedisplay()));
         connections << connect(molecules->last(), SIGNAL(updateGL()), this, SLOT(updateGL()));
         connections << connect(molecules->last(), SIGNAL(animate(bool)), this, SLOT(animate(bool)));
@@ -1408,7 +1429,7 @@ bool glWidget::addemptyclusterTowindow(QString filename){
     molecules->append(new molecule());
     molecules->last()->setname(clustername);
     molecules->last()->setpath(mespimizerpath);
-    molecules->last()->setfullname(mespimizerpath+clustername);
+    molecules->last()->setfullname(mespimizerpath + "/" +clustername);
     molecules->last()->set_ProjectFolder(mespimizerpath);
     molecules->last()->set_ProjectName(clustername);
     molecules->last()->setiscluster(true);
@@ -1419,6 +1440,7 @@ bool glWidget::addemptyclusterTowindow(QString filename){
     molecules->last()->setvisible(true);
     molecules->last()->setrotation(rotation.normalized());
     molecules->last()->initatomactive(false);
+    window->setdisplayEPIC(displayEPIC);
     connections << connect(molecules->last(), SIGNAL(updatedisplay()), this, SLOT(updatedisplay()));
     connections << connect(molecules->last(), SIGNAL(updateGL()), this, SLOT(updateGL()));
     connections << connect(molecules->last(), SIGNAL(animate(bool)), this, SLOT(animate(bool)));
@@ -1499,6 +1521,7 @@ void glWidget::deletecluster(){
     molecules->removeLast();
     molecule_names.removeLast();
     window->resetmeasures();
+    window->setdisplayEPIC(false);
     if (msrs){
         msrs->reset_all();
         msrs->set_molecules(molecule_names);
@@ -1756,6 +1779,8 @@ void glWidget::processStart()
 //  Function quaterninterpolation: Interpolation of rotations by means of Quaternions
 //
 void glWidget::quaterninterpolation(){
+//    qDebug() << "Ener0 = " << Ener0;
+//    qDebug() << "Ener1 = " << Ener1;
     QVector<QVector3D > xyzant = molecules->last()->getxyz();
     QVector<QVector3D > cmv;
     QVector<QVector3D > cmantv;
@@ -1973,14 +1998,20 @@ void glWidget::quaterninterpolation(){
         }
         molecules->last()->loadxyz(xyzi);
         molecules->last()->makeStructureBondsandSticks();
+        Enerinterp = Ener0 * (1 - dlt*i) + Ener1 * dlt * i;
+        window->setepicenergy(Enerinterp);
+//        qDebug() << "Enerinterp = " << Enerinterp;
         if (msrs)
             msrs->update_measure_centers(&xyzi);
         window->setframeknt(1);     // Dirty trick to guarantee that takes all frames
         updatedisplay();
         pause(delay);
     }
+    Enerinterp = Ener1;
+//    qDebug() << "Enerinterp = " << Enerinterp;
     molecules->last()->loadxyz(xyz);
     molecules->last()->makeStructureBondsandSticks();
+    window->setepicenergy(Enerinterp);
     if (msrs)
         msrs->update_measure_centers(&xyz);
     window->setframeknt(1);     // Dirty trick to guarantee that takes all frames
@@ -2015,6 +2046,18 @@ bool glWidget::reloadxyz(QString filename){
     if (ncen <= 0){
         return false;
     }
+    line = in.readLine();   // line with energy
+//    qDebug() << "line = " << line;
+#if QT_VERSION < 0x050E00
+    QStringList fields = line.split(' ',QString::SkipEmptyParts);
+#else
+    QStringList fields = line.split(' ',Qt::SkipEmptyParts);
+#endif
+    if (fields.count() < 2)
+        return false;
+    fields.takeFirst();
+    Enerinterp = fields.takeFirst().toFloat();
+    window->setepicenergy(Enerinterp);
     while (!in.atEnd()){
         line = in.readLine();
 //        qDebug() << "line = " << line;
@@ -2064,6 +2107,7 @@ void glWidget::replay_mespimization(QString filename){
         }
     }
     QDLwindow->mespimizerdialog->setBTNreset(false);
+    QDLwindow->mespimizerdialog->setBTNreplay(false);
     mainWin->statusBar()->setStyleSheet("color: blue");
     mainWin->statusBar()->showMessage(tr("Animating..."));
     mespimirecordfilename = QDLwindow->mespimizerdialog->getrecordfilename();
@@ -2071,6 +2115,7 @@ void glWidget::replay_mespimization(QString filename){
     window->setrecord(QDLwindow->mespimizerdialog->getrecord());
     window->setrecordcommand(QDLwindow->mespimizerdialog->getrecordcommand());
     window->setremoveframes(QDLwindow->mespimizerdialog->getremoveframes());
+    window->setdisplayEPIC(QDLwindow->mespimizerdialog->getdisplayenergy());
     ninterpol = QDLwindow->mespimizerdialog->getinterpolpoints();
     QTextStream in(&file);
     QString line = in.readLine();   // first line of frames file
@@ -2110,6 +2155,14 @@ void glWidget::replay_mespimization(QString filename){
         knt = indmols.last();
     }
     line = in.readLine();   // fourth line of frames file
+//    qDebug() << "line = " << line;
+#if QT_VERSION < 0x050E00
+        fields = line.split(' ',QString::SkipEmptyParts);
+#else
+        fields = line.split(' ',Qt::SkipEmptyParts);
+#endif
+    fields.takeFirst();
+    Ener0 = fields.takeFirst().toFloat();
     while (!in.atEnd()){
         line = in.readLine();
 #if QT_VERSION < 0x050E00
@@ -2122,6 +2175,7 @@ void glWidget::replay_mespimization(QString filename){
                 molecules->last()->loadxyz(xyz);
                 molecules->last()->loadcharges(znuc);
                 molecules->last()->makeStructureBondsandSticks();
+//                molecules->last()->initatomactive(false);
                 if (msrs)
                     msrs->update_measure_centers(&xyz);
                 xyz.clear();
@@ -2133,6 +2187,14 @@ void glWidget::replay_mespimization(QString filename){
                 pause(delay);
                 line = in.readLine();
                 line = in.readLine();
+//                qDebug() << "line = " << line;
+#if QT_VERSION < 0x050E00
+        fields = line.split(' ',QString::SkipEmptyParts);
+#else
+        fields = line.split(' ',Qt::SkipEmptyParts);
+#endif
+                fields.takeFirst();
+                Ener1 = fields.takeFirst().toFloat();
             }
             else{
 //                if (QDLwindow->mespimizerdialog->getlineinterpol()){
@@ -2144,7 +2206,16 @@ void glWidget::replay_mespimization(QString filename){
                 quaterninterpolation();     // Forced to use quaternions interpolation
                 xyz.clear();
                 line = in.readLine();       // skips lines other than coordinates
+                Ener0 = Ener1;
                 line = in.readLine();
+//                qDebug() << "line = " << line;
+#if QT_VERSION < 0x050E00
+        fields = line.split(' ',QString::SkipEmptyParts);
+#else
+        fields = line.split(' ',Qt::SkipEmptyParts);
+#endif
+                fields.takeFirst();
+                Ener1 = fields.takeFirst().toFloat();
             }
         }
         else{
@@ -2167,6 +2238,7 @@ void glWidget::replay_mespimization(QString filename){
     updatedisplay();
     xyz.clear();
     file.close();
+    QDLwindow->mespimizerdialog->setBTNreplay(true);
     QDLwindow->mespimizerdialog->setBTNreset(true);
     mainWin->statusBar()->setStyleSheet("color: red");
     mainWin->statusBar()->showMessage(tr("End of animation"));
@@ -2227,7 +2299,17 @@ void glWidget::reset_mespimization(QString filename){
         indmols << knt + fields.takeFirst().toInt();
         knt = indmols.last();
     }
-    line = in.readLine();
+    line = in.readLine();   // fourth line of frames file
+//    qDebug() << "line = " << line;
+#if QT_VERSION < 0x050E00
+    fields = line.split(' ',QString::SkipEmptyParts);
+#else
+    fields = line.split(' ',Qt::SkipEmptyParts);
+#endif
+    fields.takeFirst();
+    Enerinterp = fields.takeFirst().toFloat();
+    window->setepicenergy(Enerinterp);
+    window->setdisplayEPIC(QDLwindow->mespimizerdialog->getdisplayenergy());
     while (!in.atEnd()){
         line = in.readLine();
 #if QT_VERSION < 0x050E00
@@ -2255,11 +2337,45 @@ void glWidget::reset_mespimization(QString filename){
             xyz << QVector3D(x, y, z);
         }
     }
-    molecules->last()->initatomactive(false);
+//    molecules->last()->initatomactive(false);
 }
 //  End of function reset_mespimization
 //  ---------------------------------------------------------------------------------------------------------------------------
 
+//  Function setdisplayEPIC: updates EPIC energy display flag
+//
+void glWidget::setdisplayEPIC(bool a){
+    displayEPIC = a;
+    window->setdisplayEPIC(displayEPIC);
+}
+
+//  Function setenergycolor: updates EPIC energy color
+//
+void glWidget::setenergycolor(QColor a){
+    energycolor = a;
+    window->setenergycolor(energycolor);
+}
+
+//  Function setenergyfont: updates EPIC energy font
+//
+void glWidget::setenergyfont(QFont a){
+    energyfont = a;
+    window->setenergyfont(energyfont);
+}
+
+//  Function setenergyprecision: updates EPIC energy precision for display
+//
+void glWidget::setenergyprecision(int a){
+    energyprecision = a;
+    window->setenergyprecision(energyprecision);
+}
+
+//  Function setenergyprecision: updates EPIC energy units for display
+//
+void glWidget::sethartree(bool a){
+    hartree = a;
+    window->sethartree(hartree);
+}
 
 //  Function speed_changed: updates animation speed
 //

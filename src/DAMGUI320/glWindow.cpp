@@ -93,15 +93,24 @@ glWindow::glWindow(QList<molecule*> *mol, QWidget *parent) :
     disthres = 1.2 * ANGSTROM_TO_BOHR;
     disttranspbkg = false;
     dihedralsprecision = 4;
+    displayEPIC = false;
     distprecision = 2;
     distvshift = 0;
     drawarcs = true;
     drawlines = true;
     elem = new Elements();
+    epicenergy = 0.;
+    EPICposition = QPoint(0,0);
+    EPICpressed = false;
+    energycolor  = QColor(255, 172, 0, 255);
+    energyfont = QFont("Helvetica", 18, QFont::Bold);
+    energyprecision = 4;
+    EPICstring = "";
     fbo = nullpointer;
     fov = PERSPECTIVE_ANGLE;
     frameknt = 0;
     frames.clear();
+    hartree = false;
     imagequality = 20;
     linestype = 3; // Dot Line
     lineswidth = 2;
@@ -324,6 +333,7 @@ void glWindow::mouseDoubleClickEvent(QMouseEvent *event)
 {
     const Qt::KeyboardModifiers modifiers = event->modifiers();
     int idistance;
+    int iangle;
     int x = event->x();
     int y = event->y();
     this->makeCurrent();
@@ -437,7 +447,20 @@ void glWindow::mouseDoubleClickEvent(QMouseEvent *event)
     }
     else if (showdistances && (idistance = searchdistance(x,y)) >= 0){
         update();
-        emit remove_distance(idistance);
+        emit resetlastselectdist();
+        emit update_distances(distancecenters,v_list);
+        return;
+    }
+    else if (showangles && (iangle = searchangle(x,y)) >= 0){
+        update();
+        emit resetlastselectangles();
+        emit update_angles(anglecenters,v_list);
+        return;
+    }
+    else if (showdihedrals && (iangle = searchdihedral(x,y)) >= 0){
+        update();
+        emit resetlastselectdihedrals();
+        emit update_dihedrals(dihedralcenters,v_list);
         return;
     }
 }
@@ -446,6 +469,9 @@ void glWindow::mousePressEvent(QMouseEvent *e)
 {
     // Save mouse press position
     mousePressPosition = QVector2D(e->localPos());
+    if (displayEPIC){
+        EPICpressed = searchEPICenergy(mousePressPosition);
+    }
     mousePreviousPosRot = mousePressPosition;
     mousePreviousPosTrs = mousePressPosition;
 }
@@ -470,6 +496,12 @@ void glWindow::wheelEvent(QWheelEvent *e)
 
 void glWindow::mouseMoveEvent(QMouseEvent *e)
 {
+    if (EPICpressed){
+        EPICposition += QPoint(e->localPos().x(),e->localPos().y()) - QPoint(mousePressPosition.x(),mousePressPosition.y());
+        mousePressPosition = QVector2D(e->localPos());
+        update();
+        return;
+    }
     const Qt::KeyboardModifiers modifiers = e->modifiers();
     // Mouse release position - mouse press position
     QVector2D diff = QVector2D(e->localPos()) - mousePressPosition;
@@ -573,7 +605,7 @@ void glWindow::mouseMoveEvent(QMouseEvent *e)
 void glWindow::mouseReleaseEvent(QMouseEvent *e)
 {
     // Mouse release position - mouse press position
-
+    EPICpressed = false;
     return;
 
 }
@@ -841,6 +873,9 @@ void glWindow::paintGL()
     if (measures){
         drawmeasures(&painter, viewport);
     }
+    if (displayEPIC){
+        drawEPIC(&painter, viewport);
+    }
 
     painter.end();
     if (record && frameknt++ < numframes){
@@ -1062,6 +1097,9 @@ void glWindow::paintGLbuff(QSize size)
     drawlabels(&painterbuff, viewport);
     if (measures){
         drawmeasures(&painterbuff, viewport);
+    }
+    if (displayEPIC){
+        drawEPIC(&painterbuff, viewport);
     }
     painterbuff.end();
     fbo->release();
@@ -1560,14 +1598,14 @@ void glWindow::drawlabaxeslabels(QPainter *painter, QRect viewport){
 void glWindow::drawmeasures(QPainter *painter, QRect viewport){
     painter->setBackgroundMode(Qt::TransparentMode);
 
-    if (showdistances){
-        drawdistances(painter, viewport);
+    if (showdihedrals){
+        drawdihedrals(painter, viewport);
     }
     if (showangles){
         drawangles(painter, viewport);
     }
-    if (showdihedrals){
-        drawdihedrals(painter, viewport);
+    if (showdistances){
+        drawdistances(painter, viewport);
     }
     emit update_angles(anglecenters,v_list);
     emit update_dihedrals(dihedralcenters,v_list);
@@ -1575,6 +1613,34 @@ void glWindow::drawmeasures(QPainter *painter, QRect viewport){
 }
 //  End of function drawmeasures
 //  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//  Function drawEPIC: function for drawing EPIC energy
+//
+void glWindow::drawEPIC(QPainter *painter, QRect viewport){
+    if (EPICposition == QPoint(0,0)){
+        EPICposition = QPoint(viewport.width()/20,viewport.height()/20);
+    }
+    painter->setBackgroundMode(Qt::TransparentMode);
+    painter->save();
+    QPen pen(energycolor);
+    painter->setPen(pen);
+    painter->setFont(energyfont);
+    QFontMetrics fm(energyfont);
+    if (hartree){
+        EPICstring = "EPIC Energy = "+QString::number( epicenergy, 'e', energyprecision-1)+" E"+QChar(0x2095);
+    }
+    else{
+        EPICstring = "EPIC Energy = "+QString::number( epicenergy*HARTREETOKCALMOL, 'f', energyprecision-1)+" kcal/mol";
+    }
+    QSize fmsize = fm.size( Qt::TextSingleLine, EPICstring );
+    QRect rect = QRect(EPICposition,fmsize) ;
+    painter->drawText(rect,EPICstring);
+    painter->restore();
+}
+//  End of function drawEPIC
+//  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 //  Function drawangles: draw angles
 //
@@ -1642,7 +1708,11 @@ void glWindow::drawangles(QPainter *painter, QRect viewport){
             vtext = vtext + angleswidth * QVector2D(1,0);
         else
             vtext = vtext - QVector2D(angleswidth+fmsize.width(),0);
+        pen.setStyle(Qt::SolidLine);
+        painter->setPen(pen);
         painter->drawText(vtext.x(),viewport.height()-(vtext.y()),string);
+        pen.setStyle(Qt::PenStyle(anglestype));
+        painter->setPen(pen);
     }
     painter->restore();
 }
@@ -1740,7 +1810,11 @@ void glWindow::drawdistances(QPainter *painter, QRect viewport){
         }
         if (!disttranspbkg)
             painter->fillRect(rect,QBrush(*bkgcolor));
+        pen.setStyle(Qt::SolidLine);
+        painter->setPen(pen);
         painter->drawText(rect, Qt::AlignCenter, string);
+        pen.setStyle(Qt::PenStyle(linestype));
+        painter->setPen(pen);
     }
     delete bkgcolor;
     painter->restore();
@@ -1935,6 +2009,101 @@ centerData glWindow::searchcps(int x,int y){
     return center;
 }
 
+//  Function searchangle: searchs for an angle label after double click
+//
+int glWindow::searchangle(int x,int y){
+    GLint vport[4];
+    glGetIntegerv (GL_VIEWPORT, vport);
+    QRect viewport = QRect(vport[0],vport[1],vport[2],vport[3]);
+    centerData center;
+
+    QFontMetrics fm(anglesfont);
+    QSize fmsize = fm.size( Qt::TextSingleLine, "XXXXX" );
+    for (int i = 0 ; i < anglecenters->length()-2 ; i +=3){
+        if (anglecenters->at(i).molecule >= molecules->length() || anglecenters->at(i+1).molecule >= molecules->length()
+                    || anglecenters->at(i+2).molecule >= molecules->length())
+            continue;
+        if (!molecules->at(anglecenters->at(i).molecule)->isvisible()) continue;
+        QVector3D wincrntA = worldTocanvas(mvp_list->at(anglecenters->at(i).molecule), viewport, anglecenters->at(i).xyz);
+        QVector3D wincrntB = worldTocanvas(mvp_list->at(anglecenters->at(i+1).molecule), viewport, anglecenters->at(i+1).xyz);
+        QVector3D wincrntC = worldTocanvas(mvp_list->at(anglecenters->at(i+2).molecule), viewport, anglecenters->at(i+2).xyz);
+
+        if ((wincrntA-wincrntB).length() < arcradius || (wincrntC-wincrntB).length() < arcradius) continue;
+        QVector2D vtext = QVector2D((wincrntA-wincrntB).normalized() + (wincrntC-wincrntB).normalized());
+        QRect rect;
+        if (vtext.length() < 1.e-5){
+            vtext = QVector2D(-(wincrntA-wincrntB).y(),(wincrntA-wincrntB).x()).normalized();
+        }
+        float vtextx = vtext.x();
+        if (vtext.y() > 0.)
+            vtext = QVector2D(wincrntB) + vtext.normalized() * arcradius + angleswidth * QVector2D(0,1);
+        else
+            vtext = QVector2D(wincrntB) + vtext.normalized() * arcradius + angleswidth * QVector2D(0,-1)
+                    + 0.5f * QVector2D(0.,-fmsize.height());
+        if (vtextx > 0.){
+            vtext = vtext + angleswidth * QVector2D(1,0);
+            rect = QRect(vtext.x(),
+                    viewport.height()-(vtext.y()+0.5f*fmsize.height()),
+                    fmsize.width(), fmsize.height());
+        }
+        else{
+            vtext = vtext - QVector2D(angleswidth+fmsize.width(),0);
+            rect = QRect(vtext.x(),
+                    viewport.height()-(vtext.y()+0.5f*fmsize.height()),
+                    fmsize.width(), fmsize.height());
+        }
+        if (rect.contains(x,y)){
+            anglecenters->remove(i+2);
+            anglecenters->remove(i+1);
+            anglecenters->remove(i);
+            return i;
+        }
+    }
+    return -1;
+}
+//  End of function searchangle
+//
+
+//  Function searchdihedral: searchs for a dihedral angle label after double click
+//
+int glWindow::searchdihedral(int x,int y){
+    GLint vport[4];
+    glGetIntegerv (GL_VIEWPORT, vport);
+    QRect viewport = QRect(vport[0],vport[1],vport[2],vport[3]);
+
+    QFontMetrics fm(dihedralsfont);
+    QSize fmsize = fm.size( Qt::TextSingleLine, "XXXXX" );
+    for (int i = 0 ; i < dihedralcenters->length()-3 ; i +=4){
+        if (dihedralcenters->at(i).molecule >= molecules->length() || dihedralcenters->at(i+1).molecule >= molecules->length()
+            || dihedralcenters->at(i+2).molecule >= molecules->length() || dihedralcenters->at(i+3).molecule >= molecules->length())
+            continue;
+        if (!molecules->at(dihedralcenters->at(i).molecule)->isvisible()) continue;
+        QVector3D A3D = QVector3D(v_list->at(dihedralcenters->at(i).molecule)*QVector4D(dihedralcenters->at(i).xyz,1));
+        QVector3D B3D = QVector3D(v_list->at(dihedralcenters->at(i+1).molecule)*QVector4D(dihedralcenters->at(i+1).xyz,1));
+        QVector3D C3D = QVector3D(v_list->at(dihedralcenters->at(i+2).molecule)*QVector4D(dihedralcenters->at(i+2).xyz,1));
+        QVector3D D3D = QVector3D(v_list->at(dihedralcenters->at(i+3).molecule)*QVector4D(dihedralcenters->at(i+3).xyz,1));
+        QVector3D wincrntA = worldTocanvas(mvp_list->at(dihedralcenters->at(i).molecule), viewport, dihedralcenters->at(i).xyz);
+        QVector3D wincrntB = worldTocanvas(mvp_list->at(dihedralcenters->at(i+1).molecule), viewport, dihedralcenters->at(i+1).xyz);
+        QVector3D wincrntC = worldTocanvas(mvp_list->at(dihedralcenters->at(i+2).molecule), viewport, dihedralcenters->at(i+2).xyz);
+        QVector3D wincrntD = worldTocanvas(mvp_list->at(dihedralcenters->at(i+3).molecule), viewport, dihedralcenters->at(i+3).xyz);
+        QVector3D winstr = 0.25 * (wincrntA+wincrntB+wincrntC+wincrntD);
+        QVector3D ABC = QVector3D::crossProduct((C3D-B3D),(A3D-B3D));
+        QVector3D ABD = QVector3D::crossProduct((D3D-B3D),(A3D-B3D));
+        QRect rect = QRect(winstr.x()-0.5f*fmsize.width(),
+            viewport.height()-(winstr.y()+0.5f*fmsize.height()), fmsize.width(), fmsize.height());
+        if (rect.contains(x,y)){
+            dihedralcenters->remove(i+3);
+            dihedralcenters->remove(i+2);
+            dihedralcenters->remove(i+1);
+            dihedralcenters->remove(i);
+            return i;
+        }
+    }
+    return -1;
+}
+//  End of function searchdihedral
+//
+
 
 //  Function searchdistance: searchs for distance label after double click
 //
@@ -1949,8 +2118,8 @@ int glWindow::searchdistance(int x,int y){
     for (int i = 0 ; i < distancecenters->length()-1 ; i +=2){
         if (!molecules->at(distancecenters->at(i).molecule)->isvisible())
             continue;
-        QVector3D middlepoint(0.5*(distancecenters->at(i+1).xyz+distancecenters->at(i).xyz));
-        QVector3D winstr = worldTocanvas(mvp_list->at(distancecenters->at(i).molecule), viewport, middlepoint);
+        QVector3D winstr = 0.5*(worldTocanvas(mvp_list->at(distancecenters->at(i).molecule), viewport, distancecenters->at(i).xyz)
+                    + worldTocanvas(mvp_list->at(distancecenters->at(i+1).molecule), viewport, distancecenters->at(i+1).xyz));
         QSize fmsize = fm.size( Qt::TextSingleLine, "xxxx" );
         QRect rect = QRect(winstr.x()-0.5f*fmsize.width(),
                 viewport.height()-(winstr.y()+0.5f*fmsize.height())-distvshift,
@@ -2605,6 +2774,12 @@ void glWindow::resetdistances(){
 }
 
 
+//  Function resetEPICpressed: sets EPICpressed flag to false
+//
+void glWindow::resetEPICpressed(){
+    EPICpressed = false;
+}
+
 //  Function resetmeasures: clear list of centers for angles
 //
 void glWindow::resetmeasures(){
@@ -2618,6 +2793,14 @@ void glWindow::resetmeasures(){
     update();
 }
 
+//  Function searchEPICenergy: checks if the cursor is on EPIC energy string
+//
+bool glWindow::searchEPICenergy(QVector2D pos){
+    QFontMetrics fm(energyfont);
+    QSize fmsize = fm.size( Qt::TextSingleLine, EPICstring );
+    QRect rect = QRect(EPICposition,fmsize) ;
+    return rect.contains(pos.x(),pos.y());
+}
 
 //  Function setAmbientColor: sets color of ambient light
 //
@@ -2775,6 +2958,14 @@ void glWindow::setdihedralsprecision(int a){
     if(showdihedrals) update();
 }
 
+//  Function setdisplayEPIC: set allow/deny EPIC energy display
+//
+void glWindow::setdisplayEPIC(bool a){
+    displayEPIC = a;
+    if (!displayEPIC) EPICpressed = false;
+    update();
+}
+
 //  Function setdistances: set allow/deny distances measures
 //
 void glWindow::setdistances(bool a){
@@ -2835,6 +3026,33 @@ void glWindow::setdrawlines(bool a){
     if(showdistances) update();
 }
 
+//  Function setenergycolor: sets color for EPIC energy  display
+//
+void glWindow::setenergycolor(QColor a){
+    energycolor = a;
+    update();
+}
+
+//  Function setenergyfont: sets font for EPIC energy  display
+//
+void glWindow::setenergyfont(QFont a){
+    energyfont = a;
+    update();
+}
+
+//  Function setepicenergy: sets EPIC energy for display
+//
+void glWindow::setepicenergy(qreal a){
+    epicenergy = a;
+}
+
+//  Function setenergyprecision: sets precision of EPIC energy for display
+//
+void glWindow::setenergyprecision(int a){
+    energyprecision = a;
+    update();
+}
+
 //  Function setfontaxeslabels: font for axes labels
 void glWindow::setfontaxeslabels(QFont a){
     fontaxeslabels = a;
@@ -2856,6 +3074,13 @@ void glWindow::setfov(double a){
 //
 void glWindow::setframeknt(int a){
     frameknt = a;
+}
+
+//  Function sethartree: sets units for energy (true: hartree, false: kcal/mol)
+//
+void glWindow::sethartree(bool a){
+    hartree = a;
+    update();
 }
 
 //  Function setnumframes: sets number of frames to be recorded

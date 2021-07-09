@@ -787,9 +787,10 @@ void measures::close_measuresInfoWindow(){
     CHKshowdistwin->setChecked(false);
 }
 
-void measures::distance_remove(int i){
-    distancecenters->remove(i+1);
-    distancecenters->remove(i);
+void measures::distance_remove(QVector<centerData> *dstcenters, int i){
+    dstcenters->remove(i+1);
+    dstcenters->remove(i);
+    distancecenters = dstcenters;
     distancestext->clear();
     distancestext->append("  ");
     distancesprinttext.clear();
@@ -851,9 +852,8 @@ void measures::update_angles(QVector<centerData> *angcenters, QVector<QMatrix4x4
             anglestext->append(" <br/> ");
         }
         anglesprinttext.append(a + " = " + QString::number(angle, 'g', SPBanglesprecision->value()) + QChar(0260) + QString(" ; "));
-        if (measuresInfo)
-            measuresInfo->update_angles(anglestext);
     }
+    if (measuresInfo) measuresInfo->update_angles(anglestext);
 }
 
 void measures::update_dihedrals(QVector<centerData> *dihcenters, QVector<QMatrix4x4> *transform_matrices){
@@ -892,14 +892,13 @@ void measures::update_dihedrals(QVector<centerData> *dihcenters, QVector<QMatrix
             dihedralstext->chop(2);
             dihedralstext->append(" <br/> ");
         }
-        dihedralsprinttext.append(a + " = " + QString::number(angle, 'g', SPBdihedralsprecision->value()) + QChar(0260) + QString(" ; "));
-        if (measuresInfo)
-            measuresInfo->update_dihedrals(dihedralstext);
+        dihedralsprinttext.append(a + " = " + QString::number(angle, 'g', SPBdihedralsprecision->value()) + QChar(0260) + QString(" ; "));     
     }
+    if (measuresInfo) measuresInfo->update_dihedrals(dihedralstext);
 }
 
 void measures::update_distances(QVector<centerData> *dstcenters, QVector<QMatrix4x4> *transform_matrices){
-    if (!CHKshowdistwin->isChecked()) return;
+//    if (!CHKshowdistwin->isChecked()) return;
     distancecenters = dstcenters;
     mtrsf = transform_matrices;
     distancestext->clear();
@@ -926,9 +925,8 @@ void measures::update_distances(QVector<centerData> *dstcenters, QVector<QMatrix
             distancestext->append(" <br/> ");
         }
         distancesprinttext.append(a + " = " + distvalue);
-        if (measuresInfo)
-            measuresInfo->update_distances(distancestext);
     }
+    if (measuresInfo) measuresInfo->update_distances(distancestext);
 }
 
 void measures::emitupdateRightMenu(){
@@ -1225,6 +1223,18 @@ void measures::reset_all(){
     emit reset_distances();
     emit reset_angles();
     emit reset_dihedrals();
+}
+
+void measures::resetlastselectangles(){
+    lastselectangles.clear();
+}
+
+void measures::resetlastselectdihedrals(){
+    lastselectdihedrals.clear();
+}
+
+void measures::resetlastselectdist(){
+    lastselectdist.clear();
 }
 
 void measures::set_molecules(QStringList mol){
@@ -1582,6 +1592,9 @@ void measuresInfoWindow::update_angles(QString* str){
         LBLangles->setText(QString(*str).chopped(2));
 #endif
     }
+    else{
+        LBLangles->setText("");
+    }
 }
 
 void measuresInfoWindow::update_distances(QString* str){
@@ -1596,6 +1609,9 @@ void measuresInfoWindow::update_distances(QString* str){
         LBLdistances->setText(QString(*str).chopped(2));
 #endif
     }
+    else{
+        LBLdistances->setText("");
+    }
 }
 
 void measuresInfoWindow::update_dihedrals(QString * str){
@@ -1609,5 +1625,8 @@ void measuresInfoWindow::update_dihedrals(QString * str){
 #else
         LBLdihedrals->setText(QString(*str).chopped(2));
 #endif
+    }
+    else{
+        LBLdihedrals->setText("");
     }
 }

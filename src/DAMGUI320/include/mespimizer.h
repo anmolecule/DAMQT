@@ -42,6 +42,8 @@
 
 #include "GlobalInfo.h"
 
+#include "ColorButton.h"
+
 #include "molecule.h"
 
 #define INTERVAL_INI 100
@@ -54,11 +56,12 @@ public:
     explicit mespimizer(QWidget *parent = 0);
     ~mespimizer();
 
+    bool getdisplayenergy();
 //    bool getlineinterpol();
     bool getmakingmovie();
     bool getoptimizeselect();
     bool getoptimizetemplate();
-    bool getqm();
+//    bool getqm();
     bool getrecord();
     bool getremoveframes();
 
@@ -69,23 +72,30 @@ public:
 
     QGroupBox * getFRMoptimizeCluster();
     QString getmespimizerpath();
-    QString getqmkeywords();
-    QString getqmsoft();
+//    QString getqmkeywords();
+//    QString getqmsoft();
     QString getrecordcommand();
     QString getrecordfilename();
 
     void enableBTNmespimize(bool);
     void endmakingmovie();
+    void setBTNreplay(bool);
     void setBTNreset(bool);
     void setCHKoptimizeselect(bool);
     void setCHKrecordoptim(bool);
     void setclustername(QString);
+    void setdisplayEPIC(bool);
+    void setenergycolor(QColor);
+    void setenergyfont(QFont);
+    void setenergyprecision(int);
     void setframesfile(QString);
     void setguessfromcanvas(bool);
+    void sethartree(bool);
     void sethostname(QString);
     void setinterpolpoints(int);
     void setmespimizerpath(QString);
     void setmolecules(QList<molecule*> *);
+    void setoptimizecanvas(bool);
     void setrecordfile(QString);
     void setspeed(int);
     void setSPBhostmax(int);
@@ -98,8 +108,13 @@ signals:
     void adjustQDL();
     void clusterfile_changed(QString);
     void deletecluster();
+    void displayepic_changed(bool);
+    void energyprecision_changed(int);
     void exec_mespimizer();
+    void font_clicked(QFont);
+    void fontcolor_clicked(QColor);
     void framesfile_changed(QString);
+    void hartree_units(bool);
     void interpol_changed(int);
     void movetotop();
     void optimizecanvas_changed(bool);
@@ -114,19 +129,25 @@ signals:
     void template_changed(int);
 
 private slots:
+    void BTNfont_clicked();
+    void BTNfontcolor_clicked();
     void BTNmespimize_clicked();
     void BTNreplay_clicked();
     void BTNreset_clicked();
+    void CHKdisplayepic_changed();
     void CHKoptimizeselect_changed();
-    void CHKqm_changed();
+//    void CHKqm_changed();
     void CHKrecordoptim_changed();
-    void CMBqmsoft_changed(int);
+//    void CMBqmsoft_changed(int);
     void create_optimize_cluster_layouts();
+    void mespath_dialog();
     void framefiles_dialog();
     void importRecordDir();
+    void RBThartree_changed();
     void RBToptimizecanvas_changed();
     void RBToptimizetemplate_changed();
     void SLDspeed_changed();
+    void SPBenergyprecision_changed();
     void SPBhost_changed();
     void SPBinterpol_changed();
     void SPBtemplate_changed();
@@ -141,36 +162,45 @@ private:
 
     bool guestfromcanvas;
 
+    ColorButton *BTNfontcolor;
+
+    QCheckBox *CHKdisplayepic;
     QCheckBox *CHKoptimizeselect;
-    QCheckBox *CHKqm;
+//    QCheckBox *CHKqm;
     QCheckBox *CHKrecordoptim;
     QCheckBox *CHKremoveframes;
 
-    QComboBox *CMBqmsoft;
+    QColor energycolor;
+
+//    QComboBox *CMBqmsoft;
 
     QDoubleSpinBox *SPBtssize;
 
+    QFont energyfont;
+
     QGroupBox *FRManimation;
+    QGroupBox *FRMenergy;
     QGroupBox *FRMinterpol;
     QGroupBox *FRMoptimizeCluster;
     QGroupBox *FRMoptimizeopt;
-    QGroupBox *FRMqm;
+//    QGroupBox *FRMqm;
     QGroupBox *FRMrecord;
     QGroupBox *FRMtemplate;
 
+    QLabel *LBLenergyprecision;
     QLabel *LBLhostindex;
     QLabel *LBLhostname;
     QLabel *LBLinterpol;
     QLabel *LBLmakingmovie;
-    QLabel *LBLqm;
-    QLabel *LBLqmsoft;
+//    QLabel *LBLqm;
+//    QLabel *LBLqmsoft;
     QLabel *LBLtemplateindex;
     QLabel *LBLtemplatename;
 
     QLineEdit *TXTframesfile;
     QLineEdit *TXTclusterfile;
     QLineEdit *TXTmespimizerpath;
-    QLineEdit *TXTqmkeywords;
+//    QLineEdit *TXTqmkeywords;
     QLineEdit *TXTrecordcommand;
     QLineEdit *TXTrecordir;
     QLineEdit *TXTrecordfile;
@@ -178,24 +208,29 @@ private:
     QList<QMetaObject::Connection> connections;
     QList<molecule*> *molecules;
 
+    QPushButton *BTNfont;
     QPushButton *BTNmespimize;
     QPushButton *BTNreplay;
     QPushButton *BTNreset;
 
-    QRadioButton *RBTlininterpol;
+    QRadioButton *RBThartree;
+    QRadioButton *RBTkcalmol;
+//    QRadioButton *RBTlininterpol;
     QRadioButton *RBToptimizecanvas;
     QRadioButton *RBToptimizetemplate;
-    QRadioButton *RBTquatinterpol;
+//    QRadioButton *RBTquatinterpol;
 
     QSlider *SLDspeed;                    // Speed of animation
 
+    QSpinBox *SPBenergyprecision;
     QSpinBox *SPBhost;
     QSpinBox *SPBinterpol;
     QSpinBox *SPBrssize;
     QSpinBox *SPBtemplate;
 
-    QString qmsoft;
+//    QString qmsoft;
 
+    QToolButton *BTNmespath;
     QToolButton *BTNframefile;
     QToolButton *BTNrecordir;
 

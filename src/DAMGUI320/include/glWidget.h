@@ -255,6 +255,11 @@ private slots:
     void reset_mespimization(QString);
     void resetinterval();
     void send_systemnames();
+    void setdisplayEPIC(bool);
+    void setenergyfont(QFont);
+    void setenergycolor(QColor);
+    void setenergyprecision(int);
+    void sethartree(bool);
     void set_recordfilename(QString);
     void speed_changed(int);
     void startrecording();
@@ -274,9 +279,11 @@ private:
 
     bool angstrom;
     bool animating;
-    bool recordoptim;
     bool cluster_exists;
+    bool displayEPIC;
     bool guestfromcanvas;
+    bool hartree;
+    bool recordoptim;
     bool onlyselcp;
     bool optimvisible;
     bool scaleradii;
@@ -286,6 +293,9 @@ private:
 
     float deltaAngles;
     float dltinterval;
+    float Ener0;
+    float Ener1;
+    float Enerinterp;
     float interval;
     float lightpower;
     float specularindex;
@@ -294,6 +304,7 @@ private:
     glWindow *window;
 
     int delay;
+    int energyprecision;
     int gdockrewidth;
     int interpoints;
     int kntframes;
@@ -325,6 +336,7 @@ private:
     QColor ambientcolor;
     QColor bkgcolor;
     QColor dihedralplanescolor;
+    QColor energycolor;
     QColor lightcolor;
     QColor specularcolor;
 
@@ -332,6 +344,7 @@ private:
 
     QGridLayout *layoutmolecules;
 
+    QFont energyfont;
 
     QGroupBox *FRMaxes;
     QGroupBox *FRMballcyl;

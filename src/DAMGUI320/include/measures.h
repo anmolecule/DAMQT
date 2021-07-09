@@ -193,7 +193,10 @@ signals:
 
 public slots:
     void close_measuresInfoWindow();
-    void distance_remove(int);
+    void distance_remove(QVector<centerData>*, int);
+    void resetlastselectangles();
+    void resetlastselectdihedrals();
+    void resetlastselectdist();
     void update_angles(QVector<centerData>*, QVector<QMatrix4x4>*);
     void update_dihedrals(QVector<centerData>*, QVector<QMatrix4x4>*);
     void update_distances(QVector<centerData>*, QVector<QMatrix4x4>*);

@@ -134,6 +134,9 @@
 \indexentry{angles measurement|hyperpage}{31}
 \indexentry{dihedral angles measurement|hyperpage}{31}
 \indexentry{3D graphics!molecule subscript|hyperpage}{32}
+\indexentry{3D graphics!remove angle|hyperpage}{32}
+\indexentry{3D graphics!remove dihedral|hyperpage}{32}
+\indexentry{3D graphics!remove distance|hyperpage}{32}
 \indexentry{3D graphics!lab rotations|hyperpage}{32}
 \indexentry{3D graphics!lab rotations|hyperpage}{32}
 \indexentry{3D graphics!record lab rotations|hyperpage}{32}
@@ -159,7 +162,7 @@
 \indexentry{3D graphics!cluster builder|hyperpage}{35}
 \indexentry{optimize cluster|hyperpage}{35}
 \indexentry{optimize cluster!strides|hyperpage}{35}
-\indexentry{3D graphics!cluster animation|hyperpage}{35}
+\indexentry{3D graphics!cluster animation|hyperpage}{36}
 \indexentry{3D graphics!cluster recording|hyperpage}{36}
 \indexentry{3D graphics!geometry saving|hyperpage}{36}
 \indexentry{save geometry|hyperpage}{36}

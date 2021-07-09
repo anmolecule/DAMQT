@@ -68,6 +68,7 @@
 class geomProcessor;
 
 #define ANGSTROM_TO_BOHR 1.889725989
+#define HARTREETOKCALMOL 627.5096
 //#define BOHR_TO_ANGSTROM 0.529177248882
 #define MOLSCALEHEIGHT 20.
 #define MOLSCALEARROWSHEIGHT 2.
@@ -91,6 +92,7 @@ public:
     ~glWindow();
 
     bool getlinearattenuation();
+    bool searchEPICenergy(QVector2D);
     bool selectatom(int,int);
     bool selectcps(int,int);
     bool selectmespextrema(int,int);
@@ -104,6 +106,8 @@ public:
 
     int getimagequality();
     int getframeknt();
+    int searchangle(int,int);
+    int searchdihedral(int,int);
     int searchdistance(int,int);
     float getSpecularIndex();
 
@@ -132,11 +136,13 @@ public:
     void drawlabaxeslabels(QPainter *painter, QRect viewport);
     void drawlabels(QPainter *painter, QRect viewport);
     void drawatomsvalues(QPainter *painter, QRect viewport, int i);
+    void drawEPIC(QPainter *painter, QRect viewport);
     void drawmeasures(QPainter *painter, QRect viewport);
     void printContextInformation();
     void reloadbuffers();
     void resetlabaxes();
     void searchmolecule(int,int);
+
     void setfontaxeslabels(QFont);
     void setfov(double);
     void setimagequality(int);
@@ -152,7 +158,10 @@ signals:
     void emitcheckactivate(int);
     void endmakingmovie();
     void endrecording();
-    void remove_distance(int);
+    void remove_distance(QVector<centerData>*, int);
+    void resetlastselectangles();
+    void resetlastselectdihedrals();
+    void resetlastselectdist();
     void select_angle(QVector<centerData>*, QVector<QMatrix4x4>*);
     void select_dihedral(QVector<centerData>*, QVector<QMatrix4x4>*);
     void select_distance(QVector<centerData>*, QVector<QMatrix4x4>*);
@@ -175,6 +184,7 @@ public slots:
     void resetangles();
     void resetdihedrals();
     void resetdistances();
+    void resetEPICpressed();
     void resetmeasures();
     void setAmbientColor(QColor);
     void setangles(bool);
@@ -197,6 +207,7 @@ public slots:
     void setdihedralplanescolor(QColor);
     void setdihedralsfont(QFont);
     void setdihedralsprecision(int);
+    void setdisplayEPIC(bool);
     void setdistances(bool);
     void setdistancescolor(QColor);
     void setdistancesfont(QFont);
@@ -205,8 +216,13 @@ public slots:
     void setdistvshift(int);
     void setdrawarcs(bool);
     void setdrawlines(bool);
+    void setenergycolor(QColor);
+    void setenergyfont(QFont);
+    void setenergyprecision(int);
+    void setepicenergy(qreal);
     void setfontlabaxeslabels(QFont);
     void setframeknt(int);
+    void sethartree(bool);
     void setlightsposition(QVector3D);
     void setLightColor(QColor);
     void setLightPower(float);
@@ -258,10 +274,13 @@ private:
     bool axesvisible;
     bool axeslabelsvisible;
     bool dihedrals;
+    bool displayEPIC;
     bool distances;
     bool disttranspbkg;
     bool drawarcs;
     bool drawlines;
+    bool EPICpressed;
+    bool hartree;
     bool linearattenuation;
     bool measures;
     bool record;
@@ -291,6 +310,7 @@ private:
     int dihedralsprecision;
     int distprecision;
     int distvshift;
+    int energyprecision;
     int frameknt;
     int imagequality;
     int linestype;
@@ -310,6 +330,7 @@ private:
     QColor dihedralscolor;
     QColor dihedralplanescolor;
     QColor distancescolor;
+    QColor energycolor;
     QColor Xaxis_color;
     QColor Yaxis_color;
     QColor Zaxis_color;
@@ -317,6 +338,7 @@ private:
     QFont anglesfont;
     QFont dihedralsfont;
     QFont distancesfont;
+    QFont energyfont;
     QFont fontaxeslabels;
     QFont fontlabaxeslabels;
 
@@ -332,8 +354,11 @@ private:
 
     QPixmap pixmap;
 
+    QPoint EPICposition;
+
     QQuaternion world_rotation;                   // Quaternion for rotation of the whole scene
 
+    QString EPICstring;
     QString imagefilename;
     QString recordcommand;
     QString recordfilename;                 // Filename for recording frames and film
@@ -371,6 +396,7 @@ private:
     QVector3D world_translation;            // Translation vector
 
     qreal angularSpeed;
+    qreal epicenergy;
     qreal fov;                              // Field of view (angle in degrees)
     qreal disthres;                         // Distance threshold for bonding
     qreal zFar;                             // Farthest distance for objects to be displayed

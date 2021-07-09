@@ -3748,6 +3748,7 @@ void molecule::emitupdateRightMenu(){
 }
 
 void molecule::initatomactive(bool a){
+    atomactive.clear();
     for (int i = 0 ; i < znuc.count() ; i++)
         atomactive << a;
 }
@@ -3799,6 +3800,12 @@ void molecule::loadallvertices(QVector<VertexNormalData> v){
 
 void molecule::loadcharges(QVector <int> q){
     znuc = q;
+    if (znuc.length() != atomactive.length()){
+        atomactive.clear();
+        for (int i = 0 ; i < znuc.count() ; i++){
+            atomactive << false;
+        }
+    }
 }
 
 void molecule::loadxyz(QVector <QVector3D> v){
