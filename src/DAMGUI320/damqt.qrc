@@ -56,5 +56,6 @@
         <file>images/splash_3.2_en.png</file>
         <file>images/splash_3.2_es.png</file>
         <file>images/replay.png</file>
+        <file>images/External_program.odg</file>
     </qresource>
 </RCC>

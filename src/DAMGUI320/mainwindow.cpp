@@ -274,6 +274,10 @@ void MainWindow::CreateActions()
     Acc3Dview = new QAction(QIcon(":/images/cube_molecule.png"),tr("&3D Viewer"), this);
     Acc3Dview->setStatusTip(tr("3D Viewer"));
     connect(Acc3Dview, SIGNAL(triggered()), this, SLOT(addglWidget()));
+//    External packages
+    AccExternal = new QAction(QIcon(":/images/External_program.png"),tr("E&xternal"), this);
+    AccExternal->setStatusTip(tr("External packages"));
+    connect(AccExternal, SIGNAL(triggered()), this, SLOT(external_package()));
 //    Recent files
     for (int i = 0; i < MAX_ARCHIVOS_RECIENTES; ++i) {
         if (!AccRecentFiles[i]){
@@ -805,6 +809,7 @@ void MainWindow::CreateMenus()
     GraphicsMenu = menuBar()->addMenu(tr("&Graphics"));
     GraphicsMenu->addAction(Acc2Dplot);
     GraphicsMenu->addAction(Acc3Dview);
+    GraphicsMenu->addAction(AccExternal);
     menuBar()->addSeparator();
     HelpMenu = menuBar()->addMenu(tr("&Help"));
     HelpMenu->addAction(AccHelp);
@@ -828,6 +833,7 @@ void MainWindow::CreateToolBars()
     ToolBarHelp=addToolBar(tr("Graphics"));
     ToolBarHelp->addAction(Acc2Dplot);
     ToolBarHelp->addAction(Acc3Dview);
+    ToolBarHelp->addAction(AccExternal);
     ToolBarHelp=addToolBar(tr("Help"));
     ToolBarHelp->addAction(AccHelp);
     ToolBarHelp->addAction(AccAbout);
@@ -13663,6 +13669,7 @@ void MainWindow::initpointers()
 {
     Acc2Dplot = nullpointer;
     Acc3Dview = nullpointer;
+    AccExternal = nullpointer;
     AccAbout = nullpointer;
     AccAboutQt = nullpointer;
     AccExit = nullpointer;
@@ -14806,6 +14813,9 @@ void MainWindow::addglWidget(){
     this->movewidgettotop(widgetsknt-1);
     topindex = widgets->length()+plots->length()-1;
     update_dockright();
+}
+
+void MainWindow::external_package(){
 }
 
 void MainWindow::exit(){

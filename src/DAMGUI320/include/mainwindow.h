@@ -135,10 +135,10 @@ signals:
     void initproject();
 
 public slots:
-    void addglWidget();
-    void addviewer2D();
+
     void deleteplot(int); 
     void deletewidget(int);
+    void external_package();
     void raiseplot(int);
     void raisewidget(int);
     void showplot(int);
@@ -150,12 +150,11 @@ private slots:      // Alphabetically sorted (including type in sort)
     bool end_Viewer3DDialog();
     bool GAUSS_two_pass_case(QString);
     bool saveProject();
-    bool SaveProjectAs();        
-     
-    void openProject();
-    void openRecentProjects();
+    bool SaveProjectAs();
+
     void about();
-    void Help();
+    void addglWidget();
+    void addviewer2D();
     
     void BTNdgfilelines_clicked();
     void BTNeffilelines_clicked();
@@ -243,6 +242,8 @@ private slots:      // Alphabetically sorted (including type in sort)
     void execTurbom();
     void execMOLEKEL();
 
+    void Help();
+
     void importFile();
     void ImportFileNameMO();
     void ImportFileNameZJ();
@@ -274,6 +275,9 @@ private slots:      // Alphabetically sorted (including type in sort)
     void MOLPRO_two_pass_case(QString);
 
     void newProject();
+
+    void openProject();
+    void openRecentProjects();
 
     void page_project_layouts();
     void page_atdens_layouts();
@@ -467,6 +471,7 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
     QAction *AccAbout;
     QAction *AccAboutQt;
     QAction *AccExit;
+    QAction *AccExternal;
     QAction *AccHelp;
 //    QAction *AccLanguage[10];
     QAction *AccNew;
