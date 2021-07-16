@@ -26,6 +26,7 @@
 #define MAINWINDOW_H
 
 #include <QApplication>
+#include <QButtonGroup>
 #include <QComboBox>
 #include <QDockWidget>
 #include <QFileDialog>
@@ -158,6 +159,8 @@ private slots:      // Alphabetically sorted (including type in sort)
     
     void BTNdgfilelines_clicked();
     void BTNeffilelines_clicked();
+    void BTNjob_clicked();
+    void BTNpreview_clicked();
 
     void CHKatdensinput_changed(int state);
     void CHKatdensmpi_changed(int state);
@@ -226,7 +229,7 @@ private slots:      // Alphabetically sorted (including type in sort)
     void execDamfrad();
     void execDamSGhole();
     void execDamZJ();
-    void execFchk();
+    void execFchk    ();
     void execGgbsDen();
     void execDammultrot();
     void execDamorb();
@@ -241,6 +244,9 @@ private slots:      // Alphabetically sorted (including type in sort)
     void execSxyzDen();
     void execTurbom();
     void execMOLEKEL();
+    void external_geometry();
+
+//    void gaussian_external();
 
     void Help();
 
@@ -330,6 +336,7 @@ private slots:      // Alphabetically sorted (including type in sort)
     void RBTdZJplane_changed();
     void RBTef2D3D_changed();
     void RBTef2Dplanes_changed();
+    void RBTlocal_changed();
     void RBTMO2D3D_changed();
     void RBTMO2Dplanes_changed();
     void RBTMOplane_changed();
@@ -411,6 +418,7 @@ private slots:      // Alphabetically sorted (including type in sort)
     void TXTdgdlt0_changed();
     void TXTdZJchoose_changed();
     void TXTefdlt0_changed();
+    void TXTextgeometry_changed();
     void TXTHFforcesatoms_changed();
     void TXTfradatoms_changed();
     void TXTImport_changed();
@@ -501,6 +509,7 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
     QList<QPushButton*> BTNshowwidgetslist;             // Stores buttons for hide/show 3D viewers
     QList<QMetaObject::Connection> connections2D;
     QList<QMetaObject::Connection> connections3D;
+    QList<QMetaObject::Connection> connectionsext;
 //    QList<QMetaObject::Connection> connectionsRightMenu;
     QList<glWidget*> *widgets;
     QList<Viewer2D*> *plots;
@@ -1432,7 +1441,43 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
     QWidget *WtabledZJ;
     
     Sheet *SHTdZJxyz;
+
+//  External packages
+//  --------------------------------------------------------
+
+    bool preview;
     
+    QButtonGroup *QBGjobcommand;
+    QButtonGroup *QBGrunmode;
+
+    QDialog *QDLexternal;
+
+    QGroupBox *FRMextproc;
+
+    QLabel *LBLextproc;
+    QLabel *LBLextpathremote;
+    QLabel *LBLextworkdir;
+
+    QLineEdit *TXTextgeometry = new QLineEdit();
+    QLineEdit *TXTextpathremote;
+    QLineEdit *TXTextworkdir;
+    QLineEdit *TXTkeywords;
+
+    QPushButton *BTNjob;
+    QPushButton *BTNpreview;
+
+    QRadioButton *RBTlocal;
+    QRadioButton *RBTremote;
+    QRadioButton *RBTPBS;
+    QRadioButton *RBTSGE;
+    QRadioButton *RBTSLURM;
+
+    QSpinBox *SPBextproc;
+
+    QString extgeomfile;
+    QString extgeompath;
+
+    QTextEdit *extextEdit;
     
 //  Functions (alphabetically sorted including type in sort)
 //  --------------------------------------------------------
@@ -1494,6 +1539,7 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
         QVector3D wv;
 
         string toString(QString qv);
+
 };
 
 #endif

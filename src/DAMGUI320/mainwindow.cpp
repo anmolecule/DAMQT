@@ -66,6 +66,7 @@ MainWindow::MainWindow(QWidget *parent)
     BTNshowwidgetslist.clear();
     connections2D.clear();
     connections3D.clear();
+    connectionsext.clear();
 
     splash = new QSplashScreen(pixmap);
     splash->show();
@@ -266,6 +267,10 @@ void MainWindow::CreateActions()
     AccPdf->setShortcut(tr("Ctrl+D"));
     AccPdf->setStatusTip(tr("Print output file as Pdf"));
     connect(AccPdf, SIGNAL(triggered()), this, SLOT(PrintFilePdf()));
+//    External packages
+    AccExternal = new QAction(QIcon(":/images/External_program.png"),tr("E&xternal"), this);
+    AccExternal->setStatusTip(tr("External packages"));
+    connect(AccExternal, SIGNAL(triggered()), this, SLOT(external_package()));
 //    2D Viewer2D
     Acc2Dplot = new QAction(QIcon(":/images/plot2D_tiny.png"),tr("&2D Viewer"), this);
     Acc2Dplot->setStatusTip(tr("2D Viewer"));
@@ -274,10 +279,7 @@ void MainWindow::CreateActions()
     Acc3Dview = new QAction(QIcon(":/images/cube_molecule.png"),tr("&3D Viewer"), this);
     Acc3Dview->setStatusTip(tr("3D Viewer"));
     connect(Acc3Dview, SIGNAL(triggered()), this, SLOT(addglWidget()));
-//    External packages
-    AccExternal = new QAction(QIcon(":/images/External_program.png"),tr("E&xternal"), this);
-    AccExternal->setStatusTip(tr("External packages"));
-    connect(AccExternal, SIGNAL(triggered()), this, SLOT(external_package()));
+
 //    Recent files
     for (int i = 0; i < MAX_ARCHIVOS_RECIENTES; ++i) {
         if (!AccRecentFiles[i]){
@@ -796,6 +798,7 @@ void MainWindow::CreateMenus()
     FileMenu->addSeparator();
     FileMenu->addAction(AccPrint);
     FileMenu->addAction(AccPdf);
+    FileMenu->addAction(AccExternal);
     if(MAX_ARCHIVOS_RECIENTES>0){
         FileMenu->addSeparator();
         for (int i = 0; i < MAX_ARCHIVOS_RECIENTES; ++i){
@@ -809,7 +812,6 @@ void MainWindow::CreateMenus()
     GraphicsMenu = menuBar()->addMenu(tr("&Graphics"));
     GraphicsMenu->addAction(Acc2Dplot);
     GraphicsMenu->addAction(Acc3Dview);
-    GraphicsMenu->addAction(AccExternal);
     menuBar()->addSeparator();
     HelpMenu = menuBar()->addMenu(tr("&Help"));
     HelpMenu->addAction(AccHelp);
@@ -830,10 +832,10 @@ void MainWindow::CreateToolBars()
     ToolBarFile->addAction(AccSave);
     ToolBarFile->addAction(AccPrint);
     ToolBarFile->addAction(AccPdf);
+    ToolBarFile->addAction(AccExternal);
     ToolBarHelp=addToolBar(tr("Graphics"));
     ToolBarHelp->addAction(Acc2Dplot);
     ToolBarHelp->addAction(Acc3Dview);
-    ToolBarHelp->addAction(AccExternal);
     ToolBarHelp=addToolBar(tr("Help"));
     ToolBarHelp->addAction(AccHelp);
     ToolBarHelp->addAction(AccAbout);
@@ -14815,9 +14817,6 @@ void MainWindow::addglWidget(){
     update_dockright();
 }
 
-void MainWindow::external_package(){
-}
-
 void MainWindow::exit(){
 
     this->close();
@@ -15233,6 +15232,479 @@ QString MainWindow::get_python(){
         QMessageBox::warning(this, tr("get_python"),tr("Python not found"));
     return execName;
 }
+
+
+/**************************************************************************************************/
+/********************************  External packages handlers       *******************************/
+/**************************************************************************************************/
+
+void MainWindow::external_package(){
+    for (int i = 0 ; i < connectionsext.size() ; i++){
+        QObject::disconnect(connectionsext.at(i));
+    }
+    connections2D.clear();
+    QDLexternal = new QDialog();
+    QDLexternal->setMinimumWidth(400);
+    QDLexternal->resize(900,200);
+    QDLexternal->setWindowTitle(tr("External package"));
+    QDLexternal->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
+
+    QLabel *LBLtitle = new QLabel(tr("Title"));
+    QLineEdit *TXTtitle = new QLineEdit();
+
+    QLabel *LBLengine = new QLabel(tr("Engine choice"));
+    QComboBox *CMBengine = new QComboBox();
+    CMBengine->addItem(tr("Gaussian"));
+    CMBengine->addItem(tr("Gamess"));
+    CMBengine->addItem(tr("Molpro"));
+    CMBengine->addItem(tr("NWChem"));
+    CMBengine->addItem(tr("Turbomole"));
+    CMBengine->addItem(tr("Mopac"));
+
+    TXTextgeometry = new QLineEdit(QDLexternal);
+    TXTextgeometry->setPlaceholderText(tr("Load file with molecule coordinates"));
+    connectionsext << connect(TXTextgeometry, SIGNAL(textChanged(const QString &)), this, SLOT(TXTextgeometry_changed()));
+
+
+    QToolButton *BTNgeometry = new QToolButton();
+    BTNgeometry->setText(tr("..."));
+    connectionsext << connect(BTNgeometry, SIGNAL(clicked()), this, SLOT(external_geometry()));
+
+    QLabel *LBLtype = new QLabel(tr("Calculation type"));
+    QComboBox *CMBtype = new QComboBox();
+    CMBtype->addItem(tr("Energy"));
+    CMBtype->addItem(tr("Geometry optimization"));
+    CMBtype->addItem(tr("Frequencies"));
+    CMBtype->addItem(tr("Optimization+Frequencies"));
+    CMBtype->addItem(tr("NMR"));
+
+    QComboBox *CMBlevel = new QComboBox();
+    CMBlevel->addItem(tr("Hartree-Fock"));
+    CMBlevel->addItem(tr("DFT"));
+    CMBlevel->addItem("M⌀ller-Plesset 2");
+    CMBlevel->addItem("M⌀ller-Plesset 4");
+    CMBlevel->addItem("CC-SD");
+    CMBlevel->addItem("BD");
+    CMBlevel->addItem("CAS-SCF");
+    CMBlevel->addItem(tr("Molecular mechanics"));
+    CMBlevel->addItem(tr("Semi-empirical"));
+
+    QComboBox *CMBlevel2 = new QComboBox();
+    CMBlevel2->addItem(tr("Default Spin"));
+    CMBlevel2->addItem(tr("Restricted"));
+    CMBlevel2->addItem(tr("Unrestricted"));
+    CMBlevel2->addItem(tr("Open Restricted"));
+
+    QLabel *LBLcharge = new QLabel(tr("Charge"));
+    QSpinBox *SPBcharge = new QSpinBox();
+    SPBcharge->setMaximum(30);
+    SPBcharge->setMinimum(-10);
+    SPBcharge->setValue(0);
+
+    QLabel *LBLmult = new QLabel(tr("Mult"));
+    QSpinBox *SPBmult = new QSpinBox();
+    SPBmult->setMaximum(10);
+    SPBmult->setMinimum(1);
+    SPBmult->setValue(1);
+    SPBmult->setToolTip("2S+1");
+
+    QLabel *LBLbasis = new QLabel(tr("Basis set"));
+    QComboBox *CMBbasis = new QComboBox();
+    CMBbasis->setMinimumWidth(150);
+    CMBbasis->setEditable(true);
+    CMBbasis->addItem(tr(""));
+    CMBbasis->addItem(tr("STO-3G"));
+    CMBbasis->addItem(tr("3-21G"));
+    CMBbasis->addItem(tr("6-31G"));
+    CMBbasis->addItem(tr("6-311G"));
+    CMBbasis->addItem(tr("cc-pVDZ"));
+    CMBbasis->addItem(tr("cc-pVTZ"));
+    CMBbasis->addItem(tr("cc-pVQZ"));
+    CMBbasis->addItem(tr("cc-pV5Z"));
+
+    QLabel *LBLkeywords = new QLabel(tr("Keywords"));
+    TXTkeywords = new QLineEdit(QDLexternal);
+    TXTkeywords->setPlaceholderText("Additional Keywords");
+
+    QBGrunmode = new QButtonGroup();
+
+    RBTlocal = new QRadioButton(tr("Run Locally"),QDLexternal);
+    RBTlocal->setChecked(true);
+    RBTremote = new QRadioButton(tr("Run Remotely"),QDLexternal);
+    RBTremote->setChecked(false);
+    QBGrunmode->addButton(RBTlocal);
+    QBGrunmode->addButton(RBTremote);
+
+    BTNjob = new QPushButton(tr("Generate Job Script"));
+    BTNjob->setEnabled(false);
+    BTNjob->setAutoDefault(false);
+    connectionsext << connect(BTNjob, SIGNAL(clicked()), this, SLOT(BTNjob_clicked()));
+
+    LBLextproc = new QLabel(tr("number of processors"),QDLexternal);
+    SPBextproc = new QSpinBox(QDLexternal);
+    SPBextproc->setMinimum(1);
+
+    QLineEdit *TXTextmem = new QLineEdit();
+    TXTextmem->setPlaceholderText(tr("Memory..."));
+    QLineEdit *TXTexttime = new QLineEdit();
+    TXTexttime->setPlaceholderText(tr("Time limit..."));
+
+    QBGjobcommand = new QButtonGroup();
+
+    RBTPBS = new QRadioButton(tr("PBS"),QDLexternal);
+    RBTPBS->setEnabled(false);
+    RBTPBS->setChecked(true);
+
+    RBTSGE = new QRadioButton(tr("SGE"),QDLexternal);
+    RBTSGE->setEnabled(false);
+
+    RBTSLURM = new QRadioButton(tr("SLURM"),QDLexternal);
+    RBTSLURM->setEnabled(false);
+
+    QBGjobcommand->addButton(RBTPBS);
+    QBGjobcommand->addButton(RBTSGE);
+    QBGjobcommand->addButton(RBTSLURM);
+
+    connectionsext << connect(RBTlocal,SIGNAL(toggled(bool)),this,SLOT(RBTlocal_changed()));
+
+    LBLextpathremote = new QLabel(tr("Path"),QDLexternal);
+    TXTextpathremote = new QLineEdit(QDLexternal);
+    TXTextpathremote->setPlaceholderText("Path to remote executable...");
+    LBLextpathremote->setEnabled(false);
+    TXTextpathremote->setEnabled(false);
+
+    LBLextworkdir  = new QLabel(tr("Working"),QDLexternal);
+    TXTextworkdir = new QLineEdit(QDLexternal);
+    TXTextworkdir->setPlaceholderText("Working directory...");
+    LBLextworkdir->setEnabled(false);
+    TXTextworkdir->setEnabled(false);
+
+    preview = true;
+    BTNpreview = new QPushButton(tr("Hide preview"));
+    BTNpreview->setStyleSheet("QPushButton {color: red;}");
+    BTNpreview->setAutoDefault(false);
+    connectionsext << connect(BTNpreview, SIGNAL(clicked()), this, SLOT(BTNpreview_clicked()));
+
+    extextEdit = new QTextEdit(QDLexternal);
+    extextEdit->setFocusPolicy(Qt::NoFocus);
+
+    QPushButton *BTNextreset = new QPushButton(tr("Reset"));
+    BTNextreset->setAutoDefault(false);
+
+    QPushButton *BTNextsave = new QPushButton(tr("Save"));
+    BTNextsave->setAutoDefault(false);
+
+    QPushButton *BTNextsubmit = new QPushButton(tr("Submit"));
+    BTNextsubmit->setAutoDefault(false);
+
+
+    QHBoxLayout *layout1 = new QHBoxLayout();
+    layout1->addWidget(LBLtitle);
+    layout1->addWidget(TXTtitle);
+
+    QHBoxLayout *layout2 = new QHBoxLayout();
+    layout2->addWidget(LBLengine);
+    layout2->addWidget(CMBengine);
+    layout2->addWidget(TXTextgeometry);
+    layout2->addWidget(BTNgeometry);
+
+    QHBoxLayout *layout3 = new QHBoxLayout();
+    layout3->addWidget(LBLtype);
+    layout3->addWidget(CMBtype);
+    layout3->addWidget(CMBlevel);
+    layout3->addWidget(CMBlevel2);
+    layout3->addWidget(LBLcharge);
+    layout3->addWidget(SPBcharge);
+    layout3->addWidget(LBLmult);
+    layout3->addWidget(SPBmult);
+
+    QHBoxLayout *layout4 = new QHBoxLayout();
+    layout4->addWidget(LBLbasis);
+    layout4->addWidget(CMBbasis);
+    layout4->addWidget(LBLkeywords);
+    layout4->addWidget(TXTkeywords);
+
+    QHBoxLayout *layout5 = new QHBoxLayout();
+    layout5->addWidget(RBTlocal);
+    layout5->addWidget(RBTremote);
+
+    QHBoxLayout *layout6 = new QHBoxLayout();
+    layout6->addWidget(LBLextproc);
+    layout6->addWidget(SPBextproc);
+
+    QHBoxLayout *layout7 = new QHBoxLayout();
+    layout7->addWidget(RBTPBS);
+    layout7->addWidget(RBTSGE);
+    layout7->addWidget(RBTSLURM);
+
+    QGridLayout *layout10 = new QGridLayout();
+    layout10->addLayout(layout5,0,0,1,4);
+    layout10->addWidget(BTNjob,0,5,1,2);
+    layout10->addLayout(layout6,1,0,1,2);
+    layout10->addWidget(TXTextmem,1,2,1,1);
+    layout10->addWidget(TXTexttime,1,3,1,1);
+    layout10->addLayout(layout7,1,4,1,3);
+    layout10->addWidget(LBLextpathremote,2,0,1,1);
+    layout10->addWidget(TXTextpathremote,2,1,1,6);
+    layout10->addWidget(LBLextworkdir,3,0,1,1);
+    layout10->addWidget(TXTextworkdir,3,1,1,6);
+    layout10->addWidget(BTNpreview,4,0,1,2);
+
+    QHBoxLayout *layout11 = new QHBoxLayout();
+    layout11->addWidget(BTNextreset);
+    layout11->addWidget(BTNextsave);
+    layout11->addWidget(BTNextsubmit);
+    layout11->addStretch();
+
+    QVBoxLayout *layout = new QVBoxLayout(QDLexternal);
+    layout->addLayout(layout1);
+    layout->addLayout(layout2);
+    layout->addLayout(layout3);
+    layout->addLayout(layout4);
+    layout->addLayout(layout10);
+    layout->addWidget(extextEdit);
+    layout->addLayout(layout11,Qt::AlignLeft);
+
+
+    QDLexternal->setTabOrder(TXTtitle,CMBengine);
+    QDLexternal->setTabOrder(CMBengine,TXTextgeometry);
+    QDLexternal->setTabOrder(TXTextgeometry,BTNgeometry);
+    QDLexternal->setTabOrder(BTNgeometry,CMBtype);
+    QDLexternal->setTabOrder(CMBtype,CMBlevel);
+    QDLexternal->setTabOrder(CMBlevel,CMBlevel2);
+    QDLexternal->setTabOrder(CMBlevel2,SPBcharge);
+    QDLexternal->setTabOrder(SPBcharge,SPBmult);
+    QDLexternal->setTabOrder(SPBmult,CMBbasis);
+    QDLexternal->setTabOrder(CMBbasis,TXTkeywords);
+    QDLexternal->setTabOrder(TXTkeywords,RBTlocal);
+    QDLexternal->setTabOrder(RBTlocal,BTNjob);
+    QDLexternal->setTabOrder(BTNjob,SPBextproc);
+    QDLexternal->setTabOrder(SPBextproc,TXTextmem);
+    QDLexternal->setTabOrder(TXTextmem,TXTexttime);
+    QDLexternal->setTabOrder(TXTexttime,RBTPBS);
+    QDLexternal->setTabOrder(RBTPBS,RBTSGE);
+    QDLexternal->setTabOrder(RBTSGE,RBTSLURM);
+    QDLexternal->setTabOrder(RBTSLURM,TXTextpathremote);
+    QDLexternal->setTabOrder(TXTextpathremote,TXTextworkdir);
+    QDLexternal->setTabOrder(TXTextworkdir,BTNpreview);
+    QDLexternal->setTabOrder(BTNpreview,BTNextreset);
+    QDLexternal->setTabOrder(BTNextreset,BTNextsave);
+    QDLexternal->setTabOrder(BTNextsave,BTNextsubmit);
+    TXTtitle->setFocus();
+
+    QDLexternal->adjustSize();
+    QDLexternal->exec();
+}
+
+void MainWindow::BTNjob_clicked(){
+qDebug() << "BTNjob_clicked";
+}
+
+void MainWindow::BTNpreview_clicked(){
+    preview = !preview;
+    if (preview){
+        BTNpreview->setText(tr("Hide preview"));
+        BTNpreview->setStyleSheet("QPushButton {color: red;}");
+        extextEdit->setVisible(true);
+    }
+    else{
+        BTNpreview->setText(tr("Edit preview"));
+        BTNpreview->setStyleSheet("QPushButton {color: black;}");
+        extextEdit->setVisible(false);
+    }
+    QDLexternal->adjustSize();
+    QDLexternal->update();
+}
+
+void MainWindow::external_geometry(){
+    QFileDialog filedialog;
+    filedialog.setDirectory(ProjectFolder);
+    filedialog.setWindowFlags(Qt::WindowStaysOnTopHint);
+    QString fileName = filedialog.getOpenFileName(this,tr("Open file ..."),ImportFolder,
+        tr("Import geometry from")+" (*.xyz);;"+
+        tr("Geometry files")+" (*.xyz);;"+
+        tr("All files")+" (*)");
+    if (fileName.length()==0) return;
+    TXTextgeometry->setText(fileName);
+
+}
+
+void MainWindow::RBTlocal_changed(){
+    if (RBTlocal->isChecked()){
+        RBTPBS->setEnabled(false);
+        RBTSGE->setEnabled(false);
+        RBTSLURM->setEnabled(false);
+        LBLextpathremote->setEnabled(false);
+        TXTextpathremote->setEnabled(false);
+        LBLextworkdir->setEnabled(false);
+        TXTextworkdir->setEnabled(false);
+        BTNjob->setEnabled(false);
+        QDLexternal->setTabOrder(TXTkeywords,RBTlocal);
+        QDLexternal->setTabOrder(RBTlocal,BTNjob);
+    }
+    else{
+        RBTPBS->setEnabled(true);
+        RBTSGE->setEnabled(true);
+        RBTSLURM->setEnabled(true);
+        LBLextpathremote->setEnabled(true);
+        TXTextpathremote->setEnabled(true);
+        LBLextworkdir->setEnabled(true);
+        TXTextworkdir->setEnabled(true);
+        BTNjob->setEnabled(true);
+        QDLexternal->setTabOrder(TXTkeywords,RBTremote);
+        QDLexternal->setTabOrder(RBTremote,BTNjob);
+    }
+    QDLexternal->adjustSize();
+    QDLexternal->update();
+
+}
+
+void MainWindow::TXTextgeometry_changed(){
+    extgeomfile = QFileInfo(TXTextgeometry->text().trimmed()).fileName();
+    extgeompath = QFileInfo(TXTextgeometry->text().trimmed()).path();
+}
+
+//void MainWindow::external_package(){
+//    QMenu *menu = new QMenu();
+//    QAction *gaussianAcc = new QAction(tr("&Gaussian"), this);
+//    connect(gaussianAcc, SIGNAL(triggered()), this, SLOT(gaussian_external()));
+//    menu->addAction(gaussianAcc);
+//    QAction *gamessAcc = new QAction(tr("G&amess"), this);
+//    menu->addAction(gamessAcc);
+//    QAction *molproAcc = new QAction(tr("&Molpro"), this);
+//    menu->addAction(molproAcc);
+//    QAction *nwchemAcc = new QAction(tr("&NWChem"), this);
+//    menu->addAction(nwchemAcc);
+//    QAction *turbomoleAcc = new QAction(tr("&Turbomole"), this);
+//    menu->addAction(turbomoleAcc);
+//    QAction *mopacAcc = new QAction(tr("Mo&pac"), this);
+//    menu->addAction(mopacAcc);
+//    menu->exec(this->pos()+QPoint(220,105));
+//}
+
+//void MainWindow::gaussian_external(){
+//    QDialog *QDLgaussian = new QDialog();
+//    QDLgaussian->setMinimumWidth(400);
+//    QDLgaussian->setWindowTitle(tr("Gaussian input"));
+
+//    QLabel *LBLtitle = new QLabel(tr("Title"));
+//    QLineEdit *TXTtitle = new QLineEdit();
+
+//    QLabel *LBLtype = new QLabel(tr("Calculation type"));
+//    QComboBox *CMBtype = new QComboBox();
+//    CMBtype->addItem(tr("Energy"));
+//    CMBtype->addItem(tr("Geometry optimization"));
+//    CMBtype->addItem(tr("Frequencies"));
+//    CMBtype->addItem(tr("Optimization+Frequencies"));
+//    CMBtype->addItem(tr("NMR"));
+
+//    QComboBox *CMBlevel = new QComboBox();
+//    CMBlevel->addItem(tr("Hartree-Fock"));
+//    CMBlevel->addItem(tr("DFT"));
+//    CMBlevel->addItem("M⌀ller-Plesset 2");
+//    CMBlevel->addItem("M⌀ller-Plesset 4");
+//    CMBlevel->addItem("CC-SD");
+//    CMBlevel->addItem("BD");
+//    CMBlevel->addItem("CAS-SCF");
+//    CMBlevel->addItem(tr("Molecular mechanics"));
+//    CMBlevel->addItem(tr("Semi-empirical"));
+
+//    QComboBox *CMBlevel2 = new QComboBox();
+//    CMBlevel2->addItem(tr("Default Spin"));
+//    CMBlevel2->addItem(tr("Restricted"));
+//    CMBlevel2->addItem(tr("Unrestricted"));
+//    CMBlevel2->addItem(tr("Open Restricted"));
+
+//    QLabel *LBLbasis = new QLabel(tr("Basis set"));
+
+//    QComboBox *CMBbasis0 = new QComboBox();
+//    CMBbasis0->addItem(tr(""));
+//    CMBbasis0->addItem(tr("aug"));
+
+//    QComboBox *CMBbasis1 = new QComboBox();
+//    CMBbasis1->addItem(tr("STO-3G"));
+//    CMBbasis1->addItem(tr("3-21G"));
+//    CMBbasis1->addItem(tr("6-31G"));
+
+//    QComboBox *CMBbasis2 = new QComboBox();
+//    CMBbasis2->addItem(tr(""));
+//    CMBbasis2->addItem(tr("*"));
+//    CMBbasis2->addItem(tr("**"));
+
+//    QComboBox *CMBbasis3 = new QComboBox();
+//    CMBbasis3->addItem(tr(""));
+//    CMBbasis3->addItem(tr("+"));
+//    CMBbasis3->addItem(tr("++"));
+
+//    QComboBox *CMBbasis4 = new QComboBox();
+//    CMBbasis4->addItem(tr(""));
+//    CMBbasis4->addItem(tr("d"));
+//    CMBbasis4->addItem(tr("2d"));
+//    CMBbasis4->addItem(tr("3d"));
+//    CMBbasis4->addItem(tr("df"));
+//    CMBbasis4->addItem(tr("2df"));
+//    CMBbasis4->addItem(tr("3df"));
+
+//    QComboBox *CMBbasis5 = new QComboBox();
+//    CMBbasis5->addItem(tr(""));
+//    CMBbasis5->addItem(tr("p"));
+//    CMBbasis5->addItem(tr("2p"));
+//    CMBbasis5->addItem(tr("3p"));
+//    CMBbasis5->addItem(tr("pd"));
+//    CMBbasis5->addItem(tr("2pd"));
+//    CMBbasis5->addItem(tr("3pd"));
+
+//    QComboBox *CMBbasis6 = new QComboBox();
+//    CMBbasis6->addItem(tr("5D,7F"));
+//    CMBbasis6->addItem(tr("6D,10F"));
+
+//    QLabel *LBLcharge = new QLabel(tr("Charge"));
+//    QSpinBox *SPBcharge = new QSpinBox();
+//    SPBcharge->setMaximum(30);
+//    SPBcharge->setMinimum(-10);
+//    SPBcharge->setValue(0);
+
+//    QLabel *LBLspin = new QLabel("Spin");
+//    QComboBox *CMBspin = new QComboBox();
+//    CMBspin->addItem(tr("Singlet"));
+//    CMBspin->addItem(tr("Doublet"));
+//    CMBspin->addItem(tr("Triplet"));
+//    CMBspin->addItem(tr("Quartet"));
+//    CMBspin->addItem(tr("Quintet"));
+//    CMBspin->addItem(tr("Sextet"));
+//    CMBspin->addItem(tr("Septet"));
+
+//    QHBoxLayout *layout1 = new QHBoxLayout();
+//    layout1->addWidget(LBLtitle);
+//    layout1->addWidget(TXTtitle);
+
+//    QHBoxLayout *layout2 = new QHBoxLayout();
+//    layout2->addWidget(LBLtype);
+//    layout2->addWidget(CMBtype);
+//    layout2->addWidget(CMBlevel);
+//    layout2->addWidget(CMBlevel2);
+//    layout2->addStretch();
+
+//    QHBoxLayout *layout3 = new QHBoxLayout();
+//    layout3->addWidget(LBLbasis);
+//    layout3->addWidget(CMBbasis0);
+//    layout3->addWidget(CMBbasis1);
+//    layout3->addWidget(CMBbasis3);
+//    layout3->addWidget(CMBbasis4);
+//    layout3->addWidget(CMBbasis5);
+//    layout3->addWidget(CMBbasis6);
+//    layout3->addWidget(LBLcharge);
+//    layout3->addWidget(SPBcharge);
+//    layout3->addWidget(LBLspin);
+//    layout3->addWidget(CMBspin);
+//    layout3->addStretch();
+
+//    QVBoxLayout *layout = new QVBoxLayout(QDLgaussian);
+//    layout->addLayout(layout1);
+//    layout->addLayout(layout2);
+//    layout->addLayout(layout3);
+//    QDLgaussian->exec();
+//}
 
 
 /*******************************************************************************************************/
