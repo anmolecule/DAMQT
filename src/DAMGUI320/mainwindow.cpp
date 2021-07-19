@@ -5820,22 +5820,22 @@ void MainWindow::execImport()
         execSxyzDen();
     }else if (suffix=="fchk"){
         lslater = false;
-        execFchk();
+        readFchk();
     }else if (suffix=="mos" || suffix=="coord" || suffix=="basis"){
         lslater = false;
-        execTurbom();
+        readTurbom();
     }else if (suffix=="mkl"){
         lslater = false;
-        execMOLEKEL();
+        readMOLEKEL();
     }else if (suffix=="out" || suffix=="xml"){
-        execMolpro();
+        readMolpro();
         lslater = false;
     }else if (suffix=="aux"){
         lslater = true;
-        execMopac();
+        readMopac();
     }else if (suffix=="nwcout"){
         lslater = false;
-        execNWChem();
+        readNWChem();
     }else if (suffix=="psiauxden"){
         lslater = false;
         execPsi4auxiliary();
@@ -6166,7 +6166,7 @@ void MainWindow::execSxyzDen()
 /**************************************************************************************************/
 
 /* Reads data from a GAUSSIAN fchk file */
-void MainWindow::execFchk()
+void MainWindow::readFchk()
 {
     if (ImportFolder.at(ImportFolder.length()-1) != '/')
         ImportFolder.append('/');
@@ -6222,7 +6222,7 @@ void MainWindow::create_damproj(int exitCode, QProcess::ExitStatus exitStatus){
 }
 
 /* Reads data from an MOLEKEL .mkl  file */
-void MainWindow::execMOLEKEL()
+void MainWindow::readMOLEKEL()
 {
     QDir path(ProjectFolder);
 
@@ -6263,7 +6263,7 @@ void MainWindow::execMOLEKEL()
 }
 
 /* Reads data from a MOLPRO out file */
-void MainWindow::execMolpro()
+void MainWindow::readMolpro()
 {
     if (ImportFolder.at(ImportFolder.length()-1) != '/') ImportFolder.append('/');
     QString DirNombreImport = ImportFolder+ImportFile;
@@ -6363,7 +6363,7 @@ void MainWindow::execMolpro()
 }
 
 /* Reads data from a MOPAC aux file */
-void MainWindow::execMopac()
+void MainWindow::readMopac()
 {
     if (ImportFolder.at(ImportFolder.length()-1) != '/') ImportFolder.append('/');
     QString DirNombreImport = ImportFolder+ImportFile;
@@ -6411,7 +6411,7 @@ void MainWindow::execMopac()
 }
 
 /* Reads data from a TURBOMOLE coord, mos and basis  files */
-void MainWindow::execTurbom()
+void MainWindow::readTurbom()
 {
     QDir path(ProjectFolder);
 
@@ -6453,7 +6453,7 @@ void MainWindow::execTurbom()
 }
 
 /* Reads data from a NWChem output file (IMPORTANT! extension must be nwcout) */
-void MainWindow::execNWChem()
+void MainWindow::readNWChem()
 {
     QDir path(ProjectFolder);
 
@@ -6579,8 +6579,8 @@ void MainWindow::processError(QProcess::ProcessError error)
 //    Slot to be run when a process ends
 void MainWindow::processOutput(int exitCode, QProcess::ExitStatus exitStatus)
 {
-//    Processes numbering:  0: execFchk ; 1: execTurbom ; 2: execMOLEKEL ; 3: execMolpro (.out) ; 4: execMolpro (.xml)
-//           5: execMopac ; 6: execsgbs2sxyz ; 7: execNWChem ; 8: execPsi4auxiliary ; 9: void ; 10: void ;
+//    Processes numbering:  0: readFchk ; 1: readTurbom ; 2: readMOLEKEL ; 3: readMolpro (.out) ; 4: readMolpro (.xml)
+//           5: readMopac ; 6: execsgbs2sxyz ; 7: readNWChem ; 8: execPsi4auxiliary ; 9: void ; 10: void ;
 //          11: execDam ; 12: execDamden ; 13: execDampot ; 14: execDamforces ; 15: execDamfield
 //          16: execDamfrad ; 17: execDammultrot ; 18: execDamorb ; 19: execDamTopography
 //          20: execDamZJ ; 21: execDamdenZJ ; 22: execDamdengrad ; 23: execDamSGhole
@@ -6720,7 +6720,7 @@ void MainWindow::processOutput(int exitCode, QProcess::ExitStatus exitStatus)
         };
         if(mden>0){
             QApplication::setOverrideCursor(QPixmap(":/images/wait.png"));
-            execFchk();
+            readFchk();
             QApplication::restoreOverrideCursor();
             return;
         }else{
@@ -6733,7 +6733,7 @@ void MainWindow::processOutput(int exitCode, QProcess::ExitStatus exitStatus)
         MOLPRO_two_pass_case(fileName);
         if(mden>0){
             QApplication::setOverrideCursor(QPixmap(":/images/wait.png"));
-            execMolpro();
+            readMolpro();
             QApplication::restoreOverrideCursor();
             return;
         }else{
@@ -6957,7 +6957,7 @@ void MainWindow::processStop()
                 QProcess getprocesses;
                 QString pgrep;
                 pgrep = QString("pgrep -f %1").arg(processname);
-                qDebug() << "pgrep = " << pgrep;
+//                qDebug() << "pgrep = " << pgrep;
                 getprocesses.start(pgrep);
                 getprocesses.waitForFinished();
                 QByteArray procnumbers = getprocesses.readAllStandardOutput();
@@ -15249,8 +15249,12 @@ void MainWindow::external_package(){
     QDLexternal->setWindowTitle(tr("External package"));
     QDLexternal->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
 
+    indexternal = 0;
+    extInputFileName = "";
+
     QLabel *LBLtitle = new QLabel(tr("Title"));
-    QLineEdit *TXTtitle = new QLineEdit();
+    TXTtitle = new QLineEdit(tr("Title"),QDLexternal);
+    connectionsext << connect(TXTtitle, SIGNAL(returnPressed()), this, SLOT(externalinputfile_changed()));
 
     QLabel *LBLengine = new QLabel(tr("Engine choice"));
     QComboBox *CMBengine = new QComboBox();
@@ -15260,59 +15264,64 @@ void MainWindow::external_package(){
     CMBengine->addItem(tr("NWChem"));
     CMBengine->addItem(tr("Turbomole"));
     CMBengine->addItem(tr("Mopac"));
+    connectionsext << connect(CMBengine, SIGNAL(currentIndexChanged(int)), this, SLOT(CMBengine_changed(int)));
 
     TXTextgeometry = new QLineEdit(QDLexternal);
     TXTextgeometry->setPlaceholderText(tr("Load file with molecule coordinates"));
     connectionsext << connect(TXTextgeometry, SIGNAL(textChanged(const QString &)), this, SLOT(TXTextgeometry_changed()));
-
+    connectionsext << connect(TXTextgeometry, SIGNAL(returnPressed()), this, SLOT(externalinputfile_changed()));
 
     QToolButton *BTNgeometry = new QToolButton();
     BTNgeometry->setText(tr("..."));
     connectionsext << connect(BTNgeometry, SIGNAL(clicked()), this, SLOT(external_geometry()));
 
     QLabel *LBLtype = new QLabel(tr("Calculation type"));
-    QComboBox *CMBtype = new QComboBox();
+    CMBtype = new QComboBox(QDLexternal);
     CMBtype->addItem(tr("Energy"));
     CMBtype->addItem(tr("Geometry optimization"));
     CMBtype->addItem(tr("Frequencies"));
     CMBtype->addItem(tr("Optimization+Frequencies"));
     CMBtype->addItem(tr("NMR"));
+    connectionsext << connect(CMBtype, SIGNAL(currentIndexChanged(int)), this, SLOT(externalinputfile_changed()));
 
-    QComboBox *CMBlevel = new QComboBox();
-    CMBlevel->addItem(tr("Hartree-Fock"));
-    CMBlevel->addItem(tr("DFT"));
-    CMBlevel->addItem("M⌀ller-Plesset 2");
-    CMBlevel->addItem("M⌀ller-Plesset 4");
-    CMBlevel->addItem("CC-SD");
+    CMBlevel = new QComboBox(QDLexternal);
+    CMBlevel->setEditable(true);
+    CMBlevel->addItem(tr("HF"));
+    CMBlevel->addItem(tr("B3LYP"));
+    CMBlevel->addItem("MP2");
+    CMBlevel->addItem("CCSD");
     CMBlevel->addItem("BD");
-    CMBlevel->addItem("CAS-SCF");
-    CMBlevel->addItem(tr("Molecular mechanics"));
-    CMBlevel->addItem(tr("Semi-empirical"));
+    CMBlevel->addItem("CASSCF");
+    CMBlevel->addItem(tr("PM6"));
+    CMBlevel->addItem(tr("UFF"));
+    connectionsext << connect(CMBlevel, SIGNAL(currentIndexChanged(int)), this, SLOT(externalinputfile_changed()));
 
-    QComboBox *CMBlevel2 = new QComboBox();
+    CMBlevel2 = new QComboBox(QDLexternal);
     CMBlevel2->addItem(tr("Default Spin"));
     CMBlevel2->addItem(tr("Restricted"));
     CMBlevel2->addItem(tr("Unrestricted"));
     CMBlevel2->addItem(tr("Open Restricted"));
+    connectionsext << connect(CMBlevel2, SIGNAL(currentIndexChanged(int)), this, SLOT(externalinputfile_changed()));
 
     QLabel *LBLcharge = new QLabel(tr("Charge"));
-    QSpinBox *SPBcharge = new QSpinBox();
+    SPBcharge = new QSpinBox(QDLexternal);
     SPBcharge->setMaximum(30);
     SPBcharge->setMinimum(-10);
     SPBcharge->setValue(0);
+    connectionsext << connect(SPBcharge,SIGNAL(valueChanged(int)),this,SLOT(externalinputfile_changed()));
 
     QLabel *LBLmult = new QLabel(tr("Mult"));
-    QSpinBox *SPBmult = new QSpinBox();
+    SPBmult = new QSpinBox(QDLexternal);
     SPBmult->setMaximum(10);
     SPBmult->setMinimum(1);
     SPBmult->setValue(1);
     SPBmult->setToolTip("2S+1");
+    connectionsext << connect(SPBmult,SIGNAL(valueChanged(int)),this,SLOT(externalinputfile_changed()));
 
     QLabel *LBLbasis = new QLabel(tr("Basis set"));
-    QComboBox *CMBbasis = new QComboBox();
+    CMBbasis = new QComboBox(QDLexternal);
     CMBbasis->setMinimumWidth(150);
     CMBbasis->setEditable(true);
-    CMBbasis->addItem(tr(""));
     CMBbasis->addItem(tr("STO-3G"));
     CMBbasis->addItem(tr("3-21G"));
     CMBbasis->addItem(tr("6-31G"));
@@ -15321,10 +15330,12 @@ void MainWindow::external_package(){
     CMBbasis->addItem(tr("cc-pVTZ"));
     CMBbasis->addItem(tr("cc-pVQZ"));
     CMBbasis->addItem(tr("cc-pV5Z"));
+    connectionsext << connect(CMBbasis, SIGNAL(currentIndexChanged(int)), this, SLOT(externalinputfile_changed()));
 
     QLabel *LBLkeywords = new QLabel(tr("Keywords"));
     TXTkeywords = new QLineEdit(QDLexternal);
     TXTkeywords->setPlaceholderText("Additional Keywords");
+    connectionsext << connect(TXTkeywords, SIGNAL(textChanged(const QString &)), this, SLOT(externalinputfile_changed()));
 
     QBGrunmode = new QButtonGroup();
 
@@ -15335,7 +15346,7 @@ void MainWindow::external_package(){
     QBGrunmode->addButton(RBTlocal);
     QBGrunmode->addButton(RBTremote);
 
-    BTNjob = new QPushButton(tr("Generate Job Script"));
+    BTNjob = new QPushButton(tr("Generate Job Script"),QDLexternal);
     BTNjob->setEnabled(false);
     BTNjob->setAutoDefault(false);
     connectionsext << connect(BTNjob, SIGNAL(clicked()), this, SLOT(BTNjob_clicked()));
@@ -15343,13 +15354,16 @@ void MainWindow::external_package(){
     LBLextproc = new QLabel(tr("number of processors"),QDLexternal);
     SPBextproc = new QSpinBox(QDLexternal);
     SPBextproc->setMinimum(1);
+    connectionsext << connect(SPBextproc,SIGNAL(valueChanged(int)),this,SLOT(externalinputfile_changed()));
 
-    QLineEdit *TXTextmem = new QLineEdit();
+    TXTextmem = new QLineEdit(QDLexternal);
     TXTextmem->setPlaceholderText(tr("Memory..."));
-    QLineEdit *TXTexttime = new QLineEdit();
+    connectionsext << connect(TXTextmem, SIGNAL(textChanged(const QString &)), this, SLOT(externalinputfile_changed()));
+
+    TXTexttime = new QLineEdit(QDLexternal);
     TXTexttime->setPlaceholderText(tr("Time limit..."));
 
-    QBGjobcommand = new QButtonGroup();
+    QBGjobcommand = new QButtonGroup(QDLexternal);
 
     RBTPBS = new QRadioButton(tr("PBS"),QDLexternal);
     RBTPBS->setEnabled(false);
@@ -15367,36 +15381,42 @@ void MainWindow::external_package(){
 
     connectionsext << connect(RBTlocal,SIGNAL(toggled(bool)),this,SLOT(RBTlocal_changed()));
 
+    LBLextworkdir  = new QLabel(tr("Working"),QDLexternal);
+    TXTextworkdir = new QLineEdit(QDLexternal);
+    TXTextworkdir->setPlaceholderText("Working directory...");
+    connectionsext << connect(TXTextworkdir, SIGNAL(returnPressed()), this, SLOT(externalinputfile_changed()));
+
     LBLextpathremote = new QLabel(tr("Path"),QDLexternal);
     TXTextpathremote = new QLineEdit(QDLexternal);
     TXTextpathremote->setPlaceholderText("Path to remote executable...");
     LBLextpathremote->setEnabled(false);
     TXTextpathremote->setEnabled(false);
 
-    LBLextworkdir  = new QLabel(tr("Working"),QDLexternal);
-    TXTextworkdir = new QLineEdit(QDLexternal);
-    TXTextworkdir->setPlaceholderText("Working directory...");
-    LBLextworkdir->setEnabled(false);
-    TXTextworkdir->setEnabled(false);
-
     preview = true;
-    BTNpreview = new QPushButton(tr("Hide preview"));
+    BTNpreview = new QPushButton(tr("Hide preview"),QDLexternal);
     BTNpreview->setStyleSheet("QPushButton {color: red;}");
     BTNpreview->setAutoDefault(false);
     connectionsext << connect(BTNpreview, SIGNAL(clicked()), this, SLOT(BTNpreview_clicked()));
 
     extextEdit = new QTextEdit(QDLexternal);
-    extextEdit->setFocusPolicy(Qt::NoFocus);
+    extextEdit->setFocusPolicy(Qt::ClickFocus);
 
-    QPushButton *BTNextreset = new QPushButton(tr("Reset"));
-    BTNextreset->setAutoDefault(false);
+    QLabel *LBLextcommand = new QLabel(tr("Exec file:"));
+    TXTextcommand = new QLineEdit("g09",QDLexternal);
 
     QPushButton *BTNextsave = new QPushButton(tr("Save"));
     BTNextsave->setAutoDefault(false);
+    connectionsext << connect(BTNextsave, SIGNAL(clicked()), this, SLOT(BTNextsave_clicked()));
+
+    QPushButton *BTNextreset = new QPushButton(tr("Reset"));
+    BTNextreset->setAutoDefault(false);
+    connectionsext << connect(BTNextreset, SIGNAL(clicked()), this, SLOT(BTNextreset_clicked()));
 
     QPushButton *BTNextsubmit = new QPushButton(tr("Submit"));
     BTNextsubmit->setAutoDefault(false);
+    connectionsext << connect(BTNextsubmit, SIGNAL(clicked()), this, SLOT(BTNextsubmit_clicked()));
 
+    make_Gaussian_input();
 
     QHBoxLayout *layout1 = new QHBoxLayout();
     layout1->addWidget(LBLtitle);
@@ -15444,17 +15464,22 @@ void MainWindow::external_package(){
     layout10->addWidget(TXTextmem,1,2,1,1);
     layout10->addWidget(TXTexttime,1,3,1,1);
     layout10->addLayout(layout7,1,4,1,3);
-    layout10->addWidget(LBLextpathremote,2,0,1,1);
-    layout10->addWidget(TXTextpathremote,2,1,1,6);
-    layout10->addWidget(LBLextworkdir,3,0,1,1);
-    layout10->addWidget(TXTextworkdir,3,1,1,6);
-    layout10->addWidget(BTNpreview,4,0,1,2);
+    layout10->addWidget(LBLextworkdir,2,0,1,1);
+    layout10->addWidget(TXTextworkdir,2,1,1,6);
+    layout10->addWidget(LBLextpathremote,3,0,1,1);
+    layout10->addWidget(TXTextpathremote,3,1,1,6);
+    layout10->addWidget(LBLextcommand,4,0,1,1);
+    layout10->addWidget(TXTextcommand,4,1,1,1);
+    layout10->addWidget(BTNpreview,5,0,1,2);
+    layout10->addWidget(BTNextsave,5,4,1,1);
+    layout10->addWidget(BTNextreset,5,5,1,1);
+    layout10->addWidget(BTNextsubmit,5,6,1,1);
 
-    QHBoxLayout *layout11 = new QHBoxLayout();
-    layout11->addWidget(BTNextreset);
-    layout11->addWidget(BTNextsave);
-    layout11->addWidget(BTNextsubmit);
-    layout11->addStretch();
+//    QHBoxLayout *layout11 = new QHBoxLayout();
+//    layout11->addWidget(BTNextreset);
+//    layout11->addWidget(BTNextsave);
+//    layout11->addWidget(BTNextsubmit);
+//    layout11->addStretch();
 
     QVBoxLayout *layout = new QVBoxLayout(QDLexternal);
     layout->addLayout(layout1);
@@ -15463,7 +15488,7 @@ void MainWindow::external_package(){
     layout->addLayout(layout4);
     layout->addLayout(layout10);
     layout->addWidget(extextEdit);
-    layout->addLayout(layout11,Qt::AlignLeft);
+//    layout->addLayout(layout11,Qt::AlignLeft);
 
 
     QDLexternal->setTabOrder(TXTtitle,CMBengine);
@@ -15484,12 +15509,13 @@ void MainWindow::external_package(){
     QDLexternal->setTabOrder(TXTexttime,RBTPBS);
     QDLexternal->setTabOrder(RBTPBS,RBTSGE);
     QDLexternal->setTabOrder(RBTSGE,RBTSLURM);
-    QDLexternal->setTabOrder(RBTSLURM,TXTextpathremote);
-    QDLexternal->setTabOrder(TXTextpathremote,TXTextworkdir);
-    QDLexternal->setTabOrder(TXTextworkdir,BTNpreview);
-    QDLexternal->setTabOrder(BTNpreview,BTNextreset);
-    QDLexternal->setTabOrder(BTNextreset,BTNextsave);
-    QDLexternal->setTabOrder(BTNextsave,BTNextsubmit);
+    QDLexternal->setTabOrder(RBTSLURM,TXTextworkdir);
+    QDLexternal->setTabOrder(TXTextworkdir,TXTextpathremote);
+    QDLexternal->setTabOrder(TXTextpathremote,TXTextcommand);
+    QDLexternal->setTabOrder(TXTextcommand,BTNpreview);
+    QDLexternal->setTabOrder(BTNpreview,BTNextsave);
+    QDLexternal->setTabOrder(BTNextsave,BTNextreset);
+    QDLexternal->setTabOrder(BTNextreset,BTNextsubmit);
     TXTtitle->setFocus();
 
     QDLexternal->adjustSize();
@@ -15516,6 +15542,69 @@ void MainWindow::BTNpreview_clicked(){
     QDLexternal->update();
 }
 
+void MainWindow::BTNextreset_clicked(){
+    switch (indexternal) {
+        case 0:     // Gaussian
+            make_Gaussian_input();
+        case 1:     // Gamess
+            make_Gamess_input();
+        case 2:     // Molpro
+            make_Molpro_input();
+    }
+}
+
+void MainWindow::BTNextsave_clicked(){
+    switch (indexternal) {
+        case 0:     // Gaussian
+            save_Gaussian_input();
+        case 1:     // Gamess
+            save_Gamess_input();
+        case 2:     // Molpro
+            save_Molpro_input();
+    }
+}
+
+void MainWindow::BTNextsubmit_clicked(){
+    if (extInputFileName.isEmpty())
+        return;
+    QString strprocess;
+    QStringList Parameters = TXTextcommand->text().trimmed().split(" ");
+    QString processname = Parameters.at(0);
+    Parameters.removeFirst();
+//    if (!QFileInfo::exists(processname)){
+//        QMessageBox msgBox;
+//        msgBox.setText(tr("External program submission"));
+//        msgBox.setInformativeText(QString(tr("Command: %1 not available\n").arg(processname))+
+//            QString(tr("Check that it is installed in your system\n"))+
+//            QString(tr("If it installed, add it to your $PATH)")));
+//        msgBox.setIcon(QMessageBox::Warning);
+//        msgBox.exec();
+//        return;
+//    }
+    qDebug() << QDir::homePath();
+    QString stdinput = extInputFileName;
+    QString stdoutput = QFileInfo(extInputFileName).absolutePath()
+            + QFileInfo(extInputFileName).completeBaseName() + ".log";
+    qDebug() << stdinput;
+    qDebug() << stdoutput;
+    qDebug() << qgetenv("GAUSS_EXEDIR");
+//    Parameters << stdinput;
+    QProcess *myProcess = new QProcess(QDLexternal);
+    myProcess->setStandardInputFile(stdinput);
+    myProcess->setStandardOutputFile(stdoutput,QIODevice::Truncate);
+    myProcess->setStandardErrorFile(stdoutput,QIODevice::Append);
+    connectionsext << connect(myProcess, SIGNAL(started()), this, SLOT(submitStart()));
+    connectionsext << connect(myProcess, SIGNAL(error(QProcess::ProcessError)), this, SLOT(submitError(QProcess::ProcessError)));
+    connectionsext << connect(myProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(submitOutput(int, QProcess::ExitStatus)));
+    myProcess->start(processname,Parameters);
+    QByteArray qbarray = myProcess->readAllStandardError();
+//    qDebug() << qbarray;
+}
+
+void MainWindow::CMBengine_changed(int i){
+    indexternal = i;
+}
+
 void MainWindow::external_geometry(){
     QFileDialog filedialog;
     filedialog.setDirectory(ProjectFolder);
@@ -15529,6 +15618,108 @@ void MainWindow::external_geometry(){
 
 }
 
+void MainWindow::externalinputfile_changed(){
+    switch (indexternal) {
+        case 0:     // Gaussian
+            make_Gaussian_input();
+        case 1:     // Gamess
+            make_Gamess_input();
+        case 2:     // Molpro
+            make_Molpro_input();
+    }
+}
+
+void MainWindow::make_Gamess_input(){
+
+}
+
+void MainWindow::make_Gaussian_input(){
+    QStringList type = {"","opt","freq","opt freq","nmr=giao"};
+    QStringList level2 = {"","r","u","ro"};
+
+    QString filepath = TXTextworkdir->text().trimmed();
+    if (filepath.isEmpty())
+        return;
+    QString filename = QFileInfo(TXTextgeometry->text()).baseName();
+    if (filename.isEmpty())
+        return;
+    extInputFileName = filepath+"/"+filename+".com";
+    QFile gaussianInput(extInputFileName);
+    if (gaussianInput.isOpen()){
+        gaussianInput.close();
+    }
+    if (!gaussianInput.open(QFile::WriteOnly | QFile::Text)){
+        return;
+    }
+    QFile geometryInput(TXTextgeometry->text().trimmed());
+    if (!geometryInput.open(QFile::ReadOnly | QFile::Text)){
+        return;
+    }
+
+    QTextStream outfile(&gaussianInput); // Buffer for writing to gaussianInput
+    QByteArray buff;
+    if (SPBextproc->value() > 1){
+        buff.append(QString("\%nprocshared=%1\n").arg(SPBextproc->value()));
+    }
+    if (!TXTextmem->text().isEmpty()){
+        buff.append(QString("\%mem=%1\n").arg(TXTextmem->text().trimmed()));
+    }
+    buff.append(QString("\%chk=%1.chk\n").arg(filename));
+    buff.append(QString("# %1  %2%3").arg(type.at(CMBtype->currentIndex())).arg(level2.at(CMBlevel2->currentIndex()))
+                .arg(CMBlevel->currentText().toLower()));
+    if (CMBlevel->currentIndex() < CMBlevel->count()-2){
+        buff.append(QString("/%1 \n\n").arg(CMBbasis->currentText()));
+    }
+    buff.append(QString("%1\n\n").arg(TXTtitle->text().trimmed()));
+    buff.append(QString("%1 %2\n").arg(SPBcharge->value()).arg(SPBmult->value()));
+
+    QTextStream in(&geometryInput); // Buffer for reading from fileinput
+    QString line = in.readLine();
+#if QT_VERSION < 0x050E00
+    QStringList xyz = line.split(' ',QString::SkipEmptyParts);
+#else
+    QStringList xyz = line.split(' ',Qt::SkipEmptyParts);
+#endif
+    int ncen = xyz.at(0).toInt();
+    int kntcen = 0;
+    while (!in.atEnd()){
+        line = in.readLine();
+#if QT_VERSION < 0x050E00
+        QStringList xyz = line.split(' ',QString::SkipEmptyParts);
+#else
+        QStringList xyz = line.split(' ',Qt::SkipEmptyParts);
+#endif
+        if (xyz.count() == 4){
+            buff.append(QString("%1    %2    %3    %4\n").arg(xyz[0]).arg(xyz[1]).arg(xyz[2]).arg(xyz[3]));
+            kntcen++;
+        }
+    }
+    if (ncen != kntcen){
+        QMessageBox msgBox;
+        msgBox.setText(tr("make_Gaussian_input"));
+        msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
+            TXTextgeometry->text().trimmed());
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+        return;
+    }
+
+    outfile << buff;
+#if QT_VERSION < 0x050E00
+    outfile << endl;
+#else
+    outfile << Qt::endl;
+#endif
+    gaussianInput.close();
+    extextEdit->setText(buff);
+
+}
+
+
+void MainWindow::make_Molpro_input(){
+
+}
+
 void MainWindow::RBTlocal_changed(){
     if (RBTlocal->isChecked()){
         RBTPBS->setEnabled(false);
@@ -15536,8 +15727,6 @@ void MainWindow::RBTlocal_changed(){
         RBTSLURM->setEnabled(false);
         LBLextpathremote->setEnabled(false);
         TXTextpathremote->setEnabled(false);
-        LBLextworkdir->setEnabled(false);
-        TXTextworkdir->setEnabled(false);
         BTNjob->setEnabled(false);
         QDLexternal->setTabOrder(TXTkeywords,RBTlocal);
         QDLexternal->setTabOrder(RBTlocal,BTNjob);
@@ -15548,8 +15737,6 @@ void MainWindow::RBTlocal_changed(){
         RBTSLURM->setEnabled(true);
         LBLextpathremote->setEnabled(true);
         TXTextpathremote->setEnabled(true);
-        LBLextworkdir->setEnabled(true);
-        TXTextworkdir->setEnabled(true);
         BTNjob->setEnabled(true);
         QDLexternal->setTabOrder(TXTkeywords,RBTremote);
         QDLexternal->setTabOrder(RBTremote,BTNjob);
@@ -15559,9 +15746,57 @@ void MainWindow::RBTlocal_changed(){
 
 }
 
+void MainWindow::save_Gamess_input(){
+
+}
+
+void MainWindow::save_Gaussian_input(){
+    if (extInputFileName.isEmpty())
+        return;
+    QFile gaussianInput(extInputFileName);
+    if (gaussianInput.isOpen()){
+        gaussianInput.close();
+    }
+    if (!gaussianInput.open(QFile::WriteOnly | QFile::Text)){
+        return;
+    }
+    gaussianInput.write(extextEdit->toPlainText().toLatin1());
+}
+
+
+void MainWindow::save_Molpro_input(){
+
+}
+
+void MainWindow::submitError(QProcess::ProcessError error){
+    QString message = QString("Error %1 ").arg(error)
+                + QString(tr("Process failed to start program %1").arg(TXTextcommand->text().trimmed()));
+    QMessageBox::critical(this,QString("Error %1").arg(error),message);
+}
+
+void MainWindow::submitOutput(int exitCode, QProcess::ExitStatus status){
+    if(status==QProcess::NormalExit){
+        QMessageBox msgBox;
+        msgBox.setText(tr("submitOutput"));
+        msgBox.setInformativeText(QString(tr("Program succeeded\n")));
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.exec();
+    }else if (status==QProcess::CrashExit){
+        statusBar()->showMessage(tr(QString("Process crashed, exit code = %1").arg(exitCode).toLatin1()));
+    }
+}
+
+void MainWindow::submitStart(){
+    statusBar()->showMessage(tr("Computing..."));
+}
+
 void MainWindow::TXTextgeometry_changed(){
     extgeomfile = QFileInfo(TXTextgeometry->text().trimmed()).fileName();
     extgeompath = QFileInfo(TXTextgeometry->text().trimmed()).path();
+    if (TXTextworkdir->text().isEmpty()){
+        TXTextworkdir->setText(extgeompath);
+    }
+    externalinputfile_changed();
 }
 
 //void MainWindow::external_package(){

@@ -161,6 +161,9 @@ private slots:      // Alphabetically sorted (including type in sort)
     void BTNeffilelines_clicked();
     void BTNjob_clicked();
     void BTNpreview_clicked();
+    void BTNextreset_clicked();
+    void BTNextsave_clicked();
+    void BTNextsubmit_clicked();
 
     void CHKatdensinput_changed(int state);
     void CHKatdensmpi_changed(int state);
@@ -214,11 +217,15 @@ private slots:      // Alphabetically sorted (including type in sort)
     void chooseLanguage(QAction *action);
     void ChooseZJ_changed();
 
+    void CMBengine_changed(int);
+
     void create_damproj(int exitCode, QProcess::ExitStatus exitStatus);
     void createLanguageMenu();
 
     void density_resolution_changed();
     void disable_pages();
+
+    void externalinputfile_changed();
 
     void execDam();
     void execDamden();
@@ -229,21 +236,15 @@ private slots:      // Alphabetically sorted (including type in sort)
     void execDamfrad();
     void execDamSGhole();
     void execDamZJ();
-    void execFchk    ();
     void execGgbsDen();
     void execDammultrot();
     void execDamorb();
     void execDampot();
     void execDamTopography();
     void execImport();
-    void execMolpro();
-    void execMopac();
-    void execNWChem();
     void execPsi4auxiliary();
     void execsgbs2sxyz(QString qstring);
     void execSxyzDen();
-    void execTurbom();
-    void execMOLEKEL();
     void external_geometry();
 
 //    void gaussian_external();
@@ -273,6 +274,9 @@ private slots:      // Alphabetically sorted (including type in sort)
     void loadDefault_ZJdens();
     void loadDefault_ZJtab();
 
+    void make_Gamess_input();
+    void make_Gaussian_input();
+    void make_Molpro_input();
     void menu_viewer2D();
     void menu_viewer3D();
     void moveviewertotop(int);
@@ -373,6 +377,17 @@ private slots:      // Alphabetically sorted (including type in sort)
         const QLineEdit * yi, const QLineEdit * yf, const QLineEdit * zi, const QLineEdit * zf,
         QRadioButton * d3, QRadioButton * l, QRadioButton * m, QRadioButton * h, QRadioButton * c);
 
+    void readFchk();
+    void readMolpro();
+    void readMopac();
+    void readNWChem();
+    void readTurbom();
+    void readMOLEKEL();
+
+    void save_Gamess_input();
+    void save_Gaussian_input();
+    void save_Molpro_input();
+
     void saveOptions_0(string file, bool *printwarns, QString *warns);
     void saveOptions_1(string file, bool *printwarns, QString *warns);
     void saveOptions_2(string file, bool *printwarns, QString *warns);
@@ -412,6 +427,10 @@ private slots:      // Alphabetically sorted (including type in sort)
     void SPBZJmpi_changed(int nprocessors);
         
     void start();
+
+    void submitError(QProcess::ProcessError);
+    void submitOutput(int, QProcess::ExitStatus);
+    void submitStart();
     
     void tabChanged(int index);
     void TXTdensatoms_changed();
@@ -1446,6 +1465,8 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
 //  --------------------------------------------------------
 
     bool preview;
+
+    int indexternal;
     
     QButtonGroup *QBGjobcommand;
     QButtonGroup *QBGrunmode;
@@ -1476,6 +1497,7 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
 
     QString extgeomfile;
     QString extgeompath;
+    QString extInputFileName;
 
     QTextEdit *extextEdit;
     
@@ -1526,6 +1548,19 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
         double set_deltaZJ(const char * c, double ini, double fin);
 
         QByteArray ReadSectionOptions(const char *SectionName, QFile *FileName);
+
+        QComboBox *CMBbasis;
+        QComboBox *CMBlevel;
+        QComboBox *CMBlevel2;
+        QComboBox *CMBtype;
+
+        QLineEdit *TXTextcommand;
+        QLineEdit *TXTextmem;
+        QLineEdit *TXTexttime = new QLineEdit();
+        QLineEdit *TXTtitle;
+
+        QSpinBox *SPBcharge;
+        QSpinBox *SPBmult;
 
         QString FileWithoutExt(const QString &fullFileName);
         QString FileWithoutPath(const QString &fullFileName);
