@@ -52,6 +52,7 @@
 #include <QtDebug>
 
 #include "dialog.h"
+#include "externals.h"
 #include "IniFile.h"
 #include "math.h"
 #include "viewer2D.h"
@@ -90,8 +91,6 @@ class QStringList;
 class QPrinter;
 class QPainter;
 class Sheet;
-//class Visor3D;
-//class Visor2D;
 class Surface2D;
 class QDoubleValidator;
 
@@ -159,11 +158,6 @@ private slots:      // Alphabetically sorted (including type in sort)
     
     void BTNdgfilelines_clicked();
     void BTNeffilelines_clicked();
-    void BTNjob_clicked();
-    void BTNpreview_clicked();
-    void BTNextreset_clicked();
-    void BTNextsave_clicked();
-    void BTNextsubmit_clicked();
 
     void CHKatdensinput_changed(int state);
     void CHKatdensmpi_changed(int state);
@@ -217,15 +211,11 @@ private slots:      // Alphabetically sorted (including type in sort)
     void chooseLanguage(QAction *action);
     void ChooseZJ_changed();
 
-    void CMBengine_changed(int);
-
     void create_damproj(int exitCode, QProcess::ExitStatus exitStatus);
     void createLanguageMenu();
 
     void density_resolution_changed();
     void disable_pages();
-
-    void externalinputfile_changed();
 
     void execDam();
     void execDamden();
@@ -245,7 +235,7 @@ private slots:      // Alphabetically sorted (including type in sort)
     void execPsi4auxiliary();
     void execsgbs2sxyz(QString qstring);
     void execSxyzDen();
-    void external_geometry();
+
 
 //    void gaussian_external();
 
@@ -274,9 +264,6 @@ private slots:      // Alphabetically sorted (including type in sort)
     void loadDefault_ZJdens();
     void loadDefault_ZJtab();
 
-    void make_Gamess_input();
-    void make_Gaussian_input();
-    void make_Molpro_input();
     void menu_viewer2D();
     void menu_viewer3D();
     void moveviewertotop(int);
@@ -340,7 +327,6 @@ private slots:      // Alphabetically sorted (including type in sort)
     void RBTdZJplane_changed();
     void RBTef2D3D_changed();
     void RBTef2Dplanes_changed();
-    void RBTlocal_changed();
     void RBTMO2D3D_changed();
     void RBTMO2Dplanes_changed();
     void RBTMOplane_changed();
@@ -384,10 +370,6 @@ private slots:      // Alphabetically sorted (including type in sort)
     void readTurbom();
     void readMOLEKEL();
 
-    void save_Gamess_input();
-    void save_Gaussian_input();
-    void save_Molpro_input();
-
     void saveOptions_0(string file, bool *printwarns, QString *warns);
     void saveOptions_1(string file, bool *printwarns, QString *warns);
     void saveOptions_2(string file, bool *printwarns, QString *warns);
@@ -428,16 +410,11 @@ private slots:      // Alphabetically sorted (including type in sort)
         
     void start();
 
-    void submitError(QProcess::ProcessError);
-    void submitOutput(int, QProcess::ExitStatus);
-    void submitStart();
-    
     void tabChanged(int index);
     void TXTdensatoms_changed();
     void TXTdgdlt0_changed();
     void TXTdZJchoose_changed();
     void TXTefdlt0_changed();
-    void TXTextgeometry_changed();
     void TXTHFforcesatoms_changed();
     void TXTfradatoms_changed();
     void TXTImport_changed();
@@ -454,6 +431,8 @@ private slots:      // Alphabetically sorted (including type in sort)
     void update_dockright();
     void update_menu_viewer2D();
     void update_menu_viewer3D();
+    void update_statusbar(QString);
+    void update_textedit(QString);
     void updatewindowsoverlay();
         
     void write_intervals(const char * a, const char * b, const char * c, const char * d, const string file, 
@@ -528,7 +507,6 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
     QList<QPushButton*> BTNshowwidgetslist;             // Stores buttons for hide/show 3D viewers
     QList<QMetaObject::Connection> connections2D;
     QList<QMetaObject::Connection> connections3D;
-    QList<QMetaObject::Connection> connectionsext;
 //    QList<QMetaObject::Connection> connectionsRightMenu;
     QList<glWidget*> *widgets;
     QList<Viewer2D*> *plots;
@@ -1461,119 +1439,66 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
     
     Sheet *SHTdZJxyz;
 
-//  External packages
-//  --------------------------------------------------------
-
-    bool preview;
-
-    int indexternal;
-    
-    QButtonGroup *QBGjobcommand;
-    QButtonGroup *QBGrunmode;
-
-    QDialog *QDLexternal;
-
-    QGroupBox *FRMextproc;
-
-    QLabel *LBLextproc;
-    QLabel *LBLextpathremote;
-    QLabel *LBLextworkdir;
-
-    QLineEdit *TXTextgeometry = new QLineEdit();
-    QLineEdit *TXTextpathremote;
-    QLineEdit *TXTextworkdir;
-    QLineEdit *TXTkeywords;
-
-    QPushButton *BTNjob;
-    QPushButton *BTNpreview;
-
-    QRadioButton *RBTlocal;
-    QRadioButton *RBTremote;
-    QRadioButton *RBTPBS;
-    QRadioButton *RBTSGE;
-    QRadioButton *RBTSLURM;
-
-    QSpinBox *SPBextproc;
-
-    QString extgeomfile;
-    QString extgeompath;
-    QString extInputFileName;
-
-    QTextEdit *extextEdit;
-    
 //  Functions (alphabetically sorted including type in sort)
 //  --------------------------------------------------------
 
-        bool Open(const QString &fileName);
-        bool compareIntegers(const QString& s1, const QString& s2);
-        bool createDir(QString &fullPathName);
-        bool mustSave();
-        bool existsinp(QString fullinputName,int tab,int def, bool pregunta);
-        bool Save(const QString &fileName);
+    bool Open(const QString &fileName);
+    bool compareIntegers(const QString& s1, const QString& s2);
+    bool createDir(QString &fullPathName);
+    bool mustSave();
+    bool existsinp(QString fullinputName,int tab,int def, bool pregunta);
+    bool Save(const QString &fileName);
 
-        void initpointers();
-        void UpdateRecentFiles();
-        void CreateActions();
-        void loadDefault(int all);
-        void CreateLeftMenu();
-        void CreateRightMenu();
-        void CreateMenus();
-        void CreateStatusBar();
-        void CreateToolBars();
-        void DAMDENdatafile(const QString &fullFileName, const QString projectDir, const QString projectName);
-        void defineRanges();
-        void SetCurrentFile(const QString &fileName,bool usar,bool modificado);
-        void SetDir(const QString &carpeta,const QString &nombre);
-        void setuvxyz();
-        void GDAMdatafile(const QString &fullinputName, const QString projectDir, const QString projectName);
-        void import(const QString &fileName);
-        void inputdatafile(const char *suffix, const char *section, const QString &fullFileName,
-            const QString projectDir, const QString projectName);
-        void saveOptions(const QString &fullFileName,int clase);
-        void readGeometry(int &natom,QVector<double> &x,QVector<double> &y,QVector<double> &z,QVector<int> &ncarga);
-        void readOptions(const QString &fullFileName);
-        void readSettings();
-        void rename_density_cntfile();
-        void rename_pot_cntfile();
-        void set_natom(int);
-        void writeSettings();
+    void initpointers();
+    void UpdateRecentFiles();
+    void CreateActions();
+    void loadDefault(int all);
+    void CreateLeftMenu();
+    void CreateRightMenu();
+    void CreateMenus();
+    void CreateStatusBar();
+    void CreateToolBars();
+    void DAMDENdatafile(const QString &fullFileName, const QString projectDir, const QString projectName);
+    void defineRanges();
+    void SetCurrentFile(const QString &fileName,bool usar,bool modificado);
+    void SetDir(const QString &carpeta,const QString &nombre);
+    void setuvxyz();
+    void GDAMdatafile(const QString &fullinputName, const QString projectDir, const QString projectName);
+    void import(const QString &fileName);
+    void inputdatafile(const char *suffix, const char *section, const QString &fullFileName,
+        const QString projectDir, const QString projectName);
+    void saveOptions(const QString &fullFileName,int clase);
+    void readGeometry(int &natom,QVector<double> &x,QVector<double> &y,QVector<double> &z,QVector<int> &ncarga);
+    void readOptions(const QString &fullFileName);
+    void readSettings();
+    void rename_density_cntfile();
+    void rename_pot_cntfile();
+    void set_natom(int);
+    void writeSettings();
 
-        int get_natom();
-        int get_plane_case(double, double, double);
-        int read_natom(QString fileName);
+    int get_natom();
+    int get_plane_case(double, double, double);
+    int read_natom(QString fileName);
 
-        double set_delta(const char * c, double ini, double fin);
-        double set_deltaorb(const char * c, double ini, double fin);
-        double set_deltapot(const char * c, double ini, double fin);
-        double set_deltaZJ(const char * c, double ini, double fin);
+    double set_delta(const char * c, double ini, double fin);
+    double set_deltaorb(const char * c, double ini, double fin);
+    double set_deltapot(const char * c, double ini, double fin);
+    double set_deltaZJ(const char * c, double ini, double fin);
 
-        QByteArray ReadSectionOptions(const char *SectionName, QFile *FileName);
+    QByteArray ReadSectionOptions(const char *SectionName, QFile *FileName);
 
-        QComboBox *CMBbasis;
-        QComboBox *CMBlevel;
-        QComboBox *CMBlevel2;
-        QComboBox *CMBtype;
+    QString FileWithoutExt(const QString &fullFileName);
+    QString FileWithoutPath(const QString &fullFileName);
+    QString Extension(const QString &fullFileName);
+    QString Path(const QString &fullFileName);
+    QString planesuffix(int);
+    QString Who_executing(int caso);
+    QString toQString(string v);
 
-        QLineEdit *TXTextcommand;
-        QLineEdit *TXTextmem;
-        QLineEdit *TXTexttime = new QLineEdit();
-        QLineEdit *TXTtitle;
+    QVector3D wu;
+    QVector3D wv;
 
-        QSpinBox *SPBcharge;
-        QSpinBox *SPBmult;
-
-        QString FileWithoutExt(const QString &fullFileName);
-        QString FileWithoutPath(const QString &fullFileName);
-        QString Extension(const QString &fullFileName);
-        QString Path(const QString &fullFileName);
-        QString planesuffix(int);
-        QString Who_executing(int caso);
-        QString toQString(string v);
-
-        QVector3D wu;
-        QVector3D wv;
-
-        string toString(QString qv);
+    string toString(QString qv);
 
 };
 
