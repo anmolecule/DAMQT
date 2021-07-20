@@ -639,8 +639,8 @@ MOLEKEL\index{MOLEKEL}
 file {\it .mkl}, a TURBOMOLE\index{TURBOMOLE} basis set, coords or molecular orbitals 
 file, {\it .basis}, {\it .coords}, {\it .mos} (they must be renamed to a common name with 
 the pertaning extensions), a MOLPRO\index{MOLPRO} output file, {\it .out}, or 
-\xml{ } file, a NWCHEM\index{NWCHEM} output file, {\it .nwcout}, or a MOPAC\index{MOPAC}
-{\it .aux} file
+\xml{ } file, a NWCHEM\index{NWCHEM} output file, {\it .nwcout}, a MOPAC\index{MOPAC}
+{\it .aux} file, or a PSI4\index{MOPAC} {\it .psiauxden} file
 can be supplied. In each case, a suitable built-in
 interface\index{interfaces}
 included in the package will automatically generate the \ggbs{ } and \den{ }
@@ -676,6 +676,7 @@ MOLEKEL & *.mkl \\
 MOLPRO & *.out, *.xml \\
 MOPAC & *.aux \\
 NWCHEM & *.nwcout \\
+PSI4 & *.psiauxden \\
 TURBOMOLE & *.basis, *.coords, *.mos \\
 \hline
 \end{tabular}

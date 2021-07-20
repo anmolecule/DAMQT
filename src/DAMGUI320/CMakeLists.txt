@@ -26,6 +26,7 @@ set( DAMGUI320_SRCS
    ./criticalpoints.cpp
    ./dialog.cpp  
    ./elements.cpp
+   ./externals.cpp
    ./fieldlines.cpp
    ./forces.cpp
    ./geometryprocessor.cpp
@@ -62,6 +63,7 @@ set( DAMGUI320_MOC_HDRS
    ${DAMGUI320_INCLUDE_DIR}/ColorButton.h
    ${DAMGUI320_INCLUDE_DIR}/criticalpoints.h
    ${DAMGUI320_INCLUDE_DIR}/dialog.h
+   ${DAMGUI320_INCLUDE_DIR}/externals.h
    ${DAMGUI320_INCLUDE_DIR}/fieldlines.h
    ${DAMGUI320_INCLUDE_DIR}/forces.h
    ${DAMGUI320_INCLUDE_DIR}/glWidget.h
