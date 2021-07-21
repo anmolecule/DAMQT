@@ -230,27 +230,9 @@ mespimizer::mespimizer(QWidget *parent) : QWidget()
 
     emit displayepic_changed(CHKdisplayepic->isChecked());
 
-//    FRMqm = new QGroupBox(tr("Quantum mechanics"));
-
-//    CHKqm = new QCheckBox(tr("Create input for QM method"),FRMqm);
-//    CHKqm->setChecked(false);
-//    connections << connect(CHKqm, SIGNAL(stateChanged(int)), this, SLOT(CHKqm_changed()));
-
-//    LBLqmsoft = new QLabel(tr("Software:"));
-//    LBLqmsoft->setVisible(false);
-
-//    CMBqmsoft = new QComboBox();
-//    CMBqmsoft->addItem(tr("gaussian"));
-//    CMBqmsoft->setCurrentIndex(0);
-//    CMBqmsoft->setVisible(false);
-//    connections << connect(CMBqmsoft,SIGNAL(currentIndexChanged(int)),this,SLOT(CMBqmsoft_changed(int)));
-//    qmsoft = QString(CMBqmsoft->itemText(0));
-
-//    LBLqm = new QLabel(tr("Options: "));
-//    LBLqm->setVisible(false);
-
-//    TXTqmkeywords = new QLineEdit("");
-//    TXTqmkeywords->setVisible(false);
+    BTNqm = new QPushButton(tr("Quantum mechanics"));
+    BTNqm->setToolTip(tr("Open template for quantum mechanics calculation"));
+    connections << connect(BTNqm, SIGNAL(clicked()), this, SLOT(external_package()));
 
     create_optimize_cluster_layouts();  // Optimize cluster layouts
     adjustSize();
@@ -294,13 +276,6 @@ bool mespimizer::create_mespimizer_input(){
     buff.append(QString("nocharge=.true.\n").toLatin1());
     buff.append(QString("tssize=%1\n").arg(SPBtssize->value()).toLatin1());
     buff.append(QString("rssize=%1\n").arg(SPBrssize->value()).toLatin1());
-//    if (CHKqm->isChecked()){
-//        buff.append(QString("lwriteqm=T\n").toLatin1());
-//        buff.append(QString("qmsoftware=\"%1\"\n").arg(qmsoft).toLatin1());
-//        if (!TXTqmkeywords->text().isEmpty()){
-//            buff.append(QString("qmkeywords=\"%1\"\n").arg(TXTqmkeywords->text()).toLatin1());
-//        }
-//    }
     if (!mespimizerpath.isEmpty()){
         buff.append(QString("path=\"%1/\"\n").arg(mespimizerpath).toLatin1());
     }
@@ -526,10 +501,6 @@ bool mespimizer::getoptimizetemplate(){
     return RBToptimizetemplate->isChecked();
 }
 
-//bool mespimizer::getqm(){
-//    return CHKqm->isChecked();
-//}
-
 bool mespimizer::getrecord(){
     return CHKrecordoptim->isChecked();
 }
@@ -561,15 +532,6 @@ QGroupBox * mespimizer::getFRMoptimizeCluster(){
 QString mespimizer::getmespimizerpath(){
     return TXTmespimizerpath->text();
 }
-
-//QString mespimizer::getqmkeywords(){
-//    return TXTqmkeywords->text();
-//}
-
-//QString mespimizer::getqmsoft(){
-//    return qmsoft;
-//}
-
 
 QString mespimizer::getrecordcommand(){
     return TXTrecordcommand->text();
@@ -668,21 +630,6 @@ void mespimizer::CHKoptimizeselect_changed(){
     emit optimizeselect_changed(CHKoptimizeselect->isChecked());
 }
 
-//void mespimizer::CHKqm_changed(){
-//    if (CHKqm->isChecked()){
-//        LBLqm->setVisible(true);
-//        LBLqmsoft->setVisible(true);
-//        CMBqmsoft->setVisible(true);
-//        TXTqmkeywords->setVisible(true);
-//    }
-//    else{
-//        LBLqm->setVisible(false);
-//        LBLqmsoft->setVisible(false);
-//        CMBqmsoft->setVisible(false);
-//        TXTqmkeywords->setVisible(false);
-//    }
-//}
-
 void mespimizer::CHKrecordoptim_changed(){
     if (CHKrecordoptim->isChecked()){
         FRMrecord->setVisible(true);
@@ -694,10 +641,6 @@ void mespimizer::CHKrecordoptim_changed(){
     emit adjustQDL();
     emit movetotop();
 }
-
-//void mespimizer::CMBqmsoft_changed(int i){
-//    qmsoft = CMBqmsoft->itemText(i);
-//}
 
 //          Save optimize cluster layouts
 
@@ -821,7 +764,6 @@ void mespimizer::create_optimize_cluster_layouts(){
     QVBoxLayout *layout20 = new QVBoxLayout(FRManimation);
     layout20->addLayout(layout8);
     layout20->addLayout(layout9);
-//    layout20->addLayout(layout10);
     layout20->addLayout(layout11);
     layout20->addLayout(layout13);
     layout20->addWidget(FRMrecord);
@@ -830,19 +772,6 @@ void mespimizer::create_optimize_cluster_layouts(){
     QHBoxLayout *layout21 = new QHBoxLayout();
     layout21->addWidget(LBLmakingmovie);
     layout21->addStretch();
-
-//    QHBoxLayout *layout22 = new QHBoxLayout();
-//    layout22->addWidget(LBLqmsoft);
-//    layout22->addWidget(CMBqmsoft);
-
-//    QHBoxLayout *layout23 = new QHBoxLayout();
-//    layout23->addWidget(LBLqm);
-//    layout23->addWidget(TXTqmkeywords);
-
-//    QVBoxLayout *layout24 = new QVBoxLayout(FRMqm);
-//    layout24->addWidget(CHKqm);
-//    layout24->addLayout(layout22);
-//    layout24->addLayout(layout23);
 
     QHBoxLayout *layout25 = new QHBoxLayout();
     layout25->addWidget(LBLenergyprecision);
@@ -864,22 +793,39 @@ void mespimizer::create_optimize_cluster_layouts(){
     layout28->addLayout(layout26);
     layout28->addLayout(layout27);
 
+    QHBoxLayout *layout29 = new QHBoxLayout();
+    layout29->addStretch();
+    layout29->addWidget(BTNqm);
+    layout29->addStretch();
+
     QVBoxLayout *layout = new QVBoxLayout(FRMoptimizeCluster);
     layout->addStretch();
     layout->addLayout(layout1);
     layout->addWidget(FRMoptimizeopt);
     layout->addWidget(FRMtemplate);
-//    layout->addWidget(FRMqm);
     layout->addLayout(layout7);
     layout->addWidget(FRManimation);
     layout->addLayout(layout21);
     layout->addWidget(FRMenergy);
-
+    layout->addLayout(layout29);
     layout->addStretch();
 }
 
 void mespimizer::enableBTNmespimize(bool a){
     BTNmespimize->setEnabled(a);
+}
+
+/**************************************************************************************************/
+/********** FUNCTIONS FOR EXTERNAL PACKAGES DIALOG                      ***************************/
+/**************************************************************************************************/
+
+void mespimizer::external_package(){
+    Externals *external = new Externals(this);
+    connections << connect(external, SIGNAL(computing(QString)), this, SLOT(qmcomputing(QString)));
+    connections << connect(external, SIGNAL(updatetextedit(QString)), this, SLOT(update_textedit(QString)));
+    external->setTXTextgeometry(TXTmespimizerpath->text().trimmed()+"/"
+        + TXTclusterfile->text().trimmed() +  ".xyz_final");
+    external->setTXTextworkdir(TXTmespimizerpath->text().trimmed());
 }
 
 void mespimizer::framefiles_dialog()
@@ -978,6 +924,10 @@ void mespimizer::endmakingmovie(){
     emit movetotop();
 }
 
+void mespimizer::qmcomputing(QString a){
+        emit qmrun(a);
+}
+
 void mespimizer::setCHKoptimizeselect(bool a){
     CHKoptimizeselect->setChecked(a);
 }
@@ -1036,11 +986,8 @@ void mespimizer::setframesfile(QString a){
 
 void mespimizer::setguessfromcanvas(bool a){
     guestfromcanvas = a;
-//    qDebug() << "a = " << a;
     RBToptimizecanvas->setChecked(a);
-//    qDebug() << "RBToptimizecanvas->isChecked = " << RBToptimizecanvas->isChecked();
     update();
-//    qDebug() << "RBToptimizetemplate->isChecked = " << RBToptimizetemplate->isChecked();
 }
 
 void mespimizer::sethostname(QString a){

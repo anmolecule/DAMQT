@@ -13142,9 +13142,9 @@ void MainWindow::ZJ_resolution_changed(){
 /**************************************************************************************************/
 
 void MainWindow::external_package(){
-    Externals *QDLexternal = new Externals(this);
-    connect(QDLexternal, SIGNAL(computing(QString)), this, SLOT(update_statusbar(QString)));
-    connect(QDLexternal, SIGNAL(updatetextedit(QString)), this, SLOT(update_textedit(QString)));
+    Externals *external = new Externals(this);
+    connect(external, SIGNAL(computing(QString)), this, SLOT(update_statusbar(QString)));
+    connect(external, SIGNAL(updatetextedit(QString)), this, SLOT(update_textedit(QString)));
 }
 
 

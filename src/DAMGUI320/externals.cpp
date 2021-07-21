@@ -124,6 +124,7 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     QLabel *LBLkeywords = new QLabel(tr("Keywords"));
     TXTkeywords = new QLineEdit(QDLexternal);
     TXTkeywords->setPlaceholderText("Additional Keywords");
+    TXTkeywords->setText("5D 7F");
     connectionsext << connect(TXTkeywords, SIGNAL(textChanged(const QString &)), this, SLOT(externalinputfile_changed()));
 
     QBGrunmode = new QButtonGroup();
@@ -193,16 +194,23 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     QLabel *LBLextcommand = new QLabel(tr("Exec file:"));
     TXTextcommand = new QLineEdit("g09",QDLexternal);
 
-    QPushButton *BTNextsave = new QPushButton(tr("Save"));
-    BTNextsave->setAutoDefault(false);
-    connectionsext << connect(BTNextsave, SIGNAL(clicked()), this, SLOT(BTNextsave_clicked()));
+    CHKformchk = new QCheckBox("Formchk",QDLexternal);
+    CHKformchk->setChecked(true);
+    CHKformchk->setVisible(true);
 
     QPushButton *BTNextreset = new QPushButton(tr("Reset"));
     BTNextreset->setAutoDefault(false);
+    BTNextreset->setToolTip(tr("Delete all modifications introduced by hand in the editor"));
     connectionsext << connect(BTNextreset, SIGNAL(clicked()), this, SLOT(BTNextreset_clicked()));
+
+    QPushButton *BTNextsave = new QPushButton(tr("Save"));
+    BTNextsave->setAutoDefault(false);
+    BTNextsave->setToolTip(tr("Saves the editor content to a file"));
+    connectionsext << connect(BTNextsave, SIGNAL(clicked()), this, SLOT(BTNextsave_clicked()));
 
     BTNextsubmit = new QPushButton(tr("Submit"),QDLexternal);
     BTNextsubmit->setAutoDefault(false);
+    BTNextsubmit->setToolTip(tr("Saves the editor content to an input file and submits the job"));
     connectionsext << connect(BTNextsubmit, SIGNAL(clicked()), this, SLOT(BTNextsubmit_clicked()));
 
     make_Gaussian_input();
@@ -259,16 +267,11 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     layout10->addWidget(TXTextpathremote,3,1,1,6);
     layout10->addWidget(LBLextcommand,4,0,1,1);
     layout10->addWidget(TXTextcommand,4,1,1,1);
+    layout10->addWidget(CHKformchk,4,2,1,2);
     layout10->addWidget(BTNpreview,5,0,1,2);
     layout10->addWidget(BTNextreset,5,4,1,1);
     layout10->addWidget(BTNextsave,5,5,1,1);
     layout10->addWidget(BTNextsubmit,5,6,1,1);
-
-//    QHBoxLayout *layout11 = new QHBoxLayout();
-//    layout11->addWidget(BTNextreset);
-//    layout11->addWidget(BTNextsave);
-//    layout11->addWidget(BTNextsubmit);
-//    layout11->addStretch();
 
     QVBoxLayout *layout = new QVBoxLayout(QDLexternal);
     layout->addLayout(layout1);
@@ -277,8 +280,6 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     layout->addLayout(layout4);
     layout->addLayout(layout10);
     layout->addWidget(extextEdit);
-//    layout->addLayout(layout11,Qt::AlignLeft);
-
 
     QDLexternal->setTabOrder(TXTtitle,CMBengine);
     QDLexternal->setTabOrder(CMBengine,TXTextgeometry);
@@ -301,7 +302,8 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     QDLexternal->setTabOrder(RBTSLURM,TXTextworkdir);
     QDLexternal->setTabOrder(TXTextworkdir,TXTextpathremote);
     QDLexternal->setTabOrder(TXTextpathremote,TXTextcommand);
-    QDLexternal->setTabOrder(TXTextcommand,BTNpreview);
+    QDLexternal->setTabOrder(TXTextcommand,CHKformchk);
+    QDLexternal->setTabOrder(CHKformchk,BTNpreview);
     QDLexternal->setTabOrder(BTNpreview,BTNextreset);
     QDLexternal->setTabOrder(BTNextreset,BTNextsave);
     QDLexternal->setTabOrder(BTNextsave,BTNextsubmit);
@@ -341,13 +343,22 @@ void Externals::BTNpreview_clicked(){
 }
 
 void Externals::BTNextreset_clicked(){
+    if (indexternal == 0){
+        CHKformchk->setVisible(true);
+    }
+    else{
+        CHKformchk->setVisible(false);
+    }
     switch (indexternal) {
         case 0:     // Gaussian
             make_Gaussian_input();
+            break;
         case 1:     // Gamess
             make_Gamess_input();
+            break;
         case 2:     // Molpro
             make_Molpro_input();
+            break;
     }
 }
 
@@ -411,8 +422,7 @@ void Externals::external_geometry(){
     QFileDialog filedialog;
     filedialog.setWindowFlags(Qt::WindowStaysOnTopHint);
     QString fileName = filedialog.getOpenFileName(this,tr("Open file ..."),"",
-        tr("Import geometry from")+" (*.xyz);;"+
-        tr("Geometry files")+" (*.xyz);;"+
+        tr("Import geometry from")+" (*.xyz *.xyz_init *.xyz_final);;"+
         tr("All files")+" (*)");
     if (fileName.length()==0) return;
     TXTextgeometry->setText(fileName);
@@ -420,16 +430,62 @@ void Externals::external_geometry(){
 }
 
 void Externals::externalinputfile_changed(){
+    if (indexternal == 0){
+        CHKformchk->setVisible(true);
+    }
+    else{
+        CHKformchk->setVisible(false);
+    }
     switch (indexternal) {
         case 0:     // Gaussian
             make_Gaussian_input();
+            break;
         case 1:     // Gamess
             make_Gamess_input();
+            break;
         case 2:     // Molpro
             make_Molpro_input();
+            break;
     }
     QDLexternal->raise();
 }
+
+void Externals::formchkError(QProcess::ProcessError error){
+    emit computing(QString(""));
+    QString message = QString("Error %1 ").arg(error)
+                + QString(tr("Process failed to start program formchk\n"))
+                + QString(tr("Check that it is installed in your system\n"))
+                + QString(tr("If it is installed, add it to your $PATH and try again)"));
+    QMessageBox::critical(this,QString("Error %1").arg(error),message);
+    BTNextsubmit->setEnabled(true);
+}
+
+void Externals::formchkOutput(int exitCode, QProcess::ExitStatus status){
+    if(status==QProcess::NormalExit){
+        QMessageBox msgBox;
+        msgBox.setText(tr("formchkOutput"));
+        msgBox.setInformativeText(QString(tr("Computation ended\n")));
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.exec();
+
+        emit computing(QString(""));
+        emit updatetextedit(extOutputFileName);
+    }else if (status==QProcess::CrashExit){
+        QMessageBox msgBox;
+        msgBox.setText(tr("formchkOutput"));
+        msgBox.setInformativeText(QString(tr("Process crashed, exit code = %1").arg(exitCode).toLatin1()));
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.exec();
+        emit computing(QString(""));
+    }
+    BTNextsubmit->setEnabled(true);
+}
+
+void Externals::formchkStart(){
+    BTNextsubmit->setEnabled(false);
+    emit computing(QString(tr("formchk launched...")));
+}
+
 
 void Externals::make_Gamess_input(){
 
@@ -463,7 +519,7 @@ void Externals::make_Gaussian_input(){
     buff.append(QString("# %1  %2%3").arg(type.at(CMBtype->currentIndex())).arg(level2.at(CMBlevel2->currentIndex()))
                 .arg(CMBlevel->currentText().toLower()));
     if (CMBlevel->currentIndex() < CMBlevel->count()-2){
-        buff.append(QString("/%1 \n\n").arg(CMBbasis->currentText()));
+        buff.append(QString("/%1 %2\n\n").arg(CMBbasis->currentText()).arg(TXTkeywords->text().trimmed()));
     }
     buff.append(QString("%1\n\n").arg(TXTtitle->text().trimmed()));
     buff.append(QString("%1 %2\n").arg(SPBcharge->value()).arg(SPBmult->value()));
@@ -533,6 +589,21 @@ void Externals::RBTlocal_changed(){
 
 }
 
+void Externals::runformchk(){
+    QString strprocess;
+    QStringList Parameters;
+    Parameters << QFileInfo(extInputFileName).absolutePath()
+                  + "/" + QFileInfo(extInputFileName).completeBaseName() + ".chk";
+    QString processname("formchk");
+    QProcess *myProcess = new QProcess(QDLexternal);
+    myProcess->setStandardOutputFile(extOutputFileName,QIODevice::Append);
+    myProcess->setStandardErrorFile(extOutputFileName,QIODevice::Append);
+    connectionsext << connect(myProcess, SIGNAL(started()), this, SLOT(formchkStart()));
+    connectionsext << connect(myProcess, SIGNAL(error(QProcess::ProcessError)), this, SLOT(formchkError(QProcess::ProcessError)));
+    connectionsext << connect(myProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(formchkOutput(int,QProcess::ExitStatus)));
+    myProcess->start(processname,Parameters);
+}
+
 void Externals::save_external_input(){
     if (extInputFileName.isEmpty())
         return;
@@ -549,6 +620,14 @@ void Externals::save_external_input(){
 #else
     extInputFile.write("\n");
 #endif
+}
+
+void Externals::setTXTextgeometry(QString a){
+    TXTextgeometry->setText(a.trimmed());
+}
+
+void Externals::setTXTextworkdir(QString a){
+    TXTextworkdir->setText(a.trimmed());
 }
 
 void Externals::submitError(QProcess::ProcessError error){
@@ -568,6 +647,9 @@ void Externals::submitOutput(int exitCode, QProcess::ExitStatus status){
         msgBox.setInformativeText(QString(tr("Computation ended\n")));
         msgBox.setIcon(QMessageBox::Information);
         msgBox.exec();
+        if (indexternal == 0 && CHKformchk->isChecked()){  // Case of Gaussian: runs formchk if required
+            runformchk();
+        }
         emit computing(QString(""));
         emit updatetextedit(extOutputFileName);
     }else if (status==QProcess::CrashExit){

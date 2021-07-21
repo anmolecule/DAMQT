@@ -249,6 +249,7 @@ private slots:
     void processError(QProcess::ProcessError);
     void processOutput(int exitCode, QProcess::ExitStatus exitStatus);
     void processStart();
+    void qmrun(QString);
     void QDLmeasures_rejected();
     void recordoptim_changed(bool);
     void replay_mespimization(QString);

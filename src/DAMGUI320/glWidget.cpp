@@ -570,6 +570,7 @@ void glWidget::create_optimize_cluster_menu(){
     connections << connect(QDLwindow->mespimizerdialog, SIGNAL(deletecluster()), this, SLOT(deletecluster()));
     connections << connect(QDLwindow->mespimizerdialog, SIGNAL(exec_mespimizer()), this, SLOT(exec_mespimizer()));
     connections << connect(QDLwindow->mespimizerdialog, SIGNAL(optimizecanvas_changed(bool)), this, SLOT(optimizecanvas_changed(bool)));
+    connections << connect(QDLwindow->mespimizerdialog, SIGNAL(qmrun(QString)), this, SLOT(qmrun(QString)));
     connections << connect(QDLwindow->mespimizerdialog, SIGNAL(replay(QString)), this, SLOT(replay_mespimization(QString)));
     connections << connect(QDLwindow->mespimizerdialog, SIGNAL(reset(QString)), this, SLOT(reset_mespimization(QString)));
     connections << connect(QDLwindow->mespimizerdialog, SIGNAL(recordfilenamechanged(QString)), this, SLOT(set_recordfilename(QString)));
@@ -2020,6 +2021,22 @@ void glWidget::quaterninterpolation(){
 }
 //  End of function quaterninterpolation
 //  ---------------------------------------------------------------------------------------------------------------------------
+
+//
+// Slots for setting status bar when external code is launched
+void glWidget::qmrun(QString a){
+    if (a.isEmpty()){
+        mainWin->statusBar()->setStyleSheet("color: black");
+    }
+    else{
+        mainWin->statusBar()->setStyleSheet("color: blue");
+    }
+    mainWin->statusBar()->showMessage(a);
+}
+
+//  End slots for setting status bar when external code is launched
+//  ---------------------------------------------------------------------------------------------------------------------------
+
 
 //  Function recordoptim_changed: updates recording option
 //

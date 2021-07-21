@@ -236,9 +236,6 @@ private slots:      // Alphabetically sorted (including type in sort)
     void execsgbs2sxyz(QString qstring);
     void execSxyzDen();
 
-
-//    void gaussian_external();
-
     void Help();
 
     void importFile();

@@ -26,6 +26,7 @@
 #define EXTERNALS_H
 
 #include <QButtonGroup>
+#include <QCheckBox>
 #include <QComboBox>
 #include <QDialog>
 #include <QFileDialog>
@@ -50,6 +51,9 @@ public:
     explicit Externals(QWidget *parent = 0);
     ~Externals();
 
+    void setTXTextgeometry(QString);
+    void setTXTextworkdir(QString);
+
 protected:
 //    virtual void reject();
 
@@ -72,12 +76,18 @@ private slots:
     void externalinputfile_changed();
     
     void external_geometry();
+
+    void formchkError(QProcess::ProcessError);
+    void formchkOutput(int, QProcess::ExitStatus);
+    void formchkStart();
     
     void make_Gamess_input();
     void make_Gaussian_input();
     void make_Molpro_input();
 
     void RBTlocal_changed();
+
+    void runformchk();
 
     void save_external_input();
     
@@ -94,6 +104,8 @@ private:
     
     QButtonGroup *QBGjobcommand;
     QButtonGroup *QBGrunmode;
+
+    QCheckBox *CHKformchk;
 
     QComboBox *CMBbasis;
     QComboBox *CMBlevel;

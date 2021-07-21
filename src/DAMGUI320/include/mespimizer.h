@@ -45,6 +45,7 @@
 #include "ColorButton.h"
 
 #include "molecule.h"
+#include "externals.h"
 
 #define INTERVAL_INI 100
 #define INTERVAL_SCALE 500
@@ -61,7 +62,6 @@ public:
     bool getmakingmovie();
     bool getoptimizeselect();
     bool getoptimizetemplate();
-//    bool getqm();
     bool getrecord();
     bool getremoveframes();
 
@@ -72,8 +72,6 @@ public:
 
     QGroupBox * getFRMoptimizeCluster();
     QString getmespimizerpath();
-//    QString getqmkeywords();
-//    QString getqmsoft();
     QString getrecordcommand();
     QString getrecordfilename();
 
@@ -119,6 +117,7 @@ signals:
     void movetotop();
     void optimizecanvas_changed(bool);
     void optimizeselect_changed(bool);
+    void qmrun(QString);
     void recordfilenamechanged(QString);
     void recordoptim_changed(bool);
     void replay(QString);
@@ -136,13 +135,13 @@ private slots:
     void BTNreset_clicked();
     void CHKdisplayepic_changed();
     void CHKoptimizeselect_changed();
-//    void CHKqm_changed();
     void CHKrecordoptim_changed();
-//    void CMBqmsoft_changed(int);
     void create_optimize_cluster_layouts();
+    void external_package();
     void mespath_dialog();
     void framefiles_dialog();
     void importRecordDir();
+    void qmcomputing(QString);
     void RBThartree_changed();
     void RBToptimizecanvas_changed();
     void RBToptimizetemplate_changed();
@@ -166,13 +165,10 @@ private:
 
     QCheckBox *CHKdisplayepic;
     QCheckBox *CHKoptimizeselect;
-//    QCheckBox *CHKqm;
     QCheckBox *CHKrecordoptim;
     QCheckBox *CHKremoveframes;
 
     QColor energycolor;
-
-//    QComboBox *CMBqmsoft;
 
     QDoubleSpinBox *SPBtssize;
 
@@ -183,7 +179,6 @@ private:
     QGroupBox *FRMinterpol;
     QGroupBox *FRMoptimizeCluster;
     QGroupBox *FRMoptimizeopt;
-//    QGroupBox *FRMqm;
     QGroupBox *FRMrecord;
     QGroupBox *FRMtemplate;
 
@@ -192,15 +187,12 @@ private:
     QLabel *LBLhostname;
     QLabel *LBLinterpol;
     QLabel *LBLmakingmovie;
-//    QLabel *LBLqm;
-//    QLabel *LBLqmsoft;
     QLabel *LBLtemplateindex;
     QLabel *LBLtemplatename;
 
     QLineEdit *TXTframesfile;
     QLineEdit *TXTclusterfile;
     QLineEdit *TXTmespimizerpath;
-//    QLineEdit *TXTqmkeywords;
     QLineEdit *TXTrecordcommand;
     QLineEdit *TXTrecordir;
     QLineEdit *TXTrecordfile;
@@ -210,6 +202,7 @@ private:
 
     QPushButton *BTNfont;
     QPushButton *BTNmespimize;
+    QPushButton *BTNqm;
     QPushButton *BTNreplay;
     QPushButton *BTNreset;
 
@@ -227,8 +220,6 @@ private:
     QSpinBox *SPBinterpol;
     QSpinBox *SPBrssize;
     QSpinBox *SPBtemplate;
-
-//    QString qmsoft;
 
     QToolButton *BTNmespath;
     QToolButton *BTNframefile;
