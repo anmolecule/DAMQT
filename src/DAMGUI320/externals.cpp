@@ -416,6 +416,12 @@ void Externals::BTNextsubmit_clicked(){
 
 void Externals::CMBengine_changed(int i){
     indexternal = i;
+    if (indexternal == 0){
+        CHKformchk->setVisible(true);
+    }
+    else{
+        CHKformchk->setVisible(false);
+    }
 }
 
 void Externals::external_geometry(){
