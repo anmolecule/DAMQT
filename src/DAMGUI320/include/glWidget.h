@@ -1,4 +1,4 @@
-//  Copyright 2008-2018, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+//  Copyright 2008-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 //  Guillermo Ramirez, David Zorrilla, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
 //
 //  This file is part of DAMQT.
@@ -249,12 +249,18 @@ private slots:
     void processError(QProcess::ProcessError);
     void processOutput(int exitCode, QProcess::ExitStatus exitStatus);
     void processStart();
+    void qmrun(QString);
     void QDLmeasures_rejected();
     void recordoptim_changed(bool);
     void replay_mespimization(QString);
     void reset_mespimization(QString);
     void resetinterval();
     void send_systemnames();
+    void setdisplayEPIC(bool);
+    void setenergyfont(QFont);
+    void setenergycolor(QColor);
+    void setenergyprecision(int);
+    void sethartree(bool);
     void set_recordfilename(QString);
     void speed_changed(int);
     void startrecording();
@@ -274,9 +280,11 @@ private:
 
     bool angstrom;
     bool animating;
-    bool recordoptim;
     bool cluster_exists;
+    bool displayEPIC;
     bool guestfromcanvas;
+    bool hartree;
+    bool recordoptim;
     bool onlyselcp;
     bool optimvisible;
     bool scaleradii;
@@ -286,6 +294,9 @@ private:
 
     float deltaAngles;
     float dltinterval;
+    float Ener0;
+    float Ener1;
+    float Enerinterp;
     float interval;
     float lightpower;
     float specularindex;
@@ -294,6 +305,7 @@ private:
     glWindow *window;
 
     int delay;
+    int energyprecision;
     int gdockrewidth;
     int interpoints;
     int kntframes;
@@ -325,6 +337,7 @@ private:
     QColor ambientcolor;
     QColor bkgcolor;
     QColor dihedralplanescolor;
+    QColor energycolor;
     QColor lightcolor;
     QColor specularcolor;
 
@@ -332,6 +345,7 @@ private:
 
     QGridLayout *layoutmolecules;
 
+    QFont energyfont;
 
     QGroupBox *FRMaxes;
     QGroupBox *FRMballcyl;

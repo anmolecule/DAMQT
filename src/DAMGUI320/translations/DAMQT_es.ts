@@ -222,8 +222,8 @@
         <translation>&amp;%1 %2</translation>
     </message>
     <message>
-        <source>Copyright &amp;copy; 2008-2015</source>
-        <translation type="obsolete">Copyright&amp;copy; 2008-2015</translation>
+        <source>Copyright &amp;copy; 2008-2021</source>
+        <translation type="obsolete">Copyright&amp;copy; 2008-2021</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="635"/>
@@ -514,8 +514,8 @@
         <translation type="obsolete">DAMQT 2.0</translation>
     </message>
     <message>
-        <source>Copyright &amp;copy; 2008-2014</source>
-        <translation type="obsolete">Copyright&amp;copy; 2008-2014</translation>
+        <source>Copyright &amp;copy; 2008-2021</source>
+        <translation type="obsolete">Copyright&amp;copy; 2008-2021</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="633"/>
@@ -678,8 +678,8 @@
         <translation>DAMQT 2.1</translation>
     </message>
     <message>
-        <source>Copyright &amp;copy; 2008-2016</source>
-        <translation type="obsolete">Copyright&amp;copy; 2008-2016</translation>
+        <source>Copyright &amp;copy; 2008-2021</source>
+        <translation type="obsolete">Copyright&amp;copy; 2008-2021</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="976"/>
@@ -1296,8 +1296,8 @@
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="632"/>
-        <source>Copyright &amp;copy; 2008-2019</source>
-        <translation>Copyright&amp;copy; 2008-2019</translation>
+        <source>Copyright &amp;copy; 2008-2021</source>
+        <translation>Copyright&amp;copy; 2008-2021</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="717"/>

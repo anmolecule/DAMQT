@@ -1,4 +1,4 @@
-//  Copyright 2008-2019, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+//  Copyright 2008-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 //  Guillermo Ramirez, David Zorrilla, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
 //
 //  This file is part of DAMQT.
@@ -126,6 +126,11 @@ mespimizer::mespimizer(QWidget *parent) : QWidget()
 
     TXTmespimizerpath = new QLineEdit("");
 
+    BTNmespath = new QToolButton();
+    BTNmespath->setText(tr("..."));
+    BTNmespath->setToolTip(tr("File with frames ..."));
+    connections << connect(BTNmespath, SIGNAL(clicked()), this, SLOT(mespath_dialog()));
+
     TXTclusterfile = new QLineEdit("cluster");
     connections << connect(TXTclusterfile, SIGNAL(textChanged(const QString &)), this, SLOT(TXTclusterfile_changed()));
 
@@ -177,28 +182,57 @@ mespimizer::mespimizer(QWidget *parent) : QWidget()
     LBLmakingmovie->setStyleSheet("color : blue");
     LBLmakingmovie->setVisible(false);
 
+    FRMenergy = new QGroupBox(tr("EPIC interaction energy"));
 
-    FRMqm = new QGroupBox(tr("Quantum mechanics"));
+    CHKdisplayepic = new QCheckBox(tr("Display energy"));
+    CHKdisplayepic->setChecked(true);
+    connections << connect(CHKdisplayepic, SIGNAL(stateChanged(int)), this, SLOT(CHKdisplayepic_changed()));
 
-    CHKqm = new QCheckBox(tr("Create input for QM method"),FRMqm);
-    CHKqm->setChecked(false);
-    connections << connect(CHKqm, SIGNAL(stateChanged(int)), this, SLOT(CHKqm_changed()));
+    LBLenergyprecision = new QLabel(tr("Precision"));
+    LBLenergyprecision->setVisible(true);
 
-    LBLqmsoft = new QLabel(tr("Software:"));
-    LBLqmsoft->setVisible(false);
+    SPBenergyprecision = new QSpinBox();
+    SPBenergyprecision->setMinimum(1);
+    SPBenergyprecision->setMaximum(8);
+    SPBenergyprecision->setMaximumWidth(50);
+    SPBenergyprecision->setSingleStep(1);
+    SPBenergyprecision->setValue(4);
+    SPBenergyprecision->setVisible(true);
+    connections << connect(SPBenergyprecision,SIGNAL(valueChanged(int)),this,SLOT(SPBenergyprecision_changed()));
 
-    CMBqmsoft = new QComboBox();
-    CMBqmsoft->addItem(tr("gaussian"));
-    CMBqmsoft->setCurrentIndex(0);
-    CMBqmsoft->setVisible(false);
-    connections << connect(CMBqmsoft,SIGNAL(currentIndexChanged(int)),this,SLOT(CMBqmsoft_changed(int)));
-    qmsoft = QString(CMBqmsoft->itemText(0));
+    energyfont = QFont("Helvetica", 18, QFont::Bold);
+    BTNfont = new QPushButton(QIcon(":/images/fonts48.png"),tr("Font"));
+    BTNfont->setVisible(true);
+    connections << connect(BTNfont, SIGNAL(clicked()), this, SLOT(BTNfont_clicked()));
 
-    LBLqm = new QLabel(tr("Options: "));
-    LBLqm->setVisible(false);
+    energycolor = QColor(255, 172, 0, 255);
+    BTNfontcolor = new ColorButton();
+    BTNfontcolor->setIcon(QIcon(":/images/fonts48.png"));
+    BTNfontcolor->setText(tr("Color"));
+    BTNfontcolor->setColor(&energycolor);
+    BTNfontcolor->setEnabled(true);
+    BTNfontcolor->setVisible(true);
+    connections << connect(BTNfontcolor, SIGNAL(clicked()), this, SLOT(BTNfontcolor_clicked()));
 
-    TXTqmkeywords = new QLineEdit("");
-    TXTqmkeywords->setVisible(false);
+    RBThartree = new QRadioButton(tr("Hartree"),FRMoptimizeopt);
+    RBThartree->setCheckable(true);
+    RBThartree->setChecked(false);
+    connections << connect(RBThartree,SIGNAL(toggled(bool)),this,SLOT(RBThartree_changed()));
+
+    RBTkcalmol = new QRadioButton(tr("kcal/mol"),FRMoptimizeopt);
+    RBTkcalmol->setCheckable(true);
+    RBTkcalmol->setChecked(true);
+    connections << connect(RBTkcalmol,SIGNAL(toggled(bool)),this,SLOT(RBThartree_changed()));
+
+    emit hartree_units(false);
+
+    emit energyprecision_changed(SPBenergyprecision->value());
+
+    emit displayepic_changed(CHKdisplayepic->isChecked());
+
+    BTNqm = new QPushButton(tr("Quantum mechanics"));
+    BTNqm->setToolTip(tr("Open template for quantum mechanics calculation"));
+    connections << connect(BTNqm, SIGNAL(clicked()), this, SLOT(external_package()));
 
     create_optimize_cluster_layouts();  // Optimize cluster layouts
     adjustSize();
@@ -242,13 +276,6 @@ bool mespimizer::create_mespimizer_input(){
     buff.append(QString("nocharge=.true.\n").toLatin1());
     buff.append(QString("tssize=%1\n").arg(SPBtssize->value()).toLatin1());
     buff.append(QString("rssize=%1\n").arg(SPBrssize->value()).toLatin1());
-    if (CHKqm->isChecked()){
-        buff.append(QString("lwriteqm=T\n").toLatin1());
-        buff.append(QString("qmsoftware=\"%1\"\n").arg(qmsoft).toLatin1());
-        if (!TXTqmkeywords->text().isEmpty()){
-            buff.append(QString("qmkeywords=\"%1\"\n").arg(TXTqmkeywords->text()).toLatin1());
-        }
-    }
     if (!mespimizerpath.isEmpty()){
         buff.append(QString("path=\"%1/\"\n").arg(mespimizerpath).toLatin1());
     }
@@ -454,6 +481,10 @@ bool mespimizer::create_templatefile(){
     return true;
 }
 
+bool mespimizer::getdisplayenergy(){
+    return CHKdisplayepic->isChecked();
+}
+
 //bool mespimizer::getlineinterpol(){
 //    return RBTlininterpol->isChecked();
 //}
@@ -468,10 +499,6 @@ bool mespimizer::getoptimizeselect(){
 
 bool mespimizer::getoptimizetemplate(){
     return RBToptimizetemplate->isChecked();
-}
-
-bool mespimizer::getqm(){
-    return CHKqm->isChecked();
 }
 
 bool mespimizer::getrecord(){
@@ -506,15 +533,6 @@ QString mespimizer::getmespimizerpath(){
     return TXTmespimizerpath->text();
 }
 
-QString mespimizer::getqmkeywords(){
-    return TXTqmkeywords->text();
-}
-
-QString mespimizer::getqmsoft(){
-    return qmsoft;
-}
-
-
 QString mespimizer::getrecordcommand(){
     return TXTrecordcommand->text();
 }
@@ -527,6 +545,20 @@ QString mespimizer::getrecordfilename(){
         return TXTrecordir->text().trimmed()+"/"+TXTrecordfile->text().trimmed();
     }
 }
+
+void mespimizer::BTNfont_clicked(){
+    energyfont = QFontDialog::getFont(nullpointer, energyfont);
+    emit font_clicked(energyfont);
+}
+
+void mespimizer::BTNfontcolor_clicked(){
+    QColor col = QColorDialog::getColor(energycolor, this);
+    if(col.isValid()) {
+        BTNfontcolor->setColor(&col);
+        emit fontcolor_clicked(col);
+    }
+}
+
 
 //  Function BTNmespimize_clicked: executes cluster optimization
 //
@@ -578,23 +610,24 @@ void mespimizer::BTNreset_clicked(){
     emit reset(TXTframesfile->text().trimmed());
 }
 
-void mespimizer::CHKoptimizeselect_changed(){
-    emit optimizeselect_changed(CHKoptimizeselect->isChecked());
-}
-
-void mespimizer::CHKqm_changed(){
-    if (CHKqm->isChecked()){
-        LBLqm->setVisible(true);
-        LBLqmsoft->setVisible(true);
-        CMBqmsoft->setVisible(true);
-        TXTqmkeywords->setVisible(true);
+void mespimizer::CHKdisplayepic_changed(){
+    if (CHKdisplayepic->isChecked()){
+        LBLenergyprecision->setVisible(true);
+        SPBenergyprecision->setVisible(true);
+        BTNfont->setVisible(true);
+        BTNfontcolor->setVisible(true);
     }
     else{
-        LBLqm->setVisible(false);
-        LBLqmsoft->setVisible(false);
-        CMBqmsoft->setVisible(false);
-        TXTqmkeywords->setVisible(false);
+        LBLenergyprecision->setVisible(false);
+        SPBenergyprecision->setVisible(false);
+        BTNfont->setVisible(false);
+        BTNfontcolor->setVisible(false);
     }
+    emit displayepic_changed(CHKdisplayepic->isChecked());
+}
+
+void mespimizer::CHKoptimizeselect_changed(){
+    emit optimizeselect_changed(CHKoptimizeselect->isChecked());
 }
 
 void mespimizer::CHKrecordoptim_changed(){
@@ -607,10 +640,6 @@ void mespimizer::CHKrecordoptim_changed(){
     emit recordoptim_changed(CHKrecordoptim->isChecked());
     emit adjustQDL();
     emit movetotop();
-}
-
-void mespimizer::CMBqmsoft_changed(int i){
-    qmsoft = CMBqmsoft->itemText(i);
 }
 
 //          Save optimize cluster layouts
@@ -631,6 +660,7 @@ void mespimizer::create_optimize_cluster_layouts(){
     QHBoxLayout *layout1a = new QHBoxLayout();
     layout1a->addWidget(LBLmespimizerpath);
     layout1a->addWidget(TXTmespimizerpath);
+    layout1a->addWidget(BTNmespath);
 
     QHBoxLayout *layout1b = new QHBoxLayout();
     layout1b->addWidget(LBLclusterfile,Qt::AlignLeft);
@@ -734,7 +764,6 @@ void mespimizer::create_optimize_cluster_layouts(){
     QVBoxLayout *layout20 = new QVBoxLayout(FRManimation);
     layout20->addLayout(layout8);
     layout20->addLayout(layout9);
-//    layout20->addLayout(layout10);
     layout20->addLayout(layout11);
     layout20->addLayout(layout13);
     layout20->addWidget(FRMrecord);
@@ -744,34 +773,59 @@ void mespimizer::create_optimize_cluster_layouts(){
     layout21->addWidget(LBLmakingmovie);
     layout21->addStretch();
 
-    QHBoxLayout *layout22 = new QHBoxLayout();
-    layout22->addWidget(LBLqmsoft);
-    layout22->addWidget(CMBqmsoft);
+    QHBoxLayout *layout25 = new QHBoxLayout();
+    layout25->addWidget(LBLenergyprecision);
+    layout25->addWidget(SPBenergyprecision);
 
-    QHBoxLayout *layout23 = new QHBoxLayout();
-    layout23->addWidget(LBLqm);
-    layout23->addWidget(TXTqmkeywords);
+    QHBoxLayout *layout26 = new QHBoxLayout();
+    layout26->addStretch();
+    layout26->addWidget(BTNfont);
+    layout26->addWidget(BTNfontcolor);
+    layout26->addStretch();
 
-    QVBoxLayout *layout24 = new QVBoxLayout(FRMqm);
-    layout24->addWidget(CHKqm);
-    layout24->addLayout(layout22);
-    layout24->addLayout(layout23);
+    QHBoxLayout *layout27 = new QHBoxLayout();
+    layout27->addWidget(RBTkcalmol);
+    layout27->addWidget(RBThartree);
+
+    QVBoxLayout *layout28 = new QVBoxLayout(FRMenergy);
+    layout28->addWidget(CHKdisplayepic);
+    layout28->addLayout(layout25);
+    layout28->addLayout(layout26);
+    layout28->addLayout(layout27);
+
+    QHBoxLayout *layout29 = new QHBoxLayout();
+    layout29->addStretch();
+    layout29->addWidget(BTNqm);
+    layout29->addStretch();
 
     QVBoxLayout *layout = new QVBoxLayout(FRMoptimizeCluster);
     layout->addStretch();
     layout->addLayout(layout1);
     layout->addWidget(FRMoptimizeopt);
     layout->addWidget(FRMtemplate);
-    layout->addWidget(FRMqm);
     layout->addLayout(layout7);
     layout->addWidget(FRManimation);
     layout->addLayout(layout21);
-
+    layout->addWidget(FRMenergy);
+    layout->addLayout(layout29);
     layout->addStretch();
 }
 
 void mespimizer::enableBTNmespimize(bool a){
     BTNmespimize->setEnabled(a);
+}
+
+/**************************************************************************************************/
+/********** FUNCTIONS FOR EXTERNAL PACKAGES DIALOG                      ***************************/
+/**************************************************************************************************/
+
+void mespimizer::external_package(){
+    Externals *external = new Externals(this);
+    connections << connect(external, SIGNAL(computing(QString)), this, SLOT(qmcomputing(QString)));
+    connections << connect(external, SIGNAL(updatetextedit(QString)), this, SLOT(update_textedit(QString)));
+    external->setTXTextgeometry(TXTmespimizerpath->text().trimmed()+"/"
+        + TXTclusterfile->text().trimmed() +  ".xyz_final");
+    external->setTXTextworkdir(TXTmespimizerpath->text().trimmed());
 }
 
 void mespimizer::framefiles_dialog()
@@ -785,7 +839,22 @@ void mespimizer::framefiles_dialog()
     TXTframesfile->setText(fileName);
     TXTrecordfile->setText("film");
     BTNreplay->setEnabled(true);
+    if (TXTmespimizerpath->text().isEmpty()){
+        TXTmespimizerpath->setText(QFileInfo(fileName).canonicalPath());
+    }
     emit reset(TXTframesfile->text().trimmed());
+}
+
+void mespimizer::mespath_dialog()
+{
+    QFileDialog dirdialog(this);
+    dirdialog.setFileMode(QFileDialog::DirectoryOnly);
+    dirdialog.setWindowFlags(Qt::WindowStaysOnTopHint);
+    dirdialog.setDirectory(getmespimizerpath());
+    QString dirName = dirdialog.getExistingDirectory(this,tr("Open file with frames"));
+    if (dirName.length()==0) return;
+    TXTmespimizerpath->setText(dirName);
+
 }
 
 void mespimizer::importRecordDir(){
@@ -798,6 +867,16 @@ void mespimizer::importRecordDir(){
     TXTrecordir->setText(recordir);
     QString recordfilename = TXTrecordir->text().trimmed()+"/"+TXTrecordfile->text().trimmed();
     emit recordfilenamechanged(recordfilename);
+}
+
+void mespimizer::RBThartree_changed(){
+    if (RBThartree->isChecked()){
+        SPBenergyprecision->setValue(std::max(SPBenergyprecision->value()-1,2));
+    }
+    else{
+        SPBenergyprecision->setValue(std::max(SPBenergyprecision->value(),4));
+    }
+    emit hartree_units(RBThartree->isChecked());
 }
 
 void mespimizer::RBToptimizecanvas_changed(){
@@ -845,8 +924,16 @@ void mespimizer::endmakingmovie(){
     emit movetotop();
 }
 
+void mespimizer::qmcomputing(QString a){
+        emit qmrun(a);
+}
+
 void mespimizer::setCHKoptimizeselect(bool a){
     CHKoptimizeselect->setChecked(a);
+}
+
+void mespimizer::setBTNreplay(bool a){
+    BTNreplay->setEnabled(a);
 }
 
 void mespimizer::setBTNreset(bool a){
@@ -861,17 +948,46 @@ void mespimizer::setclustername(QString a){
     TXTclusterfile->setText(a);
 }
 
+//  Function setdisplayEPIC: updates EPIC energy display flag
+//
+void mespimizer::setdisplayEPIC(bool a){
+    CHKdisplayepic->setChecked(a);
+}
+
+//  Function setenergycolor: updates EPIC energy color
+//
+void mespimizer::setenergycolor(QColor a){
+    energycolor = a;
+    BTNfontcolor->setColor(&energycolor);
+}
+
+//  Function setenergyfont: updates EPIC energy font
+//
+void mespimizer::setenergyfont(QFont a){
+    energyfont = a;
+}
+
+//  Function setenergyprecision: updates EPIC energy precision for display
+//
+void mespimizer::setenergyprecision(int a){
+    SPBenergyprecision->setValue(a);
+}
+
+//  Function setenergyprecision: updates EPIC energy precision for display
+//
+void mespimizer::sethartree(bool a){
+    RBThartree->setChecked(a);
+    RBTkcalmol->setChecked(!a);
+}
+
 void mespimizer::setframesfile(QString a){
     TXTframesfile->setText(a);
 }
 
 void mespimizer::setguessfromcanvas(bool a){
     guestfromcanvas = a;
-//    qDebug() << "a = " << a;
     RBToptimizecanvas->setChecked(a);
-//    qDebug() << "RBToptimizecanvas->isChecked = " << RBToptimizecanvas->isChecked();
     update();
-//    qDebug() << "RBToptimizetemplate->isChecked = " << RBToptimizetemplate->isChecked();
 }
 
 void mespimizer::sethostname(QString a){
@@ -935,6 +1051,10 @@ void mespimizer::setrecordfile(QString a){
 
 void mespimizer::SLDspeed_changed(){
     emit speed_changed(SLDspeed->value());
+}
+
+void mespimizer::SPBenergyprecision_changed(){
+    emit energyprecision_changed(SPBenergyprecision->value());
 }
 
 void mespimizer::SPBhost_changed(){

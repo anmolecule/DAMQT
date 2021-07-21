@@ -61,7 +61,7 @@
 % Calligraphic letters
 \usepackage{calligra,mathrsfs}
 
-% \usepackage{showlabels}
+\usepackage{showlabels}
 
 %\linenumbers
 \topmargin -1cm
@@ -82,7 +82,7 @@ Anmol Kumar\footnote{Department of Chemistry, Indian Institute of Technology Kan
 Kanpur 208016, India}}
 
 \begin{document}
-% \renewcommand{\showlabelfont}{\small\slshape\color{red}}
+\renewcommand{\showlabelfont}{\small\slshape\color{red}}
 \newcommand{\azul}[1]{{\color{blue}{#1}}}
 \newcommand{\llaves}[1]{{\{#1\}}}
 \definecolor{negro}{rgb}{0,0,0}
@@ -639,8 +639,8 @@ MOLEKEL\index{MOLEKEL}
 file {\it .mkl}, a TURBOMOLE\index{TURBOMOLE} basis set, coords or molecular orbitals 
 file, {\it .basis}, {\it .coords}, {\it .mos} (they must be renamed to a common name with 
 the pertaning extensions), a MOLPRO\index{MOLPRO} output file, {\it .out}, or 
-\xml{ } file, a NWCHEM\index{NWCHEM} output file, {\it .nwcout}, or a MOPAC\index{MOPAC}
-{\it .aux} file
+\xml{ } file, a NWCHEM\index{NWCHEM} output file, {\it .nwcout}, a MOPAC\index{MOPAC}
+{\it .aux} file, or a PSI4\index{MOPAC} {\it .psiauxden} file
 can be supplied. In each case, a suitable built-in
 interface\index{interfaces}
 included in the package will automatically generate the \ggbs{ } and \den{ }
@@ -676,6 +676,7 @@ MOLEKEL & *.mkl \\
 MOLPRO & *.out, *.xml \\
 MOPAC & *.aux \\
 NWCHEM & *.nwcout \\
+PSI4 & *.psiauxden \\
 TURBOMOLE & *.basis, *.coords, *.mos \\
 \hline
 \end{tabular}
@@ -2351,6 +2352,11 @@ index).
 \end{minipage}
 \end{tabular}
 
+\vspace*{5mm}
+
+To remove an angle, a dihedral or a distance, double click on its 
+label\index{3D graphics!remove angle}\index{3D graphics!remove dihedral}\index{3D graphics!remove distance}.
+
 
 \subsection{Rotations \label{sec:4.3}\index{3D graphics!lab rotations}}
 
@@ -2450,7 +2456,7 @@ High resolution can be achieved by suitable scaling.
 \begin{figure}[H]
     \begin{center}
         % \vspace*{-5mm}
-        \includegraphics[width=0.5\linewidth]{damqt320_capture.png}
+        \includegraphics[width=0.4\linewidth]{damqt320_capture.png}
     \end{center}
 %     \vspace*{-1mm}
     \caption{Image capture \label{fig:4_6}}
@@ -2461,7 +2467,7 @@ High resolution can be achieved by suitable scaling.
     \begin{figure}[H]
         \begin{center}
             \vspace*{0mm}
-            \includegraphics[width=0.48\linewidth]{damqt320_lights.png}
+            \includegraphics[width=0.39\linewidth]{damqt320_lights.png}
         \end{center}
         \vspace*{1mm}
         \caption{Lights \label{fig:4_7}}
@@ -2581,7 +2587,7 @@ and guest, in the template mode.
 %             \hspace*{-5mm}
             \includegraphics[width=0.79\linewidth]{damqt320_mespimizer_1.png}
         \end{center}
-        \vspace*{5mm}
+        \vspace*{4mm}
         \caption{Cluster building: first way\label{fig:4_10_1}}
     \end{figure}
 \end{minipage}
@@ -2600,11 +2606,11 @@ and guest, in the template mode.
 \begin{minipage}{.3\linewidth}
 \begin{figure}[H]
     \begin{center}
-        % \vspace*{-5mm}
+        \vspace*{-4mm}
         \includegraphics[width=0.74\linewidth]{damqt320_mespimizer_3.png}
     \end{center}
-    \vspace*{5mm}
-    \caption{Save/retrieve \label{fig:4_10_3}}
+    \vspace*{17mm}
+    \caption{Record animation\label{fig:4_10_3}}
 \end{figure}
 \end{minipage}
 \end{tabular}
@@ -4466,9 +4472,10 @@ only selected CPs are wanted as initial points, check the pertaining box too
 \end{minipage}
 &
 \begin{minipage}{.48\linewidth}
+\vspace*{4mm}
 \begin{figure}[H]
 \begin{center}
-\includegraphics[width=.64\linewidth]{damqt320_epic_10.png}
+\includegraphics[width=.62\linewidth]{damqt320_epic_10.png}
 \end{center}
 \caption{{Translations and rotations during animation}\label{fig:A6_10}}
 \end{figure}

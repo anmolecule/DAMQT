@@ -1,4 +1,4 @@
-!  Copyright 2013-2019, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+!  Copyright 2013-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 !  Guillermo Ramirez, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
 ! 
 !  This file is part of DAM320.
@@ -27,7 +27,7 @@
 
 ! #define DBLPRCGRID    ! Uncomment this line  if double precision grid is wanted
 !===============================================================================================
-!                 MODULE DAM2017_CONST_D
+!                 MODULE DAMISOPOT320_D
 !=============================================================================================== 
 MODULE DAMISOPOT320_D
     USE DAM320_D

@@ -1,4 +1,30 @@
-
+//  Copyright 2008-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+//  Guillermo Ramirez, David Zorrilla, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
+//
+//  This file is part of DAMQT.
+//
+//  DAMQT is free software: you can redistribute it and/or modify
+//  it under the terms of the GNU General Public License as published by
+//  the Free Software Foundation, either version 3 of the License, or
+//  (at your option) any later version.
+//
+//  DAMQT is distributed in the hope that it will be useful,
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//  GNU General Public License for more details.
+//
+//  You should have received a copy of the GNU General Public License
+//  along with DAMQT.  If not, see <http://www.gnu.org/licenses/>.
+//
+//------------------------------------------------------------------------
+//	Implementation of class molecule
+//
+//	File:   molecule.cpp
+//
+//	Author: Rafael Lopez    (rafael.lopez@uam.es)
+//
+//	Last version: May 2021
+//
 #include <QtCore/qmath.h>
 #include <QDialog>
 #include <QCheckBox>
@@ -3722,6 +3748,7 @@ void molecule::emitupdateRightMenu(){
 }
 
 void molecule::initatomactive(bool a){
+    atomactive.clear();
     for (int i = 0 ; i < znuc.count() ; i++)
         atomactive << a;
 }
@@ -3773,6 +3800,12 @@ void molecule::loadallvertices(QVector<VertexNormalData> v){
 
 void molecule::loadcharges(QVector <int> q){
     znuc = q;
+    if (znuc.length() != atomactive.length()){
+        atomactive.clear();
+        for (int i = 0 ; i < znuc.count() ; i++){
+            atomactive << false;
+        }
+    }
 }
 
 void molecule::loadxyz(QVector <QVector3D> v){

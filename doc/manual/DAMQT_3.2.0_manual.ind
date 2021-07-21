@@ -35,7 +35,7 @@
     \subitem bonding threshold, \hyperpage{34}
     \subitem capture, \hyperpage{33}
     \subitem clipping planes, \hyperpage{34}
-    \subitem cluster animation, \hyperpage{35}
+    \subitem cluster animation, \hyperpage{36}
     \subitem cluster builder, \hyperpage{35}
     \subitem cluster recording, \hyperpage{36}
     \subitem clusters retrieve, \hyperpage{36}
@@ -69,6 +69,9 @@
     \subitem mouse, \hyperpage{43}
     \subitem record animation, \hyperpage{38}
     \subitem record lab rotations, \hyperpage{32}
+    \subitem remove angle, \hyperpage{32}
+    \subitem remove dihedral, \hyperpage{32}
+    \subitem remove distance, \hyperpage{32}
     \subitem rotation keys, \hyperpage{30}
     \subitem rotations, \hyperpage{30}, \hyperpage{43}
     \subitem save/retrieve settings, \hyperpage{36}
