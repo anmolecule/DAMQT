@@ -172,7 +172,7 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
 
     connectionsext << connect(RBTlocal,SIGNAL(toggled(bool)),this,SLOT(RBTlocal_changed()));
 
-    LBLextworkdir  = new QLabel(tr("Working"),QDLexternal);
+    LBLextworkdir  = new QLabel(tr("Working Dir"),QDLexternal);
     TXTextworkdir = new QLineEdit(QDLexternal);
     TXTextworkdir->setPlaceholderText("Working directory...");
     connectionsext << connect(TXTextworkdir, SIGNAL(textChanged(const QString &)), this, SLOT(externalinputfile_changed()));
@@ -508,6 +508,8 @@ void Externals::make_Gaussian_input(){
     TXTextcommand = new QLineEdit("g09",QDLexternal);
     QStringList type = {"","opt","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
+    QStringList mm = {"uff","amber","dreiding"};
+    QStringList sme = {"pm6","pddg","am1","pm3","indo","cndo"};
 
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
@@ -530,9 +532,15 @@ void Externals::make_Gaussian_input(){
         buff.append(QString("\%mem=%1\n").arg(TXTextmem->text().trimmed()));
     }
     buff.append(QString("\%chk=%1.chk\n").arg(filepath+"/"+filename));
-    buff.append(QString("#p %1  %2%3").arg(type.at(CMBtype->currentIndex())).arg(level2.at(CMBlevel2->currentIndex()))
-                .arg(CMBlevel->currentText().toLower()));
-    if (CMBlevel->currentIndex() < CMBlevel->count()-2){
+    buff.append(QString("#p %1  ").arg(type.at(CMBtype->currentIndex())));
+    if (!(mm.contains(CMBlevel->currentText(),Qt::CaseInsensitive))){
+        buff.append(QString("%1").arg(level2.at(CMBlevel2->currentIndex())));
+    }
+    buff.append(QString("%1").arg(CMBlevel->currentText().toLower()));
+    if (mm.contains(CMBlevel->currentText(),Qt::CaseInsensitive) || sme.contains(CMBlevel->currentText(),Qt::CaseInsensitive)){
+            buff.append(QString("\n\n"));   // Calculations without explicit basis set (MM and semiempirical)
+    }
+    else{
         buff.append(QString("/%1 %2\n\n").arg(CMBbasis->currentText()).arg(TXTkeywords->text().trimmed()));
     }
     buff.append(QString("%1\n\n").arg(TXTtitle->text().trimmed()));
