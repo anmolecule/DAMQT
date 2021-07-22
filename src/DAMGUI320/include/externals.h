@@ -83,6 +83,7 @@ private slots:
     
     void make_Gamess_input();
     void make_Gaussian_input();
+    void make_Psi4_input();
     void make_Molpro_input();
 
     void RBTlocal_changed();

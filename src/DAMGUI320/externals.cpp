@@ -53,6 +53,7 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     CMBengine->addItem(tr("NWChem"));
     CMBengine->addItem(tr("Turbomole"));
     CMBengine->addItem(tr("Mopac"));
+    CMBengine->addItem(tr("Psi4"));
     connectionsext << connect(CMBengine, SIGNAL(currentIndexChanged(int)), this, SLOT(CMBengine_changed(int)));
 
     TXTextgeometry = new QLineEdit(QDLexternal);
@@ -359,6 +360,9 @@ void Externals::BTNextreset_clicked(){
         case 2:     // Molpro
             make_Molpro_input();
             break;
+        case 6:     // Psi4
+            make_Psi4_input();
+            break;
     }
 }
 
@@ -452,6 +456,9 @@ void Externals::externalinputfile_changed(){
         case 2:     // Molpro
             make_Molpro_input();
             break;
+        case 6:     // Psi4
+            make_Psi4_input();
+            break;
     }
     QDLexternal->raise();
 }
@@ -498,6 +505,7 @@ void Externals::make_Gamess_input(){
 }
 
 void Externals::make_Gaussian_input(){
+    TXTextcommand = new QLineEdit("g09",QDLexternal);
     QStringList type = {"","opt","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
 
@@ -522,7 +530,7 @@ void Externals::make_Gaussian_input(){
         buff.append(QString("\%mem=%1\n").arg(TXTextmem->text().trimmed()));
     }
     buff.append(QString("\%chk=%1.chk\n").arg(filepath+"/"+filename));
-    buff.append(QString("# %1  %2%3").arg(type.at(CMBtype->currentIndex())).arg(level2.at(CMBlevel2->currentIndex()))
+    buff.append(QString("#p %1  %2%3").arg(type.at(CMBtype->currentIndex())).arg(level2.at(CMBlevel2->currentIndex()))
                 .arg(CMBlevel->currentText().toLower()));
     if (CMBlevel->currentIndex() < CMBlevel->count()-2){
         buff.append(QString("/%1 %2\n\n").arg(CMBbasis->currentText()).arg(TXTkeywords->text().trimmed()));
@@ -564,6 +572,91 @@ void Externals::make_Gaussian_input(){
 
 }
 
+void Externals::make_Psi4_input(){
+    TXTextcommand = new QLineEdit("psi4",QDLexternal);
+    QStringList type = {"energy","optimize","freq","opt freq","nmr=giao"};
+    QStringList level2 = {"","r","u","ro"};
+
+    QString filepath = TXTextworkdir->text().trimmed();
+    if (filepath.isEmpty())
+        return;
+    QString filename = QFileInfo(TXTextgeometry->text()).baseName();
+    if (filename.isEmpty())
+        return;
+    extInputFileName = filepath+"/"+filename+".inp";
+
+    QFile geometryInput(TXTextgeometry->text().trimmed());
+    if (!geometryInput.open(QFile::ReadOnly | QFile::Text)){
+        return;
+    }
+
+    QByteArray buff;
+    buff.append(QString("#! %1\n\n").arg(TXTtitle->text().trimmed()));
+    if (SPBextproc->value() > 1){
+        buff.append(QString("set_num_threads(%1)\n").arg(SPBextproc->value()));
+    }
+    if (!TXTextmem->text().isEmpty()){
+        buff.append(QString("memory %1\n").arg(TXTextmem->text().trimmed()));
+    }
+
+    if (CMBlevel->currentIndex() < CMBlevel->count()-2){
+        buff.append(QString("set basis %1\n").arg(CMBbasis->currentText()));
+//        buff.append(QString("set basis %1\n").arg(CMBbasis->currentText()).arg(TXTkeywords->text().trimmed()));
+    }
+    if (level2.at(CMBlevel2->currentIndex()) != "") {
+        buff.append(QString("set reference %1%2\n").arg(level2.at(CMBlevel2->currentIndex())).arg(CMBlevel->currentText().toLower()));
+    }
+    buff.append(QString("molecule {\n"));
+    buff.append(QString("%1 %2\n").arg(SPBcharge->value()).arg(SPBmult->value()));
+
+    QTextStream in(&geometryInput); // Buffer for reading from fileinput
+
+    QString line = in.readLine();
+#if QT_VERSION < 0x050E00
+    QStringList xyz = line.split(' ',QString::SkipEmptyParts);
+#else
+    QStringList xyz = line.split(' ',Qt::SkipEmptyParts);
+#endif
+    int ncen = xyz.at(0).toInt();
+    int kntcen = 0;
+    while (!in.atEnd()){
+        line = in.readLine();
+#if QT_VERSION < 0x050E00
+        QStringList xyz = line.split(' ',QString::SkipEmptyParts);
+#else
+        QStringList xyz = line.split(' ',Qt::SkipEmptyParts);
+#endif
+        if (xyz.count() == 4){
+            buff.append(QString("%1    %2    %3    %4\n").arg(xyz[0]).arg(xyz[1]).arg(xyz[2]).arg(xyz[3]));
+            kntcen++;
+        }
+    }
+    buff.append(QString("}\n"));
+    if (type.at(CMBtype->currentIndex()) == "energy") {
+         buff.append(QString("energy,wfn=energy('%1',return_wfn=True)\n").arg(CMBlevel->currentText().toLower()));
+    } else if (type.at(CMBtype->currentIndex()) == "optimize") {
+         buff.append(QString("energy,wfn=optimize('%1',return_wfn=True)\n").arg(CMBlevel->currentText().toLower()));
+    } else if (type.at(CMBtype->currentIndex()) == "freq") {
+         buff.append(QString("frequencies('%1',ref_gradient=wfn.gradient())\n").arg(CMBlevel->currentText().toLower()));
+    } else if (type.at(CMBtype->currentIndex()) == "opt freq") {
+         buff.append(QString("energy,wfn=optimize('%1',return_wfn=True)\n").arg(CMBlevel->currentText().toLower()));
+         buff.append(QString("frequencies('%1',ref_gradient=wfn.gradient())\n").arg(CMBlevel->currentText().toLower()));
+    } 
+    buff.append(QString("fchk_writer = psi4.core.FCHKWriter(wfn)\n"));
+    buff.append(QString("fchk_writer.write('%1.fchk')\n").arg(filepath+"/"+filename));
+
+    if (ncen != kntcen){
+        QMessageBox msgBox;
+        msgBox.setText(tr("make_Psi4_input"));
+        msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
+            TXTextgeometry->text().trimmed());
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+        return;
+    }
+    extextEdit->setText(buff);
+
+}
 
 void Externals::make_Molpro_input(){
 
