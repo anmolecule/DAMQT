@@ -50,10 +50,10 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     CMBengine->addItem(tr("Gaussian"));
     CMBengine->addItem(tr("Gamess"));
     CMBengine->addItem(tr("Molpro"));
-    CMBengine->addItem(tr("NWChem"));
-    CMBengine->addItem(tr("Turbomole"));
     CMBengine->addItem(tr("Mopac"));
+    CMBengine->addItem(tr("NWChem"));
     CMBengine->addItem(tr("Psi4"));
+    CMBengine->addItem(tr("Turbomole"));
     connectionsext << connect(CMBengine, SIGNAL(currentIndexChanged(int)), this, SLOT(CMBengine_changed(int)));
 
     TXTextgeometry = new QLineEdit(QDLexternal);
@@ -102,7 +102,7 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
 
     QLabel *LBLmult = new QLabel(tr("Mult"));
     SPBmult = new QSpinBox(QDLexternal);
-    SPBmult->setMaximum(10);
+    SPBmult->setMaximum(8);
     SPBmult->setMinimum(1);
     SPBmult->setValue(1);
     SPBmult->setToolTip("2S+1");
@@ -360,7 +360,10 @@ void Externals::BTNextreset_clicked(){
         case 2:     // Molpro
             make_Molpro_input();
             break;
-        case 6:     // Psi4
+        case 4:     // NWChem
+            make_NWChem_input();
+            break;
+        case 5:     // Psi4
             make_Psi4_input();
             break;
     }
@@ -426,6 +429,23 @@ void Externals::CMBengine_changed(int i){
     else{
         CHKformchk->setVisible(false);
     }
+    switch (indexternal) {
+        case 0:     // Gaussian
+            make_Gaussian_input();
+            break;
+        case 1:     // Gamess
+            make_Gamess_input();
+            break;
+        case 2:     // Molpro
+            make_Molpro_input();
+            break;
+        case 4:     // NWChem
+            make_NWChem_input();
+            break;
+        case 5:     // Psi4
+            make_Psi4_input();
+            break;
+    }
 }
 
 void Externals::external_geometry(){
@@ -456,7 +476,10 @@ void Externals::externalinputfile_changed(){
         case 2:     // Molpro
             make_Molpro_input();
             break;
-        case 6:     // Psi4
+        case 4:     // NWChem
+            make_NWChem_input();
+            break;
+        case 5:     // Psi4
             make_Psi4_input();
             break;
     }
@@ -505,7 +528,7 @@ void Externals::make_Gamess_input(){
 }
 
 void Externals::make_Gaussian_input(){
-    TXTextcommand = new QLineEdit("g09",QDLexternal);
+    TXTextcommand->setText("g09");
     QStringList type = {"","opt","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
     QStringList mm = {"uff","amber","dreiding"};
@@ -580,8 +603,97 @@ void Externals::make_Gaussian_input(){
 
 }
 
+void Externals::make_NWChem_input(){
+    TXTextcommand->setText("nwchem");
+    QStringList type = {"energy","optimize","freq","opt freq","nmr=giao"};
+    QStringList level2 = {"","r","u","ro"};
+    QStringList mult = {"","singlet","doublet","triplet","quartet","quintet","sextet","octet"};
+    
+
+    QString filepath = TXTextworkdir->text().trimmed();
+    if (filepath.isEmpty())
+        return;
+    QString filename = QFileInfo(TXTextgeometry->text()).baseName();
+    if (filename.isEmpty())
+        return;
+    extInputFileName = filepath+"/"+filename+".nw";
+
+    QFile geometryInput(TXTextgeometry->text().trimmed());
+    if (!geometryInput.open(QFile::ReadOnly | QFile::Text)){
+        return;
+    }
+
+    QByteArray buff;
+    buff.append(QString("start %1\n").arg(filename));
+    buff.append(QString("title '%1'\n\n").arg(TXTtitle->text().trimmed()));
+    if (!TXTextmem->text().isEmpty()){
+        buff.append(QString("memory total %1\n").arg(TXTextmem->text().trimmed()));
+    }
+
+    if (CMBlevel->currentIndex() < CMBlevel->count()-2){
+        buff.append(QString("basis spherical\n * library %1\nend\n\n").arg(CMBbasis->currentText()));
+    }
+    if (level2.at(CMBlevel2->currentIndex()) != "") {
+        buff.append(QString("scf \n%1hf\n%2\nend\n\n").arg(level2.at(CMBlevel2->currentIndex())).arg(mult.at(SPBmult->value())));
+    }
+    buff.append(QString("charge %1\n").arg(SPBcharge->value()));
+    buff.append(QString("geometry units ang\n"));
+
+    QTextStream in(&geometryInput); // Buffer for reading from fileinput
+
+    QString line = in.readLine();
+#if QT_VERSION < 0x050E00
+    QStringList xyz = line.split(' ',QString::SkipEmptyParts);
+#else
+    QStringList xyz = line.split(' ',Qt::SkipEmptyParts);
+#endif
+    int ncen = xyz.at(0).toInt();
+    int kntcen = 0;
+    while (!in.atEnd()){
+        line = in.readLine();
+#if QT_VERSION < 0x050E00
+        QStringList xyz = line.split(' ',QString::SkipEmptyParts);
+#else
+        QStringList xyz = line.split(' ',Qt::SkipEmptyParts);
+#endif
+        if (xyz.count() == 4){
+            buff.append(QString("%1    %2    %3    %4\n").arg(xyz[0]).arg(xyz[1]).arg(xyz[2]).arg(xyz[3]));
+            kntcen++;
+        }
+    }
+    buff.append(QString("end\n"));
+    // Please resolve QString error for level
+//    if (CMBlevel->currentText().toLower() == "hf") {
+//        QString level="scf";
+//    } else {
+//        QString level=CMBlevel->currentText().toLower();
+//    }
+//    if (type.at(CMBtype->currentIndex()) == "energy") {
+//         buff.append(QString("task %1\n").arg(QString("%1").arg(level)));
+//    } else if (type.at(CMBtype->currentIndex()) == "optimize") {
+//         buff.append(QString("task %1 optimize\n").arg(QString("%1").arg(level)));
+//    } else if (type.at(CMBtype->currentIndex()) == "freq") {
+//         buff.append(QString("task %1 freq\n").arg(QString("%1").arg(level)));
+//    } else if (type.at(CMBtype->currentIndex()) == "opt freq") {
+//         buff.append(QString("task %1 optimize\n").arg(QString("%1").arg(level)));
+//         buff.append(QString("task %1 freq\n").arg(QString level));
+//    } 
+
+    if (ncen != kntcen){
+        QMessageBox msgBox;
+        msgBox.setText(tr("make_NWChem_input"));
+        msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
+            TXTextgeometry->text().trimmed());
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+        return;
+    }
+    extextEdit->setText(buff);
+
+}
+
 void Externals::make_Psi4_input(){
-    TXTextcommand = new QLineEdit("psi4",QDLexternal);
+    TXTextcommand->setText("psi4");
     QStringList type = {"energy","optimize","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
 
