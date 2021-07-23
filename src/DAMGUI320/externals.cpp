@@ -38,7 +38,6 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     QDLexternal->setWindowTitle(tr("External package"));
     QDLexternal->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
 
-    indexternal = 0;
     extInputFileName = "";
 
     QLabel *LBLtitle = new QLabel(tr("Title"));
@@ -46,7 +45,7 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     connectionsext << connect(TXTtitle, SIGNAL(returnPressed()), this, SLOT(externalinputfile_changed()));
 
     QLabel *LBLengine = new QLabel(tr("Engine choice"));
-    QComboBox *CMBengine = new QComboBox();
+    CMBengine = new QComboBox(QDLexternal);
     CMBengine->addItem(tr("Gaussian"));
     CMBengine->addItem(tr("Gamess"));
     CMBengine->addItem(tr("Molpro"));
@@ -54,7 +53,8 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     CMBengine->addItem(tr("NWChem"));
     CMBengine->addItem(tr("Psi4"));
     CMBengine->addItem(tr("Turbomole"));
-    connectionsext << connect(CMBengine, SIGNAL(currentIndexChanged(int)), this, SLOT(CMBengine_changed(int)));
+    CMBengine->setCurrentIndex(0);
+    connectionsext << connect(CMBengine, SIGNAL(currentIndexChanged(int)), this, SLOT(CMBengine_changed()));
 
     TXTextgeometry = new QLineEdit(QDLexternal);
     TXTextgeometry->setPlaceholderText(tr("Load file with molecule coordinates"));
@@ -344,13 +344,13 @@ void Externals::BTNpreview_clicked(){
 }
 
 void Externals::BTNextreset_clicked(){
-    if (indexternal == 0){
+    if (CMBengine->currentText().toLower() == "gaussian"){
         CHKformchk->setVisible(true);
     }
     else{
         CHKformchk->setVisible(false);
     }
-    switch (indexternal) {
+    switch (CMBengine->currentIndex()) {
         case 0:     // Gaussian
             make_Gaussian_input();
             break;
@@ -360,11 +360,17 @@ void Externals::BTNextreset_clicked(){
         case 2:     // Molpro
             make_Molpro_input();
             break;
+        case 3:     // Molpac
+            make_Mopac_input();
+            break;
         case 4:     // NWChem
             make_NWChem_input();
             break;
         case 5:     // Psi4
             make_Psi4_input();
+            break;
+        case 6:     // Turbomole
+            make_Turbomole_input();
             break;
     }
 }
@@ -410,7 +416,7 @@ void Externals::BTNextsubmit_clicked(){
     QString stdinput = extInputFileName;
     extOutputFileName = QFileInfo(extInputFileName).absolutePath()
         + "/" + QFileInfo(extInputFileName).completeBaseName() + ".log";
-    QProcess *myProcess = new QProcess(QDLexternal);
+    QProcess *myProcess = new QProcess();
     myProcess->setStandardInputFile(stdinput);
     myProcess->setStandardOutputFile(extOutputFileName,QIODevice::Truncate);
     myProcess->setStandardErrorFile(extOutputFileName,QIODevice::Append);
@@ -421,15 +427,14 @@ void Externals::BTNextsubmit_clicked(){
 //    QByteArray qbarray = myProcess->readAllStandardError();
 }
 
-void Externals::CMBengine_changed(int i){
-    indexternal = i;
-    if (indexternal == 0){
+void Externals::CMBengine_changed(){
+    if (CMBengine->currentText().toLower() == "gaussian"){
         CHKformchk->setVisible(true);
     }
     else{
         CHKformchk->setVisible(false);
     }
-    switch (indexternal) {
+    switch (CMBengine->currentIndex()) {
         case 0:     // Gaussian
             make_Gaussian_input();
             break;
@@ -439,11 +444,17 @@ void Externals::CMBengine_changed(int i){
         case 2:     // Molpro
             make_Molpro_input();
             break;
+        case 3:     // Molpac
+            make_Mopac_input();
+            break;
         case 4:     // NWChem
             make_NWChem_input();
             break;
         case 5:     // Psi4
             make_Psi4_input();
+            break;
+        case 6:     // Turbomole
+            make_Turbomole_input();
             break;
     }
 }
@@ -460,13 +471,13 @@ void Externals::external_geometry(){
 }
 
 void Externals::externalinputfile_changed(){
-    if (indexternal == 0){
+    if (CMBengine->currentText().toLower() == "gaussian"){
         CHKformchk->setVisible(true);
     }
     else{
         CHKformchk->setVisible(false);
     }
-    switch (indexternal) {
+    switch (CMBengine->currentIndex()) {
         case 0:     // Gaussian
             make_Gaussian_input();
             break;
@@ -476,11 +487,17 @@ void Externals::externalinputfile_changed(){
         case 2:     // Molpro
             make_Molpro_input();
             break;
+        case 3:     // Molpac
+            make_Mopac_input();
+            break;
         case 4:     // NWChem
             make_NWChem_input();
             break;
         case 5:     // Psi4
             make_Psi4_input();
+            break;
+        case 6:     // Turbomole
+            make_Turbomole_input();
             break;
     }
     QDLexternal->raise();
@@ -524,11 +541,12 @@ void Externals::formchkStart(){
 
 
 void Externals::make_Gamess_input(){
-
+    extextEdit->clear();
+    extextEdit->setText("\n\n   To be prepared");
 }
 
 void Externals::make_Gaussian_input(){
-    TXTextcommand->setText("g09");
+    extextEdit->clear();
     QStringList type = {"","opt","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
     QStringList mm = {"uff","amber","dreiding"};
@@ -541,6 +559,7 @@ void Externals::make_Gaussian_input(){
     if (filename.isEmpty())
         return;
     extInputFileName = filepath+"/"+filename+".com";
+    TXTextcommand->setText("g09 "+extInputFileName);
 
     QFile geometryInput(TXTextgeometry->text().trimmed());
     if (!geometryInput.open(QFile::ReadOnly | QFile::Text)){
@@ -603,8 +622,18 @@ void Externals::make_Gaussian_input(){
 
 }
 
+void Externals::make_Molpro_input(){
+    extextEdit->clear();
+    extextEdit->setText("\n\n   To be prepared");
+}
+
+void Externals::make_Mopac_input(){
+    extextEdit->clear();
+    extextEdit->setText("\n\n   To be prepared");
+}
+
 void Externals::make_NWChem_input(){
-    TXTextcommand->setText("nwchem");
+    extextEdit->clear();
     QStringList type = {"energy","optimize","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
     QStringList mult = {"","singlet","doublet","triplet","quartet","quintet","sextet","octet"};
@@ -616,7 +645,8 @@ void Externals::make_NWChem_input(){
     QString filename = QFileInfo(TXTextgeometry->text()).baseName();
     if (filename.isEmpty())
         return;
-    extInputFileName = filepath+"/"+filename+".nw";
+    extInputFileName = filepath+"/"+filename+".nwcinp";
+    TXTextcommand->setText("nwchem "+extInputFileName);
 
     QFile geometryInput(TXTextgeometry->text().trimmed());
     if (!geometryInput.open(QFile::ReadOnly | QFile::Text)){
@@ -663,21 +693,22 @@ void Externals::make_NWChem_input(){
     }
     buff.append(QString("end\n"));
     // Please resolve QString error for level
-//    if (CMBlevel->currentText().toLower() == "hf") {
-//        QString level="scf";
-//    } else {
-//        QString level=CMBlevel->currentText().toLower();
-//    }
-//    if (type.at(CMBtype->currentIndex()) == "energy") {
-//         buff.append(QString("task %1\n").arg(QString("%1").arg(level)));
-//    } else if (type.at(CMBtype->currentIndex()) == "optimize") {
-//         buff.append(QString("task %1 optimize\n").arg(QString("%1").arg(level)));
-//    } else if (type.at(CMBtype->currentIndex()) == "freq") {
-//         buff.append(QString("task %1 freq\n").arg(QString("%1").arg(level)));
-//    } else if (type.at(CMBtype->currentIndex()) == "opt freq") {
-//         buff.append(QString("task %1 optimize\n").arg(QString("%1").arg(level)));
-//         buff.append(QString("task %1 freq\n").arg(QString level));
-//    } 
+    QString level;
+    if (CMBlevel->currentText().toLower() == "hf") {
+        level="scf";
+    } else {
+        level=CMBlevel->currentText().toLower();
+    }
+    if (type.at(CMBtype->currentIndex()) == "energy") {
+         buff.append(QString("task %1\n").arg(QString("%1").arg(level)));
+    } else if (type.at(CMBtype->currentIndex()) == "optimize") {
+         buff.append(QString("task %1 optimize\n").arg(QString("%1").arg(level)));
+    } else if (type.at(CMBtype->currentIndex()) == "freq") {
+         buff.append(QString("task %1 freq\n").arg(QString("%1").arg(level)));
+    } else if (type.at(CMBtype->currentIndex()) == "opt freq") {
+         buff.append(QString("task %1 optimize\n").arg(QString("%1").arg(level)));
+         buff.append(QString("task %1 freq\n").arg(level));
+    }
 
     if (ncen != kntcen){
         QMessageBox msgBox;
@@ -693,7 +724,7 @@ void Externals::make_NWChem_input(){
 }
 
 void Externals::make_Psi4_input(){
-    TXTextcommand->setText("psi4");
+    extextEdit->clear();
     QStringList type = {"energy","optimize","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
 
@@ -703,7 +734,8 @@ void Externals::make_Psi4_input(){
     QString filename = QFileInfo(TXTextgeometry->text()).baseName();
     if (filename.isEmpty())
         return;
-    extInputFileName = filepath+"/"+filename+".inp";
+    extInputFileName = filepath+"/"+filename+".psi4inp";
+    TXTextcommand->setText("psi4 "+extInputFileName);
 
     QFile geometryInput(TXTextgeometry->text().trimmed());
     if (!geometryInput.open(QFile::ReadOnly | QFile::Text)){
@@ -778,9 +810,11 @@ void Externals::make_Psi4_input(){
 
 }
 
-void Externals::make_Molpro_input(){
-
+void Externals::make_Turbomole_input(){
+    extextEdit->clear();
+    extextEdit->setText("\n\n   To be prepared");
 }
+
 
 void Externals::RBTlocal_changed(){
     if (RBTlocal->isChecked()){
@@ -814,7 +848,7 @@ void Externals::runformchk(){
     Parameters << QFileInfo(extInputFileName).absolutePath()
                   + "/" + QFileInfo(extInputFileName).completeBaseName() + ".chk";
     QString processname("formchk");
-    QProcess *myProcess = new QProcess(QDLexternal);
+    QProcess *myProcess = new QProcess();
     myProcess->setStandardOutputFile(extOutputFileName,QIODevice::Append);
     myProcess->setStandardErrorFile(extOutputFileName,QIODevice::Append);
     connectionsext << connect(myProcess, SIGNAL(started()), this, SLOT(formchkStart()));
@@ -866,8 +900,17 @@ void Externals::submitOutput(int exitCode, QProcess::ExitStatus status){
         msgBox.setInformativeText(QString(tr("Computation ended\n")));
         msgBox.setIcon(QMessageBox::Information);
         msgBox.exec();
-        if (indexternal == 0 && CHKformchk->isChecked()){  // Case of Gaussian: runs formchk if required
+        if (CMBengine->currentText().toLower() == "gaussian" && CHKformchk->isChecked()){  // Case of Gaussian: runs formchk if required
             runformchk();
+        }
+        else if (CMBengine->currentText().toLower() == "psi4"){
+            QString strprocess;
+            QStringList Parameters;
+            Parameters << QFileInfo(TXTextgeometry->text()).absolutePath() + "/timer.dat"
+                    << TXTextworkdir->text() + "/timer.dat";
+            QString processname("mv");
+            QProcess *myProcess = new QProcess();
+            myProcess->start(processname,Parameters);
         }
         emit computing(QString(""));
         emit updatetextedit(extOutputFileName);

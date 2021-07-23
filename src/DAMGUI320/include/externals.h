@@ -71,7 +71,7 @@ private slots:
     void BTNextsubmit_clicked();
     
     
-    void CMBengine_changed(int);
+    void CMBengine_changed();
     
     void externalinputfile_changed();
     
@@ -84,8 +84,10 @@ private slots:
     void make_Gamess_input();
     void make_Gaussian_input();
     void make_Molpro_input();
+    void make_Mopac_input();;
     void make_NWChem_input();
     void make_Psi4_input();
+    void make_Turbomole_input();
 
     void RBTlocal_changed();
 
@@ -101,8 +103,6 @@ private slots:
         
 private: 
     bool preview;
-
-    int indexternal;
     
     QButtonGroup *QBGjobcommand;
     QButtonGroup *QBGrunmode;
@@ -110,6 +110,7 @@ private:
     QCheckBox *CHKformchk;
 
     QComboBox *CMBbasis;
+    QComboBox *CMBengine;
     QComboBox *CMBlevel;
     QComboBox *CMBlevel2;
     QComboBox *CMBtype;
