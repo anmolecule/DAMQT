@@ -493,10 +493,34 @@ int main(int argc,char *argv[]) {
     stringstream ss;
     ss << nbasis;
     string mov2asc;
+
 //    outimportfile << "antes de mov2asc: inpath = " << inpath << " outpath = " << outpath << " newprojectname = " << newprojectname << " ss = " << ss.str() << endl;
     mov2asc = "$NWCHEM_TOP/contrib/mov2asc/mov2asc " + ss.str() + " " + inpath + movecs + " " + outpath + newprojectname + "_txt";
-//    outimportfile << "mov2asc = " << mov2asc << endl;
-    system(mov2asc.c_str());
+//   outimportfile << "mov2asc = " << mov2asc << endl;
+    int indmovasc = system(mov2asc.c_str());
+    if (indmovasc != 0){
+        outimportfile << "\nError trying to run \"" <<  mov2asc << "\". Error code = " << indmovasc;
+        char* nwchemtop = std::getenv("NWCHEM_TOP");
+        outimportfile << "\n\nCheck that variable \"NWCHEM_TOP = ";
+        if (nwchemtop) outimportfile << nwchemtop;
+        outimportfile << "\" is correctly set.\n\nTrying an alternative\n";
+        mov2asc = "mov2asc " + ss.str() + " " + inpath + movecs + " " + outpath + newprojectname + "_txt";
+        indmovasc = system(mov2asc.c_str());
+        if (indmovasc != 0){
+            char* pPath = std::getenv("PATH");
+            outimportfile << "\nError trying to run \"" <<  mov2asc << "\". Error code = " << indmovasc
+                    << "\n\nCheck that mov2asc utility is installed in your system."
+                    << " (It usually resides in $NWCHEM_TOP/contrib/mov2asc/).\n"
+                    << "Check that it has been compiled and the executable is available. Otherwise, run make in that directory.\n"
+                    << "\nIf mov2asc is installed, set NWCHEM_TOP in the working dir (that from which DAMQT was launched) "
+                    << "to the current home directory of nwchem, export it and restart DAMQT.\n"
+                    << "\nIf this does not work, add the directory where mov2asc resides to variable PATH in the working dir and restart DAMQT."
+                    << "\nCurrent PATH = " << pPath
+                    << "\n\nAlternatively, create a symbolic link or copy the mov2asc executable to the working dir.\n";
+            outimportfile << endl;
+            exit(1);
+        }
+    }
 
     ofstream lvecfile;
     s = outpath + newprojectname + ".lvec";
