@@ -3332,6 +3332,11 @@ void MainWindow::page_Efield_widgets()
     FRMefplaneABC->setMaximumSize(QSize(400, 2000));
     FRMefplaneABC->setVisible(false);
 
+    TXTefbas2dtol = new QLineEdit(FRMefplane2D);
+    TXTefbas2dtol->setValidator(myDoubleValidator);
+    TXTefbas2dtol->setText("0.1");
+    TXTefbas2dtol->setToolTip(tr("A critical point lays on the plane if its distance is lower than this"));
+
     TXTefplaneA=new QLineEdit(FRMefplaneABC);
     TXTefplaneA->setText("0.");
     TXTefplaneA->setValidator(myDoubleValidator);
@@ -3394,6 +3399,7 @@ void MainWindow::page_Efield_widgets()
 
     FRMefextralines = new QGroupBox();
     FRMefextralines->setMaximumSize(QSize(400, 2000));
+    FRMefextralines->setVisible(false);
 
     CHKefextralines = new QCheckBox(tr("Extra lines"),FRMefextralines);
     CHKefextralines->setChecked(false);
@@ -3408,7 +3414,7 @@ void MainWindow::page_Efield_widgets()
     connect(CHKefxyz, SIGNAL(stateChanged(int)), this, SLOT(CHKefxyz_changed()));
 
     Wtabledenef=new QWidget(FRMefxyz);
-    SHTefxyz = new Sheet(0, 4, 0,true, Wtabledenef);
+    SHTefxyz = new Sheet(0, 4, 0,true, Wtabledenef,59);
     QStringList QSLefxyz;
     QSLefxyz << "cntr" << "x" << "y" << "z";
     SHTefxyz->setHeader(QSLefxyz);
@@ -3516,6 +3522,7 @@ void MainWindow::page_Efield_layouts()
     QLabel *LBLefz=new QLabel(tr("z"),FRMefplot3D);
     QLabel *LBLefinfb = new QLabel(tr("Lowest"));
     QLabel *LBLefsupb = new QLabel(tr("Highest"));
+    QLabel *LBLefbas2dtol = new QLabel(tr("Basins tolerance"),FRMeflines);
 
     QHBoxLayout *Layout1=new QHBoxLayout(FRMeffilename);
     Layout1->addWidget(TXTeffilename);
@@ -3588,6 +3595,8 @@ void MainWindow::page_Efield_layouts()
     Layout14->addWidget(TXTefvinf,3,1);
     Layout14->addWidget(TXTefvsup,3,2);
     Layout14->addWidget(FRMefplane2D,4,0,1,3,Qt::AlignCenter);
+    Layout14->addWidget(LBLefbas2dtol,5,0,1,2,Qt::AlignLeft);
+    Layout14->addWidget(TXTefbas2dtol,5,2,Qt::AlignLeft);
 
     QVBoxLayout *Layout15=new QVBoxLayout(FRMefplot2D);
     Layout15->addLayout(Layout8);
@@ -8038,6 +8047,8 @@ void MainWindow::read_page_Efield(string file)
     read_double_to_TXT("planeC","DAMFIELDSECT",TXTefplaneC,file);
     read_double_to_TXT("uvratio","DAMFIELDSECT",TXTefuvratio,file);
 
+    read_double_to_TXT("basintol","DAMFIELDSECT",TXTefbas2dtol,file);
+
     if (TXTefplaneC->text() == "0."){
         if (TXTefplaneB->text() == "0."){
             RBTefplaneYZ->setChecked(true);
@@ -8970,6 +8981,7 @@ void MainWindow::saveOptions_5(string file, bool *printwarns, QString *warns)
     write_option("planeB", "DAMFIELDSECT", TXTefplaneB->text(), file, printwarns, warns);
     write_option("planeC", "DAMFIELDSECT", TXTefplaneC->text(), file, printwarns, warns);
     write_option("uvratio", "DAMFIELDSECT", TXTefuvratio->text(), file, printwarns, warns);
+    write_option("basintol", "DAMFIELDSECT", TXTefbas2dtol->text(), file, printwarns, warns);
 
     if (CHKefextralines->isChecked()) write_option("lextralines", "DAMFIELDSECT", QString("T"), file, printwarns, warns);
     else write_option("lextralines", "DAMFIELDSECT", QString("F"), file, printwarns, warns);
@@ -10079,6 +10091,7 @@ void MainWindow::CHKefextralines_changed()
         TXTeffilelines->setVisible(false);
         BTNeffilelines->setEnabled(false);
         BTNeffilelines->setVisible(false);
+        FRMefextralines->setVisible(false);
         CHKefxyz->setVisible(false);
         CHKefxyz->setEnabled(false);
     }else{
@@ -10088,6 +10101,7 @@ void MainWindow::CHKefextralines_changed()
         TXTeffilelines->setVisible(true);
         BTNeffilelines->setEnabled(true);
         BTNeffilelines->setVisible(true);
+        FRMefextralines->setVisible(true);
         CHKefxyz->setVisible(true);
         CHKefxyz->setEnabled(true);
     }
@@ -14344,6 +14358,7 @@ void MainWindow::initpointers()
     TXTdZJzformula2D = nullpointer;
     TXTdZJzinf = nullpointer;
     TXTdZJzsup = nullpointer;
+    TXTefbas2dtol = nullpointer;
     TXTefdlt0 = nullpointer;
     TXTeffilelines = nullpointer;
     TXTeffilename = nullpointer;

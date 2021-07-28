@@ -329,7 +329,7 @@ MODULE DAMFIELD320_D
      integer(KINT) :: idimzlm, lmaxrep, kntlargo, kntcorto, nlineas, nlincomp, nlines, narrstep, nsize, planecase
      integer(KINT) :: icntlines(mxrtab)
      integer(KINT), allocatable :: icfposd(:,:)
-     real(KREAL) :: uinf, usup, dltu, vinf, vsup, dltv
+     real(KREAL) :: basintol, uinf, usup, dltu, vinf, vsup, dltv
      real(KREAL) :: xinf, xsup, yinf, ysup, zinf, zsup, dlt0, thresh, rlongarr, rwidearr
      real(KREAL) :: umbrlargo, uvratio, planeA, planeB, planeC
      real(KREAL) :: rlines(3,mxrtab), wu(3), wv(3)

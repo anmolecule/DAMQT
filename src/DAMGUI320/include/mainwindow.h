@@ -1093,6 +1093,7 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
     QSpinBox *SPBeflmaxexp;
     QSpinBox *SPBeflongthreshold;
 
+    QLineEdit *TXTefbas2dtol;
     QLineEdit *TXTefdlt0;
     QLineEdit *TXTeffilelines;
     QLineEdit *TXTeffilename;

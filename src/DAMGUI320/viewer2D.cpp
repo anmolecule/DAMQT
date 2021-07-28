@@ -4641,6 +4641,18 @@ bool Viewer2D::readbasinsfile(QString filename)
         }
     }
     file.close();
+    if (basinsxyz.isEmpty()){
+        QMessageBox msgBox;
+        msgBox.setText(tr("Plotter"));
+        msgBox.setInformativeText(tr("No basin borders found.\n")
+            +tr("If you think they must appear, increase basins tolerance\n")
+            +tr("in electric field calculation and compute again."));
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+        emit moveToTop(viewernumber);
+        QApplication::restoreOverrideCursor();
+        return false;
+    }
     return true;
 }
 

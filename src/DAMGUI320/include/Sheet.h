@@ -45,13 +45,13 @@ class Sheet : public QWidget
 {
     Q_OBJECT
 public:
-    Sheet(int rows,int cols,int max,bool type, QWidget *parent = 0);
+    Sheet(int rows,int cols,int max, bool type, QWidget *parent = 0, int width = 56);
 	void setVisible(bool visible);
 	void setHeader(QStringList qsl);
     void clear();
 	QString getcellvalue(int row,int col);
 	void setcellvalue(QString value,int row,int col);
-        void setcellfloatvalue(QString value,int row,int col);
+    void setcellfloatvalue(QString value,int row,int col);
 	void resizeRows(int rows);
 	QTableWidget *tabla;
 	void max_changed(int max);

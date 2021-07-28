@@ -35,16 +35,16 @@
 #include <QtDebug>
 
 
-Sheet::Sheet(int rows,int cols,int max,bool type,QWidget *parent): QWidget(parent)
+Sheet::Sheet(int rows,int cols,int max, bool type,QWidget *parent,int width): QWidget(parent)
 {
-//	lang = new IDIOMA();
 	QString path=QApplication::applicationDirPath();
 	tabla=new QTableWidget(rows,cols,parent);
 	tabla->setSelectionBehavior(QAbstractItemView::SelectRows);
 	tabla->setSelectionMode(QAbstractItemView::SingleSelection); //NoSelection
 	tabla->setAlternatingRowColors(true);
+    qDebug() << "width = " << width;
 	for(int i=0; i < cols ; i++){
-		tabla->setColumnWidth(i,56);
+        tabla->setColumnWidth(i,width);
 	}
 	del=new LineEditDelegate;
 	del->max=max;
@@ -134,18 +134,18 @@ void Sheet::resizeRows(int rows)
 	tabla->resizeRowsToContents();
 	int rowheight=tabla->rowHeight(0);
 	int height=0;
-	QScrollBar *Hscrollbar=tabla->horizontalScrollBar();
+//	QScrollBar *Hscrollbar=tabla->horizontalScrollBar();
 	QHeaderView *Hheader=tabla->horizontalHeader();
 #if QT_VERSION >= 0x050000
-        Hheader->setSectionsClickable(false);
-        if (Hheader->count()<4){
+    Hheader->setSectionsClickable(false);
+//    if (Hheader->count()<4){
 		Hheader->setSectionResizeMode(QHeaderView::Stretch);
-	}else{
-		height=Hscrollbar->height();
-	}
+//	}else{
+//		height=Hscrollbar->height();
+//	}
 #else
-        Hheader->setClickable(false);
-        if (Hheader->count()<4){
+    Hheader->setClickable(false);
+    if (Hheader->count()<4){
 		Hheader->setResizeMode(QHeaderView::Stretch);
 	}else{
 		height=Hscrollbar->height();
