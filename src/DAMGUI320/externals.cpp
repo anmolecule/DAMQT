@@ -32,6 +32,8 @@
 
 Externals::Externals(QWidget *parent) : QWidget(parent)
 {
+    extOutputSuffix = "log";
+
     QDLexternal = new QDialog(this);
     QDLexternal->setMinimumWidth(400);
     QDLexternal->resize(900,200);
@@ -52,9 +54,9 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     CMBengine->addItem(tr("Mopac"));
     CMBengine->addItem(tr("NWChem"));
     CMBengine->addItem(tr("Psi4"));
-    CMBengine->addItem(tr("Turbomole"));
     CMBengine->setCurrentIndex(0);
     connectionsext << connect(CMBengine, SIGNAL(currentIndexChanged(int)), this, SLOT(CMBengine_changed()));
+    extexecname << "g09" << "gamess" << "molpro" << "mopac" << "nwchem" << "psi4";
 
     TXTextgeometry = new QLineEdit(QDLexternal);
     TXTextgeometry->setPlaceholderText(tr("Load file with molecule coordinates"));
@@ -192,7 +194,7 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     extextEdit = new QTextEdit(QDLexternal);
     extextEdit->setFocusPolicy(Qt::ClickFocus);
 
-    QLabel *LBLextcommand = new QLabel(tr("Exec file:"));
+    QLabel *LBLextcommand = new QLabel(tr("Exec command:"));
     TXTextcommand = new QLineEdit("g09",QDLexternal);
 
     CHKformchk = new QCheckBox("Formchk",QDLexternal);
@@ -267,8 +269,8 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     layout10->addWidget(LBLextpathremote,3,0,1,1);
     layout10->addWidget(TXTextpathremote,3,1,1,6);
     layout10->addWidget(LBLextcommand,4,0,1,1);
-    layout10->addWidget(TXTextcommand,4,1,1,1);
-    layout10->addWidget(CHKformchk,4,2,1,2);
+    layout10->addWidget(TXTextcommand,4,1,1,5);
+    layout10->addWidget(CHKformchk,4,6,1,1);
     layout10->addWidget(BTNpreview,5,0,1,2);
     layout10->addWidget(BTNextreset,5,4,1,1);
     layout10->addWidget(BTNextsave,5,5,1,1);
@@ -369,9 +371,6 @@ void Externals::BTNextreset_clicked(){
         case 5:     // Psi4
             make_Psi4_input();
             break;
-        case 6:     // Turbomole
-            make_Turbomole_input();
-            break;
     }
 }
 
@@ -415,7 +414,7 @@ void Externals::BTNextsubmit_clicked(){
     Parameters.removeFirst();
     QString stdinput = extInputFileName;
     extOutputFileName = QFileInfo(extInputFileName).absolutePath()
-        + "/" + QFileInfo(extInputFileName).completeBaseName() + ".log";
+        + "/" + QFileInfo(extInputFileName).completeBaseName() + "." + extOutputSuffix;
     QProcess *myProcess = new QProcess();
     myProcess->setStandardInputFile(stdinput);
     myProcess->setStandardOutputFile(extOutputFileName,QIODevice::Truncate);
@@ -452,9 +451,6 @@ void Externals::CMBengine_changed(){
             break;
         case 5:     // Psi4
             make_Psi4_input();
-            break;
-        case 6:     // Turbomole
-            make_Turbomole_input();
             break;
     }
 }
@@ -496,9 +492,6 @@ void Externals::externalinputfile_changed(){
         case 5:     // Psi4
             make_Psi4_input();
             break;
-        case 6:     // Turbomole
-            make_Turbomole_input();
-            break;
     }
     QDLexternal->raise();
 }
@@ -539,19 +532,15 @@ void Externals::formchkStart(){
     emit computing(QString(tr("formchk launched...")));
 }
 
-
-void Externals::make_Gamess_input(){
-    extextEdit->clear();
-    extextEdit->setText("\n\n   To be prepared");
-}
-
 void Externals::make_Gaussian_input(){
     extextEdit->clear();
     QStringList type = {"","opt","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
     QStringList mm = {"uff","amber","dreiding"};
     QStringList sme = {"pm6","pddg","am1","pm3","indo","cndo"};
+    extOutputSuffix = "log";
 
+    TXTextcommand->setText(extexecname[0]);
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
         return;
@@ -559,7 +548,7 @@ void Externals::make_Gaussian_input(){
     if (filename.isEmpty())
         return;
     extInputFileName = filepath+"/"+filename+".com";
-    TXTextcommand->setText("g09 "+extInputFileName);
+    TXTextcommand->setText(extexecname[0]+" "+extInputFileName);
 
     QFile geometryInput(TXTextgeometry->text().trimmed());
     if (!geometryInput.open(QFile::ReadOnly | QFile::Text)){
@@ -622,9 +611,16 @@ void Externals::make_Gaussian_input(){
 
 }
 
+
+void Externals::make_Gamess_input(){
+    extextEdit->clear();
+    extextEdit->setText("\n\n   To be prepared");
+}
+
 void Externals::make_Molpro_input(){
     extextEdit->clear();
     extextEdit->setText("\n\n   To be prepared");
+    extOutputSuffix = "out";
 }
 
 void Externals::make_Mopac_input(){
@@ -637,8 +633,10 @@ void Externals::make_NWChem_input(){
     QStringList type = {"energy","optimize","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
     QStringList mult = {"","singlet","doublet","triplet","quartet","quintet","sextet","octet"};
-    
+    QStringList mm = {"scf","mp2","ccsd"};
+    extOutputSuffix = "nwcout";
 
+    TXTextcommand->setText(extexecname[4]);
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
         return;
@@ -646,7 +644,7 @@ void Externals::make_NWChem_input(){
     if (filename.isEmpty())
         return;
     extInputFileName = filepath+"/"+filename+".nwcinp";
-    TXTextcommand->setText("nwchem "+extInputFileName);
+    TXTextcommand->setText(extexecname[4]+" "+extInputFileName);
 
     QFile geometryInput(TXTextgeometry->text().trimmed());
     if (!geometryInput.open(QFile::ReadOnly | QFile::Text)){
@@ -656,6 +654,7 @@ void Externals::make_NWChem_input(){
     QByteArray buff;
     buff.append(QString("start %1\n").arg(filename));
     buff.append(QString("title '%1'\n\n").arg(TXTtitle->text().trimmed()));
+    buff.append(QString("scratch_dir %1\n\n").arg(TXTextworkdir->text().trimmed()));
     if (!TXTextmem->text().isEmpty()){
         buff.append(QString("memory total %1\n").arg(TXTextmem->text().trimmed()));
     }
@@ -699,15 +698,18 @@ void Externals::make_NWChem_input(){
     } else {
         level=CMBlevel->currentText().toLower();
     }
-    if (type.at(CMBtype->currentIndex()) == "energy") {
-         buff.append(QString("task %1\n").arg(QString("%1").arg(level)));
+    if (mm.contains(level)){
+        buff.append(QString("scf\n    vectors output %1\nend\n").arg(filepath+"/"+filename+".movecs"));
+    }
+    if (type.at(CMBtype->currentIndex()) == "energy") {  
+        buff.append(QString("task %1\n").arg(QString("%1").arg(level)));
     } else if (type.at(CMBtype->currentIndex()) == "optimize") {
-         buff.append(QString("task %1 optimize\n").arg(QString("%1").arg(level)));
+        buff.append(QString("task %1 optimize\n").arg(QString("%1").arg(level)));
     } else if (type.at(CMBtype->currentIndex()) == "freq") {
-         buff.append(QString("task %1 freq\n").arg(QString("%1").arg(level)));
+        buff.append(QString("task %1 freq\n").arg(QString("%1").arg(level)));
     } else if (type.at(CMBtype->currentIndex()) == "opt freq") {
-         buff.append(QString("task %1 optimize\n").arg(QString("%1").arg(level)));
-         buff.append(QString("task %1 freq\n").arg(level));
+        buff.append(QString("task %1 optimize\n").arg(QString("%1").arg(level)));
+        buff.append(QString("task %1 freq\n").arg(level));
     }
 
     if (ncen != kntcen){
@@ -727,7 +729,9 @@ void Externals::make_Psi4_input(){
     extextEdit->clear();
     QStringList type = {"energy","optimize","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
+    extOutputSuffix = "log";
 
+    TXTextcommand->setText(extexecname[5]);
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
         return;
@@ -735,7 +739,7 @@ void Externals::make_Psi4_input(){
     if (filename.isEmpty())
         return;
     extInputFileName = filepath+"/"+filename+".psi4inp";
-    TXTextcommand->setText("psi4 "+extInputFileName);
+    TXTextcommand->setText(extexecname[5]+" "+extInputFileName);
 
     QFile geometryInput(TXTextgeometry->text().trimmed());
     if (!geometryInput.open(QFile::ReadOnly | QFile::Text)){
@@ -808,11 +812,6 @@ void Externals::make_Psi4_input(){
     }
     extextEdit->setText(buff);
 
-}
-
-void Externals::make_Turbomole_input(){
-    extextEdit->clear();
-    extextEdit->setText("\n\n   To be prepared");
 }
 
 
@@ -912,6 +911,7 @@ void Externals::submitOutput(int exitCode, QProcess::ExitStatus status){
             QProcess *myProcess = new QProcess();
             myProcess->start(processname,Parameters);
         }
+        extexecname.replace(CMBengine->currentIndex(),TXTextcommand->text().split(" ").at(0));
         emit computing(QString(""));
         emit updatetextedit(extOutputFileName);
     }else if (status==QProcess::CrashExit){

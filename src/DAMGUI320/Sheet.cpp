@@ -42,7 +42,6 @@ Sheet::Sheet(int rows,int cols,int max, bool type,QWidget *parent,int width): QW
 	tabla->setSelectionBehavior(QAbstractItemView::SelectRows);
 	tabla->setSelectionMode(QAbstractItemView::SingleSelection); //NoSelection
 	tabla->setAlternatingRowColors(true);
-    qDebug() << "width = " << width;
 	for(int i=0; i < cols ; i++){
         tabla->setColumnWidth(i,width);
 	}

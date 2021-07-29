@@ -87,7 +87,6 @@ private slots:
     void make_Mopac_input();;
     void make_NWChem_input();
     void make_Psi4_input();
-    void make_Turbomole_input();
 
     void RBTlocal_changed();
 
@@ -149,13 +148,16 @@ private:
     QString extgeomfile;
     QString extgeompath;
     QString extInputFileName;
+    QString extOutputSuffix;
     QString extOutputFileName;
 
+    QStringList extexecname;
 
     QSpinBox *SPBcharge;
     QSpinBox *SPBmult;
 
     QTextEdit *extextEdit;
+
 };
     
 
