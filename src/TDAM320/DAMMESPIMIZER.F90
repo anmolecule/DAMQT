@@ -280,7 +280,7 @@
                 if (trim(adjustl(molecules(i)%bs(j))).ne.trim(adjustl(atmnms(k)))) cycle
                 if (trim(adjustl(molecules(i)%bs(j))).eq.trim(adjustl(atmnms(k)))) then
                     molecules(i)%bawt(j) = atmwts(k)
-                    molecules(i)%bvdw(j) = atmvdw(k)*0.8d0
+                    molecules(i)%bvdw(j) = atmvdw(k)*0.7d0
                     exit
                 end if
             end do
@@ -574,6 +574,18 @@
 !!=================================
 !!    Rotation
 !!=================================
+        function calctorque(rx,ry,rz,fx,fy,fz) result(torque)
+        implicit none
+        REAL*8,intent(in) :: rx,ry,rz,fx,fy,fz
+        REAL*8 :: tx,ty,tz,torq
+        REAL*8,DIMENSION(4):: torque
+        tx=ry*fz-rz*fy
+        ty=rz*fx-rx*fz
+        tz=rx*fy-ry*fx
+        torq=sqrt(tx**2+ty**2+tz**2)
+        torque=(/tx,ty,tz,torq/)
+        end function 
+
         SUBROUTINE ROTATION(icurr,nbatms,bsl,bxl,byl,bzl,bql,batwtl,batvdwl,flag,as,enj)
         USE DAMBUILD_T
         IMPLICIT NONE 
@@ -599,7 +611,13 @@
             rcoz(i)=bzl(i)-cozl
             rcom(i)=dsqrt(rcox(i)**2+rcoy(i)**2+rcoz(i)**2)
         end do
-   
+        ! Introduce the torque method to see if it works
+        !do l=1,nbatms
+        !    CALL DAMPOT(vtot,drvx,drvy,drvz,dxxtot,dxytot,dxztot, &
+        !    & dyytot,dyztot,dzztot,btx(l),bty(l),btz(l))
+!
+!        enddo
+         
 !        as=20  It is received as argument from namelist rssize
         a1=180/as+1   !Number of theta's 
         a2=360/as     !Number of phi's
@@ -882,8 +900,15 @@
         do ju=1,ncen
             do ku=1,nbatms
                 dist(ju) = sqrt((rcen(1,ju)-bxl(ku))**2+(rcen(2,ju)-byl(ku))**2+(rcen(3,ju)-bzl(ku))**2)
-                if ((atvdw(ju)+bvdwl(ku)).gt.dist(ju)) then
+                if ((atvdw(ju)*0.7d0+bvdwl(ku)).gt.dist(ju)) then  ! The van der waals radius of host atoms was not scaled yet. Scaled by 0.8
                     accept=.false.
+                    print*, "Minimum distance"
+                    print*, minval(dist)
+                    if(abs(minval(dist)-1.0)<0.0001) then
+                        print*,rcen(1,ju),bxl(ku),rcen(2,ju),byl(ku),rcen(3,ju),bzl(ku)
+                    endif
+                    print*, ju,atvdw(ju),ku,bvdwl(ku) !minloc(dist,dim=1)
+                    print*, ""
                     goto 98 
                 end if   
             end do
