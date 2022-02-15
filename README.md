@@ -1,9 +1,8 @@
 # DAMQT 
 
-[![Release][release]]
+![Release][release]
 [![License][license-image]][license]
-
-[![DAMQT logo][website]]
+![DAMQT logo][website]
 
 [release]: https://img.shields.io/github/downloads/anmolecule/DAMQT/total
 [license-image]: https://img.shields.io/badge/License-GPLv3-blue.svg
