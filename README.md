@@ -1,4 +1,6 @@
-# DAMQT
+# DAMQT 
+
+## A cross platform GUI-enabled package for fast and efficient analysis of molecular electron density, electrostatic potential, molecular orbitals and much more.
 
 Copyright 2013-2022, Jaime Fernández Rico, Rafael López, Ignacio Ema,
 Guillermo Ramírez, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
@@ -204,10 +206,10 @@ is always the projectname used to identify all the files in the project.
 The following paragraphs briefly summarize the usage of each program in
 the package.
 
-### DAM320.F90  (DAM320_mpi.F90)
-
-Input files
+DAM320.F90  (DAM320_mpi.F90)
 -----------
+
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -264,8 +266,7 @@ Options in namelist and defaults:
     
     iswindows = .false.        .true. if running on a MS-windows system
 
-Output files
-------------
+### Output files
 
 DAM320 writes to the standard output some information of input, the multipolar moments of the atomic fragments
 and the molecular multipolar moments.
@@ -279,10 +280,10 @@ A file projectname.xyz with the geometry in angstrom is generated for compatibil
 
 A file projectname.mltmod  with the modules of the atomic multipolar moments is also created.
 
-### G-DAM320.F90 (G-DAM320_mpi.F90)
+G-DAM320.F90 (G-DAM320_mpi.F90)
+------------
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -326,8 +327,7 @@ Options in namelist and defaults:
                         2: fits the one-center part of the density
                         3: fits the two-center part of the density
 
-Output files
-------------
+### Output files
 
 G-DAM320 writes to the standard output some information of input, the multipolar moments of the atomic fragments
 and the molecular multipolar moments.
@@ -340,10 +340,10 @@ the file projectname.damqt as text to the standard output.
 A file projectname.xyz with the geometry in angstrom is generated for compatibility with gOpenMol.
 
 
-### DAMDEN320.F90
+DAMDEN320.F90
+------------
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -441,8 +441,7 @@ Options in namelist and defaults:
     vinf, vsup, dltv:        lower and upper bounds, and step in v coordinate for 2D grid
 
     
-Output files
-------------
+### Output files
 
 DAMDEN320 writes to the standard output some information of input and the values of density and its derivatives at
 individual selected points.
@@ -468,10 +467,10 @@ These files are compatible with gOpenMol.
 If the selected points tabulation and second derivatives options are chosen (lpoints = .true. .and. lderiv2 = .true.) 
 a text file "projectname-d.der2" with the second derivatives (dxx, dxy, dxz, dyy, dyz, dzz) is printed. 
 
-### DAMPOT320.F90
-
-Input files
+DAMPOT320.F90
 -----------
+
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -529,8 +528,7 @@ Options in namelist and defaults:
     
     vinf, vsup, dltv:        lower and upper bounds, and step in v coordinate for 2D grid
     
-Output files
-------------
+### Output files
 
 DAMPOT320 writes to the standard output some information of input and the values of electrostatic potential and its derivatives at
 individual selected points.
@@ -552,10 +550,10 @@ projectname-v-dyz.plt:    second derivative of the electrostatic potential with 
 If the selected points tabulation and second derivatives options are chosen (lpoints = .true. .and. lderiv2 = .true.) 
 a text file "projectname-v.der2" with the second derivatives (dxx, dxy, dxz, dyy, dyz, dzz) is printed.
 
-### DAMSGHOLE320.F90
+DAMSGHOLE320.F90
+------------
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -598,8 +596,7 @@ Options in namelist and defaults:
     iswindows = .false.      true if running on a MS-windows system
 
     
-Output files
-------------
+### Output files
 
 DAMSGHOLE320 writes to the standard output some information of input and the number of 
 electrostatic potential extrema on the density isosurface and the values and coordinates.
@@ -608,10 +605,10 @@ A file with extension .sgh is generated for sigma hole 3D display and another wi
 .hst with a histogram of MESP vs surface area on the density isosurface that can be visualized
 with the 2D ploter.
 
-### DAMFIELD320.F90
+DAMFIELD320.F90
+------------
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -671,8 +668,7 @@ Options in namelist and defaults:
     
     dlt0 = 1.d-2            stride length
 
-Output files
-------------
+### Output files
 
 DAMFIELD320 writes to the standard output some information of input and some statistics.
 
@@ -681,10 +677,10 @@ x, y, z of the points in the line. Different lines are separated by blank lines.
 
 The projectname.cam file can be used with gnuplot to plot the electic field lines. An example is included within the samples.
 
-### DAMFIELDPNT320.F90
+DAMFIELDPNT320.F90
+------------
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project and
@@ -706,16 +702,15 @@ Options in namelist and defaults:
     
     iswindows = .false.        .true. if running on a MS-windows system
 
-Output files
-------------
+### Output files
 
 DAMFIELDPNT320 writes to the standard output some information of input, the values of the electric field components
 at the tabulation points and some statistics.
 
-### DAMFORCES320.F90
-
-Input files
+DAMFORCES320.F90
 -----------
+
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -745,8 +740,7 @@ Options in namelist and defaults:
     
     filename = ""            root file name
 
-Output files
-------------
+### Output files
 
 DAMFRAD320 writes to the standard output some information of input and the tabulation of the selected radial factor
 and its first and second derivatives.
@@ -763,10 +757,10 @@ total forces (sum of the two previous ones)
 conformational forces
 non-conformational forces (spurious forces)
 
-### DAMFRAD320.F90
+DAMFRAD320.F90
+------------
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -806,16 +800,15 @@ Options in namelist and defaults:
     
     filename = ""            root file name
 
-Output files
-------------
+### Output files
 
 DAMFRAD320 writes to the standard output some information of input and the tabulation of the selected radial factor
 and its first and second derivatives.
 
-### DAMMULTROT320.F90
+DAMMULTROT320.F90
+------------
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project, 
@@ -845,8 +838,7 @@ Options in namelist and defaults:
     rip                    vector defining the X' axis of the rotated frame (should be in the plane defined by the
                             three centers, otherwise its projection in that plane is taken)
 
-Output files
-------------
+### Output files
 
 DAMMULTROT320 writes to the standard output some information of input and the tabulation of the selected multiplar moments
 of the three selected centers referred to normalized spherical harmonics in the frame with:
@@ -855,10 +847,10 @@ of the three selected centers referred to normalized spherical harmonics in the 
     X' axis orthogonal to Z' and Y' (right-handed system)
 
     
-### DAMZernike-Jacobi_GTO(STO).F90
+DAMZernike-Jacobi_GTO(STO).F90
+------------
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project, 
@@ -897,18 +889,17 @@ Options in namelist and defaults:
     
     iswindows = .false.        .true. if running on a MS-windows system
 
-Output files
-------------
+### Output files
 
 DAMZernike-Jacobi_GTO(STO) writes to the standard output some information of input and the one-center expansion
 of GTO(STO) density into Canterkis-Zernike or Jacobi-Zernike functions. In particular, rotationally invariant fingerprints
 are quoted.
 
     
-### DAMDENZJ320.F90
+DAMDENZJ320.F90
+------------
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project, 
@@ -952,8 +943,7 @@ Options in namelist and defaults:
     
     numrtab = 0                Number of tabulation points supplied in namelist
 
-Output files
-------------
+### Output files
 
 DAMDENZJ320 writes to the standard output some information of input and the tabulation of one-center expansion
 of GTO(STO) density into Canterkis-Zernike or Jacobi-Zernike functions. 
@@ -968,7 +958,8 @@ projectname-type-d-dz.pltd:     derivative of the density with respect to z
 
 where type can be "zernike" or "jacobi"
 
-### readdamqt320.F90
+readdamqt320.F90
+------------
 
 Reads the content of an unformatted file "projectname.damqt" and dumps it as text to the standard output.
 
@@ -984,12 +975,14 @@ To get the output into a file, use the  >  character. For instance:
 readdamqt320 > projectname.damqt_txt
 
 
-### readcnt.F90
+readcnt.F90
+------------
 
 Reads the content of a binary file with 2D grids "fname.cnt" and dumps it as text to a file "fname.cnt_txt", where 
 fname stands for the corresponding file name.
 
-### readplt320.F90
+readplt320.F90
+------------
 
 Reads the content of a binary grid file (fname.plt or fname.pltd) and prints it to a text file named fname.plt_txt
 
@@ -1002,7 +995,8 @@ press enter.
 
 Output goes to a file with the same name as the original .plt file appended with "txt"
 
-### subtractplt320.F90
+subtractplt320.F90
+------------
 
 Subtracts the content of two .plt files and generates another .plt file with the result. 
 It also gives some statistics of the comparison of the input files. 
@@ -1013,7 +1007,8 @@ Then, supply the names of the .plt files to be compared.
 
 Output goes to standard output.
 
-### compareplt320.F90
+compareplt320.F90
+------------
 
 Compares the content of two .plt files. Gives some statistics of the comparison. Intended for accuracy tests.
 
@@ -1023,7 +1018,8 @@ Then, supply the names of the .plt files to be compared.
 
 Output goes to standard output.
 
-### dmat_GAUSSIAN_to_DAM.F90
+dmat_GAUSSIAN_to_DAM.F90
+------------
 
 Transforms the density matrix from GAUSSIAN order of the angular functions to DAM order.
 
@@ -1037,7 +1033,8 @@ output:
 
 ## INTERFACES
 
-### GAUSS_interface.cpp
+GAUSS_interface.cpp
+------------
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from  from Gaussian(C) .fchk file.
@@ -1067,7 +1064,8 @@ to the following choices:
 5 :    takes the MP2 electron density
 6 :    takes the MP2 spin density
 
-### MOLPRO_interface.cpp
+MOLPRO_interface.cpp
+------------
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from MOLPRO output *.out files. 
@@ -1091,7 +1089,8 @@ Otherwise, patch MOLPRO's file src/argos/arinp.F file with
 the file "arinp.F.diff" included in the package. This bug yields wrong results when
 DAM320 is run with MOLPRO symmetry adapted functions.
 
-### MOLEKEL_interface.cpp
+MOLEKEL_interface.cpp
+------------
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from  from MOLEKEL .mkl file.
@@ -1099,7 +1098,8 @@ and density matrix (.den) from  from MOLEKEL .mkl file.
 The interface must be run without arguments. It will ask for the name of the .mkl file. 
 DAM files .ggbs and .den will be built with the same name as that of the .mkl file. 
 
-### TURBOMOLE_interface.cpp
+TURBOMOLE_interface.cpp
+------------
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from  from TURBOMOLE basis, coords and mos (or alpha and beta)
@@ -1108,12 +1108,14 @@ files.
 Molecular orbitals in file mos must be expressed in the original basis set, not in 
 symmetry-adapted functions. 
 
-### Mopac_aux_interface.cpp
+Mopac_aux_interface.cpp
+------------
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from MOPAC aux file.
 
 ### NWChem_interface.cpp
+------------
 
 To make the interface accesible by just clicking on the outputfile, it is necessary 
 to set the output file extension as .nwcout.
