@@ -422,9 +422,16 @@ int main(int argc,char *argv[]) {
             tokenPrt = strtok_s(NULL," ",&newtoken);
             tokenPrt = strtok_s(NULL," ",&newtoken);
             movecs = string(tokenPrt);
-            bool existmovecs = exists_test3(inpath+movecs);
+            string movecsfile;
+            if (movecs.find(inpath) != std::string::npos) {
+                movecsfile = movecs;
+            }
+            else{
+                movecsfile = inpath+movecs;
+            }
+            bool existmovecs = exists_test3(movecsfile);
             if (!existmovecs){
-                outimportfile << "File " << inpath+movecs << " with molecular orbitals does not exist" << endl;
+                outimportfile << "File " << movecsfile << " with molecular orbitals does not exist" << endl;
                 outimportfile << "Operation is aborted" << endl;
                 exit(1);
             }
@@ -493,9 +500,16 @@ int main(int argc,char *argv[]) {
     stringstream ss;
     ss << nbasis;
     string mov2asc;
+    string movecsfile;
+    if (movecs.find(inpath) != std::string::npos) {
+        movecsfile = movecs;
+    }
+    else{
+        movecsfile = inpath+movecs;
+    }
 
 //    outimportfile << "antes de mov2asc: inpath = " << inpath << " outpath = " << outpath << " newprojectname = " << newprojectname << " ss = " << ss.str() << endl;
-    mov2asc = "$NWCHEM_TOP/contrib/mov2asc/mov2asc " + ss.str() + " " + inpath + movecs + " " + outpath + newprojectname + "_txt";
+    mov2asc = "$NWCHEM_TOP/contrib/mov2asc/mov2asc " + ss.str() + " " + movecsfile + " " + outpath + newprojectname + "_txt";
 //   outimportfile << "mov2asc = " << mov2asc << endl;
     int indmovasc = system(mov2asc.c_str());
     if (indmovasc != 0){
@@ -504,7 +518,7 @@ int main(int argc,char *argv[]) {
         outimportfile << "\n\nCheck that variable \"NWCHEM_TOP = ";
         if (nwchemtop) outimportfile << nwchemtop;
         outimportfile << "\" is correctly set.\n\nTrying an alternative\n";
-        mov2asc = "mov2asc " + ss.str() + " " + inpath + movecs + " " + outpath + newprojectname + "_txt";
+        mov2asc = "mov2asc " + ss.str() + " " + movecsfile + " " + outpath + newprojectname + "_txt";
         indmovasc = system(mov2asc.c_str());
         if (indmovasc != 0){
             char* pPath = std::getenv("PATH");
@@ -519,6 +533,9 @@ int main(int argc,char *argv[]) {
                     << "\n\nAlternatively, create a symbolic link or copy the mov2asc executable to the working dir.\n";
             outimportfile << endl;
             exit(1);
+        }
+        else{
+            outimportfile << mov2asc << " succesfully run\n\n";
         }
     }
 

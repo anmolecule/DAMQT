@@ -285,6 +285,7 @@ void MainWindow::CreateActions()
     connect(AccPdf, SIGNAL(triggered()), this, SLOT(PrintFilePdf()));
 //    External packages
     AccExternal = new QAction(QIcon(":/images/External_program.png"),tr("E&xternal"), this);
+    AccExternal->setShortcut(tr("Ctrl+E"));
     AccExternal->setStatusTip(tr("External packages"));
     connect(AccExternal, SIGNAL(triggered()), this, SLOT(external_package()));
 //    2D Viewer2D
@@ -1191,7 +1192,7 @@ void MainWindow::page_project_widgets()
 
     LBLProjectFolder = new QLabel(tr("Project folder")+":");
     TXTProjectFolder = new QLineEdit();
-    connect(TXTProjectFolder, SIGNAL(textChanged(const QString &)), this, SLOT(TXTProjectFolder_changed(const QString )));
+    connect(TXTProjectFolder, SIGNAL(textChanged(const QString &)), this, SLOT(TXTProjectFolder_changed(const QString &)));
     TXTProjectFolder->setEnabled(true);
 
 //                    Project Name
