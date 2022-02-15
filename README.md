@@ -1,27 +1,25 @@
 # DAMQT
 
-!  Copyright 2013-2022, Jaime Fernández Rico, Rafael López, Ignacio Ema,
-!  Guillermo Ramírez, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
-! 
-!  DAM320 is free software: you can redistribute it and/or modify
-!  it under the terms of the GNU General Public License as published by
-!  the Free Software Foundation, either version 3 of the License, or
-!  (at your option) any later version.
-! 
-!  DAM320 is distributed in the hope that it will be useful,
-!  but WITHOUT ANY WARRANTY; without even the implied warranty of
-!  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-!  GNU General Public License for more details.
-! 
-!  You should have received a copy of the GNU General Public License
-!  along with DAM320.  If not, see <http://www.gnu.org/licenses/>.
-!
-!------------------------------------------------------------------------
+Copyright 2013-2022, Jaime Fernández Rico, Rafael López, Ignacio Ema,
+Guillermo Ramírez, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
+ 
+DAM320 is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-##  A QUICK GUIDE TO DAM320 PACKAGE
+DAM320 is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
---------------------------------
-                   
+You should have received a copy of the GNU General Public License
+along with DAM320.  If not, see <http://www.gnu.org/licenses/>.
+
+README updated in Feb 2022.
+
+##  A Quick Guide to DAM320 Package
+
 Authors: R. López(1), I. Ema(1), G. Ramírez(1), D. Zorrilla(2), 
 A. Kumar(3), S. Yeole(4) and S. Gadre(5)
 
@@ -40,13 +38,9 @@ P. O. Nahata Commerce College, Bhusawal, India
 
 (5) Savitribai Phule Pune University, India.
 
-Feb 2022
-
 Contact: rafael.lopez@uam.es
 
 ## Introduction
-
-------------
 
 The DAM320 package consists of a set of programs designed for the partition
 and representation of the molecular electron density into atomic
@@ -73,9 +67,7 @@ Interfaces are included in the package for reading data from GAUSSIAN(TM)
 Details on the method and its implementation can be found in the
 BIBLIOGRAPHY quoted at the end of this file.
 
-
 ## DAM320 package contents
-------------------------
 
 The package contains the source files and a sample deck of input and output files. 
 
@@ -89,7 +81,8 @@ The parallel versions have been prepared using MPI and tested with openmpi and m
 * Qt library (5.9 or higher) 
 * OpenGL (3.3 or above)
 
-## Installation on Linux OS
+## Installation on Linux OS (Ubuntu)
+
 0. ```cd /path/to/DAMQTparentDirectory```
 
 1. If your computer does not have C++ compiler or Fortran compiler, then install the build-essential package which is a reference for all the packages needed to compile a Debian package. It generally includes the GCC/g++ compilers and libraries and some other utilities.
@@ -179,7 +172,7 @@ DAMQT320.exe
 To uninstall the package, type 
 
 ```
-rake uninstall
+sudo make uninstall
 ```
 
 To remove executables, type 
@@ -189,7 +182,6 @@ sudo make clean
 ```
 
 ## Samples deck
-------------
 
 A set of files is included to test the installation. The set includes input samples and the 
 corresponding output for the several programs in the package.
@@ -199,7 +191,6 @@ in the package to test that everything works.
 
 
 ## USER's GUIDE
-------------
 
 In all the programs, the input file consists of two parts: the first one
 must always contain a NAMELIST named OPTIONS (although with different
@@ -213,8 +204,7 @@ is always the projectname used to identify all the files in the project.
 The following paragraphs briefly summarize the usage of each program in
 the package.
 
-DAM320.F90  (DAM320_mpi.F90)
-============================
+### DAM320.F90  (DAM320_mpi.F90)
 
 Input files
 -----------
@@ -289,8 +279,7 @@ A file projectname.xyz with the geometry in angstrom is generated for compatibil
 
 A file projectname.mltmod  with the modules of the atomic multipolar moments is also created.
 
-G-DAM320.F90 (G-DAM320_mpi.F90)
-==================================
+### G-DAM320.F90 (G-DAM320_mpi.F90)
 
 Input files
 -----------
@@ -351,8 +340,7 @@ the file projectname.damqt as text to the standard output.
 A file projectname.xyz with the geometry in angstrom is generated for compatibility with gOpenMol.
 
 
-DAMDEN320.F90
-===============
+### DAMDEN320.F90
 
 Input files
 -----------
@@ -480,8 +468,7 @@ These files are compatible with gOpenMol.
 If the selected points tabulation and second derivatives options are chosen (lpoints = .true. .and. lderiv2 = .true.) 
 a text file "projectname-d.der2" with the second derivatives (dxx, dxy, dxz, dyy, dyz, dzz) is printed. 
 
-DAMPOT320.F90
-===============
+### DAMPOT320.F90
 
 Input files
 -----------
@@ -565,9 +552,7 @@ projectname-v-dyz.plt:    second derivative of the electrostatic potential with 
 If the selected points tabulation and second derivatives options are chosen (lpoints = .true. .and. lderiv2 = .true.) 
 a text file "projectname-v.der2" with the second derivatives (dxx, dxy, dxz, dyy, dyz, dzz) is printed.
 
-
-DAMSGHOLE320.F90
-================
+### DAMSGHOLE320.F90
 
 Input files
 -----------
@@ -623,8 +608,7 @@ A file with extension .sgh is generated for sigma hole 3D display and another wi
 .hst with a histogram of MESP vs surface area on the density isosurface that can be visualized
 with the 2D ploter.
 
-DAMFIELD320.F90
-=================
+### DAMFIELD320.F90
 
 Input files
 -----------
@@ -697,8 +681,7 @@ x, y, z of the points in the line. Different lines are separated by blank lines.
 
 The projectname.cam file can be used with gnuplot to plot the electic field lines. An example is included within the samples.
 
-DAMFIELDPNT320.F90
-====================
+### DAMFIELDPNT320.F90
 
 Input files
 -----------
@@ -729,8 +712,7 @@ Output files
 DAMFIELDPNT320 writes to the standard output some information of input, the values of the electric field components
 at the tabulation points and some statistics.
 
-DAMFORCES320.F90
-==================
+### DAMFORCES320.F90
 
 Input files
 -----------
@@ -781,8 +763,7 @@ total forces (sum of the two previous ones)
 conformational forces
 non-conformational forces (spurious forces)
 
-DAMFRAD320.F90
-================
+### DAMFRAD320.F90
 
 Input files
 -----------
@@ -831,8 +812,7 @@ Output files
 DAMFRAD320 writes to the standard output some information of input and the tabulation of the selected radial factor
 and its first and second derivatives.
 
-DAMMULTROT320.F90
-===================
+### DAMMULTROT320.F90
 
 Input files
 -----------
@@ -875,8 +855,7 @@ of the three selected centers referred to normalized spherical harmonics in the 
     X' axis orthogonal to Z' and Y' (right-handed system)
 
     
-DAMZernike-Jacobi_GTO(STO).F90
-==============================
+### DAMZernike-Jacobi_GTO(STO).F90
 
 Input files
 -----------
@@ -926,8 +905,7 @@ of GTO(STO) density into Canterkis-Zernike or Jacobi-Zernike functions. In parti
 are quoted.
 
     
-DAMDENZJ320.F90
-===============
+### DAMDENZJ320.F90
 
 Input files
 -----------
@@ -990,8 +968,7 @@ projectname-type-d-dz.pltd:     derivative of the density with respect to z
 
 where type can be "zernike" or "jacobi"
 
-readdamqt320.F90
-==================
+### readdamqt320.F90
 
 Reads the content of an unformatted file "projectname.damqt" and dumps it as text to the standard output.
 
@@ -1007,14 +984,12 @@ To get the output into a file, use the  >  character. For instance:
 readdamqt320 > projectname.damqt_txt
 
 
-readcnt.F90
-===========
+### readcnt.F90
 
 Reads the content of a binary file with 2D grids "fname.cnt" and dumps it as text to a file "fname.cnt_txt", where 
 fname stands for the corresponding file name.
 
-readplt320.F90
-================
+### readplt320.F90
 
 Reads the content of a binary grid file (fname.plt or fname.pltd) and prints it to a text file named fname.plt_txt
 
@@ -1027,8 +1002,7 @@ press enter.
 
 Output goes to a file with the same name as the original .plt file appended with "txt"
 
-subtractplt320.F90
-====================
+### subtractplt320.F90
 
 Subtracts the content of two .plt files and generates another .plt file with the result. 
 It also gives some statistics of the comparison of the input files. 
@@ -1039,8 +1013,7 @@ Then, supply the names of the .plt files to be compared.
 
 Output goes to standard output.
 
-compareplt320.F90
-===================
+### compareplt320.F90
 
 Compares the content of two .plt files. Gives some statistics of the comparison. Intended for accuracy tests.
 
@@ -1050,8 +1023,7 @@ Then, supply the names of the .plt files to be compared.
 
 Output goes to standard output.
 
-dmat_GAUSSIAN_to_DAM.F90
-========================
+### dmat_GAUSSIAN_to_DAM.F90
 
 Transforms the density matrix from GAUSSIAN order of the angular functions to DAM order.
 
@@ -1063,11 +1035,9 @@ input:
 output:
     dmatDAM:    lower triangle of density matrix in DAM order (canonical order of spherical hemonics)
 
-INTERFACES
-----------
+## INTERFACES
 
-GAUSS_interface.cpp
-===================
+### GAUSS_interface.cpp
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from  from Gaussian(C) .fchk file.
@@ -1097,8 +1067,7 @@ to the following choices:
 5 :    takes the MP2 electron density
 6 :    takes the MP2 spin density
 
-MOLPRO_interface.cpp
-====================
+### MOLPRO_interface.cpp
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from MOLPRO output *.out files. 
@@ -1122,8 +1091,7 @@ Otherwise, patch MOLPRO's file src/argos/arinp.F file with
 the file "arinp.F.diff" included in the package. This bug yields wrong results when
 DAM320 is run with MOLPRO symmetry adapted functions.
 
-MOLEKEL_interface.cpp
-=====================
+### MOLEKEL_interface.cpp
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from  from MOLEKEL .mkl file.
@@ -1131,8 +1099,7 @@ and density matrix (.den) from  from MOLEKEL .mkl file.
 The interface must be run without arguments. It will ask for the name of the .mkl file. 
 DAM files .ggbs and .den will be built with the same name as that of the .mkl file. 
 
-TURBOMOLE_interface.cpp
-=======================
+### TURBOMOLE_interface.cpp
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from  from TURBOMOLE basis, coords and mos (or alpha and beta)
@@ -1141,15 +1108,12 @@ files.
 Molecular orbitals in file mos must be expressed in the original basis set, not in 
 symmetry-adapted functions. 
 
-
-Mopac_aux_interface.cpp
-=======================
+### Mopac_aux_interface.cpp
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from MOPAC aux file.
 
-NWChem_interface.cpp
-====================
+### NWChem_interface.cpp
 
 To make the interface accesible by just clicking on the outputfile, it is necessary 
 to set the output file extension as .nwcout.
@@ -1159,9 +1123,8 @@ For the interface to work, the mov2asc executable must be available in directory
 where $NWCHEM TOP stands for the NWCHEM home directory.
 
 
-
 BIBLIOGRAPHY
-------------
+====================
 
 (1) Analysis of the molecular density
     Fernández Rico, J.; López, R.; Ramírez, G. J Chem Phys
