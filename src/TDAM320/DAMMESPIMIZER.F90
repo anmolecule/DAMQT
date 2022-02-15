@@ -30,9 +30,9 @@
     implicit none
     integer(kint)::iden,ierr,i,j,k,iw,jw,dum,nbatms,nb,flag
     real :: tarray(2), tiempo, dtime
-    integer:: nmols,splt,rssize,tn
+    integer:: nmols,splt,rssize,tn,tmaxcharg
     real(kreal) :: Enj,tssize
-    real(kreal) :: shiftx,shifty,shiftz,tcox,tcoy,tcoz
+    real(kreal) :: shiftx,shifty,shiftz,tcox,tcoy,tcoz,chosenx,choseny,chosenz
     character(2),allocatable::pisym(:),ts(:)
     real(kreal),allocatable ::tx(:),ty(:),tz(:),tq(:),tw(:),tv(:),pix(:),piy(:),piz(:)
     character(256)::exec
@@ -280,7 +280,7 @@
                 if (trim(adjustl(molecules(i)%bs(j))).ne.trim(adjustl(atmnms(k)))) cycle
                 if (trim(adjustl(molecules(i)%bs(j))).eq.trim(adjustl(atmnms(k)))) then
                     molecules(i)%bawt(j) = atmwts(k)
-                    molecules(i)%bvdw(j) = atmvdw(k)*0.8d0
+                    molecules(i)%bvdw(j) = atmvdw(k)*0.7d0
                     exit
                 end if
             end do
@@ -289,7 +289,6 @@
 
     ! If insertlocfile is given, the com of first molecule of template file is replicated at mentioned locations.
     if (trim(adjustl(preprocfile))==trim(adjustl(templatefile)) .and. len_trim(insertlocfile)/=0) then
-!    write(6,*) 'PASA POR AQUI'
         open(unit=304, file = trim(adjustl(insertlocfile)),iostat=ierr)
         if (ierr.ne.0) call error(1,"error reading xyz file")
         read(304,*,err=305,end=305) nb
@@ -310,15 +309,21 @@
         tq = molecules(1)%bq
         tw = molecules(1)%bawt
         tv = molecules(1)%bvdw
-        call comass(tn,tx,ty,tz,tw,tcox,tcoy,tcoz)
-!write(6,*) 'center of masses (bohr): ', tcox,tcoy,tcoz
+        
+        ! Choose atom with maximum positive charge 
+        tmaxcharg=maxloc(tq,dim=1)
+        ! Get the coordinates of chosen atom
+        chosenx=tx(tmaxcharg)
+        choseny=ty(tmaxcharg)
+        chosenz=tz(tmaxcharg)
         nmols = 0
         do i =1,nb
+            ! shiftx/y/z is difference between insertloc point and chosen coordinate
             if (trim(adjustl(pisym(i)))=="X".and.nmols<50) then
                 nmols = nmols + 1
-                shiftx = pix(i) - tcox
-                shifty = piy(i) - tcoy
-                shiftz = piz(i) - tcoz
+                shiftx = pix(i) - chosenx 
+                shifty = piy(i) - choseny 
+                shiftz = piz(i) - chosenz 
 !write(6,*) 'guest no ', i
 !write(6,*) 'pi (bohr) = ', pix(i), piy(i), piz(i)
 !write(6,*) 'shift (bohr) = ', shiftx, shifty, shiftz
@@ -330,14 +335,15 @@
                 molecules(nmols)%by(tn),molecules(nmols)%bz(tn),molecules(nmols)%bq(tn),molecules(nmols)%bvdw(tn),stat=ierr)
                 molecules(nmols)%natoms=tn
 !write(6,*) 'coordinates (bohr) of guest no ', nmols
+                ! Move the coordinates obtained from templatefile by shiftx/y/z amount to place molecule at insertloc points
                 do j = 1,tn
-                    molecules(nmols)%bs(j)    =ts(j)
-                    molecules(nmols)%bx(j)    =tx(j) +shiftx
-                    molecules(nmols)%by(j)    =ty(j) +shifty
-                    molecules(nmols)%bz(j)    =tz(j) +shiftz
-                    molecules(nmols)%bq(j)    =tq(j)
-                    molecules(nmols)%bawt(j)  =tw(j)
-                    molecules(nmols)%bvdw(j)  =tv(j)
+                    molecules(nmols)%bs(j)  =ts(j)
+                    molecules(nmols)%bx(j)  =tx(j) +shiftx
+                    molecules(nmols)%by(j)  =ty(j) +shifty
+                    molecules(nmols)%bz(j)  =tz(j) +shiftz
+                    molecules(nmols)%bq(j)  =tq(j)
+                    molecules(nmols)%bawt(j)=tw(j)
+                    molecules(nmols)%bvdw(j)=tv(j)
 !write(6,*) molecules(nmols)%bx(j), molecules(nmols)%by(j), molecules(nmols)%bz(j)
                 enddo
             endif
@@ -445,7 +451,7 @@
             allocate (bsl(nbatms),bxl(nbatms),byl(nbatms),bzl(nbatms),bql(nbatms),bawtl(nbatms),bvdwl(nbatms),stat=ierr)
             flag=0
             do j=1,nbatms
-				bsl(j)=molecules(i)%bs(j)
+		bsl(j)=molecules(i)%bs(j)
                 bxl(j)=molecules(i)%bx(j)
                 byl(j)=molecules(i)%by(j)
                 bzl(j)=molecules(i)%bz(j)
@@ -456,7 +462,7 @@
             if (accept(icurr,nbatms,bxl,byl,bzl,bvdwl)) &
                 call ROTATION(icurr,nbatms,bsl,bxl,byl,bzl,bql,bawtl,bvdwl,flag,rssize,enj)
             do j=1,nbatms
-				molecules(i)%bs(j)=bsl(j)
+		molecules(i)%bs(j)=bsl(j)
                 molecules(i)%bx(j)=bxl(j)
                 molecules(i)%by(j)=byl(j)
                 molecules(i)%bz(j)=bzl(j)
@@ -550,9 +556,36 @@
 
         end subroutine
 
+        subroutine rotmat(ua,va,wa,ang,rt)
+        USE DAMBUILD_T
+        REAL(KREAL), DIMENSION(3,3) :: rt
+        REAL(KREAL) :: ang,ua,va,wa
+        rt(1,1) = ua**2+(1-ua**2)*cos(ang)
+        rt(1,2) = ua*va*(1-cos(ang)) - wa*sin(ang)
+        rt(1,3) = ua*wa*(1-cos(ang)) + va*sin(ang)
+        rt(2,1) = ua*va*(1-cos(ang)) + wa*sin(ang)
+        rt(2,2) = va**2+(1-va**2)*cos(ang)
+        rt(2,3) = va*wa*(1-cos(ang)) - ua*sin(ang)
+        rt(3,1) = ua*wa*(1-cos(ang)) - va*sin(ang)
+        rt(3,2) = va*wa*(1-cos(ang)) + ua*sin(ang)
+        rt(3,3) = wa**2+(1-wa**2)*cos(ang)
+        return
+        end subroutine rotmat
 !!=================================
 !!    Rotation
 !!=================================
+        function calctorque(rx,ry,rz,fx,fy,fz) result(torque)
+        implicit none
+        REAL*8,intent(in) :: rx,ry,rz,fx,fy,fz
+        REAL*8 :: tx,ty,tz,torq
+        REAL*8,DIMENSION(4):: torque
+        tx=ry*fz-rz*fy
+        ty=rz*fx-rx*fz
+        tz=rx*fy-ry*fx
+        torq=sqrt(tx**2+ty**2+tz**2)
+        torque=(/tx,ty,tz,torq/)
+        end function 
+
         SUBROUTINE ROTATION(icurr,nbatms,bsl,bxl,byl,bzl,bql,batwtl,batvdwl,flag,as,enj)
         USE DAMBUILD_T
         IMPLICIT NONE 
@@ -578,7 +611,13 @@
             rcoz(i)=bzl(i)-cozl
             rcom(i)=dsqrt(rcox(i)**2+rcoy(i)**2+rcoz(i)**2)
         end do
-   
+        ! Introduce the torque method to see if it works
+        !do l=1,nbatms
+        !    CALL DAMPOT(vtot,drvx,drvy,drvz,dxxtot,dxytot,dxztot, &
+        !    & dyytot,dyztot,dzztot,btx(l),bty(l),btz(l))
+!
+!        enddo
+         
 !        as=20  It is received as argument from namelist rssize
         a1=180/as+1   !Number of theta's 
         a2=360/as     !Number of phi's
@@ -604,20 +643,12 @@
                 do k = 0,345,as
                     k1=k/as+1
                     ang = real(k)*p_i/180.0d0
-                    rt(1,1) = ua**2+(1-ua**2)*cos(ang)
-                    rt(1,2) = ua*va*(1-cos(ang)) - wa*sin(ang)
-                    rt(1,3) = ua*wa*(1-cos(ang)) + va*sin(ang)
-                    rt(2,1) = ua*va*(1-cos(ang)) + wa*sin(ang)
-                    rt(2,2) = va**2+(1-va**2)*cos(ang)
-                    rt(2,3) = va*wa*(1-cos(ang)) - ua*sin(ang)
-                    rt(3,1) = ua*wa*(1-cos(ang)) - va*sin(ang)
-                    rt(3,2) = va*wa*(1-cos(ang)) + ua*sin(ang)
-                    rt(3,3) = wa**2+(1-wa**2)*cos(ang)
+                    call rotmat(ua,va,wa,ang,rt)
             
 !                     write(11,*) nb
 !                   write(11,*) 
                     !print *, nbatms
-					!print *, ""
+		    !print *, ""
                     do l=1,nbatms
                         btx(l) = coxl + (rcox(l)*rt(1,1) + rcoy(l)*rt(1,2) + rcoz(l)*rt(1,3))
                         bty(l) = coyl + (rcox(l)*rt(2,1) + rcoy(l)*rt(2,2) + rcoz(l)*rt(2,3))
@@ -664,16 +695,7 @@
             wa=cos(theta)
             k=(ex(3)-1)*as
             ang = real(k)*p_i/180.0d0
-
-            rt(1,1) = ua**2+(1-ua**2)*cos(ang)
-            rt(1,2) = ua*va*(1-cos(ang)) - wa*sin(ang)
-            rt(1,3) = ua*wa*(1-cos(ang)) + va*sin(ang)
-            rt(2,1) = ua*va*(1-cos(ang)) + wa*sin(ang)
-            rt(2,2) = va**2+(1-va**2)*cos(ang)
-            rt(2,3) = va*wa*(1-cos(ang)) - ua*sin(ang)
-            rt(3,1) = ua*wa*(1-cos(ang)) - va*sin(ang)
-            rt(3,2) = va*wa*(1-cos(ang)) + ua*sin(ang)
-            rt(3,3) = wa**2+(1-wa**2)*cos(ang)
+            call rotmat(ua,va,wa,ang,rt)
 
             do l=1,nbatms
                 bxl(l) = coxl + (rcox(l)*rt(1,1) + rcoy(l)*rt(1,2) + rcoz(l)*rt(1,3))
@@ -702,65 +724,120 @@
         REAL(KREAL), DIMENSION(nbatms):: bxl,byl,bzl,bql,batwtl,batvdwl
         REAL(KREAL), DIMENSION(3,3) :: rt
         REAL(KREAL) :: vtot,drvx,drvy,drvz,dxxtot, dxytot,dxztot,dyytot,dyztot,dzztot
+        REAL(KREAL) :: totdrvx,totdrvy,totdrvz,norm
         REAL(KREAL) :: theta,phi,ang,ua,va,wa,eval,tssize
         REAL(KREAL) :: coxl,coyl,cozl
         INTEGER(KINT), ALLOCATABLE :: ex(:)
         INTEGER(KINT) :: i,j,k,l,a1,a2,a3,i1,j1,k1,as,dm,is,js,ierr,dum,np,nt
         LOGICAL,external:: accept
 !       
-             
-        enjt = 0.0d0
-        do i= -1,1
-            do j=-1,1
-                do k=-1,1
-!                   if (i.eq.0.and.j.eq.0.and.k.eq.0) cycle
-!                   write(11,*) nb
-!                   write(11,*)
-                    do l = 1,nbatms
-                        btx(l)= bxl(l)+i*tssize 
-                        bty(l)= byl(l)+j*tssize
-                        btz(l)= bzl(l)+k*tssize
-!                       write(11,*) bs(l),btx(l)*auang,bty(l)*auang,btz(l)*auang
-                    end do
-
-                  !  do l=1,nb
-                  !     bxl(l)=btx(l)
-                  !     byl(l)=bty(l)
-                  !     bzl(l)=btz(l)
-                  !  end do 
-                    if (accept(icurr,nbatms,bxl,byl,bzl,batvdwl).eqv..false.) then
-                        enjt(i+2,j+2,k+2)= +10000.0d0
-                        cycle
-                    end if    
-                    do l=1,nbatms
-                        CALL DAMPOT(vtot,drvx,drvy,drvz,dxxtot,dxytot,dxztot, &
-                        & dyytot,dyztot,dzztot,btx(l),bty(l),btz(l))
-                        enjt(i+2,j+2,k+2)=enjt(i+2,j+2,k+2)+vtot*bql(l)
-                    end do
-                end do   
-             end do
-        end do
-        dm=size(shape(enjt))
-        allocate (ex(dm),stat=ierr)
-        ex=minloc(enjt)
-        eval=minval(enjt)
-        if (eval<enj .and. (enj-eval).gt.1e-6) then
-            ! print*, "Ok in translation"
-            Enj=eval
-            write(6,"(A,E12.5)") "Best energy of all translations = ",eval
-            i=ex(1)-2
-            j=ex(2)-2
-            k=ex(3)-2
- 
-            do l = 1,nbatms
-                bxl(l)= bxl(l)+i*tssize
-                byl(l)= byl(l)+j*tssize
-                bzl(l)= bzl(l)+k*tssize
-            end do
-        elseif ((enj-eval).le.1e-6) then
+        if (accept(icurr,nbatms,bxl,byl,bzl,batvdwl).eqv..false.) then
             flag=-1
-        end if
-        deallocate(ex)
+        endif 
+        totdrvx=0.0
+        totdrvy=0.0
+        totdrvz=0.0     
+        do l=1,nbatms
+            CALL DAMPOT(vtot,drvx,drvy,drvz,dxxtot,dxytot,dxztot, &
+            & dyytot,dyztot,dzztot,bxl(l),byl(l),bzl(l))
+            totdrvx=totdrvx+drvx
+            totdrvy=totdrvy+drvy
+            totdrvz=totdrvz+drvz
+        end do
+        norm=max(abs(totdrvx),abs(totdrvy),abs(totdrvz))
+        totdrvx=-totdrvx/norm;totdrvy=-totdrvy/norm;totdrvz=-totdrvz/norm
+
+        !print*,"tssize"
+        !print*,tssize
+        !print*,"totdrvx,totdrvy,totdrvz,totdrv"
+        !print*,totdrvx,totdrvy,totdrvz,sqrt(totdrvx**2+totdrvy**2+totdrvz**2)
+        !print*,"tssize*totdrvx,tssize*totdrvy,tssize*totdrvz"
+        !print*,tssize*totdrvx,tssize*totdrvy,tssize*totdrvz
+        
+        ! Move coordinates in the direction of gradient. Or check with negative gradient
+        !print*,"Actual coordinate"
+        do l = 1,nbatms
+         !   print*,bxl(l),byl(l),bzl(l)
+            bxl(l)= bxl(l)+tssize*totdrvx
+            byl(l)= byl(l)+tssize*totdrvy
+            bzl(l)= bzl(l)+tssize*totdrvz
+!           write(11,*) bs(l),btx(l)*auang,bty(l)*auang,btz(l)*auang
+        end do
+      !  print*,""
+      !  print*,"Modified coordinate"
+      !  do l = 1,nbatms
+      !      print*,btx(l),bty(l),btz(l)
+      !  end do
+      !  print*,""
+      !  totdrvx=0.0
+      !  totdrvy=0.0
+      !  totdrvz=0.0     
+      !  do l=1,nbatms
+      !      CALL DAMPOT(vtot,drvx,drvy,drvz,dxxtot,dxytot,dxztot, &
+      !      & dyytot,dyztot,dzztot,bxl(l),byl(l),bzl(l))
+      !      totdrvx=totdrvx+drvx
+      !      totdrvy=totdrvy+drvy
+      !      totdrvz=totdrvz+drvz
+      !  enddo
+      !  norm=max(abs(totdrvx),abs(totdrvy),abs(totdrvz))
+      !  totdrvx=totdrvx/norm;totdrvy=totdrvy/norm;totdrvz=totdrvz/norm
+
+        !print*,"tssize"
+        !print*,tssize
+     !   print*,"totdrvx,totdrvy,totdrvz,totdrv"
+     !   print*,totdrvx,totdrvy,totdrvz,sqrt(totdrvx**2+totdrvy**2+totdrvz**2)
+        !print*,"tssize*totdrvx,tssize*totdrvy,tssize*totdrvz"
+        !print*,tssize*totdrvx,tssize*totdrvy,tssize*totdrvz
+        !=======================================================================
+       ! enjt = 0.0d0
+       ! do i= -1,1
+       !     do j=-1,1
+       !         do k=-1,1
+       !             do l = 1,nbatms
+       !                 btx(l)= bxl(l)+i*tssize
+       !                 bty(l)= byl(l)+j*tssize
+       !                 btz(l)= bzl(l)+k*tssize
+!      !                 write(11,*) bs(l),btx(l)*auang,bty(l)*auang,btz(l)*auang
+       !             end do
+
+       !             if (accept(icurr,nbatms,btx,bty,btz,batvdwl).eqv..false.) then
+       !                 enjt(i+2,j+2,k+2)= +10000.0d0
+       !                 cycle
+       !             end if    
+       !             do l=1,nbatms
+       !                 CALL DAMPOT(vtot,drvx,drvy,drvz,dxxtot,dxytot,dxztot, &
+       !                 & dyytot,dyztot,dzztot,btx(l),bty(l),btz(l))
+       !               ! print*,drvx,drvy,drvz
+       !                 enjt(i+2,j+2,k+2)=enjt(i+2,j+2,k+2)+vtot*bql(l)
+       !             end do
+       !         end do   
+       !      end do
+       ! end do
+       ! dm=size(shape(enjt))
+       ! allocate (ex(dm),stat=ierr)
+       ! ex=minloc(enjt)
+       ! eval=minval(enjt)
+       ! if (eval<enj .and. (enj-eval).gt.1e-6) then
+       !     ! print*, "Ok in translation"
+       !     Enj=eval
+       !     write(6,"(A,E12.5)") "Best energy of all translations = ",eval
+       !     i=ex(1)-2
+       !     j=ex(2)-2
+       !     k=ex(3)-2
+ 
+       !     print*,""
+       !     print*,"Finalized coordinate"
+       !     print*,""
+       !     do l = 1,nbatms
+       !         bxl(l)= bxl(l)+i*tssize
+       !         byl(l)= byl(l)+j*tssize
+       !         bzl(l)= bzl(l)+k*tssize
+       !         print*,bxl(l),byl(l),bzl(l)
+       !     end do
+       ! elseif ((enj-eval).le.1e-6) then
+       !     flag=-1
+       ! end if
+       ! deallocate(ex)
         return 
         end subroutine
 
@@ -823,8 +900,15 @@
         do ju=1,ncen
             do ku=1,nbatms
                 dist(ju) = sqrt((rcen(1,ju)-bxl(ku))**2+(rcen(2,ju)-byl(ku))**2+(rcen(3,ju)-bzl(ku))**2)
-                if ((atvdw(ju)+bvdwl(ku)).gt.dist(ju)) then
+                if ((atvdw(ju)*0.7d0+bvdwl(ku)).gt.dist(ju)) then  ! The van der waals radius of host atoms was not scaled yet. Scaled by 0.8
                     accept=.false.
+                    print*, "Minimum distance"
+                    print*, minval(dist)
+                    if(abs(minval(dist)-1.0)<0.0001) then
+                        print*,rcen(1,ju),bxl(ku),rcen(2,ju),byl(ku),rcen(3,ju),bzl(ku)
+                    endif
+                    print*, ju,atvdw(ju),ku,bvdwl(ku) !minloc(dist,dim=1)
+                    print*, ""
                     goto 98 
                 end if   
             end do
@@ -1110,8 +1194,11 @@
                 shifty = tcoy-hcoy
                 shiftz = tcoz-hcoz
                 norm=max(abs(shiftx),abs(shifty),abs(shiftz))
-                shitfx=shiftx/norm;shifty=shifty/norm;shiftz=shiftz/norm
-                scldval=dval*1.5
+                shiftx=shiftx/norm;shifty=shifty/norm;shiftz=shiftz/norm
+                print*,"shiftx,shifty,shiftz"
+                print*,shiftx,shifty,shiftz
+                ! adding distance slightly larger than overlap
+                scldval=dval*1.2 
                 do ku=1,molecules(iu)%natoms
                     molecules(iu)%bx(ku)=molecules(iu)%bx(ku)+shiftx*scldval
                     molecules(iu)%by(ku)=molecules(iu)%by(ku)+shifty*scldval
