@@ -440,6 +440,10 @@ int main(int argc,char *argv[]) {
 //             outimportfile << "output vectors = " << movecs << endl;
         }
     }
+    if (movecs.length() < 3){
+        movecs = projectname+".movecs";
+    }
+//    outimportfile << "output vectors = " << movecs << endl;
 //     cout << "Number of geometries read = " << kntgeom << " Keeps the coordinates of the last one. "<< endl ;
 
 //    redefines the coordinates with respect to the center of positive charges and writes the to file .ggbs

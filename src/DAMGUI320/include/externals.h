@@ -34,15 +34,18 @@
 #include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>
+#include <QListView>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QProcess>
 #include <QRadioButton>
 #include <QSpinBox>
+#include <QStandardItemModel>
 #include <QString>
 #include <QTextEdit>
 #include <QToolButton>
 
+#include "elements.h"
 
 class Externals : public QWidget
 {
@@ -82,11 +85,17 @@ private slots:
     void formchkStart();
     
     void make_Gamess_input();
+    void make_Gamess_template();
     void make_Gaussian_input();
+    void make_Gaussian_template();
     void make_Molpro_input();
-    void make_Mopac_input();;
+    void make_Molpro_template();
+    void make_Mopac_input();
+    void make_Mopac_template();
     void make_NWChem_input();
+    void make_NWChem_template();
     void make_Psi4_input();
+    void make_Psi4_template();
 
     void RBTlocal_changed();
 
@@ -100,7 +109,10 @@ private slots:
     
     void TXTextgeometry_changed();
         
-private: 
+private:
+    void hideCMBlevel(QVector<int>);
+    void resetCMBlevel();
+
     bool preview;
     
     QButtonGroup *QBGjobcommand;

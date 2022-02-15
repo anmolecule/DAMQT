@@ -56,7 +56,7 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     CMBengine->addItem(tr("Psi4"));
     CMBengine->setCurrentIndex(0);
     connectionsext << connect(CMBengine, SIGNAL(currentIndexChanged(int)), this, SLOT(CMBengine_changed()));
-    extexecname << "g09" << "gamess" << "molpro" << "mopac" << "nwchem" << "psi4";
+    extexecname << "g09" << "rungms" << "molpro" << "mopac" << "nwchem" << "psi4";
 
     TXTextgeometry = new QLineEdit(QDLexternal);
     TXTextgeometry->setPlaceholderText(tr("Load file with molecule coordinates"));
@@ -69,30 +69,27 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
 
     QLabel *LBLtype = new QLabel(tr("Calculation type"));
     CMBtype = new QComboBox(QDLexternal);
-    CMBtype->addItem(tr("Energy"));
-    CMBtype->addItem(tr("Geometry optimization"));
-    CMBtype->addItem(tr("Frequencies"));
-    CMBtype->addItem(tr("Optimization+Frequencies"));
-    CMBtype->addItem(tr("NMR"));
-    connectionsext << connect(CMBtype, SIGNAL(currentIndexChanged(int)), this, SLOT(externalinputfile_changed()));
+    CMBtype->setCurrentIndex(0);
 
     CMBlevel = new QComboBox(QDLexternal);
+    CMBlevel->setCurrentIndex(0);
     CMBlevel->setEditable(true);
-    CMBlevel->addItem(tr("HF"));
-    CMBlevel->addItem(tr("B3LYP"));
-    CMBlevel->addItem("MP2");
-    CMBlevel->addItem("CCSD");
-    CMBlevel->addItem("BD");
-    CMBlevel->addItem("CASSCF");
-    CMBlevel->addItem(tr("PM6"));
-    CMBlevel->addItem(tr("UFF"));
-    connectionsext << connect(CMBlevel, SIGNAL(currentIndexChanged(int)), this, SLOT(externalinputfile_changed()));
 
     CMBlevel2 = new QComboBox(QDLexternal);
-    CMBlevel2->addItem(tr("Default Spin"));
-    CMBlevel2->addItem(tr("Restricted"));
-    CMBlevel2->addItem(tr("Unrestricted"));
-    CMBlevel2->addItem(tr("Open Restricted"));
+    CMBlevel2->setCurrentIndex(0);
+
+    QLabel *LBLbasis = new QLabel(tr("Basis set"));
+    CMBbasis = new QComboBox(QDLexternal);
+    CMBbasis->setMinimumWidth(150);
+    CMBbasis->setCurrentIndex(0);
+    CMBbasis->setEditable(true);
+
+    QLabel *LBLkeywords = new QLabel(tr("Keywords"));
+    TXTkeywords = new QLineEdit(QDLexternal);
+    TXTkeywords->setPlaceholderText("Additional Keywords");
+
+    connectionsext << connect(CMBtype, SIGNAL(currentIndexChanged(int)), this, SLOT(externalinputfile_changed()));
+    connectionsext << connect(CMBlevel, SIGNAL(currentIndexChanged(int)), this, SLOT(externalinputfile_changed()));
     connectionsext << connect(CMBlevel2, SIGNAL(currentIndexChanged(int)), this, SLOT(externalinputfile_changed()));
 
     QLabel *LBLcharge = new QLabel(tr("Charge"));
@@ -108,26 +105,9 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     SPBmult->setMinimum(1);
     SPBmult->setValue(1);
     SPBmult->setToolTip("2S+1");
+
     connectionsext << connect(SPBmult,SIGNAL(valueChanged(int)),this,SLOT(externalinputfile_changed()));
-
-    QLabel *LBLbasis = new QLabel(tr("Basis set"));
-    CMBbasis = new QComboBox(QDLexternal);
-    CMBbasis->setMinimumWidth(150);
-    CMBbasis->setEditable(true);
-    CMBbasis->addItem(tr("STO-3G"));
-    CMBbasis->addItem(tr("3-21G"));
-    CMBbasis->addItem(tr("6-31G"));
-    CMBbasis->addItem(tr("6-311G"));
-    CMBbasis->addItem(tr("cc-pVDZ"));
-    CMBbasis->addItem(tr("cc-pVTZ"));
-    CMBbasis->addItem(tr("cc-pVQZ"));
-    CMBbasis->addItem(tr("cc-pV5Z"));
     connectionsext << connect(CMBbasis, SIGNAL(currentIndexChanged(int)), this, SLOT(externalinputfile_changed()));
-
-    QLabel *LBLkeywords = new QLabel(tr("Keywords"));
-    TXTkeywords = new QLineEdit(QDLexternal);
-    TXTkeywords->setPlaceholderText("Additional Keywords");
-    TXTkeywords->setText("5D 7F");
     connectionsext << connect(TXTkeywords, SIGNAL(textChanged(const QString &)), this, SLOT(externalinputfile_changed()));
 
     QBGrunmode = new QButtonGroup();
@@ -177,7 +157,7 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     LBLextworkdir  = new QLabel(tr("Working Dir"),QDLexternal);
     TXTextworkdir = new QLineEdit(QDLexternal);
     TXTextworkdir->setPlaceholderText("Working directory...");
-    connectionsext << connect(TXTextworkdir, SIGNAL(textChanged(const QString &)), this, SLOT(externalinputfile_changed()));
+    connectionsext << connect(TXTextworkdir,SIGNAL(textChanged(QString)),this,SLOT(externalinputfile_changed()));
 
     LBLextpathremote = new QLabel(tr("Path"),QDLexternal);
     TXTextpathremote = new QLineEdit(QDLexternal);
@@ -198,8 +178,8 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     TXTextcommand = new QLineEdit("g09",QDLexternal);
 
     CHKformchk = new QCheckBox("Formchk",QDLexternal);
-    CHKformchk->setChecked(true);
-    CHKformchk->setVisible(true);
+//    CHKformchk->setChecked(true);
+//    CHKformchk->setVisible(true);
 
     QPushButton *BTNextreset = new QPushButton(tr("Reset"));
     BTNextreset->setAutoDefault(false);
@@ -216,6 +196,7 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     BTNextsubmit->setToolTip(tr("Saves the editor content to an input file and submits the job"));
     connectionsext << connect(BTNextsubmit, SIGNAL(clicked()), this, SLOT(BTNextsubmit_clicked()));
 
+    make_Gaussian_template();
     make_Gaussian_input();
 
     QHBoxLayout *layout1 = new QHBoxLayout();
@@ -354,21 +335,27 @@ void Externals::BTNextreset_clicked(){
     }
     switch (CMBengine->currentIndex()) {
         case 0:     // Gaussian
+            make_Gaussian_template();
             make_Gaussian_input();
             break;
         case 1:     // Gamess
+            make_Gamess_template();
             make_Gamess_input();
             break;
         case 2:     // Molpro
+            make_Molpro_template();
             make_Molpro_input();
             break;
         case 3:     // Molpac
+            make_Mopac_template();
             make_Mopac_input();
             break;
         case 4:     // NWChem
+            make_NWChem_template();
             make_NWChem_input();
             break;
         case 5:     // Psi4
+            make_Psi4_template();
             make_Psi4_input();
             break;
     }
@@ -408,7 +395,7 @@ void Externals::BTNextsubmit_clicked(){
     save_external_input();
     if (extInputFileName.isEmpty())
         return;
-    QString strprocess;
+//    QString strprocess;
     QStringList Parameters = TXTextcommand->text().trimmed().split(" ");
     QString processname = Parameters.at(0);
     Parameters.removeFirst();
@@ -421,35 +408,45 @@ void Externals::BTNextsubmit_clicked(){
     myProcess->setStandardErrorFile(extOutputFileName,QIODevice::Append);
     connectionsext << connect(myProcess, SIGNAL(started()), this, SLOT(submitStart()));
     connectionsext << connect(myProcess, SIGNAL(error(QProcess::ProcessError)), this, SLOT(submitError(QProcess::ProcessError)));
-    connectionsext << connect(myProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(submitOutput(int, QProcess::ExitStatus)));
+    connectionsext << connect(myProcess, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(submitOutput(int,QProcess::ExitStatus)));
     myProcess->start(processname,Parameters);
 //    QByteArray qbarray = myProcess->readAllStandardError();
 }
 
 void Externals::CMBengine_changed(){
     if (CMBengine->currentText().toLower() == "gaussian"){
+//        resetCMBlevel();
         CHKformchk->setVisible(true);
     }
     else{
+//        QVector<int> v;
+//        v << 4 << 5 << 6 << 7;
+//        hideCMBlevel(v);
         CHKformchk->setVisible(false);
     }
     switch (CMBengine->currentIndex()) {
         case 0:     // Gaussian
+            make_Gaussian_template();
             make_Gaussian_input();
             break;
         case 1:     // Gamess
+            make_Gamess_template();
             make_Gamess_input();
             break;
         case 2:     // Molpro
+            make_Molpro_template();
             make_Molpro_input();
             break;
         case 3:     // Molpac
+            make_Mopac_template();
             make_Mopac_input();
             break;
         case 4:     // NWChem
+            make_NWChem_template();
             make_NWChem_input();
             break;
         case 5:     // Psi4
+            make_Psi4_template();
             make_Psi4_input();
             break;
     }
@@ -532,7 +529,22 @@ void Externals::formchkStart(){
     emit computing(QString(tr("formchk launched...")));
 }
 
+void Externals::hideCMBlevel(QVector<int> v){
+    QListView* view = qobject_cast<QListView *>(CMBlevel->view());
+    Q_ASSERT(view != nullptr);
+    QStandardItemModel* model = qobject_cast<QStandardItemModel*>(CMBlevel->model());
+    Q_ASSERT(model != nullptr);
+    for (int i = 0 ; i < v.length(); i++){
+        view->setRowHidden(v.at(i), true);
+        QStandardItem* item = model->item(v.at(i));
+        item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+    }
+}
+
 void Externals::make_Gaussian_input(){
+    if (CMBlevel->currentIndex()< 0 || CMBtype->currentIndex() < 0 || CMBlevel2->currentIndex() < 0 ||
+            CMBbasis->currentIndex() < 0)
+        return;
     extextEdit->clear();
     QStringList type = {"","opt","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
@@ -611,30 +623,222 @@ void Externals::make_Gaussian_input(){
 
 }
 
+void Externals::make_Gaussian_template(){
+    CMBtype->clear();
+    CMBtype->addItem(tr("Energy"));
+    CMBtype->addItem(tr("Geometry optimization"));
+    CMBtype->addItem(tr("Frequencies"));
+    CMBtype->addItem(tr("Optimization+Frequencies"));
+    CMBtype->addItem(tr("NMR"));
+    CMBtype->setCurrentIndex(0);
+
+    CMBlevel->clear();
+    CMBlevel->addItem(tr("HF"));
+    CMBlevel->addItem(tr("B3LYP"));
+    CMBlevel->addItem("MP2");
+    CMBlevel->addItem("CCSD");
+    CMBlevel->addItem("BD");
+    CMBlevel->addItem("CASSCF");
+    CMBlevel->addItem(tr("PM6"));
+    CMBlevel->addItem(tr("UFF"));
+    CMBlevel->setCurrentIndex(0);
+
+    CMBlevel2->clear();
+    CMBlevel2->addItem(tr("Default Spin"));
+    CMBlevel2->addItem(tr("Restricted"));
+    CMBlevel2->addItem(tr("Unrestricted"));
+    CMBlevel2->addItem(tr("Open Restricted"));
+    CMBlevel2->setCurrentIndex(0);
+    CMBlevel2->setEnabled(true);
+
+    CMBbasis->clear();
+    CMBbasis->setMinimumWidth(150);
+    CMBbasis->setEditable(true);
+    CMBbasis->addItem(tr("STO-3G"));
+    CMBbasis->addItem(tr("3-21G"));
+    CMBbasis->addItem(tr("6-31G"));
+    CMBbasis->addItem(tr("6-311G"));
+    CMBbasis->addItem(tr("cc-pVDZ"));
+    CMBbasis->addItem(tr("cc-pVTZ"));
+    CMBbasis->addItem(tr("cc-pVQZ"));
+    CMBbasis->addItem(tr("cc-pV5Z"));
+    CMBbasis->setCurrentIndex(0);
+
+    CHKformchk->setChecked(true);
+    CHKformchk->setVisible(true);
+
+    TXTkeywords->setText("5D 7F");
+
+    extextEdit->clear();
+}
 
 void Externals::make_Gamess_input(){
+    if (CMBlevel->currentIndex()< 0 || CMBtype->currentIndex() < 0 ||
+            CMBbasis->currentIndex() < 0)
+        return;
     extextEdit->clear();
-    extextEdit->setText("\n\n   To be prepared");
+
+    QStringList type = {"energy","gradient","hessian","optimize"};
+    QStringList level = {"rhf","uhf","rohf","gvb","mcscf","none"};
+    QStringList level2 = {};
+    QStringList basis = {"STO","N31","G3L","CCD","ACCD","ACCDC"};
+
+    extOutputSuffix = "log";
+
+    TXTextcommand->setText(extexecname[1]);
+    QString filepath = TXTextworkdir->text().trimmed();
+    if (filepath.isEmpty())
+        return;
+    QString filename = QFileInfo(TXTextgeometry->text()).baseName();
+    if (filename.isEmpty())
+        return;
+    extInputFileName = filepath+"/"+filename+".inp";
+    TXTextcommand->setText(extexecname[1]+" "+extInputFileName);
+
+    QFile geometryInput(TXTextgeometry->text().trimmed());
+    if (!geometryInput.open(QFile::ReadOnly | QFile::Text)){
+        return;
+    }
+
+    QByteArray buff;
+
+    buff.append(QString(" $CONTRL   SCFTYP=%1   RUNTYP=%2   COORD=CART\n")
+                .arg(level.at(CMBlevel->currentIndex())).arg(type.at(CMBtype->currentIndex())));
+    buff.append(QString("    NZVAR=0   MULT=%1   ICHARG=%2  ").arg(SPBmult->value())
+                .arg(SPBcharge->value()));
+    if (CMBbasis->currentIndex() > 2){
+        buff.append(QString(" ISPHER=1"));
+    }
+    buff.append(QString(" $END\n"));
+    buff.append(QString(" $SYSTEM   TIMLIM=20000   MEMORY=10000000   $END\n"));
+    buff.append(QString(" $STATPT   NSTEP=1000   $END\n"));
+    buff.append(QString(" $BASIS   GBASIS=%1").arg(basis.at(CMBbasis->currentIndex())));
+    if (CMBbasis->currentIndex() <=1 ){
+        if (!(TXTkeywords->text().contains("NGAUSS",Qt::CaseInsensitive))){
+            TXTkeywords->setText("NGAUSS = 6");
+        }
+    }
+    else if (TXTkeywords->text().contains("NGAUSS",Qt::CaseInsensitive)){
+        TXTkeywords->setText("");
+    }
+    if (!(TXTkeywords->text().isEmpty())){
+        buff.append(QString("    %2").arg(TXTkeywords->text().trimmed()));
+    }
+    buff.append(QString(" $END\n"));
+    buff.append(QString(" $GUESS   GUESS=HUCKEL   $END\n"));
+    buff.append(QString(" $DATA\n"));
+    buff.append(QString(" %1\n").arg(TXTtitle->text().trimmed()));
+    buff.append(QString(" Cn 1\n\n"));
+
+    QTextStream in(&geometryInput); // Buffer for reading from fileinput
+
+    QString line = in.readLine();
+#if QT_VERSION < 0x050E00
+    QStringList xyz = line.split(' ',QString::SkipEmptyParts);
+#else
+    QStringList xyz = line.split(' ',Qt::SkipEmptyParts);
+#endif
+//    int ncen = xyz.at(0).toInt();
+    int kntcen = 0;
+    while (!in.atEnd()){
+        Elements elem;
+        line = in.readLine();
+#if QT_VERSION < 0x050E00
+        QStringList xyz = line.split(' ',QString::SkipEmptyParts);
+#else
+        QStringList xyz = line.split(' ',Qt::SkipEmptyParts);
+#endif
+        if (xyz.count() == 4){
+            buff.append(QString(" %1    %2    %3    %4    %5\n").arg(xyz[0])
+                .arg(elem.getZsymbol(xyz[0])).arg(xyz[1]).arg(xyz[2]).arg(xyz[3]));
+            kntcen++;
+        }
+    }
+
+    buff.append(QString(" $END\n"));
+
+    extextEdit->setText(buff);
+
+}
+
+void Externals::make_Gamess_template(){
+    CMBtype->clear();
+    CMBtype->addItem(tr("Energy"));
+    CMBtype->addItem(tr("Gradient"));
+    CMBtype->addItem(tr("Hessian"));
+    CMBtype->addItem(tr("Optimize"));
+    CMBtype->setCurrentIndex(0);
+
+    CMBlevel->clear();
+    CMBlevel->addItem(tr("RHF"));
+    CMBlevel->addItem(tr("UHF"));
+    CMBlevel->addItem("ROHF");
+    CMBlevel->addItem("GVB");
+    CMBlevel->addItem("MCSCF");
+    CMBlevel->addItem("NONE");
+    CMBlevel->setCurrentIndex(0);
+
+    CMBlevel2->clear();
+    CMBlevel2->setEnabled(false);
+
+    CMBbasis->clear();
+    CMBbasis->setMinimumWidth(150);
+    CMBbasis->setEditable(true);
+    CMBbasis->addItem(tr("STOnG"));
+    CMBbasis->addItem(tr("n31G"));
+    CMBbasis->addItem(tr("G3L"));
+    CMBbasis->addItem(tr("cc-pVnZ"));
+    CMBbasis->addItem(tr("aug-cc-pVnZ"));
+    CMBbasis->addItem(tr("aug-cc-pCVnZ"));
+    CMBbasis->setCurrentIndex(0);
+
+    CHKformchk->setVisible(false);
+
+    TXTkeywords->setText("NGAUSS = 6");
+
+    extextEdit->clear();
+
 }
 
 void Externals::make_Molpro_input(){
+    if (CMBlevel->currentIndex()< 0 || CMBtype->currentIndex() < 0 || CMBlevel2->currentIndex() < 0 ||
+            CMBbasis->currentIndex() < 0)
+        return;
+    extextEdit->clear();
+}
+
+void Externals::make_Molpro_template(){
+    CHKformchk->setVisible(false);
     extextEdit->clear();
     extextEdit->setText("\n\n   To be prepared");
     extOutputSuffix = "out";
 }
 
 void Externals::make_Mopac_input(){
+    if (CMBlevel->currentIndex()< 0 || CMBtype->currentIndex() < 0 || CMBlevel2->currentIndex() < 0 ||
+            CMBbasis->currentIndex() < 0)
+        return;
+    extextEdit->clear();
+}
+
+void Externals::make_Mopac_template(){
+    CHKformchk->setVisible(false);
     extextEdit->clear();
     extextEdit->setText("\n\n   To be prepared");
 }
 
 void Externals::make_NWChem_input(){
+    if (CMBlevel->currentIndex()< 0 || CMBtype->currentIndex() < 0 || CMBlevel2->currentIndex() < 0 ||
+            CMBbasis->currentIndex() < 0)
+        return;
     extextEdit->clear();
     QStringList type = {"energy","optimize","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
-    QStringList mult = {"","singlet","doublet","triplet","quartet","quintet","sextet","octet"};
+    QStringList mult = {"","singlet","doublet","triplet","quartet","quintet","sextet","septet","octet"};
     QStringList mm = {"scf","mp2","ccsd"};
     extOutputSuffix = "nwcout";
+
+    SPBmult->setMaximum(mult.length()-1);
 
     TXTextcommand->setText(extexecname[4]);
     QString filepath = TXTextworkdir->text().trimmed();
@@ -660,11 +864,10 @@ void Externals::make_NWChem_input(){
     }
 
     if (CMBlevel->currentIndex() < CMBlevel->count()-2){
-        buff.append(QString("basis spherical\n * library %1\nend\n\n").arg(CMBbasis->currentText()));
+        buff.append(QString("basis %1\n * library %2\nend\n\n")
+                    .arg(TXTkeywords->text().trimmed()).arg(CMBbasis->currentText()));
     }
-    if (level2.at(CMBlevel2->currentIndex()) != "") {
-        buff.append(QString("scf \n%1hf\n%2\nend\n\n").arg(level2.at(CMBlevel2->currentIndex())).arg(mult.at(SPBmult->value())));
-    }
+
     buff.append(QString("charge %1\n").arg(SPBcharge->value()));
     buff.append(QString("geometry units ang\n"));
 
@@ -691,15 +894,28 @@ void Externals::make_NWChem_input(){
         }
     }
     buff.append(QString("end\n"));
-    // Please resolve QString error for level
+
     QString level;
     if (CMBlevel->currentText().toLower() == "hf") {
         level="scf";
     } else {
         level=CMBlevel->currentText().toLower();
     }
-    if (mm.contains(level)){
-        buff.append(QString("scf\n    vectors output %1\nend\n").arg(filepath+"/"+filename+".movecs"));
+    if (level2.at(CMBlevel2->currentIndex()) != "" || mm.contains(level)){
+        buff.append(QString("scf \n"));
+        if (level2.at(CMBlevel2->currentIndex()) != "") {
+            buff.append(QString("    %1hf\n    %2\n").arg(level2.at(CMBlevel2->currentIndex())).arg(mult.at(SPBmult->value())));
+        }
+        if (mm.contains(level)){
+            buff.append(QString("    vectors output %1\n").arg(filepath+"/"+filename+".movecs"));
+        }
+        buff.append(QString("end\n"));
+    }
+    else if (level == "dft"){
+        buff.append(QString("dft \n"));
+        buff.append(QString("    XC b3lyp\n"));
+        buff.append(QString("    vectors output %1\n").arg(filepath+"/"+filename+".movecs"));
+        buff.append(QString("end\n"));
     }
     if (type.at(CMBtype->currentIndex()) == "energy") {  
         buff.append(QString("task %1\n").arg(QString("%1").arg(level)));
@@ -725,7 +941,54 @@ void Externals::make_NWChem_input(){
 
 }
 
+void Externals::make_NWChem_template(){
+    CMBtype->clear();
+    CMBtype->addItem(tr("Energy"));
+    CMBtype->addItem(tr("Geometry optimization"));
+    CMBtype->addItem(tr("Frequencies"));
+    CMBtype->addItem(tr("Optimization+Frequencies"));
+    CMBtype->addItem(tr("NMR"));
+    CMBtype->setCurrentIndex(0);
+
+    CMBlevel->clear();
+    CMBlevel->addItem(tr("HF"));
+    CMBlevel->addItem(tr("DFT"));
+    CMBlevel->addItem("MP2");
+    CMBlevel->addItem("CCSD");
+    CMBlevel->setCurrentIndex(0);
+
+    CMBlevel2->clear();
+    CMBlevel2->addItem(tr("Default Spin"));
+    CMBlevel2->addItem(tr("Restricted"));
+    CMBlevel2->addItem(tr("Unrestricted"));
+    CMBlevel2->addItem(tr("Open Restricted"));
+    CMBlevel2->setCurrentIndex(0);
+    CMBlevel2->setEnabled(true);
+
+    CMBbasis->clear();
+    CMBbasis->setMinimumWidth(150);
+    CMBbasis->setEditable(true);
+    CMBbasis->addItem(tr("STO-3G"));
+    CMBbasis->addItem(tr("3-21G"));
+    CMBbasis->addItem(tr("6-31G"));
+    CMBbasis->addItem(tr("6-311G"));
+    CMBbasis->addItem(tr("cc-pVDZ"));
+    CMBbasis->addItem(tr("cc-pVTZ"));
+    CMBbasis->addItem(tr("cc-pVQZ"));
+    CMBbasis->addItem(tr("cc-pV5Z"));
+    CMBbasis->setCurrentIndex(0);
+
+    CHKformchk->setVisible(false);
+
+    TXTkeywords->setText("spherical");
+
+    extextEdit->clear();
+}
+
 void Externals::make_Psi4_input(){
+    if (CMBlevel->currentIndex()< 0 || CMBtype->currentIndex() < 0 || CMBlevel2->currentIndex() < 0 ||
+            CMBbasis->currentIndex() < 0)
+        return;
     extextEdit->clear();
     QStringList type = {"energy","optimize","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
@@ -810,10 +1073,52 @@ void Externals::make_Psi4_input(){
         msgBox.exec();
         return;
     }
+
     extextEdit->setText(buff);
 
 }
 
+void Externals::make_Psi4_template(){
+    CMBtype->clear();
+    CMBtype->addItem(tr("Energy"));
+    CMBtype->addItem(tr("Geometry optimization"));
+    CMBtype->addItem(tr("Frequencies"));
+    CMBtype->addItem(tr("Optimization+Frequencies"));
+    CMBtype->addItem(tr("NMR"));
+    CMBtype->setCurrentIndex(0);
+
+    CMBlevel->clear();
+    CMBlevel->addItem(tr("HF"));
+    CMBlevel->addItem(tr("B3LYP"));
+    CMBlevel->addItem("MP2");
+    CMBlevel->addItem("CCSD");
+    CMBlevel->setCurrentIndex(0);
+
+    CMBlevel2->clear();
+    CMBlevel2->addItem(tr("Default Spin"));
+    CMBlevel2->addItem(tr("Restricted"));
+    CMBlevel2->addItem(tr("Unrestricted"));
+    CMBlevel2->addItem(tr("Open Restricted"));
+    CMBlevel2->setCurrentIndex(0);
+    CMBlevel2->setEnabled(true);
+
+    CMBbasis->clear();
+    CMBbasis->setMinimumWidth(150);
+    CMBbasis->setEditable(true);
+    CMBbasis->addItem(tr("STO-3G"));
+    CMBbasis->addItem(tr("3-21G"));
+    CMBbasis->addItem(tr("6-31G"));
+    CMBbasis->addItem(tr("6-311G"));
+    CMBbasis->addItem(tr("cc-pVDZ"));
+    CMBbasis->addItem(tr("cc-pVTZ"));
+    CMBbasis->addItem(tr("cc-pVQZ"));
+    CMBbasis->addItem(tr("cc-pV5Z"));
+    CMBbasis->setCurrentIndex(0);
+
+    CHKformchk->setVisible(false);
+
+    extextEdit->clear();
+}
 
 void Externals::RBTlocal_changed(){
     if (RBTlocal->isChecked()){
@@ -839,6 +1144,18 @@ void Externals::RBTlocal_changed(){
     QDLexternal->adjustSize();
     QDLexternal->update();
 
+}
+
+void Externals::resetCMBlevel(){
+    QListView* view = qobject_cast<QListView *>(CMBlevel->view());
+    Q_ASSERT(view != nullptr);
+    QStandardItemModel* model = qobject_cast<QStandardItemModel*>(CMBlevel->model());
+    Q_ASSERT(model != nullptr);
+    for (int i = 0 ; i < CMBlevel->count(); i++){
+        view->setRowHidden(i, false);
+        QStandardItem* item = model->item(i);
+        item->setFlags(item->flags() | Qt::ItemIsEnabled);
+    }
 }
 
 void Externals::runformchk(){
