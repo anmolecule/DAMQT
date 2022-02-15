@@ -1,5 +1,16 @@
 # DAMQT 
 
+[![Release][release-badge]][release]
+[![License][license-image]][license]
+
+[![DAMQT logo][logo-image]][website]
+
+[license-image]: https://img.shields.io/badge/License-GPLv3-blue.svg
+[license]: https://www.gnu.org/licenses/gpl-3.0
+
+[logo-image]: media/C6H6-pVTZ-d-l0.png
+[website]: http://www.qfa.uam.es/DAMQT/content/chemicalforces.html
+
 ## A cross platform GUI-enabled package for fast and efficient analysis of molecular electron density, electrostatic potential, molecular orbitals and much more.
 
 Copyright 2013-2022, Jaime Fernández Rico, Rafael López, Ignacio Ema,
