@@ -101,6 +101,7 @@ The parallel versions have been prepared using MPI and tested with openmpi and m
 1. If your computer does not have C++ compiler or Fortran compiler, then install the build-essential package which is a reference for all the packages needed to compile a Debian package. It generally includes the GCC/g++ compilers and libraries and some other utilities.
 
 ```
+sudo apt-get update
 sudo apt-get install build-essential
 ```
 
@@ -110,7 +111,7 @@ sudo apt-get install build-essential
 sudo apt-get install qt5-default
 ```
 
-3. Check OpenGL version in your computer
+3. Check OpenGL version in your computer. OpenGL 3.3 or higher is required and most machines with a dedicated GPU from AMD or NVIDIA support OpenGL 3.3 and above as long as this GPU was released within the last 4-5 years. If the GPU is 5 or more years old, there is a possibility that it does not support OpenGL 3.3. In this case you will need to check the specifications for your GPU model on the manufacturer’s website.
   
 ```
 glxinfo | grep "OpenGL version"
@@ -119,15 +120,15 @@ glxinfo | grep "OpenGL version"
 4. If you get an error in above command stating glxinfo not installed, please install mesa-utils
 
 ```
-sudo apt-get install mesa-utils 
+sudo apt-get install pkg-config mesa-utils libglu1-mesa-dev freeglut3-dev mesa-common-dev 
+sudo apt-get install libglew-dev libglfw3-dev libglm-dev
+sudo apt-get install libao-dev libmpg123-dev
 ```
 
-Check step 3 again to verify the version of OpenGL. OpenGL 3.3 or higher is required and most machines with a dedicated GPU from AMD or NVIDIA support OpenGL 3.3 and above as long as this GPU was released within the last 4-5 years. If the GPU is 5 or more years old, there is a possibility that it does not support OpenGL 3.3. In this case you will need to check the specifications for your GPU model on the manufacturer’s website. If you are limited by the version of OpenGL, DAMQT 3D viewer may not work properly. You can still make use of other functionalities.
-
-5. Install freeglut
+5. Check step 3 again to verify the version of OpenGL. If you still don't see OpenGL version >= 3.3 and you are sure that your driver supports OpenGL > 3.3 then
 
 ```
-sudo apt-get install freeglut3 freeglut3-dev libglew-dev
+echo 'export MESA_GL_VERSION_OVERRIDE=3.3' >> ~/.bashrc
 ```
 
 6. If you want to use parallel version of package
