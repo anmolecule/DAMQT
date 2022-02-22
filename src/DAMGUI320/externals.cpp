@@ -552,7 +552,7 @@ void Externals::make_Gaussian_input(){
     QStringList sme = {"pm6","pddg","am1","pm3","indo","cndo"};
     extOutputSuffix = "log";
 
-    TXTextcommand->setText(extexecname[0]);
+//    TXTextcommand->setText(extexecname[0]);
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
         return;
@@ -685,7 +685,7 @@ void Externals::make_Gamess_input(){
 
     extOutputSuffix = "log";
 
-    TXTextcommand->setText(extexecname[1]);
+//    TXTextcommand->setText(extexecname[1]);
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
         return;
@@ -801,16 +801,131 @@ void Externals::make_Gamess_template(){
 }
 
 void Externals::make_Molpro_input(){
-    if (CMBlevel->currentIndex()< 0 || CMBtype->currentIndex() < 0 || CMBlevel2->currentIndex() < 0 ||
+    if (CMBlevel->currentIndex()< 0 || CMBtype->currentIndex() < 0 ||
             CMBbasis->currentIndex() < 0)
         return;
     extextEdit->clear();
+
+    QStringList level = {"hf","uhf","ccsdt","casscf","mrci"};
+    QStringList basis = {"cc-pVDZ","cc-pVTZ","cc-pVQZ","aug-cc-pVDZ","aug-cc-pVTZ",
+                         "aug-cc-pVQZ"};
+
+    QString filepath = TXTextworkdir->text().trimmed();
+    if (filepath.isEmpty())
+        return;
+    QString filename = QFileInfo(TXTextgeometry->text()).baseName();
+    if (filename.isEmpty())
+        return;
+    extInputFileName = filepath+"/"+filename+".com";
+    TXTextcommand->setText(extexecname[2] + " -d " + TXTextworkdir->text().trimmed()
+            + " --no-xml-output");
+
+    QFile geometryInput(TXTextgeometry->text().trimmed());
+    if (!geometryInput.open(QFile::ReadOnly | QFile::Text)){
+        return;
+    }
+
+    QByteArray buff;
+
+    if (!TXTextmem->text().isEmpty() && TXTextmem->text().toInt() > 0){
+        buff.append(QString("memory,%1\n").arg(TXTextmem->text().toInt()));
+    }
+
+    buff.append(QString("basis=%1\n").arg(basis.at(CMBbasis->currentIndex())));
+    if (TXTkeywords->text().contains("cart",Qt::CaseInsensitive)){
+        buff.append(QString("cartesian\n"));
+    }
+
+    buff.append(QString("geomtyp=xyz\n"));
+    buff.append(QString("geometry={\n"));
+
+    QTextStream in(&geometryInput); // Buffer for reading from fileinput
+
+    QString line = in.readLine();
+#if QT_VERSION < 0x050E00
+    QStringList xyz = line.split(' ',QString::SkipEmptyParts);
+#else
+    QStringList xyz = line.split(' ',Qt::SkipEmptyParts);
+#endif
+    int ncen = xyz.at(0).toInt();
+    buff.append(QString("%1\n").arg(ncen));
+    buff.append(QString("%1\n").arg(TXTtitle->text().trimmed()));
+    int kntcen = 0;
+    while (!in.atEnd()){
+        Elements elem;
+        line = in.readLine();
+#if QT_VERSION < 0x050E00
+        QStringList xyz = line.split(' ',QString::SkipEmptyParts);
+#else
+        QStringList xyz = line.split(' ',Qt::SkipEmptyParts);
+#endif
+        if (xyz.count() == 4){
+            buff.append(QString("%1 , %2, %3, %4\n").arg(xyz[0])
+                .arg(xyz[1]).arg(xyz[2]).arg(xyz[3]));
+            kntcen++;
+        }
+    }
+    buff.append(QString("}\n"));
+
+    if (SPBmult->value() > 1 || SPBcharge->value() != 0){
+        buff.append(QString("wf"));
+        if (SPBmult->value() > 1){
+            buff.append(QString(", spin = %1").arg(SPBmult->value()-1));
+        }
+        if (SPBcharge->value() > 0){
+            buff.append(QString(", charge = %1").arg(SPBcharge->value()));
+        }
+        buff.append(QString("\n"));
+    }
+
+    if (CMBlevel->currentIndex()==2 || CMBlevel->currentIndex()==3){
+        buff.append(QString("hf\n"));
+    }
+    else if (CMBlevel->currentIndex()==4){
+        buff.append(QString("hf\n"));
+        buff.append(QString("casscf\n"));
+    }
+    buff.append(QString("%1\n").arg(level.at(CMBlevel->currentIndex())));
+
+    if (CMBtype->currentIndex() == 1){
+        buff.append(QString("optg\n"));
+    }
+
+    extextEdit->setText(buff);
 }
 
 void Externals::make_Molpro_template(){
+    CMBtype->clear();
+    CMBtype->addItem(tr("Energy"));
+    CMBtype->addItem(tr("Optimize"));
+    CMBtype->setCurrentIndex(0);
+
+    CMBlevel->clear();
+    CMBlevel->addItem(tr("HF"));
+    CMBlevel->addItem(tr("UHF"));
+    CMBlevel->addItem("CCSD(T)");
+    CMBlevel->addItem("CASSCF");
+    CMBlevel->addItem("MRCI");
+    CMBlevel->setCurrentIndex(0);
+
+    CMBlevel2->clear();
+    CMBlevel2->setEnabled(false);
+
+    CMBbasis->clear();
+    CMBbasis->setMinimumWidth(150);
+    CMBbasis->setEditable(true);
+    CMBbasis->addItem(tr("cc-pVDZ"));
+    CMBbasis->addItem(tr("cc-pVTZ"));
+    CMBbasis->addItem(tr("cc-pVQZ"));
+    CMBbasis->addItem(tr("aug-cc-pVDZ"));
+    CMBbasis->addItem(tr("aug-cc-pVTZ"));
+    CMBbasis->addItem(tr("aug-cc-pVQZ"));
+    CMBbasis->setCurrentIndex(0);
+
+    TXTkeywords->setText("");
+
     CHKformchk->setVisible(false);
     extextEdit->clear();
-    extextEdit->setText("\n\n   To be prepared");
     extOutputSuffix = "out";
 }
 
@@ -840,7 +955,7 @@ void Externals::make_NWChem_input(){
 
     SPBmult->setMaximum(mult.length()-1);
 
-    TXTextcommand->setText(extexecname[4]);
+//    TXTextcommand->setText(extexecname[4]);
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
         return;
@@ -994,7 +1109,7 @@ void Externals::make_Psi4_input(){
     QStringList level2 = {"","r","u","ro"};
     extOutputSuffix = "log";
 
-    TXTextcommand->setText(extexecname[5]);
+//    TXTextcommand->setText(extexecname[5]);
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
         return;
