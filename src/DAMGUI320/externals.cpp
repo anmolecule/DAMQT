@@ -631,6 +631,7 @@ void Externals::make_Gaussian_template(){
     CMBtype->addItem(tr("Optimization+Frequencies"));
     CMBtype->addItem(tr("NMR"));
     CMBtype->setCurrentIndex(0);
+    CMBtype->setEnabled(true);
 
     CMBlevel->clear();
     CMBlevel->addItem(tr("HF"));
@@ -642,6 +643,7 @@ void Externals::make_Gaussian_template(){
     CMBlevel->addItem(tr("PM6"));
     CMBlevel->addItem(tr("UFF"));
     CMBlevel->setCurrentIndex(0);
+    CMBlevel->setEnabled(true);
 
     CMBlevel2->clear();
     CMBlevel2->addItem(tr("Default Spin"));
@@ -649,6 +651,7 @@ void Externals::make_Gaussian_template(){
     CMBlevel2->addItem(tr("Unrestricted"));
     CMBlevel2->addItem(tr("Open Restricted"));
     CMBlevel2->setCurrentIndex(0);
+    CMBlevel2->setEnabled(true);
     CMBlevel2->setEnabled(true);
 
     CMBbasis->clear();
@@ -663,6 +666,7 @@ void Externals::make_Gaussian_template(){
     CMBbasis->addItem(tr("cc-pVQZ"));
     CMBbasis->addItem(tr("cc-pV5Z"));
     CMBbasis->setCurrentIndex(0);
+    CMBbasis->setEnabled(true);
 
     CHKformchk->setChecked(true);
     CHKformchk->setVisible(true);
@@ -738,7 +742,7 @@ void Externals::make_Gamess_input(){
 #else
     QStringList xyz = line.split(' ',Qt::SkipEmptyParts);
 #endif
-//    int ncen = xyz.at(0).toInt();
+    int ncen = xyz.at(0).toInt();
     int kntcen = 0;
     while (!in.atEnd()){
         Elements elem;
@@ -754,7 +758,15 @@ void Externals::make_Gamess_input(){
             kntcen++;
         }
     }
-
+    if (ncen != kntcen){
+        QMessageBox msgBox;
+        msgBox.setText(tr("make_Gaussian_input"));
+        msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
+            TXTextgeometry->text().trimmed());
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+        return;
+    }
     buff.append(QString(" $END\n"));
 
     extextEdit->setText(buff);
@@ -768,6 +780,7 @@ void Externals::make_Gamess_template(){
     CMBtype->addItem(tr("Hessian"));
     CMBtype->addItem(tr("Optimize"));
     CMBtype->setCurrentIndex(0);
+    CMBtype->setEnabled(true);
 
     CMBlevel->clear();
     CMBlevel->addItem(tr("RHF"));
@@ -777,6 +790,7 @@ void Externals::make_Gamess_template(){
     CMBlevel->addItem("MCSCF");
     CMBlevel->addItem("NONE");
     CMBlevel->setCurrentIndex(0);
+    CMBlevel->setEnabled(true);
 
     CMBlevel2->clear();
     CMBlevel2->setEnabled(false);
@@ -791,6 +805,7 @@ void Externals::make_Gamess_template(){
     CMBbasis->addItem(tr("aug-cc-pVnZ"));
     CMBbasis->addItem(tr("aug-cc-pCVnZ"));
     CMBbasis->setCurrentIndex(0);
+    CMBbasis->setEnabled(true);
 
     CHKformchk->setVisible(false);
 
@@ -865,6 +880,15 @@ void Externals::make_Molpro_input(){
             kntcen++;
         }
     }
+    if (ncen != kntcen){
+        QMessageBox msgBox;
+        msgBox.setText(tr("make_Gaussian_input"));
+        msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
+            TXTextgeometry->text().trimmed());
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+        return;
+    }
     buff.append(QString("}\n"));
 
     if (SPBmult->value() > 1 || SPBcharge->value() != 0){
@@ -899,6 +923,7 @@ void Externals::make_Molpro_template(){
     CMBtype->addItem(tr("Energy"));
     CMBtype->addItem(tr("Optimize"));
     CMBtype->setCurrentIndex(0);
+    CMBtype->setEnabled(true);
 
     CMBlevel->clear();
     CMBlevel->addItem(tr("HF"));
@@ -907,6 +932,7 @@ void Externals::make_Molpro_template(){
     CMBlevel->addItem("CASSCF");
     CMBlevel->addItem("MRCI");
     CMBlevel->setCurrentIndex(0);
+    CMBlevel->setEnabled(true);
 
     CMBlevel2->clear();
     CMBlevel2->setEnabled(false);
@@ -921,6 +947,7 @@ void Externals::make_Molpro_template(){
     CMBbasis->addItem(tr("aug-cc-pVTZ"));
     CMBbasis->addItem(tr("aug-cc-pVQZ"));
     CMBbasis->setCurrentIndex(0);
+    CMBbasis->setEnabled(true);
 
     TXTkeywords->setText("");
 
@@ -930,16 +957,129 @@ void Externals::make_Molpro_template(){
 }
 
 void Externals::make_Mopac_input(){
-    if (CMBlevel->currentIndex()< 0 || CMBtype->currentIndex() < 0 || CMBlevel2->currentIndex() < 0 ||
-            CMBbasis->currentIndex() < 0)
+    if (CMBlevel->currentIndex()< 0 || CMBtype->currentIndex() < 0
+            || CMBlevel2->currentIndex() < 0)
         return;
     extextEdit->clear();
+    extextEdit->clear();
+
+    QStringList type = {"NOOPT","","FORCE"};
+    QStringList mult = {"","SINGLET","DOUBLET","TRIPLET","QUARTET","QUINTET","SEXTET","SEPTET","OCTET"};
+    QStringList level = {"AM1","MNDO","PM3","PM6","PM7"};
+    QStringList level2 = {"RHF","UHF","CIS","CISD","CISDT"};
+
+    QString filepath = TXTextworkdir->text().trimmed();
+    if (filepath.isEmpty())
+        return;
+    QString filename = QFileInfo(TXTextgeometry->text()).baseName();
+    if (filename.isEmpty())
+        return;
+    extInputFileName = filepath+"/"+filename+".mop";
+    TXTextcommand->setText(extexecname[3]+" "+extInputFileName);
+
+    QFile geometryInput(TXTextgeometry->text().trimmed());
+    if (!geometryInput.open(QFile::ReadOnly | QFile::Text)){
+        return;
+    }
+
+    QByteArray buff;
+
+    buff.append(QString("AUX LARGE CHARGE=%1 %2 %3 %4 %5 %6").arg(SPBcharge->value())
+                .arg(mult.at(SPBmult->value())).arg(type.at(CMBtype->currentIndex()))
+                .arg(level.at(CMBlevel->currentIndex())).arg(level2.at(CMBlevel2->currentIndex()))
+                .arg(TXTkeywords->text().trimmed()));
+    if (CMBlevel2->currentIndex() > 1){
+        buff.append(QString(" C.I.=1"));
+    }
+    buff.append(QString("\n"));
+    buff.append(QString("%1\n").arg(TXTtitle->text().trimmed()));
+
+    QString optim;
+    if (CMBtype->currentIndex()==1){
+        optim = "1";
+    }
+    else{
+        optim = "0";
+    }
+
+    QTextStream in(&geometryInput); // Buffer for reading from fileinput
+
+    QString line = in.readLine();
+#if QT_VERSION < 0x050E00
+    QStringList xyz = line.split(' ',QString::SkipEmptyParts);
+#else
+    QStringList xyz = line.split(' ',Qt::SkipEmptyParts);
+#endif
+    int ncen = xyz.at(0).toInt();
+//    buff.append(QString("%1\n").arg(ncen));
+    line = in.readLine();
+    buff.append(QString("%1\n").arg(line.trimmed()));
+    int kntcen = 0;
+    while (!in.atEnd()){
+        Elements elem;
+        line = in.readLine();
+#if QT_VERSION < 0x050E00
+        QStringList xyz = line.split(' ',QString::SkipEmptyParts);
+#else
+        QStringList xyz = line.split(' ',Qt::SkipEmptyParts);
+#endif
+        if (xyz.count() == 4){
+            buff.append(QString("%1 %2 %3 %4 %5 %6 %7\n").arg(xyz[0])
+                .arg(xyz[1]).arg(optim).arg(xyz[2]).arg(optim).arg(xyz[3]).arg(optim));
+            kntcen++;
+        }
+    }
+    if (ncen != kntcen){
+        QMessageBox msgBox;
+        msgBox.setText(tr("make_Gaussian_input"));
+        msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
+            TXTextgeometry->text().trimmed());
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+        return;
+    }
+    buff.append(QString("\n"));
+
+    extextEdit->setText(buff);
 }
 
 void Externals::make_Mopac_template(){
+    CMBtype->clear();
+    CMBtype->addItem(tr("Energy"));
+    CMBtype->addItem(tr("Geometry optimization"));
+    CMBtype->addItem(tr("Frequencies"));
+    CMBtype->setCurrentIndex(0);
+    CMBtype->setEnabled(true);
+
+    CMBlevel->clear();
+    CMBlevel->addItem(tr("AM1"));
+    CMBlevel->addItem(tr("MNDO"));
+    CMBlevel->addItem("PM3");
+    CMBlevel->addItem("PM6");
+    CMBlevel->addItem("PM7");
+    CMBlevel->setCurrentIndex(0);
+    CMBlevel->setEnabled(true);
+
+    CMBlevel2->clear();
+    CMBlevel2->addItem(tr("Restricted"));
+    CMBlevel2->addItem(tr("Unrestricted"));
+    CMBlevel2->addItem(tr("CIS"));
+    CMBlevel2->addItem(tr("CISD"));
+    CMBlevel2->addItem(tr("CIST"));
+    CMBlevel2->setCurrentIndex(0);
+    CMBlevel2->setEnabled(true);
+
+    CMBbasis->clear();
+    CMBbasis->setEnabled(false);
+
+    CHKformchk->setVisible(false);
+
+    TXTkeywords->setText("");
+
+    extextEdit->clear();
+
     CHKformchk->setVisible(false);
     extextEdit->clear();
-    extextEdit->setText("\n\n   To be prepared");
 }
 
 void Externals::make_NWChem_input(){
@@ -1008,6 +1148,15 @@ void Externals::make_NWChem_input(){
             kntcen++;
         }
     }
+    if (ncen != kntcen){
+        QMessageBox msgBox;
+        msgBox.setText(tr("make_Gaussian_input"));
+        msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
+            TXTextgeometry->text().trimmed());
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+        return;
+    }
     buff.append(QString("end\n"));
 
     QString level;
@@ -1043,15 +1192,6 @@ void Externals::make_NWChem_input(){
         buff.append(QString("task %1 freq\n").arg(level));
     }
 
-    if (ncen != kntcen){
-        QMessageBox msgBox;
-        msgBox.setText(tr("make_NWChem_input"));
-        msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
-            TXTextgeometry->text().trimmed());
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.exec();
-        return;
-    }
     extextEdit->setText(buff);
 
 }
@@ -1064,6 +1204,7 @@ void Externals::make_NWChem_template(){
     CMBtype->addItem(tr("Optimization+Frequencies"));
     CMBtype->addItem(tr("NMR"));
     CMBtype->setCurrentIndex(0);
+    CMBtype->setEnabled(true);
 
     CMBlevel->clear();
     CMBlevel->addItem(tr("HF"));
@@ -1071,6 +1212,7 @@ void Externals::make_NWChem_template(){
     CMBlevel->addItem("MP2");
     CMBlevel->addItem("CCSD");
     CMBlevel->setCurrentIndex(0);
+    CMBlevel->setEnabled(true);
 
     CMBlevel2->clear();
     CMBlevel2->addItem(tr("Default Spin"));
@@ -1092,6 +1234,7 @@ void Externals::make_NWChem_template(){
     CMBbasis->addItem(tr("cc-pVQZ"));
     CMBbasis->addItem(tr("cc-pV5Z"));
     CMBbasis->setCurrentIndex(0);
+    CMBbasis->setEnabled(true);
 
     CHKformchk->setVisible(false);
 
@@ -1165,6 +1308,15 @@ void Externals::make_Psi4_input(){
             kntcen++;
         }
     }
+    if (ncen != kntcen){
+        QMessageBox msgBox;
+        msgBox.setText(tr("make_Gaussian_input"));
+        msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
+            TXTextgeometry->text().trimmed());
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+        return;
+    }
     buff.append(QString("}\n"));
     if (type.at(CMBtype->currentIndex()) == "energy") {
          buff.append(QString("energy,wfn=energy('%1',return_wfn=True)\n").arg(CMBlevel->currentText().toLower()));
@@ -1179,16 +1331,6 @@ void Externals::make_Psi4_input(){
     buff.append(QString("fchk_writer = psi4.core.FCHKWriter(wfn)\n"));
     buff.append(QString("fchk_writer.write('%1.fchk')\n").arg(filepath+"/"+filename));
 
-    if (ncen != kntcen){
-        QMessageBox msgBox;
-        msgBox.setText(tr("make_Psi4_input"));
-        msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
-            TXTextgeometry->text().trimmed());
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.exec();
-        return;
-    }
-
     extextEdit->setText(buff);
 
 }
@@ -1201,6 +1343,7 @@ void Externals::make_Psi4_template(){
     CMBtype->addItem(tr("Optimization+Frequencies"));
     CMBtype->addItem(tr("NMR"));
     CMBtype->setCurrentIndex(0);
+    CMBtype->setEnabled(true);
 
     CMBlevel->clear();
     CMBlevel->addItem(tr("HF"));
@@ -1208,6 +1351,7 @@ void Externals::make_Psi4_template(){
     CMBlevel->addItem("MP2");
     CMBlevel->addItem("CCSD");
     CMBlevel->setCurrentIndex(0);
+    CMBlevel->setEnabled(true);
 
     CMBlevel2->clear();
     CMBlevel2->addItem(tr("Default Spin"));
@@ -1229,6 +1373,7 @@ void Externals::make_Psi4_template(){
     CMBbasis->addItem(tr("cc-pVQZ"));
     CMBbasis->addItem(tr("cc-pV5Z"));
     CMBbasis->setCurrentIndex(0);
+    CMBbasis->setEnabled(true);
 
     CHKformchk->setVisible(false);
 
@@ -1317,7 +1462,7 @@ void Externals::setTXTextworkdir(QString a){
 void Externals::submitError(QProcess::ProcessError error){
     emit computing(QString(""));
     QString message = QString("Error %1 ").arg(error)
-                + QString(tr("Process failed to start program %1\n").arg(TXTextcommand->text().trimmed())
+                + QString(tr("Process failed to start program %1\n").arg(TXTextcommand->text().split(" ").at(0))
                 + QString(tr("Check that it is installed in your system\n"))
                 + QString(tr("If it is installed, add it to your $PATH and try again)")));
     QMessageBox::critical(this,QString("Error %1").arg(error),message);
