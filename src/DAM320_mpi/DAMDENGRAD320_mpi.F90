@@ -50,8 +50,8 @@
     character(256) :: filelines
     logical :: lnucleo, lexist
     character*4 :: strbux
-    namelist / options / dlt0, filename, filelines, icntlines, ioplines3D, iswindows, lextralines, lmaxrep, longoutput &
-            , lplot2d, nlines, nlinpernuc, numpnt, planeA, planeB, planeC &
+    namelist / options / basintol, dlt0, filename, filelines, icntlines, ioplines3D, iswindows, lextralines &
+            , lmaxrep, longoutput, lplot2d, nlines, nlinpernuc, numpnt, planeA, planeB, planeC &
             , thresh, umbrlargo, usalto, uvratio, rlines &
             , vmod, xinf, xsup, yinf, ysup, zinf, zsup, uinf, usup, vinf, vsup
     call MPI_INIT(ierr)
@@ -62,6 +62,7 @@
     if (myrank .eq. 0) write(6,"('number of processors = ', i3)") nprocs
     tiempo = dtime(tarray)
 !     Namelist default values
+    basintol = 1.e-6    ! Kept for compatibility of input files
     ioplines3D = 1      ! Set of lines per nucleus for 3D plots based on icosahedron vertices, C2 axes and C3 axes or combinations 
                         ! of them:
                         ! 1: vertices (12 points);   2: C3 axes (20 points);   3: C2 axes (30 points)

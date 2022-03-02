@@ -46,7 +46,7 @@
     iatomsel(2:mxsel) = 0   ! but without assignment of "iatomsel".
     umbrlargo = 1.d-8       ! Long-range threshold
     iswindows = .false.     ! .true. if running on a MS-windows system
-    filename = ""           ! root file name for .fre, .fri, .frt, .fcf, .fnc files
+    filename = ""           ! root file name
 !    End of namelist defaults
 
     tiempo = dtime(tarray)

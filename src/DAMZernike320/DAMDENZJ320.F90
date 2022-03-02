@@ -18,7 +18,7 @@
 !
 !------------------------------------------------------------------------
 ! 
-! Program for the tabulation of molecular density from its expansion in Canterakis-Zernike or Jacobi expansion  
+! Program for the tabulation of molecular density from its expansion in Canterakis-Zernike or Jacobi functions
 !
 ! Requires file DAM320_GLOBAL.F90 which must be compiled first (contains the modules)
 !

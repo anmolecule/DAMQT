@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.8.31)  8 FEB 2022 10:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.8.31)  1 MAR 2022 16:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -802,12 +802,12 @@ $[]$ $[]$
  []
 
 [7 <./figs/damqt320_splash.png (PNG copy)>]
-<./figs/damqt320_main_panel.png, id=472, 1087.43765pt x 579.27185pt>
+<./figs/damqt320_main_panel.png, id=472, 1086.87305pt x 580.3837pt>
 File: ./figs/damqt320_main_panel.png Graphic file (type png)
 <use ./figs/damqt320_main_panel.png>
 Package pdftex.def Info: ./figs/damqt320_main_panel.png  used on input line 574
 .
-(pdftex.def)             Requested size: 227.62204pt x 121.25291pt.
+(pdftex.def)             Requested size: 227.62204pt x 121.54764pt.
 <./figs/damqt320_toolbar.png, id=473, 280.74115pt x 26.68431pt>
 File: ./figs/damqt320_toolbar.png Graphic file (type png)
 <use ./figs/damqt320_toolbar.png>
@@ -2307,7 +2307,7 @@ fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
-Output written on DAMQT_3.2.0_manual.pdf (70 pages, 17541684 bytes).
+Output written on DAMQT_3.2.0_manual.pdf (70 pages, 17507860 bytes).
 PDF statistics:
  1825 PDF objects out of 2073 (max. 8388607)
  1498 compressed objects within 15 object streams

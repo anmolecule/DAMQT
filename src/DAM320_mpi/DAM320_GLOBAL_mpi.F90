@@ -352,7 +352,7 @@ MODULE DAMDENGRAD320_D
      IMPLICIT NONE
      integer(KINT), parameter :: mxlargo = 50
      logical :: lextralines,  lcompl, lcpsd, lplot2d
-     real(KREAL) :: uinf, usup, dltu, vinf, vsup, dltv
+     real(KREAL) :: basintol, uinf, usup, dltu, vinf, vsup, dltv
      real(KREAL) :: xinf, xsup, yinf, ysup, zinf, zsup, dlt0, thresh, rlongarr, rwidearr
      real(KREAL) :: umbrlargo, uvratio, planeA, planeB, planeC
      real(KREAL) :: rlines(3,mxrtab), wu(3), wv(3)
