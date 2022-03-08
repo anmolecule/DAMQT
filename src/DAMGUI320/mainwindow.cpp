@@ -1321,9 +1321,9 @@ void MainWindow::page_atdens_widgets()
     FRMfitthrs->setMaximumSize(QSize(400, 2000));
 
 
-    LBLfitthreshold = new QLabel("Fitting threshold: 10^",FRMfitthrs);
+    LBLfitthreshold = new QLabel(tr("Fitting threshold: 10^"),FRMfitthrs);
     LBLfitthreshold->setToolTip(tr("Threshold for truncating expansions of radial factors "));
-    LBLfradthreshold = new QLabel("Cutoff threshold: 10^",FRMfitthrs);
+    LBLfradthreshold = new QLabel(tr("Cutoff threshold: 10^"),FRMfitthrs);
     LBLfradthreshold->setToolTip(tr("Threshold for neglecting radial factors "));
 
     SPBfitthreshold = new QSpinBox(FRMfitthrs);

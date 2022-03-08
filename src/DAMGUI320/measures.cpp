@@ -965,12 +965,12 @@ void measures::LBLangles_add(QVector<centerData> * angcnts, QVector<QMatrix4x4> 
             anglecenters->removeLast();
         }
         lastselectangles.clear();
-        LBLlastangles->setText(QString("Last selection: "));
+        LBLlastangles->setText(QString(tr("Last selection: ")));
         return;
     }
     QString a = anglecenters->last().symbol + QString("<sub>%1</sub>").arg(anglecenters->last().molecule + 1);
     lastselectangles.append(a);
-    LBLlastangles->setText(QString("Last selection: ")+lastselectangles.join(", "));
+    LBLlastangles->setText(QString(tr("Last selection: "))+lastselectangles.join(", "));
     LBLlastangles->setStyleSheet("QLabel { color : red; }");
     LBLlastangles->setVisible(true);
     if (lastselectangles.length() == 3){
@@ -1003,12 +1003,12 @@ void measures::LBLdihedrals_add(QVector<centerData> *dihcenters, QVector<QMatrix
             dihedralcenters->removeLast();
         }
         lastselectdihedrals.clear();
-        LBLlastdihedrals->setText(QString("Last selection: "));
+        LBLlastdihedrals->setText(QString(tr("Last selection: ")));
         return;
     }
     QString a = dihedralcenters->last().symbol + QString("<sub>%1</sub>").arg(dihedralcenters->last().molecule + 1);
     lastselectdihedrals.append(a);
-    LBLlastdihedrals->setText(QString("Last selection: ")+lastselectdihedrals.join(", "));
+    LBLlastdihedrals->setText(QString(tr("Last selection: "))+lastselectdihedrals.join(", "));
     LBLlastdihedrals->setStyleSheet("QLabel { color : red; }");
     LBLlastdihedrals->setVisible(true);
     if (lastselectdihedrals.length() == 4){
@@ -1044,7 +1044,7 @@ void measures::LBLdistances_add(QVector<centerData> *dstcenters, QVector<QMatrix
             distancecenters->removeLast();
         }
         lastselectdist.clear();
-        LBLlastdistances->setText(QString("Last selection: "));
+        LBLlastdistances->setText(QString(tr("Last selection: ")));
         return;
     }
     QString a = distancecenters->last().symbol + QString("<sub>%1</sub>").arg(distancecenters->last().molecule + 1);
@@ -1052,7 +1052,7 @@ void measures::LBLdistances_add(QVector<centerData> *dstcenters, QVector<QMatrix
         lastselectdist.clear();
     }
     lastselectdist.append(a);
-    LBLlastdistances->setText(QString("Last selection: ")+lastselectdist.join(", "));
+    LBLlastdistances->setText(QString(tr("Last selection: "))+lastselectdist.join(", "));
     LBLlastdistances->setStyleSheet("QLabel { color : red; }");
     LBLlastdistances->setVisible(true);
     if (lastselectdist.length() == 2){
@@ -1358,7 +1358,7 @@ void measures::update_measuresInfo(){
     if (CHKshowdistwin->isChecked() || CHKshowangwin->isChecked() || CHKshowdihedwin->isChecked()){
         measuresInfo = new measuresInfoWindow(molecules, CHKshowdistwin->isChecked(), distancestext,
                 CHKshowangwin->isChecked(), anglestext, CHKshowdihedwin->isChecked(), dihedralstext,this);
-        measuresInfo->setWindowTitle("Geometry measures info");
+        measuresInfo->setWindowTitle(tr("Geometry measures info"));
         measuresInfo->setAttribute( Qt::WA_DeleteOnClose );
         measuresInfo->move(measuresInfopos);
         connectionsInfo << connect(measuresInfo, SIGNAL(window_closed()), this, SLOT(close_measuresInfoWindow()));

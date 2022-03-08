@@ -1,6 +1,6 @@
 # Project details
 # ---------------
-project(DAM311_include)
+project(DAM320_include)
 
 # another list, this time it includes all header files that should be treated with moc (Qt's meta-object compiler)
 set( DAMGUI311_MOC_HDRS

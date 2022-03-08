@@ -708,8 +708,8 @@ void Externals::make_Gamess_input(){
 
     buff.append(QString(" $CONTRL   SCFTYP=%1   RUNTYP=%2   COORD=CART\n")
                 .arg(level.at(CMBlevel->currentIndex())).arg(type.at(CMBtype->currentIndex())));
-    buff.append(QString("    NZVAR=0   MULT=%1   ICHARG=%2  ").arg(SPBmult->value())
-                .arg(SPBcharge->value()));
+    buff.append(QString("    NZVAR=0   MULT=%1   ICHARG=%2   NPRINT=9   DGRID=.TRUE.")
+                .arg(SPBmult->value()).arg(SPBcharge->value()));
     if (CMBbasis->currentIndex() > 2){
         buff.append(QString(" ISPHER=1"));
     }

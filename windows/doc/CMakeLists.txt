@@ -1,6 +1,6 @@
 # Project details
 # ---------------
-project(DAM2017_windows_doc)
+project(DAM320_windows_doc)
 
 add_subdirectory(images)
 

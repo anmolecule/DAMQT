@@ -1883,7 +1883,7 @@ void molecule::create_grids_widgets_and_layouts(){
     int knt = 0 ; ;
     BTNaddgrid = new QPushButton(tr("Add grid for isosurfaces"));
     connections << connect(BTNaddgrid, SIGNAL(clicked()), this, SLOT(addgrid()));
-    LBLloadinggrid = new QLabel("Loading grid");
+    LBLloadinggrid = new QLabel(tr("Loading grid"));
     LBLloadinggrid->setStyleSheet("QLabel { color : red; }");
     LBLloadinggrid->setVisible(false);
     QSizePolicy sp_retain = LBLloadinggrid->sizePolicy();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
+<TS version="2.1" language="es_ES">
 <context>
     <name>Dialog</name>
     <message>
@@ -78,6 +78,580 @@
     </message>
 </context>
 <context>
+    <name>Externals</name>
+    <message>
+        <location filename="../externals.cpp" line="40"/>
+        <source>External package</source>
+        <translation>Programa externo</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="45"/>
+        <location filename="../externals.cpp" line="46"/>
+        <source>Title</source>
+        <translation>Título</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="49"/>
+        <source>Engine choice</source>
+        <translation>Programa</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="51"/>
+        <source>Gaussian</source>
+        <translation>Gaussian</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="52"/>
+        <source>Gamess</source>
+        <translation>Gamess</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="53"/>
+        <source>Molpro</source>
+        <translation>Molpro</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="54"/>
+        <source>Mopac</source>
+        <translation>Mopac</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="55"/>
+        <source>NWChem</source>
+        <translation>NWChem</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="56"/>
+        <source>Psi4</source>
+        <translation>Psi4</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="62"/>
+        <source>Load file with molecule coordinates</source>
+        <translation>Leer archivo con coordenadas moleculares</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="67"/>
+        <source>...</source>
+        <translation>...</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="70"/>
+        <source>Calculation type</source>
+        <translation>Tipo de cálculo</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="81"/>
+        <source>Basis set</source>
+        <translation>Base</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="87"/>
+        <source>Keywords</source>
+        <translation>Palabras clave</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="95"/>
+        <source>Charge</source>
+        <translation>Carga</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="102"/>
+        <source>Mult</source>
+        <translation>Mult</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="115"/>
+        <source>Run Locally</source>
+        <translation>Ejecución local</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="117"/>
+        <source>Run Remotely</source>
+        <translation>Ejecución remota</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="122"/>
+        <source>Generate Job Script</source>
+        <translation>Crear un script</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="127"/>
+        <source>number of processors</source>
+        <translation>número de procesadores</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="133"/>
+        <source>Memory...</source>
+        <translation>Memoria...</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="137"/>
+        <source>Time limit...</source>
+        <translation>Tiempo límite...</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="141"/>
+        <source>PBS</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="145"/>
+        <source>SGE</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="148"/>
+        <source>SLURM</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="157"/>
+        <source>Working Dir</source>
+        <translation>Directorio de trabajo</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="162"/>
+        <source>Path</source>
+        <translation>Ruta</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="169"/>
+        <location filename="../externals.cpp" line="316"/>
+        <source>Hide preview</source>
+        <translation>Ocultar vista</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="177"/>
+        <source>Exec command:</source>
+        <translation>Ejecutar:</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="184"/>
+        <source>Reset</source>
+        <translation>Restaurar</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="186"/>
+        <source>Delete all modifications introduced by hand in the editor</source>
+        <translation>Borrar todos los cambios introducidos en el editor</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="189"/>
+        <source>Save</source>
+        <translation>Guardar</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="191"/>
+        <source>Saves the editor content to a file</source>
+        <translation>Guardar el contenido en un archivo</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="194"/>
+        <source>Submit</source>
+        <translation>Enviar</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="196"/>
+        <source>Saves the editor content to an input file and submits the job</source>
+        <translation>Guarda el contenido del editor en un archivo y envía el trabajo</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="321"/>
+        <source>Edit preview</source>
+        <translation>Editar vista</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="372"/>
+        <source>Directory %1 does not exist</source>
+        <translation>EL directorio %1 no existe</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="373"/>
+        <source>Do you wish to create?</source>
+        <translation>¿Desea crearlo?</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="376"/>
+        <source>Yes</source>
+        <translation>Sí</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="377"/>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="378"/>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="384"/>
+        <location filename="../externals.cpp" line="1475"/>
+        <location filename="../externals.cpp" line="1496"/>
+        <source>submitOutput</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="385"/>
+        <source>Could not create directory %1
+</source>
+        <translation>No pudo crear el directorio %1
+</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="458"/>
+        <source>Open file ...</source>
+        <translation>Abrir archivo ...</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="459"/>
+        <source>Import geometry from</source>
+        <translation>Importar geometría de</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="460"/>
+        <source>All files</source>
+        <translation>Todos los archivos</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="499"/>
+        <source>Process failed to start program formchk
+</source>
+        <translation>El proceso falló al empezar el programa formchk
+</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="500"/>
+        <location filename="../externals.cpp" line="1466"/>
+        <source>Check that it is installed in your system
+</source>
+        <translation>Compruebe que está instalado en su sistema
+</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="501"/>
+        <location filename="../externals.cpp" line="1467"/>
+        <source>If it is installed, add it to your $PATH and try again)</source>
+        <translation>Si está instalado, añádalo a su ruta (path) y pruebe de nuevo)</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="509"/>
+        <location filename="../externals.cpp" line="518"/>
+        <source>formchkOutput</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="510"/>
+        <location filename="../externals.cpp" line="1476"/>
+        <source>Computation ended
+</source>
+        <translation>Cálculo teminado
+</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="519"/>
+        <location filename="../externals.cpp" line="1497"/>
+        <source>Process crashed, exit code = %1</source>
+        <translation>El proceso falló, código = %1</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="529"/>
+        <source>formchk launched...</source>
+        <translation>formchk ejecutándose...</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="615"/>
+        <location filename="../externals.cpp" line="763"/>
+        <location filename="../externals.cpp" line="885"/>
+        <location filename="../externals.cpp" line="1034"/>
+        <location filename="../externals.cpp" line="1153"/>
+        <location filename="../externals.cpp" line="1313"/>
+        <source>make_Gaussian_input</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="616"/>
+        <location filename="../externals.cpp" line="764"/>
+        <location filename="../externals.cpp" line="886"/>
+        <location filename="../externals.cpp" line="1035"/>
+        <location filename="../externals.cpp" line="1154"/>
+        <location filename="../externals.cpp" line="1314"/>
+        <source>Wrong number of centers in file:
+</source>
+        <translation>Número de centros erróneo en archivo:
+</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="628"/>
+        <location filename="../externals.cpp" line="778"/>
+        <location filename="../externals.cpp" line="923"/>
+        <location filename="../externals.cpp" line="1048"/>
+        <location filename="../externals.cpp" line="1201"/>
+        <location filename="../externals.cpp" line="1340"/>
+        <source>Energy</source>
+        <translation>Energía</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="629"/>
+        <location filename="../externals.cpp" line="1049"/>
+        <location filename="../externals.cpp" line="1202"/>
+        <location filename="../externals.cpp" line="1341"/>
+        <source>Geometry optimization</source>
+        <translation>Optimización de geometría</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="630"/>
+        <location filename="../externals.cpp" line="1050"/>
+        <location filename="../externals.cpp" line="1203"/>
+        <location filename="../externals.cpp" line="1342"/>
+        <source>Frequencies</source>
+        <translation>Frecuencias</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="631"/>
+        <location filename="../externals.cpp" line="1204"/>
+        <location filename="../externals.cpp" line="1343"/>
+        <source>Optimization+Frequencies</source>
+        <translation>Optimización+frecuencias</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="632"/>
+        <location filename="../externals.cpp" line="1205"/>
+        <location filename="../externals.cpp" line="1344"/>
+        <source>NMR</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="637"/>
+        <location filename="../externals.cpp" line="929"/>
+        <location filename="../externals.cpp" line="1210"/>
+        <location filename="../externals.cpp" line="1349"/>
+        <source>HF</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="638"/>
+        <location filename="../externals.cpp" line="1350"/>
+        <source>B3LYP</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="643"/>
+        <source>PM6</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="644"/>
+        <source>UFF</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="649"/>
+        <location filename="../externals.cpp" line="1218"/>
+        <location filename="../externals.cpp" line="1357"/>
+        <source>Default Spin</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="650"/>
+        <location filename="../externals.cpp" line="1064"/>
+        <location filename="../externals.cpp" line="1219"/>
+        <location filename="../externals.cpp" line="1358"/>
+        <source>Restricted</source>
+        <translation>Restringido</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="651"/>
+        <location filename="../externals.cpp" line="1065"/>
+        <location filename="../externals.cpp" line="1220"/>
+        <location filename="../externals.cpp" line="1359"/>
+        <source>Unrestricted</source>
+        <translation>No restringido</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="652"/>
+        <location filename="../externals.cpp" line="1221"/>
+        <location filename="../externals.cpp" line="1360"/>
+        <source>Open Restricted</source>
+        <translation>Restringido abierto</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="660"/>
+        <location filename="../externals.cpp" line="1228"/>
+        <location filename="../externals.cpp" line="1367"/>
+        <source>STO-3G</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="661"/>
+        <location filename="../externals.cpp" line="1229"/>
+        <location filename="../externals.cpp" line="1368"/>
+        <source>3-21G</source>
+        <translation>3-21G</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="662"/>
+        <location filename="../externals.cpp" line="1230"/>
+        <location filename="../externals.cpp" line="1369"/>
+        <source>6-31G</source>
+        <translation>6-31G</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="663"/>
+        <location filename="../externals.cpp" line="1231"/>
+        <location filename="../externals.cpp" line="1370"/>
+        <source>6-311G</source>
+        <translation>6-311G</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="664"/>
+        <location filename="../externals.cpp" line="943"/>
+        <location filename="../externals.cpp" line="1232"/>
+        <location filename="../externals.cpp" line="1371"/>
+        <source>cc-pVDZ</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="665"/>
+        <location filename="../externals.cpp" line="944"/>
+        <location filename="../externals.cpp" line="1233"/>
+        <location filename="../externals.cpp" line="1372"/>
+        <source>cc-pVTZ</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="666"/>
+        <location filename="../externals.cpp" line="945"/>
+        <location filename="../externals.cpp" line="1234"/>
+        <location filename="../externals.cpp" line="1373"/>
+        <source>cc-pVQZ</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="667"/>
+        <location filename="../externals.cpp" line="1235"/>
+        <location filename="../externals.cpp" line="1374"/>
+        <source>cc-pV5Z</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="779"/>
+        <source>Gradient</source>
+        <translation>Gradiente</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="780"/>
+        <source>Hessian</source>
+        <translation>Hessiana</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="781"/>
+        <location filename="../externals.cpp" line="924"/>
+        <source>Optimize</source>
+        <translation>Optimizar</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="786"/>
+        <source>RHF</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="787"/>
+        <location filename="../externals.cpp" line="930"/>
+        <source>UHF</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="801"/>
+        <source>STOnG</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="802"/>
+        <source>n31G</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="803"/>
+        <source>G3L</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="804"/>
+        <source>cc-pVnZ</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="805"/>
+        <source>aug-cc-pVnZ</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="806"/>
+        <source>aug-cc-pCVnZ</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="946"/>
+        <source>aug-cc-pVDZ</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="947"/>
+        <source>aug-cc-pVTZ</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="948"/>
+        <source>aug-cc-pVQZ</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="1055"/>
+        <source>AM1</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="1056"/>
+        <source>MNDO</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="1066"/>
+        <source>CIS</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="1067"/>
+        <source>CISD</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="1068"/>
+        <source>CIST</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="1211"/>
+        <source>DFT</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="1465"/>
+        <source>Process failed to start program %1
+</source>
+        <translation>Falló el proceso al comienzo del programa %1
+</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="1507"/>
+        <source>Computing...</source>
+        <translation>Calculando...</translation>
+    </message>
+</context>
+<context>
     <name>GLWidget</name>
     <message>
         <source>Surface size</source>
@@ -119,56 +693,57 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="147"/>
-        <location filename="../mainwindow.cpp" line="328"/>
-        <location filename="../mainwindow.cpp" line="446"/>
-        <location filename="../mainwindow.cpp" line="451"/>
-        <location filename="../mainwindow.cpp" line="488"/>
-        <location filename="../mainwindow.cpp" line="510"/>
-        <location filename="../mainwindow.cpp" line="597"/>
-        <location filename="../mainwindow.cpp" line="703"/>
-        <location filename="../mainwindow.cpp" line="813"/>
-        <location filename="../mainwindow.cpp" line="858"/>
-        <location filename="../mainwindow.cpp" line="5705"/>
-        <location filename="../mainwindow.cpp" line="5710"/>
-        <location filename="../mainwindow.cpp" line="5715"/>
-        <location filename="../mainwindow.cpp" line="5800"/>
-        <location filename="../mainwindow.cpp" line="5802"/>
-        <location filename="../mainwindow.cpp" line="5951"/>
-        <location filename="../mainwindow.cpp" line="6029"/>
-        <location filename="../mainwindow.cpp" line="9314"/>
-        <location filename="../mainwindow.cpp" line="9321"/>
-        <location filename="../mainwindow.cpp" line="9362"/>
-        <location filename="../mainwindow.cpp" line="9369"/>
-        <location filename="../mainwindow.cpp" line="9556"/>
-        <location filename="../mainwindow.cpp" line="9563"/>
-        <location filename="../mainwindow.cpp" line="9825"/>
-        <location filename="../mainwindow.cpp" line="9832"/>
-        <location filename="../mainwindow.cpp" line="10325"/>
-        <location filename="../mainwindow.cpp" line="10332"/>
-        <location filename="../mainwindow.cpp" line="10796"/>
-        <location filename="../mainwindow.cpp" line="10803"/>
-        <location filename="../mainwindow.cpp" line="11158"/>
-        <location filename="../mainwindow.cpp" line="11169"/>
+        <location filename="../mainwindow.cpp" line="149"/>
+        <location filename="../mainwindow.cpp" line="355"/>
+        <location filename="../mainwindow.cpp" line="476"/>
+        <location filename="../mainwindow.cpp" line="481"/>
+        <location filename="../mainwindow.cpp" line="535"/>
+        <location filename="../mainwindow.cpp" line="557"/>
+        <location filename="../mainwindow.cpp" line="644"/>
+        <location filename="../mainwindow.cpp" line="753"/>
+        <location filename="../mainwindow.cpp" line="865"/>
+        <location filename="../mainwindow.cpp" line="914"/>
+        <location filename="../mainwindow.cpp" line="5818"/>
+        <location filename="../mainwindow.cpp" line="5823"/>
+        <location filename="../mainwindow.cpp" line="5828"/>
+        <location filename="../mainwindow.cpp" line="5930"/>
+        <location filename="../mainwindow.cpp" line="5932"/>
+        <location filename="../mainwindow.cpp" line="6087"/>
+        <location filename="../mainwindow.cpp" line="6160"/>
+        <location filename="../mainwindow.cpp" line="9633"/>
+        <location filename="../mainwindow.cpp" line="9644"/>
+        <location filename="../mainwindow.cpp" line="9651"/>
+        <location filename="../mainwindow.cpp" line="9692"/>
+        <location filename="../mainwindow.cpp" line="9699"/>
+        <location filename="../mainwindow.cpp" line="9886"/>
+        <location filename="../mainwindow.cpp" line="9893"/>
+        <location filename="../mainwindow.cpp" line="10157"/>
+        <location filename="../mainwindow.cpp" line="10164"/>
+        <location filename="../mainwindow.cpp" line="10657"/>
+        <location filename="../mainwindow.cpp" line="10664"/>
         <location filename="../mainwindow.cpp" line="11176"/>
-        <location filename="../mainwindow.cpp" line="11715"/>
-        <location filename="../mainwindow.cpp" line="11722"/>
-        <location filename="../mainwindow.cpp" line="11988"/>
-        <location filename="../mainwindow.cpp" line="11995"/>
-        <location filename="../mainwindow.cpp" line="12128"/>
-        <location filename="../mainwindow.cpp" line="12135"/>
-        <location filename="../mainwindow.cpp" line="12176"/>
-        <location filename="../mainwindow.cpp" line="12183"/>
-        <location filename="../mainwindow.cpp" line="12445"/>
-        <location filename="../mainwindow.cpp" line="12452"/>
-        <location filename="../mainwindow.cpp" line="13065"/>
-        <location filename="../mainwindow.cpp" line="13116"/>
-        <location filename="../mainwindow.cpp" line="14059"/>
+        <location filename="../mainwindow.cpp" line="11183"/>
+        <location filename="../mainwindow.cpp" line="11566"/>
+        <location filename="../mainwindow.cpp" line="11577"/>
+        <location filename="../mainwindow.cpp" line="11584"/>
+        <location filename="../mainwindow.cpp" line="12157"/>
+        <location filename="../mainwindow.cpp" line="12164"/>
+        <location filename="../mainwindow.cpp" line="12446"/>
+        <location filename="../mainwindow.cpp" line="12453"/>
+        <location filename="../mainwindow.cpp" line="12586"/>
+        <location filename="../mainwindow.cpp" line="12593"/>
+        <location filename="../mainwindow.cpp" line="12646"/>
+        <location filename="../mainwindow.cpp" line="12653"/>
+        <location filename="../mainwindow.cpp" line="12927"/>
+        <location filename="../mainwindow.cpp" line="12934"/>
+        <location filename="../mainwindow.cpp" line="13569"/>
+        <location filename="../mainwindow.cpp" line="13620"/>
+        <location filename="../mainwindow.cpp" line="14575"/>
         <source>DAMQT</source>
         <translation>DAMQT</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="153"/>
+        <location filename="../mainwindow.cpp" line="155"/>
         <source>Results</source>
         <translation>Resultados</translation>
     </message>
@@ -181,255 +756,256 @@
         <translation type="obsolete">Imágenes 3D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="240"/>
+        <location filename="../mainwindow.cpp" line="259"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="241"/>
+        <location filename="../mainwindow.cpp" line="260"/>
         <source>Opens a new project</source>
         <translation>Abre un proyecto nuevo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="245"/>
+        <location filename="../mainwindow.cpp" line="264"/>
         <source>Ctrl+A</source>
         <translation>Ctrl+A</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="250"/>
+        <location filename="../mainwindow.cpp" line="269"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="259"/>
+        <location filename="../mainwindow.cpp" line="278"/>
         <source>Ctrl+P</source>
         <translation>Ctrl+P</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="264"/>
+        <location filename="../mainwindow.cpp" line="283"/>
         <source>Ctrl+D</source>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="285"/>
+        <location filename="../mainwindow.cpp" line="310"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="529"/>
-        <location filename="../mainwindow.cpp" line="5690"/>
+        <location filename="../mainwindow.cpp" line="576"/>
+        <location filename="../mainwindow.cpp" line="5803"/>
         <source>&amp;%1 %2</source>
         <translation>&amp;%1 %2</translation>
     </message>
     <message>
+        <location filename="../mainwindow.cpp" line="679"/>
         <source>Copyright &amp;copy; 2008-2021</source>
-        <translation type="obsolete">Copyright&amp;copy; 2008-2021</translation>
+        <translation>Copyright&amp;copy; 2008-2021</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="635"/>
+        <location filename="../mainwindow.cpp" line="682"/>
         <source>Developed in the Departamento de Quimica-Fisica Aplicada of the Universidad Autonoma de Madrid (Spain) in collaboration with the Departamento de Quimica-Fisica of the Universidad de Cadiz (Spain) and with the Indian Institute of Technology Kanpur (India).</source>
         <translation>Desarrolado en el Departamento de Quimica-Fisica Aplicada of the Universidad Autonoma de Madrid (Spain) en colaboración con el Departamento de Quimica-Fisica of the Universidad de Cadiz (Spain) y con el Indian Institute of Technology Kanpur (India).</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="703"/>
+        <location filename="../mainwindow.cpp" line="753"/>
         <source>Help file does not exist in </source>
         <translation>El archivo de ayuda no existe en </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="760"/>
+        <location filename="../mainwindow.cpp" line="810"/>
         <source>&amp;File</source>
         <translation>&amp;Archivo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="74"/>
-        <location filename="../mainwindow.cpp" line="5655"/>
+        <location filename="../mainwindow.cpp" line="75"/>
+        <location filename="../mainwindow.cpp" line="5768"/>
         <source>Language</source>
         <translation>Idioma</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="73"/>
-        <location filename="../mainwindow.cpp" line="5654"/>
-        <location filename="../mainwindow.cpp" line="5657"/>
-        <location filename="../mainwindow.cpp" line="5675"/>
+        <location filename="../mainwindow.cpp" line="74"/>
+        <location filename="../mainwindow.cpp" line="5767"/>
+        <location filename="../mainwindow.cpp" line="5770"/>
+        <location filename="../mainwindow.cpp" line="5788"/>
         <source>Check a language and push Start to start DAMQT.</source>
         <oldsource>Check a language and close this window to start DAMQT.</oldsource>
         <translation>Elija un idioma y pulse Empezar para iniciar DAMQT.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="81"/>
-        <location filename="../mainwindow.cpp" line="5656"/>
+        <location filename="../mainwindow.cpp" line="83"/>
+        <location filename="../mainwindow.cpp" line="5769"/>
         <source>Choose language and push Start</source>
         <oldsource>Choose language and close this window to start</oldsource>
         <translation>Elija un idioma y pulse Empezar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="239"/>
+        <location filename="../mainwindow.cpp" line="258"/>
         <source>&amp;New project</source>
         <translation>&amp;Proyecto nuevo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="244"/>
+        <location filename="../mainwindow.cpp" line="263"/>
         <source>&amp;Open project...</source>
         <translation>&amp;Abrir proyecto...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="246"/>
+        <location filename="../mainwindow.cpp" line="265"/>
         <source>Open project file</source>
         <translation>Abre un proyecto existente</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="249"/>
+        <location filename="../mainwindow.cpp" line="268"/>
         <source>&amp;Save project</source>
         <translation>&amp;Guardar proyecto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="251"/>
+        <location filename="../mainwindow.cpp" line="270"/>
         <source>Save project file</source>
         <translation>Guarda los cambios del proyecto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="254"/>
+        <location filename="../mainwindow.cpp" line="273"/>
         <source>Save project &amp;as...</source>
         <translation>Guardar proyecto &amp;como...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="255"/>
+        <location filename="../mainwindow.cpp" line="274"/>
         <source>Saves project file as</source>
         <translation>Guarda el proyecto con otro nombre</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="258"/>
+        <location filename="../mainwindow.cpp" line="277"/>
         <source>&amp;Print</source>
         <translation>&amp;Imprimir</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="260"/>
+        <location filename="../mainwindow.cpp" line="279"/>
         <source>Print output file</source>
         <translation>Imprime el archivo de salida</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="263"/>
+        <location filename="../mainwindow.cpp" line="282"/>
         <source>&amp;Create Pdf</source>
         <translation>&amp;Crear &amp;Pdf</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="265"/>
+        <location filename="../mainwindow.cpp" line="284"/>
         <source>Print output file as Pdf</source>
         <translation>Escribe el archivo de salida con formato Pdf</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="268"/>
+        <location filename="../mainwindow.cpp" line="292"/>
         <source>&amp;2D Viewer</source>
         <translation>Visor &amp;2D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="269"/>
+        <location filename="../mainwindow.cpp" line="293"/>
         <source>2D Viewer</source>
         <translation>Visor 2D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="272"/>
+        <location filename="../mainwindow.cpp" line="296"/>
         <source>&amp;3D Viewer</source>
         <translation>Visor &amp;3D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="273"/>
+        <location filename="../mainwindow.cpp" line="297"/>
         <source>3D Viewer</source>
         <translation>Visor 3D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="284"/>
+        <location filename="../mainwindow.cpp" line="309"/>
         <source>&amp;Exit</source>
         <translation>&amp;Salir</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="286"/>
+        <location filename="../mainwindow.cpp" line="311"/>
         <source>Quit</source>
         <translation>Sale de la aplicación</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="289"/>
-        <location filename="../mainwindow.cpp" line="782"/>
+        <location filename="../mainwindow.cpp" line="314"/>
+        <location filename="../mainwindow.cpp" line="833"/>
         <source>&amp;Help</source>
         <translation>&amp;Ayuda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="290"/>
+        <location filename="../mainwindow.cpp" line="315"/>
         <source>Program help</source>
         <translation>Ayuda del programa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="293"/>
+        <location filename="../mainwindow.cpp" line="318"/>
         <source>&amp;About DAMQT</source>
         <translation>Acerca de &amp;DAMQT</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="294"/>
-        <location filename="../mainwindow.cpp" line="631"/>
+        <location filename="../mainwindow.cpp" line="319"/>
+        <location filename="../mainwindow.cpp" line="678"/>
         <source>About DAMQT</source>
         <translation>Acerca de DAMQT</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="297"/>
+        <location filename="../mainwindow.cpp" line="322"/>
         <source>About &amp;Qt</source>
         <translation>Acerca de &amp;Qt</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="298"/>
+        <location filename="../mainwindow.cpp" line="323"/>
         <source>About QT Library</source>
         <translation>Acerca de la biblioteca Qt</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="322"/>
+        <location filename="../mainwindow.cpp" line="349"/>
         <source>Open input file</source>
         <translation>Abrir archivo de entrada</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="323"/>
+        <location filename="../mainwindow.cpp" line="350"/>
         <source>Project files</source>
         <translation>Archivos de proyecto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="323"/>
-        <location filename="../mainwindow.cpp" line="670"/>
-        <location filename="../mainwindow.cpp" line="5772"/>
-        <location filename="../mainwindow.cpp" line="9451"/>
-        <location filename="../mainwindow.cpp" line="9710"/>
-        <location filename="../mainwindow.cpp" line="11219"/>
-        <location filename="../mainwindow.cpp" line="11765"/>
-        <location filename="../mainwindow.cpp" line="12044"/>
-        <location filename="../mainwindow.cpp" line="12495"/>
-        <location filename="../mainwindow.cpp" line="13196"/>
+        <location filename="../mainwindow.cpp" line="350"/>
+        <location filename="../mainwindow.cpp" line="717"/>
+        <location filename="../mainwindow.cpp" line="5902"/>
+        <location filename="../mainwindow.cpp" line="9781"/>
+        <location filename="../mainwindow.cpp" line="10040"/>
+        <location filename="../mainwindow.cpp" line="11627"/>
+        <location filename="../mainwindow.cpp" line="12215"/>
+        <location filename="../mainwindow.cpp" line="12502"/>
+        <location filename="../mainwindow.cpp" line="12985"/>
+        <location filename="../mainwindow.cpp" line="13700"/>
         <source>All files</source>
         <translation>Todos los archivos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="328"/>
-        <location filename="../mainwindow.cpp" line="488"/>
-        <location filename="../mainwindow.cpp" line="5800"/>
+        <location filename="../mainwindow.cpp" line="355"/>
+        <location filename="../mainwindow.cpp" line="535"/>
+        <location filename="../mainwindow.cpp" line="5930"/>
         <source>Project %1 open</source>
         <translation>Proyecto %1 abierto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="358"/>
-        <location filename="../mainwindow.cpp" line="6487"/>
-        <location filename="../mainwindow.cpp" line="6583"/>
-        <location filename="../mainwindow.cpp" line="6687"/>
-        <location filename="../mainwindow.cpp" line="7217"/>
-        <location filename="../mainwindow.cpp" line="13201"/>
-        <location filename="../mainwindow.cpp" line="14006"/>
-        <location filename="../mainwindow.cpp" line="14070"/>
+        <location filename="../mainwindow.cpp" line="385"/>
+        <location filename="../mainwindow.cpp" line="6705"/>
+        <location filename="../mainwindow.cpp" line="6801"/>
+        <location filename="../mainwindow.cpp" line="6923"/>
+        <location filename="../mainwindow.cpp" line="7463"/>
+        <location filename="../mainwindow.cpp" line="13705"/>
+        <location filename="../mainwindow.cpp" line="14523"/>
+        <location filename="../mainwindow.cpp" line="14586"/>
         <source>File %1 cannot be read</source>
         <translation>No se puede leer el archivo %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="358"/>
+        <location filename="../mainwindow.cpp" line="385"/>
         <source>Open</source>
         <translation>Abrir</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="444"/>
-        <location filename="../mainwindow.cpp" line="446"/>
+        <location filename="../mainwindow.cpp" line="474"/>
+        <location filename="../mainwindow.cpp" line="476"/>
         <source>File succesfully loaded</source>
         <translation>Archivo cargado con éxito</translation>
     </message>
@@ -438,7 +1014,7 @@
         <translation type="obsolete">Pulse el botón Ejecutar para abrir el proyecto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="451"/>
+        <location filename="../mainwindow.cpp" line="481"/>
         <source>Files %1 and/or %2 not found</source>
         <translation>No encuentra los archivos %1 y/o %2</translation>
     </message>
@@ -447,65 +1023,68 @@
         <translation type="obsolete">el archivo fchk debe ser importado de nuevo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="466"/>
+        <location filename="../mainwindow.cpp" line="496"/>
         <source>Error loading file</source>
         <translation>Error al cargar el archivo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="579"/>
-        <location filename="../mainwindow.cpp" line="5914"/>
-        <location filename="../mainwindow.cpp" line="5991"/>
-        <location filename="../mainwindow.cpp" line="6079"/>
-        <location filename="../mainwindow.cpp" line="6125"/>
-        <location filename="../mainwindow.cpp" line="6169"/>
-        <location filename="../mainwindow.cpp" line="6207"/>
-        <location filename="../mainwindow.cpp" line="6257"/>
-        <location filename="../mainwindow.cpp" line="6302"/>
-        <location filename="../mainwindow.cpp" line="6339"/>
+        <location filename="../mainwindow.cpp" line="626"/>
+        <location filename="../mainwindow.cpp" line="6055"/>
+        <location filename="../mainwindow.cpp" line="6127"/>
+        <location filename="../mainwindow.cpp" line="6210"/>
+        <location filename="../mainwindow.cpp" line="6261"/>
+        <location filename="../mainwindow.cpp" line="6310"/>
+        <location filename="../mainwindow.cpp" line="6354"/>
+        <location filename="../mainwindow.cpp" line="6408"/>
+        <location filename="../mainwindow.cpp" line="6450"/>
+        <location filename="../mainwindow.cpp" line="6492"/>
+        <location filename="../mainwindow.cpp" line="6535"/>
         <source>Project %1 not found</source>
         <translation>No encuentra el proyecto %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="579"/>
-        <location filename="../mainwindow.cpp" line="5914"/>
-        <location filename="../mainwindow.cpp" line="5991"/>
-        <location filename="../mainwindow.cpp" line="6079"/>
-        <location filename="../mainwindow.cpp" line="6125"/>
-        <location filename="../mainwindow.cpp" line="6169"/>
-        <location filename="../mainwindow.cpp" line="6207"/>
-        <location filename="../mainwindow.cpp" line="6257"/>
-        <location filename="../mainwindow.cpp" line="6302"/>
-        <location filename="../mainwindow.cpp" line="6339"/>
+        <location filename="../mainwindow.cpp" line="626"/>
+        <location filename="../mainwindow.cpp" line="6055"/>
+        <location filename="../mainwindow.cpp" line="6127"/>
+        <location filename="../mainwindow.cpp" line="6210"/>
+        <location filename="../mainwindow.cpp" line="6261"/>
+        <location filename="../mainwindow.cpp" line="6310"/>
+        <location filename="../mainwindow.cpp" line="6354"/>
+        <location filename="../mainwindow.cpp" line="6408"/>
+        <location filename="../mainwindow.cpp" line="6450"/>
+        <location filename="../mainwindow.cpp" line="6492"/>
+        <location filename="../mainwindow.cpp" line="6535"/>
         <source>Do you wish to create?</source>
         <translation>¿Desea crearlo?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="589"/>
-        <location filename="../mainwindow.cpp" line="5929"/>
-        <location filename="../mainwindow.cpp" line="6006"/>
-        <location filename="../mainwindow.cpp" line="6089"/>
-        <location filename="../mainwindow.cpp" line="6135"/>
-        <location filename="../mainwindow.cpp" line="6179"/>
-        <location filename="../mainwindow.cpp" line="6217"/>
-        <location filename="../mainwindow.cpp" line="6267"/>
-        <location filename="../mainwindow.cpp" line="6312"/>
-        <location filename="../mainwindow.cpp" line="6349"/>
+        <location filename="../mainwindow.cpp" line="636"/>
+        <location filename="../mainwindow.cpp" line="6065"/>
+        <location filename="../mainwindow.cpp" line="6137"/>
+        <location filename="../mainwindow.cpp" line="6220"/>
+        <location filename="../mainwindow.cpp" line="6271"/>
+        <location filename="../mainwindow.cpp" line="6320"/>
+        <location filename="../mainwindow.cpp" line="6364"/>
+        <location filename="../mainwindow.cpp" line="6418"/>
+        <location filename="../mainwindow.cpp" line="6460"/>
+        <location filename="../mainwindow.cpp" line="6502"/>
+        <location filename="../mainwindow.cpp" line="6545"/>
         <source>Project succesfully created</source>
         <translation>Proyecto creado con éxito</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="597"/>
-        <location filename="../mainwindow.cpp" line="604"/>
+        <location filename="../mainwindow.cpp" line="644"/>
+        <location filename="../mainwindow.cpp" line="651"/>
         <source>File succesfully saved</source>
         <translation>Archivo guardado con éxito</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="614"/>
+        <location filename="../mainwindow.cpp" line="661"/>
         <source>Document has been modified</source>
         <translation>El documento ha sido modificado</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="614"/>
+        <location filename="../mainwindow.cpp" line="661"/>
         <source>Do you want to save changes?</source>
         <translation>¿Desea guardar los cambios?</translation>
     </message>
@@ -514,11 +1093,7 @@
         <translation type="obsolete">DAMQT 2.0</translation>
     </message>
     <message>
-        <source>Copyright &amp;copy; 2008-2021</source>
-        <translation type="obsolete">Copyright&amp;copy; 2008-2021</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="633"/>
+        <location filename="../mainwindow.cpp" line="680"/>
         <source>DAMQT is a program for the analysis of electron molecular density, electrostatic potential and field and Hellman-Feynman forces on nuclei.</source>
         <translation>DAMQT es un programa para el análisis de la densidad electrónica molecular, potencial electrostático y fuerzas de Hellmann-Feynman sobre los núcleos.</translation>
     </message>
@@ -527,28 +1102,28 @@
         <translation type="obsolete">Desarrollado en el Departamento de Química-Física Aplicada de la Universidad Autónoma de Madrid en colaboración con  el Departamento de Química-Física de la Universidad de Cádiz.</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="649"/>
+        <location filename="../mainwindow.cpp" line="696"/>
         <source>Printing options</source>
         <translation>Opciones para la impresión</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="669"/>
+        <location filename="../mainwindow.cpp" line="716"/>
         <source>Save pdf...</source>
         <translation>Guardar pdf...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="670"/>
+        <location filename="../mainwindow.cpp" line="717"/>
         <source>pdf files</source>
         <translation>archivos pdf</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="674"/>
+        <location filename="../mainwindow.cpp" line="721"/>
         <source>File %1 exists</source>
         <translation>El archivo %1 existe</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="675"/>
-        <location filename="../mainwindow.cpp" line="13075"/>
+        <location filename="../mainwindow.cpp" line="722"/>
+        <location filename="../mainwindow.cpp" line="13579"/>
         <source>Do you want to overwrite?</source>
         <translation>¿Desea sobreescribirlo?</translation>
     </message>
@@ -557,53 +1132,53 @@
         <translation type="obsolete">EL archivo de ayuda no existe</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="795"/>
-        <location filename="../mainwindow.cpp" line="1137"/>
+        <location filename="../mainwindow.cpp" line="846"/>
+        <location filename="../mainwindow.cpp" line="1193"/>
         <source>Project folder</source>
         <translation>Carpeta del proyecto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="804"/>
+        <location filename="../mainwindow.cpp" line="856"/>
         <source>Help</source>
         <translation>Ayuda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="851"/>
+        <location filename="../mainwindow.cpp" line="907"/>
         <source>Unnamed</source>
         <translation>Sin nombre</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="858"/>
+        <location filename="../mainwindow.cpp" line="914"/>
         <source>%1 - %2 [*]</source>
         <translation>%1 - %2 [*]</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="880"/>
+        <location filename="../mainwindow.cpp" line="936"/>
         <source>Options</source>
         <translation>Opciones</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="895"/>
+        <location filename="../mainwindow.cpp" line="951"/>
         <source>Project</source>
         <translation>Proyecto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="904"/>
+        <location filename="../mainwindow.cpp" line="960"/>
         <source>Atomic densities</source>
         <translation>Densidades atómicas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="913"/>
+        <location filename="../mainwindow.cpp" line="969"/>
         <source>Density</source>
         <translation>Densidad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="922"/>
+        <location filename="../mainwindow.cpp" line="978"/>
         <source>Electrostatic potential</source>
         <translation>Potencial electrostático</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="940"/>
+        <location filename="../mainwindow.cpp" line="996"/>
         <source>Molecular topography</source>
         <translation>Topografía molecular</translation>
     </message>
@@ -612,30 +1187,30 @@
         <translation type="obsolete">Fuerzas de Hellmann-Feynman</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="958"/>
+        <location filename="../mainwindow.cpp" line="1014"/>
         <source>Electric field</source>
         <translation>Campo eléctrico</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="985"/>
-        <location filename="../mainwindow.cpp" line="4055"/>
+        <location filename="../mainwindow.cpp" line="1041"/>
+        <location filename="../mainwindow.cpp" line="4168"/>
         <source>Radial factors</source>
         <translation>Factores radiales</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="994"/>
+        <location filename="../mainwindow.cpp" line="1050"/>
         <source>Oriented multipoles</source>
         <translation>Multipolos reorientados</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="931"/>
-        <location filename="../mainwindow.cpp" line="4304"/>
-        <location filename="../mainwindow.cpp" line="4322"/>
+        <location filename="../mainwindow.cpp" line="987"/>
+        <location filename="../mainwindow.cpp" line="4417"/>
+        <location filename="../mainwindow.cpp" line="4435"/>
         <source>Molecular orbitals</source>
         <translation>Orbitales moleculares</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1122"/>
+        <location filename="../mainwindow.cpp" line="1178"/>
         <source>Create Project</source>
         <translation>Crear un proyecto</translation>
     </message>
@@ -644,131 +1219,126 @@
         <translation type="obsolete">Importar una carpeta</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1132"/>
-        <location filename="../mainwindow.cpp" line="2570"/>
-        <location filename="../mainwindow.cpp" line="2859"/>
-        <location filename="../mainwindow.cpp" line="3335"/>
-        <location filename="../mainwindow.cpp" line="3795"/>
-        <location filename="../mainwindow.cpp" line="4312"/>
-        <location filename="../mainwindow.cpp" line="5057"/>
+        <location filename="../mainwindow.cpp" line="1188"/>
+        <location filename="../mainwindow.cpp" line="2664"/>
+        <location filename="../mainwindow.cpp" line="2953"/>
+        <location filename="../mainwindow.cpp" line="3445"/>
+        <location filename="../mainwindow.cpp" line="3908"/>
+        <location filename="../mainwindow.cpp" line="4425"/>
+        <location filename="../mainwindow.cpp" line="5170"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1127"/>
-        <location filename="../mainwindow.cpp" line="4307"/>
-        <location filename="../mainwindow.cpp" line="5052"/>
-        <location filename="../mainwindow.cpp" line="5769"/>
-        <location filename="../mainwindow.cpp" line="11218"/>
-        <location filename="../mainwindow.cpp" line="11764"/>
-        <location filename="../mainwindow.cpp" line="12043"/>
-        <location filename="../mainwindow.cpp" line="12494"/>
+        <location filename="../mainwindow.cpp" line="1183"/>
+        <location filename="../mainwindow.cpp" line="4420"/>
+        <location filename="../mainwindow.cpp" line="5165"/>
+        <location filename="../mainwindow.cpp" line="5898"/>
+        <location filename="../mainwindow.cpp" line="11626"/>
+        <location filename="../mainwindow.cpp" line="12214"/>
+        <location filename="../mainwindow.cpp" line="12501"/>
+        <location filename="../mainwindow.cpp" line="12984"/>
         <source>Import data from</source>
         <translation>Importar datos de</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="82"/>
-        <location filename="../mainwindow.cpp" line="5658"/>
+        <location filename="../mainwindow.cpp" line="84"/>
+        <location filename="../mainwindow.cpp" line="5771"/>
         <source>Start</source>
         <translation>Empezar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="631"/>
         <source>DAMQT 2.1</source>
-        <translation>DAMQT 2.1</translation>
+        <translation type="vanished">DAMQT 2.1</translation>
     </message>
     <message>
-        <source>Copyright &amp;copy; 2008-2021</source>
-        <translation type="obsolete">Copyright&amp;copy; 2008-2021</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="976"/>
+        <location filename="../mainwindow.cpp" line="1032"/>
         <source>Hellmann-Feynman forces on nuclei</source>
         <translation>Fuerzas de Hellmann-Feynman</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1144"/>
+        <location filename="../mainwindow.cpp" line="1200"/>
         <source>Project name</source>
         <translation>Nombre de proyecto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1151"/>
-        <location filename="../mainwindow.cpp" line="1302"/>
-        <location filename="../mainwindow.cpp" line="1764"/>
-        <location filename="../mainwindow.cpp" line="2310"/>
-        <location filename="../mainwindow.cpp" line="2692"/>
-        <location filename="../mainwindow.cpp" line="2960"/>
-        <location filename="../mainwindow.cpp" line="3056"/>
-        <location filename="../mainwindow.cpp" line="3380"/>
-        <location filename="../mainwindow.cpp" line="3841"/>
-        <location filename="../mainwindow.cpp" line="4074"/>
-        <location filename="../mainwindow.cpp" line="4231"/>
-        <location filename="../mainwindow.cpp" line="4622"/>
-        <location filename="../mainwindow.cpp" line="4941"/>
-        <location filename="../mainwindow.cpp" line="5446"/>
+        <location filename="../mainwindow.cpp" line="1207"/>
+        <location filename="../mainwindow.cpp" line="1381"/>
+        <location filename="../mainwindow.cpp" line="1850"/>
+        <location filename="../mainwindow.cpp" line="2402"/>
+        <location filename="../mainwindow.cpp" line="2786"/>
+        <location filename="../mainwindow.cpp" line="3063"/>
+        <location filename="../mainwindow.cpp" line="3160"/>
+        <location filename="../mainwindow.cpp" line="3490"/>
+        <location filename="../mainwindow.cpp" line="3954"/>
+        <location filename="../mainwindow.cpp" line="4187"/>
+        <location filename="../mainwindow.cpp" line="4344"/>
+        <location filename="../mainwindow.cpp" line="4735"/>
+        <location filename="../mainwindow.cpp" line="5054"/>
+        <location filename="../mainwindow.cpp" line="5559"/>
         <source>Exec</source>
         <translation>Ejecutar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1157"/>
+        <location filename="../mainwindow.cpp" line="1213"/>
         <source>MPI options</source>
         <translation>Opciones de MPI</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1159"/>
+        <location filename="../mainwindow.cpp" line="1215"/>
         <source>MPI command</source>
         <translation>Instrucción de MPI</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1160"/>
+        <location filename="../mainwindow.cpp" line="1216"/>
         <source>MPI flags</source>
         <translation>Opciones del compilador MPI</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1230"/>
-        <location filename="../mainwindow.cpp" line="1974"/>
-        <location filename="../mainwindow.cpp" line="2505"/>
-        <location filename="../mainwindow.cpp" line="3108"/>
-        <location filename="../mainwindow.cpp" line="3568"/>
+        <location filename="../mainwindow.cpp" line="1288"/>
+        <location filename="../mainwindow.cpp" line="2065"/>
+        <location filename="../mainwindow.cpp" line="2599"/>
+        <location filename="../mainwindow.cpp" line="3212"/>
+        <location filename="../mainwindow.cpp" line="3681"/>
         <source>Highest l in expansion</source>
         <translation>Máximo l en el desarrollo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1237"/>
-        <location filename="../mainwindow.cpp" line="1981"/>
-        <location filename="../mainwindow.cpp" line="3115"/>
-        <location filename="../mainwindow.cpp" line="3575"/>
+        <location filename="../mainwindow.cpp" line="1295"/>
+        <location filename="../mainwindow.cpp" line="2073"/>
+        <location filename="../mainwindow.cpp" line="3219"/>
+        <location filename="../mainwindow.cpp" line="3688"/>
         <source>Size of multipolar expansion</source>
         <translation>Tamaño del desarrollo multipolar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1240"/>
+        <location filename="../mainwindow.cpp" line="1298"/>
         <source>Highest l to be displayed</source>
         <translation>Máximo l mostrado</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1247"/>
+        <location filename="../mainwindow.cpp" line="1305"/>
         <source>Highest order of multipoles to be displayed in output file and whose modules will be tabulated in file .mltmod</source>
         <translation>Máximo orden de los multipolos que se muestran en el archivo de salida y cuyos módulos serán tabulados en el archivo .mltmod</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1251"/>
-        <location filename="../mainwindow.cpp" line="4855"/>
+        <location filename="../mainwindow.cpp" line="1309"/>
+        <location filename="../mainwindow.cpp" line="4968"/>
         <source>Type of fitting</source>
         <translation>Tipo de ajuste</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1254"/>
+        <location filename="../mainwindow.cpp" line="1312"/>
         <source>Total density</source>
         <translation>Densidad completa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1256"/>
+        <location filename="../mainwindow.cpp" line="1314"/>
         <source>One-center terms</source>
         <translation>Solo términos monocéntricos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1257"/>
+        <location filename="../mainwindow.cpp" line="1315"/>
         <source>Two-center terms</source>
         <translation>Solo términos bicéntricos</translation>
     </message>
@@ -781,160 +1351,160 @@
         <translation type="obsolete">Definidos por el usuario</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1264"/>
-        <location filename="../mainwindow.cpp" line="1728"/>
-        <location filename="../mainwindow.cpp" line="2273"/>
-        <location filename="../mainwindow.cpp" line="2656"/>
-        <location filename="../mainwindow.cpp" line="2922"/>
-        <location filename="../mainwindow.cpp" line="3342"/>
-        <location filename="../mainwindow.cpp" line="3803"/>
-        <location filename="../mainwindow.cpp" line="4586"/>
-        <location filename="../mainwindow.cpp" line="4903"/>
-        <location filename="../mainwindow.cpp" line="5409"/>
+        <location filename="../mainwindow.cpp" line="1343"/>
+        <location filename="../mainwindow.cpp" line="1814"/>
+        <location filename="../mainwindow.cpp" line="2365"/>
+        <location filename="../mainwindow.cpp" line="2750"/>
+        <location filename="../mainwindow.cpp" line="3022"/>
+        <location filename="../mainwindow.cpp" line="3452"/>
+        <location filename="../mainwindow.cpp" line="3916"/>
+        <location filename="../mainwindow.cpp" line="4699"/>
+        <location filename="../mainwindow.cpp" line="5016"/>
+        <location filename="../mainwindow.cpp" line="5522"/>
         <source>Input only</source>
         <translation>Solo datos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1267"/>
-        <location filename="../mainwindow.cpp" line="1731"/>
-        <location filename="../mainwindow.cpp" line="2276"/>
-        <location filename="../mainwindow.cpp" line="2659"/>
-        <location filename="../mainwindow.cpp" line="2926"/>
-        <location filename="../mainwindow.cpp" line="3345"/>
-        <location filename="../mainwindow.cpp" line="3806"/>
-        <location filename="../mainwindow.cpp" line="4589"/>
-        <location filename="../mainwindow.cpp" line="4906"/>
-        <location filename="../mainwindow.cpp" line="5412"/>
+        <location filename="../mainwindow.cpp" line="1346"/>
+        <location filename="../mainwindow.cpp" line="1817"/>
+        <location filename="../mainwindow.cpp" line="2368"/>
+        <location filename="../mainwindow.cpp" line="2753"/>
+        <location filename="../mainwindow.cpp" line="3026"/>
+        <location filename="../mainwindow.cpp" line="3455"/>
+        <location filename="../mainwindow.cpp" line="3919"/>
+        <location filename="../mainwindow.cpp" line="4702"/>
+        <location filename="../mainwindow.cpp" line="5019"/>
+        <location filename="../mainwindow.cpp" line="5525"/>
         <source>Generate input file only</source>
         <translation>Solo genera el archivo de datos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1274"/>
-        <location filename="../mainwindow.cpp" line="1738"/>
-        <location filename="../mainwindow.cpp" line="2283"/>
-        <location filename="../mainwindow.cpp" line="2666"/>
-        <location filename="../mainwindow.cpp" line="2933"/>
-        <location filename="../mainwindow.cpp" line="3352"/>
-        <location filename="../mainwindow.cpp" line="3813"/>
-        <location filename="../mainwindow.cpp" line="4596"/>
-        <location filename="../mainwindow.cpp" line="4913"/>
-        <location filename="../mainwindow.cpp" line="5419"/>
+        <location filename="../mainwindow.cpp" line="1353"/>
+        <location filename="../mainwindow.cpp" line="1824"/>
+        <location filename="../mainwindow.cpp" line="2375"/>
+        <location filename="../mainwindow.cpp" line="2760"/>
+        <location filename="../mainwindow.cpp" line="3033"/>
+        <location filename="../mainwindow.cpp" line="3462"/>
+        <location filename="../mainwindow.cpp" line="3926"/>
+        <location filename="../mainwindow.cpp" line="4709"/>
+        <location filename="../mainwindow.cpp" line="5026"/>
+        <location filename="../mainwindow.cpp" line="5532"/>
         <source>Parallel computing</source>
         <translation>Cálculo en paralelo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1277"/>
-        <location filename="../mainwindow.cpp" line="1741"/>
-        <location filename="../mainwindow.cpp" line="2286"/>
-        <location filename="../mainwindow.cpp" line="2669"/>
-        <location filename="../mainwindow.cpp" line="2936"/>
-        <location filename="../mainwindow.cpp" line="3355"/>
-        <location filename="../mainwindow.cpp" line="3816"/>
-        <location filename="../mainwindow.cpp" line="4599"/>
-        <location filename="../mainwindow.cpp" line="4916"/>
-        <location filename="../mainwindow.cpp" line="5422"/>
+        <location filename="../mainwindow.cpp" line="1356"/>
+        <location filename="../mainwindow.cpp" line="1827"/>
+        <location filename="../mainwindow.cpp" line="2378"/>
+        <location filename="../mainwindow.cpp" line="2763"/>
+        <location filename="../mainwindow.cpp" line="3036"/>
+        <location filename="../mainwindow.cpp" line="3465"/>
+        <location filename="../mainwindow.cpp" line="3929"/>
+        <location filename="../mainwindow.cpp" line="4712"/>
+        <location filename="../mainwindow.cpp" line="5029"/>
+        <location filename="../mainwindow.cpp" line="5535"/>
         <source>MPI</source>
         <translation>MPI</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1278"/>
-        <location filename="../mainwindow.cpp" line="1284"/>
-        <location filename="../mainwindow.cpp" line="1742"/>
-        <location filename="../mainwindow.cpp" line="1748"/>
-        <location filename="../mainwindow.cpp" line="2288"/>
-        <location filename="../mainwindow.cpp" line="2294"/>
-        <location filename="../mainwindow.cpp" line="2671"/>
-        <location filename="../mainwindow.cpp" line="2677"/>
-        <location filename="../mainwindow.cpp" line="2939"/>
-        <location filename="../mainwindow.cpp" line="2946"/>
-        <location filename="../mainwindow.cpp" line="3357"/>
-        <location filename="../mainwindow.cpp" line="3363"/>
-        <location filename="../mainwindow.cpp" line="3818"/>
-        <location filename="../mainwindow.cpp" line="3824"/>
-        <location filename="../mainwindow.cpp" line="4601"/>
-        <location filename="../mainwindow.cpp" line="4607"/>
-        <location filename="../mainwindow.cpp" line="4918"/>
-        <location filename="../mainwindow.cpp" line="4924"/>
-        <location filename="../mainwindow.cpp" line="5424"/>
-        <location filename="../mainwindow.cpp" line="5430"/>
+        <location filename="../mainwindow.cpp" line="1357"/>
+        <location filename="../mainwindow.cpp" line="1363"/>
+        <location filename="../mainwindow.cpp" line="1828"/>
+        <location filename="../mainwindow.cpp" line="1834"/>
+        <location filename="../mainwindow.cpp" line="2380"/>
+        <location filename="../mainwindow.cpp" line="2386"/>
+        <location filename="../mainwindow.cpp" line="2765"/>
+        <location filename="../mainwindow.cpp" line="2771"/>
+        <location filename="../mainwindow.cpp" line="3039"/>
+        <location filename="../mainwindow.cpp" line="3046"/>
+        <location filename="../mainwindow.cpp" line="3467"/>
+        <location filename="../mainwindow.cpp" line="3473"/>
+        <location filename="../mainwindow.cpp" line="3931"/>
+        <location filename="../mainwindow.cpp" line="3937"/>
+        <location filename="../mainwindow.cpp" line="4714"/>
+        <location filename="../mainwindow.cpp" line="4720"/>
+        <location filename="../mainwindow.cpp" line="5031"/>
+        <location filename="../mainwindow.cpp" line="5037"/>
+        <location filename="../mainwindow.cpp" line="5537"/>
+        <location filename="../mainwindow.cpp" line="5543"/>
         <source>Number of processors</source>
         <translation>Nº de procesadores</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1303"/>
-        <location filename="../mainwindow.cpp" line="4942"/>
+        <location filename="../mainwindow.cpp" line="1382"/>
+        <location filename="../mainwindow.cpp" line="5055"/>
         <source>Electron density analysis</source>
         <translation>Análisis de la densidad electrónica</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1307"/>
-        <location filename="../mainwindow.cpp" line="1769"/>
-        <location filename="../mainwindow.cpp" line="2315"/>
-        <location filename="../mainwindow.cpp" line="2697"/>
-        <location filename="../mainwindow.cpp" line="2966"/>
-        <location filename="../mainwindow.cpp" line="3061"/>
-        <location filename="../mainwindow.cpp" line="3385"/>
-        <location filename="../mainwindow.cpp" line="3846"/>
-        <location filename="../mainwindow.cpp" line="4079"/>
-        <location filename="../mainwindow.cpp" line="4237"/>
-        <location filename="../mainwindow.cpp" line="4627"/>
-        <location filename="../mainwindow.cpp" line="4946"/>
-        <location filename="../mainwindow.cpp" line="5451"/>
+        <location filename="../mainwindow.cpp" line="1386"/>
+        <location filename="../mainwindow.cpp" line="1855"/>
+        <location filename="../mainwindow.cpp" line="2407"/>
+        <location filename="../mainwindow.cpp" line="2791"/>
+        <location filename="../mainwindow.cpp" line="3069"/>
+        <location filename="../mainwindow.cpp" line="3165"/>
+        <location filename="../mainwindow.cpp" line="3495"/>
+        <location filename="../mainwindow.cpp" line="3959"/>
+        <location filename="../mainwindow.cpp" line="4192"/>
+        <location filename="../mainwindow.cpp" line="4350"/>
+        <location filename="../mainwindow.cpp" line="4740"/>
+        <location filename="../mainwindow.cpp" line="5059"/>
+        <location filename="../mainwindow.cpp" line="5564"/>
         <source>Stop</source>
         <translation>Detener</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1308"/>
-        <location filename="../mainwindow.cpp" line="1770"/>
-        <location filename="../mainwindow.cpp" line="2316"/>
-        <location filename="../mainwindow.cpp" line="2698"/>
-        <location filename="../mainwindow.cpp" line="2967"/>
-        <location filename="../mainwindow.cpp" line="3062"/>
-        <location filename="../mainwindow.cpp" line="3386"/>
-        <location filename="../mainwindow.cpp" line="3847"/>
-        <location filename="../mainwindow.cpp" line="4080"/>
-        <location filename="../mainwindow.cpp" line="4238"/>
-        <location filename="../mainwindow.cpp" line="4628"/>
-        <location filename="../mainwindow.cpp" line="4947"/>
-        <location filename="../mainwindow.cpp" line="5452"/>
+        <location filename="../mainwindow.cpp" line="1387"/>
+        <location filename="../mainwindow.cpp" line="1856"/>
+        <location filename="../mainwindow.cpp" line="2408"/>
+        <location filename="../mainwindow.cpp" line="2792"/>
+        <location filename="../mainwindow.cpp" line="3070"/>
+        <location filename="../mainwindow.cpp" line="3166"/>
+        <location filename="../mainwindow.cpp" line="3496"/>
+        <location filename="../mainwindow.cpp" line="3960"/>
+        <location filename="../mainwindow.cpp" line="4193"/>
+        <location filename="../mainwindow.cpp" line="4351"/>
+        <location filename="../mainwindow.cpp" line="4741"/>
+        <location filename="../mainwindow.cpp" line="5060"/>
+        <location filename="../mainwindow.cpp" line="5565"/>
         <source>Kill the process</source>
         <translation>Cortar el proceso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1313"/>
-        <location filename="../mainwindow.cpp" line="1775"/>
-        <location filename="../mainwindow.cpp" line="2321"/>
-        <location filename="../mainwindow.cpp" line="2703"/>
-        <location filename="../mainwindow.cpp" line="2972"/>
-        <location filename="../mainwindow.cpp" line="3067"/>
-        <location filename="../mainwindow.cpp" line="3391"/>
-        <location filename="../mainwindow.cpp" line="3852"/>
-        <location filename="../mainwindow.cpp" line="4085"/>
-        <location filename="../mainwindow.cpp" line="4243"/>
-        <location filename="../mainwindow.cpp" line="4633"/>
-        <location filename="../mainwindow.cpp" line="4952"/>
-        <location filename="../mainwindow.cpp" line="5457"/>
-        <location filename="../mainwindow.cpp" line="13195"/>
+        <location filename="../mainwindow.cpp" line="1392"/>
+        <location filename="../mainwindow.cpp" line="1861"/>
+        <location filename="../mainwindow.cpp" line="2413"/>
+        <location filename="../mainwindow.cpp" line="2797"/>
+        <location filename="../mainwindow.cpp" line="3075"/>
+        <location filename="../mainwindow.cpp" line="3171"/>
+        <location filename="../mainwindow.cpp" line="3501"/>
+        <location filename="../mainwindow.cpp" line="3965"/>
+        <location filename="../mainwindow.cpp" line="4198"/>
+        <location filename="../mainwindow.cpp" line="4356"/>
+        <location filename="../mainwindow.cpp" line="4746"/>
+        <location filename="../mainwindow.cpp" line="5065"/>
+        <location filename="../mainwindow.cpp" line="5570"/>
+        <location filename="../mainwindow.cpp" line="13699"/>
         <source>Open output file ...</source>
         <translation>Abrir archivo de salida ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1359"/>
-        <location filename="../mainwindow.cpp" line="1968"/>
-        <location filename="../mainwindow.cpp" line="2490"/>
-        <location filename="../mainwindow.cpp" line="2851"/>
-        <location filename="../mainwindow.cpp" line="3032"/>
-        <location filename="../mainwindow.cpp" line="3103"/>
-        <location filename="../mainwindow.cpp" line="3562"/>
-        <location filename="../mainwindow.cpp" line="4019"/>
-        <location filename="../mainwindow.cpp" line="4173"/>
-        <location filename="../mainwindow.cpp" line="4315"/>
-        <location filename="../mainwindow.cpp" line="5062"/>
+        <location filename="../mainwindow.cpp" line="1445"/>
+        <location filename="../mainwindow.cpp" line="2054"/>
+        <location filename="../mainwindow.cpp" line="2584"/>
+        <location filename="../mainwindow.cpp" line="2945"/>
+        <location filename="../mainwindow.cpp" line="3136"/>
+        <location filename="../mainwindow.cpp" line="3207"/>
+        <location filename="../mainwindow.cpp" line="3675"/>
+        <location filename="../mainwindow.cpp" line="4132"/>
+        <location filename="../mainwindow.cpp" line="4286"/>
+        <location filename="../mainwindow.cpp" line="4428"/>
+        <location filename="../mainwindow.cpp" line="5175"/>
         <source>Output files prefix</source>
         <translation>Prefijo para los archivos de salida</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1366"/>
+        <location filename="../mainwindow.cpp" line="1452"/>
         <source>Density settings</source>
         <translation>Ajustes para la densidad</translation>
     </message>
@@ -943,103 +1513,103 @@
         <translation type="obsolete">Tipo de densidad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1374"/>
+        <location filename="../mainwindow.cpp" line="1460"/>
         <source>Original density</source>
         <translation>Densidad original</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1375"/>
+        <location filename="../mainwindow.cpp" line="1461"/>
         <source>Original density without fitting</source>
         <translation>Densidad original sin representar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1378"/>
+        <location filename="../mainwindow.cpp" line="1464"/>
         <source>Fitted density</source>
         <translation>Densidad representada</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1379"/>
+        <location filename="../mainwindow.cpp" line="1465"/>
         <source>Density expansion in atomic contributions</source>
         <translation>Representación de la densidad en contribuciones atómicas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1403"/>
+        <location filename="../mainwindow.cpp" line="1489"/>
         <source>Atomic terms</source>
         <translation>Términos atómicos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1406"/>
-        <location filename="../mainwindow.cpp" line="2911"/>
-        <location filename="../mainwindow.cpp" line="4829"/>
-        <location filename="../mainwindow.cpp" line="5122"/>
+        <location filename="../mainwindow.cpp" line="1492"/>
+        <location filename="../mainwindow.cpp" line="3011"/>
+        <location filename="../mainwindow.cpp" line="4942"/>
+        <location filename="../mainwindow.cpp" line="5235"/>
         <source>Highest l</source>
         <translation>Máximo l</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1411"/>
-        <location filename="../mainwindow.cpp" line="5128"/>
+        <location filename="../mainwindow.cpp" line="1497"/>
+        <location filename="../mainwindow.cpp" line="5241"/>
         <source>Highest l of atomic multipolar expansion</source>
         <translation>Máximo l en los desarrollos atómicos multipolares</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1414"/>
+        <location filename="../mainwindow.cpp" line="1500"/>
         <source>Lowest l</source>
         <translation>Mínimo l</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1420"/>
-        <location filename="../mainwindow.cpp" line="5136"/>
+        <location filename="../mainwindow.cpp" line="1506"/>
+        <location filename="../mainwindow.cpp" line="5249"/>
         <source>Lowest l of atomic multipolar expansion</source>
         <translation>Mínimo l en los desarrollos atómicos multipolares</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1426"/>
-        <location filename="../mainwindow.cpp" line="2001"/>
-        <location filename="../mainwindow.cpp" line="4088"/>
-        <location filename="../mainwindow.cpp" line="4336"/>
-        <location filename="../mainwindow.cpp" line="5140"/>
+        <location filename="../mainwindow.cpp" line="1512"/>
+        <location filename="../mainwindow.cpp" line="2093"/>
+        <location filename="../mainwindow.cpp" line="4201"/>
+        <location filename="../mainwindow.cpp" line="4449"/>
+        <location filename="../mainwindow.cpp" line="5253"/>
         <source>Derivatives</source>
         <translation>Derivadas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1429"/>
-        <location filename="../mainwindow.cpp" line="2004"/>
-        <location filename="../mainwindow.cpp" line="4339"/>
-        <location filename="../mainwindow.cpp" line="5143"/>
+        <location filename="../mainwindow.cpp" line="1515"/>
+        <location filename="../mainwindow.cpp" line="2096"/>
+        <location filename="../mainwindow.cpp" line="4452"/>
+        <location filename="../mainwindow.cpp" line="5256"/>
         <source>Gradient</source>
         <translation>Gradiente</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1430"/>
+        <location filename="../mainwindow.cpp" line="1516"/>
         <source>Tabulate density gradient</source>
         <translation>Tabula el gradiente de la densidad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1434"/>
-        <location filename="../mainwindow.cpp" line="2009"/>
-        <location filename="../mainwindow.cpp" line="4092"/>
+        <location filename="../mainwindow.cpp" line="1520"/>
+        <location filename="../mainwindow.cpp" line="2101"/>
+        <location filename="../mainwindow.cpp" line="4205"/>
         <source>Second derivatives</source>
         <translation>Derivadas segundas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1435"/>
+        <location filename="../mainwindow.cpp" line="1521"/>
         <source>Tabulate second derivatives of density</source>
         <translation>Tabula las derivadas segundas de la densidad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1443"/>
+        <location filename="../mainwindow.cpp" line="1529"/>
         <source>Molecular fragments</source>
         <translation>Fragmentos moleculares</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1446"/>
+        <location filename="../mainwindow.cpp" line="1532"/>
         <source>Molecule</source>
         <translation>Molécula</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1449"/>
-        <location filename="../mainwindow.cpp" line="3041"/>
-        <location filename="../mainwindow.cpp" line="4246"/>
+        <location filename="../mainwindow.cpp" line="1535"/>
+        <location filename="../mainwindow.cpp" line="3145"/>
+        <location filename="../mainwindow.cpp" line="4359"/>
         <source>Atomic fragments</source>
         <translation>Fragmentos atómicos</translation>
     </message>
@@ -1048,655 +1618,788 @@
         <translation type="obsolete">Centro</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1454"/>
+        <location filename="../mainwindow.cpp" line="1540"/>
         <source>Functional group</source>
         <translation>Grupo funcional</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1458"/>
-        <location filename="../mainwindow.cpp" line="3044"/>
-        <location filename="../mainwindow.cpp" line="4094"/>
+        <location filename="../mainwindow.cpp" line="1544"/>
+        <location filename="../mainwindow.cpp" line="3148"/>
+        <location filename="../mainwindow.cpp" line="4207"/>
         <source>Centers</source>
         <translation>Centros</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1477"/>
-        <location filename="../mainwindow.cpp" line="2018"/>
-        <location filename="../mainwindow.cpp" line="4348"/>
-        <location filename="../mainwindow.cpp" line="5152"/>
+        <location filename="../mainwindow.cpp" line="1563"/>
+        <location filename="../mainwindow.cpp" line="2110"/>
+        <location filename="../mainwindow.cpp" line="4461"/>
+        <location filename="../mainwindow.cpp" line="5265"/>
         <source>Grid</source>
         <translation>Malla</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1479"/>
-        <location filename="../mainwindow.cpp" line="2021"/>
-        <location filename="../mainwindow.cpp" line="4351"/>
-        <location filename="../mainwindow.cpp" line="5155"/>
+        <location filename="../mainwindow.cpp" line="1565"/>
+        <location filename="../mainwindow.cpp" line="2113"/>
+        <location filename="../mainwindow.cpp" line="4464"/>
+        <location filename="../mainwindow.cpp" line="5268"/>
         <source>Generate grid</source>
         <translation>Genera la malla</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1483"/>
-        <location filename="../mainwindow.cpp" line="2025"/>
-        <location filename="../mainwindow.cpp" line="4355"/>
-        <location filename="../mainwindow.cpp" line="5159"/>
+        <location filename="../mainwindow.cpp" line="1569"/>
+        <location filename="../mainwindow.cpp" line="2117"/>
+        <location filename="../mainwindow.cpp" line="4468"/>
+        <location filename="../mainwindow.cpp" line="5272"/>
         <source>Grid type</source>
         <translation>Tipo de malla</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1484"/>
-        <location filename="../mainwindow.cpp" line="1492"/>
-        <location filename="../mainwindow.cpp" line="2027"/>
-        <location filename="../mainwindow.cpp" line="2035"/>
-        <location filename="../mainwindow.cpp" line="3173"/>
-        <location filename="../mainwindow.cpp" line="3633"/>
-        <location filename="../mainwindow.cpp" line="4359"/>
-        <location filename="../mainwindow.cpp" line="4363"/>
-        <location filename="../mainwindow.cpp" line="5163"/>
-        <location filename="../mainwindow.cpp" line="5167"/>
+        <location filename="../mainwindow.cpp" line="1570"/>
+        <location filename="../mainwindow.cpp" line="1578"/>
+        <location filename="../mainwindow.cpp" line="2119"/>
+        <location filename="../mainwindow.cpp" line="2127"/>
+        <location filename="../mainwindow.cpp" line="3277"/>
+        <location filename="../mainwindow.cpp" line="3746"/>
+        <location filename="../mainwindow.cpp" line="4472"/>
+        <location filename="../mainwindow.cpp" line="4476"/>
+        <location filename="../mainwindow.cpp" line="5276"/>
+        <location filename="../mainwindow.cpp" line="5280"/>
         <source>2D grid</source>
         <translation>Malla 2D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1486"/>
-        <location filename="../mainwindow.cpp" line="1612"/>
-        <location filename="../mainwindow.cpp" line="2029"/>
-        <location filename="../mainwindow.cpp" line="2157"/>
-        <location filename="../mainwindow.cpp" line="3177"/>
-        <location filename="../mainwindow.cpp" line="3637"/>
-        <location filename="../mainwindow.cpp" line="4483"/>
-        <location filename="../mainwindow.cpp" line="4486"/>
-        <location filename="../mainwindow.cpp" line="5289"/>
-        <location filename="../mainwindow.cpp" line="5293"/>
+        <location filename="../mainwindow.cpp" line="1572"/>
+        <location filename="../mainwindow.cpp" line="1698"/>
+        <location filename="../mainwindow.cpp" line="2121"/>
+        <location filename="../mainwindow.cpp" line="2249"/>
+        <location filename="../mainwindow.cpp" line="3281"/>
+        <location filename="../mainwindow.cpp" line="3750"/>
+        <location filename="../mainwindow.cpp" line="4596"/>
+        <location filename="../mainwindow.cpp" line="4599"/>
+        <location filename="../mainwindow.cpp" line="5402"/>
+        <location filename="../mainwindow.cpp" line="5406"/>
         <source>3D grid</source>
         <translation>Malla 3D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1616"/>
-        <location filename="../mainwindow.cpp" line="1661"/>
-        <location filename="../mainwindow.cpp" line="2161"/>
-        <location filename="../mainwindow.cpp" line="2206"/>
-        <location filename="../mainwindow.cpp" line="3411"/>
-        <location filename="../mainwindow.cpp" line="3872"/>
-        <location filename="../mainwindow.cpp" line="4490"/>
-        <location filename="../mainwindow.cpp" line="4534"/>
-        <location filename="../mainwindow.cpp" line="5297"/>
-        <location filename="../mainwindow.cpp" line="5342"/>
+        <location filename="../mainwindow.cpp" line="1702"/>
+        <location filename="../mainwindow.cpp" line="1747"/>
+        <location filename="../mainwindow.cpp" line="2253"/>
+        <location filename="../mainwindow.cpp" line="2298"/>
+        <location filename="../mainwindow.cpp" line="3521"/>
+        <location filename="../mainwindow.cpp" line="3985"/>
+        <location filename="../mainwindow.cpp" line="4603"/>
+        <location filename="../mainwindow.cpp" line="4647"/>
+        <location filename="../mainwindow.cpp" line="5410"/>
+        <location filename="../mainwindow.cpp" line="5455"/>
         <source>x</source>
         <translation>x</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1617"/>
-        <location filename="../mainwindow.cpp" line="1662"/>
-        <location filename="../mainwindow.cpp" line="2162"/>
-        <location filename="../mainwindow.cpp" line="2207"/>
-        <location filename="../mainwindow.cpp" line="3412"/>
-        <location filename="../mainwindow.cpp" line="3873"/>
-        <location filename="../mainwindow.cpp" line="4491"/>
-        <location filename="../mainwindow.cpp" line="4535"/>
-        <location filename="../mainwindow.cpp" line="5298"/>
-        <location filename="../mainwindow.cpp" line="5343"/>
+        <location filename="../mainwindow.cpp" line="1703"/>
+        <location filename="../mainwindow.cpp" line="1748"/>
+        <location filename="../mainwindow.cpp" line="2254"/>
+        <location filename="../mainwindow.cpp" line="2299"/>
+        <location filename="../mainwindow.cpp" line="3522"/>
+        <location filename="../mainwindow.cpp" line="3986"/>
+        <location filename="../mainwindow.cpp" line="4604"/>
+        <location filename="../mainwindow.cpp" line="4648"/>
+        <location filename="../mainwindow.cpp" line="5411"/>
+        <location filename="../mainwindow.cpp" line="5456"/>
         <source>y</source>
         <translation>y</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1618"/>
-        <location filename="../mainwindow.cpp" line="1663"/>
-        <location filename="../mainwindow.cpp" line="2163"/>
-        <location filename="../mainwindow.cpp" line="2208"/>
-        <location filename="../mainwindow.cpp" line="3413"/>
-        <location filename="../mainwindow.cpp" line="3874"/>
-        <location filename="../mainwindow.cpp" line="4492"/>
-        <location filename="../mainwindow.cpp" line="4536"/>
-        <location filename="../mainwindow.cpp" line="5299"/>
-        <location filename="../mainwindow.cpp" line="5344"/>
+        <location filename="../mainwindow.cpp" line="1704"/>
+        <location filename="../mainwindow.cpp" line="1749"/>
+        <location filename="../mainwindow.cpp" line="2255"/>
+        <location filename="../mainwindow.cpp" line="2300"/>
+        <location filename="../mainwindow.cpp" line="3523"/>
+        <location filename="../mainwindow.cpp" line="3987"/>
+        <location filename="../mainwindow.cpp" line="4605"/>
+        <location filename="../mainwindow.cpp" line="4649"/>
+        <location filename="../mainwindow.cpp" line="5412"/>
+        <location filename="../mainwindow.cpp" line="5457"/>
         <source>z</source>
         <translation>z</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1498"/>
-        <location filename="../mainwindow.cpp" line="1619"/>
-        <location filename="../mainwindow.cpp" line="2041"/>
-        <location filename="../mainwindow.cpp" line="2164"/>
-        <location filename="../mainwindow.cpp" line="3403"/>
-        <location filename="../mainwindow.cpp" line="3414"/>
-        <location filename="../mainwindow.cpp" line="3864"/>
-        <location filename="../mainwindow.cpp" line="3875"/>
-        <location filename="../mainwindow.cpp" line="4369"/>
-        <location filename="../mainwindow.cpp" line="4493"/>
-        <location filename="../mainwindow.cpp" line="5173"/>
-        <location filename="../mainwindow.cpp" line="5300"/>
+        <location filename="../mainwindow.cpp" line="1584"/>
+        <location filename="../mainwindow.cpp" line="1705"/>
+        <location filename="../mainwindow.cpp" line="2133"/>
+        <location filename="../mainwindow.cpp" line="2256"/>
+        <location filename="../mainwindow.cpp" line="3513"/>
+        <location filename="../mainwindow.cpp" line="3524"/>
+        <location filename="../mainwindow.cpp" line="3977"/>
+        <location filename="../mainwindow.cpp" line="3988"/>
+        <location filename="../mainwindow.cpp" line="4482"/>
+        <location filename="../mainwindow.cpp" line="4606"/>
+        <location filename="../mainwindow.cpp" line="5286"/>
+        <location filename="../mainwindow.cpp" line="5413"/>
         <source>Lowest</source>
         <translation>Mínimo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1499"/>
-        <location filename="../mainwindow.cpp" line="1620"/>
-        <location filename="../mainwindow.cpp" line="2042"/>
-        <location filename="../mainwindow.cpp" line="2165"/>
-        <location filename="../mainwindow.cpp" line="3404"/>
-        <location filename="../mainwindow.cpp" line="3415"/>
-        <location filename="../mainwindow.cpp" line="3865"/>
-        <location filename="../mainwindow.cpp" line="3876"/>
-        <location filename="../mainwindow.cpp" line="4370"/>
-        <location filename="../mainwindow.cpp" line="4494"/>
-        <location filename="../mainwindow.cpp" line="5174"/>
-        <location filename="../mainwindow.cpp" line="5301"/>
+        <location filename="../mainwindow.cpp" line="1585"/>
+        <location filename="../mainwindow.cpp" line="1706"/>
+        <location filename="../mainwindow.cpp" line="2134"/>
+        <location filename="../mainwindow.cpp" line="2257"/>
+        <location filename="../mainwindow.cpp" line="3514"/>
+        <location filename="../mainwindow.cpp" line="3525"/>
+        <location filename="../mainwindow.cpp" line="3978"/>
+        <location filename="../mainwindow.cpp" line="3989"/>
+        <location filename="../mainwindow.cpp" line="4483"/>
+        <location filename="../mainwindow.cpp" line="4607"/>
+        <location filename="../mainwindow.cpp" line="5287"/>
+        <location filename="../mainwindow.cpp" line="5414"/>
         <source>Highest</source>
         <translation>Máximo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1496"/>
-        <location filename="../mainwindow.cpp" line="1595"/>
-        <location filename="../mainwindow.cpp" line="2039"/>
-        <location filename="../mainwindow.cpp" line="2140"/>
-        <location filename="../mainwindow.cpp" line="3401"/>
-        <location filename="../mainwindow.cpp" line="3862"/>
-        <location filename="../mainwindow.cpp" line="4367"/>
-        <location filename="../mainwindow.cpp" line="4466"/>
-        <location filename="../mainwindow.cpp" line="5171"/>
-        <location filename="../mainwindow.cpp" line="5272"/>
+        <location filename="../mainwindow.cpp" line="1582"/>
+        <location filename="../mainwindow.cpp" line="1681"/>
+        <location filename="../mainwindow.cpp" line="2131"/>
+        <location filename="../mainwindow.cpp" line="2232"/>
+        <location filename="../mainwindow.cpp" line="3511"/>
+        <location filename="../mainwindow.cpp" line="3975"/>
+        <location filename="../mainwindow.cpp" line="4480"/>
+        <location filename="../mainwindow.cpp" line="4579"/>
+        <location filename="../mainwindow.cpp" line="5284"/>
+        <location filename="../mainwindow.cpp" line="5385"/>
         <source>u</source>
         <translation>u</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1497"/>
-        <location filename="../mainwindow.cpp" line="1596"/>
-        <location filename="../mainwindow.cpp" line="2040"/>
-        <location filename="../mainwindow.cpp" line="2141"/>
-        <location filename="../mainwindow.cpp" line="3402"/>
-        <location filename="../mainwindow.cpp" line="3863"/>
-        <location filename="../mainwindow.cpp" line="4368"/>
-        <location filename="../mainwindow.cpp" line="4467"/>
-        <location filename="../mainwindow.cpp" line="5172"/>
-        <location filename="../mainwindow.cpp" line="5273"/>
+        <location filename="../mainwindow.cpp" line="1583"/>
+        <location filename="../mainwindow.cpp" line="1682"/>
+        <location filename="../mainwindow.cpp" line="2132"/>
+        <location filename="../mainwindow.cpp" line="2233"/>
+        <location filename="../mainwindow.cpp" line="3512"/>
+        <location filename="../mainwindow.cpp" line="3976"/>
+        <location filename="../mainwindow.cpp" line="4481"/>
+        <location filename="../mainwindow.cpp" line="4580"/>
+        <location filename="../mainwindow.cpp" line="5285"/>
+        <location filename="../mainwindow.cpp" line="5386"/>
         <source>v</source>
         <translation>v</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1529"/>
-        <location filename="../mainwindow.cpp" line="2072"/>
-        <location filename="../mainwindow.cpp" line="4400"/>
-        <location filename="../mainwindow.cpp" line="5204"/>
+        <location filename="../mainwindow.cpp" line="1615"/>
+        <location filename="../mainwindow.cpp" line="2164"/>
+        <location filename="../mainwindow.cpp" line="4513"/>
+        <location filename="../mainwindow.cpp" line="5317"/>
         <source>x(u,v) = </source>
-        <translation>x(u,v) =</translation>
+        <translation>x(u,v) = </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1530"/>
-        <location filename="../mainwindow.cpp" line="2073"/>
-        <location filename="../mainwindow.cpp" line="4401"/>
-        <location filename="../mainwindow.cpp" line="5205"/>
+        <location filename="../mainwindow.cpp" line="1616"/>
+        <location filename="../mainwindow.cpp" line="2165"/>
+        <location filename="../mainwindow.cpp" line="4514"/>
+        <location filename="../mainwindow.cpp" line="5318"/>
         <source>y(u,v) = </source>
-        <translation>y(u,v) =</translation>
+        <translation>y(u,v) = </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1531"/>
-        <location filename="../mainwindow.cpp" line="2074"/>
-        <location filename="../mainwindow.cpp" line="4402"/>
-        <location filename="../mainwindow.cpp" line="5206"/>
+        <location filename="../mainwindow.cpp" line="1617"/>
+        <location filename="../mainwindow.cpp" line="2166"/>
+        <location filename="../mainwindow.cpp" line="4515"/>
+        <location filename="../mainwindow.cpp" line="5319"/>
         <source>z(u,v) = </source>
-        <translation>z(u,v) =</translation>
+        <translation>z(u,v) = </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1700"/>
-        <location filename="../mainwindow.cpp" line="2245"/>
-        <location filename="../mainwindow.cpp" line="4558"/>
-        <location filename="../mainwindow.cpp" line="5381"/>
+        <location filename="../mainwindow.cpp" line="1786"/>
+        <location filename="../mainwindow.cpp" line="2337"/>
+        <location filename="../mainwindow.cpp" line="4671"/>
+        <location filename="../mainwindow.cpp" line="5494"/>
         <source>Resolution</source>
         <translation>Resolución</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1702"/>
-        <location filename="../mainwindow.cpp" line="2247"/>
-        <location filename="../mainwindow.cpp" line="4560"/>
-        <location filename="../mainwindow.cpp" line="5383"/>
+        <location filename="../mainwindow.cpp" line="1788"/>
+        <location filename="../mainwindow.cpp" line="2339"/>
+        <location filename="../mainwindow.cpp" line="4673"/>
+        <location filename="../mainwindow.cpp" line="5496"/>
         <source>Low</source>
         <translation>Baja</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1706"/>
-        <location filename="../mainwindow.cpp" line="2251"/>
-        <location filename="../mainwindow.cpp" line="4564"/>
-        <location filename="../mainwindow.cpp" line="5387"/>
+        <location filename="../mainwindow.cpp" line="1792"/>
+        <location filename="../mainwindow.cpp" line="2343"/>
+        <location filename="../mainwindow.cpp" line="4677"/>
+        <location filename="../mainwindow.cpp" line="5500"/>
         <source>Medium</source>
         <translation>Media</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1709"/>
-        <location filename="../mainwindow.cpp" line="2254"/>
-        <location filename="../mainwindow.cpp" line="4567"/>
-        <location filename="../mainwindow.cpp" line="5390"/>
+        <location filename="../mainwindow.cpp" line="1795"/>
+        <location filename="../mainwindow.cpp" line="2346"/>
+        <location filename="../mainwindow.cpp" line="4680"/>
+        <location filename="../mainwindow.cpp" line="5503"/>
         <source>High</source>
         <translation>Alta</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1712"/>
-        <location filename="../mainwindow.cpp" line="2257"/>
-        <location filename="../mainwindow.cpp" line="4570"/>
-        <location filename="../mainwindow.cpp" line="5393"/>
+        <location filename="../mainwindow.cpp" line="1798"/>
+        <location filename="../mainwindow.cpp" line="2349"/>
+        <location filename="../mainwindow.cpp" line="4683"/>
+        <location filename="../mainwindow.cpp" line="5506"/>
         <source>Custom</source>
         <translation>Otra</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1592"/>
-        <location filename="../mainwindow.cpp" line="1658"/>
-        <location filename="../mainwindow.cpp" line="2137"/>
-        <location filename="../mainwindow.cpp" line="2203"/>
-        <location filename="../mainwindow.cpp" line="4463"/>
-        <location filename="../mainwindow.cpp" line="4531"/>
-        <location filename="../mainwindow.cpp" line="5269"/>
-        <location filename="../mainwindow.cpp" line="5339"/>
+        <location filename="../mainwindow.cpp" line="1678"/>
+        <location filename="../mainwindow.cpp" line="1744"/>
+        <location filename="../mainwindow.cpp" line="2229"/>
+        <location filename="../mainwindow.cpp" line="2295"/>
+        <location filename="../mainwindow.cpp" line="4576"/>
+        <location filename="../mainwindow.cpp" line="4644"/>
+        <location filename="../mainwindow.cpp" line="5382"/>
+        <location filename="../mainwindow.cpp" line="5452"/>
         <source>Custom resolution</source>
         <translation>Resolución elegida por el usuario</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="510"/>
+        <location filename="../mainwindow.cpp" line="238"/>
+        <source>submitOutput</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="239"/>
+        <source>Failed opening %1 output file. Error: %1
+</source>
+        <translation>Falló al abrir el archivo de salida %1. Error: %1
+</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="287"/>
+        <source>E&amp;xternal</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="288"/>
+        <source>Ctrl+E</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="289"/>
+        <source>External packages</source>
+        <translation>Programas externos</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="557"/>
         <source>Project %1 cannot be opened</source>
         <translation>No se puede abrir el proyecto %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="632"/>
-        <source>Copyright &amp;copy; 2008-2021</source>
-        <translation>Copyright&amp;copy; 2008-2021</translation>
+        <location filename="../mainwindow.cpp" line="678"/>
+        <source>DAMQT 3.2</source>
+        <translation>DAMQT 3.2</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="717"/>
-        <location filename="../mainwindow.cpp" line="14604"/>
+        <location filename="../mainwindow.cpp" line="767"/>
+        <location filename="../mainwindow.cpp" line="15122"/>
         <source>New 2D Plotter</source>
         <translation>Nuevo visor 2D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="718"/>
-        <location filename="../mainwindow.cpp" line="14605"/>
+        <location filename="../mainwindow.cpp" line="768"/>
+        <location filename="../mainwindow.cpp" line="15123"/>
         <source>Creates a new window for 2D plotting</source>
         <translation>Crea una ventana para gráficas 2D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="721"/>
-        <location filename="../mainwindow.cpp" line="14608"/>
+        <location filename="../mainwindow.cpp" line="771"/>
+        <location filename="../mainwindow.cpp" line="15126"/>
         <source>2D plotters</source>
         <translation>Gráficas 2D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="740"/>
+        <location filename="../mainwindow.cpp" line="790"/>
         <source>New 3D Window</source>
         <translation>Nueva ventana 3D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="741"/>
+        <location filename="../mainwindow.cpp" line="791"/>
         <source>Creates a new window for 3D Viewer</source>
         <translation>Crea una ventana con visor 3D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="744"/>
-        <location filename="../mainwindow.cpp" line="14679"/>
+        <location filename="../mainwindow.cpp" line="794"/>
+        <location filename="../mainwindow.cpp" line="15196"/>
         <source>3D viewers</source>
         <translation>Visores 3D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="778"/>
+        <location filename="../mainwindow.cpp" line="829"/>
         <source>&amp;Graphics</source>
         <translation>&amp;Gráficas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="801"/>
+        <location filename="../mainwindow.cpp" line="853"/>
         <source>Graphics</source>
         <translation>Gráficas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="949"/>
+        <location filename="../mainwindow.cpp" line="1005"/>
         <source>Mesp sigma hole</source>
         <translation>Mesp sigma hole</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="967"/>
+        <location filename="../mainwindow.cpp" line="1023"/>
         <source>Density gradient</source>
         <translation>Gradiente de la densidad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1003"/>
+        <location filename="../mainwindow.cpp" line="1059"/>
         <source>Zernike-Jacobi density expansion</source>
         <translation>Desarrollo Zernike-Jacobi de la densidad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1012"/>
+        <location filename="../mainwindow.cpp" line="1068"/>
         <source>Zernike-Jacobi density tabulation</source>
         <translation>Tabulacion de la densidad Zernike-Jacobi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1086"/>
+        <location filename="../mainwindow.cpp" line="1142"/>
         <source>Raise viewers</source>
         <translation>Mostrar visores</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1087"/>
+        <location filename="../mainwindow.cpp" line="1143"/>
         <source>Moves viewers to front</source>
         <translation>Muestra los visores</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1371"/>
+        <location filename="../mainwindow.cpp" line="1324"/>
+        <source>Fitting threshold: 10^</source>
+        <translation>Umbral para el ajuste: 10^</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="1325"/>
+        <source>Threshold for truncating expansions of radial factors </source>
+        <translation>Umbral para el truncamiento de los factores radiales </translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="1326"/>
+        <source>Cutoff threshold: 10^</source>
+        <translation>Umbral de corte: 10^</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="1327"/>
+        <source>Threshold for neglecting radial factors </source>
+        <translation>Umbral para despreciar factores radiales </translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="1457"/>
         <source>Data origin</source>
         <translation>Origen de datos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1385"/>
+        <location filename="../mainwindow.cpp" line="1471"/>
         <source>Density options</source>
         <translation>Opciones de densidad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1388"/>
-        <location filename="../mainwindow.cpp" line="1389"/>
+        <location filename="../mainwindow.cpp" line="1474"/>
+        <location filename="../mainwindow.cpp" line="1475"/>
         <source>Full electron density</source>
         <translation>Densidad completa</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1393"/>
+        <location filename="../mainwindow.cpp" line="1479"/>
         <source>Density deformations</source>
         <translation>Deformaciones de la densidad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1394"/>
+        <location filename="../mainwindow.cpp" line="1480"/>
         <source>Electron density deformations (atomic terms with l=0 excluded)</source>
         <translation>Deformaciones de la densidad electrónicas (excluidos los términos atómicos con l=0)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1397"/>
+        <location filename="../mainwindow.cpp" line="1483"/>
         <source>Contributions to density</source>
         <translation>Contribuciones a la densidad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1398"/>
+        <location filename="../mainwindow.cpp" line="1484"/>
         <source>Atomic terms of given range on l</source>
         <translation>Términos atómicos en un intervalo de l</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1438"/>
+        <location filename="../mainwindow.cpp" line="1524"/>
         <source>Laplacian</source>
         <translation>Laplaciano</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1439"/>
+        <location filename="../mainwindow.cpp" line="1525"/>
         <source>Tabulate Laplacian of density</source>
         <translation>Tabula el laplaciano de la densidad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1525"/>
-        <location filename="../mainwindow.cpp" line="2068"/>
-        <location filename="../mainwindow.cpp" line="4396"/>
-        <location filename="../mainwindow.cpp" line="5200"/>
+        <location filename="../mainwindow.cpp" line="1611"/>
+        <location filename="../mainwindow.cpp" line="2160"/>
+        <location filename="../mainwindow.cpp" line="4509"/>
+        <location filename="../mainwindow.cpp" line="5313"/>
         <source>Parametric equations</source>
         <translation>Ecuaciones paramétricas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1540"/>
-        <location filename="../mainwindow.cpp" line="2085"/>
-        <location filename="../mainwindow.cpp" line="4413"/>
-        <location filename="../mainwindow.cpp" line="5217"/>
+        <location filename="../mainwindow.cpp" line="1626"/>
+        <location filename="../mainwindow.cpp" line="2177"/>
+        <location filename="../mainwindow.cpp" line="4526"/>
+        <location filename="../mainwindow.cpp" line="5330"/>
         <source>Surface type</source>
         <translation>Tipo de superficie</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1543"/>
-        <location filename="../mainwindow.cpp" line="2088"/>
-        <location filename="../mainwindow.cpp" line="4415"/>
-        <location filename="../mainwindow.cpp" line="5220"/>
+        <location filename="../mainwindow.cpp" line="1629"/>
+        <location filename="../mainwindow.cpp" line="2180"/>
+        <location filename="../mainwindow.cpp" line="4528"/>
+        <location filename="../mainwindow.cpp" line="5333"/>
         <source>Plane</source>
         <translation>Plano</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1547"/>
-        <location filename="../mainwindow.cpp" line="2092"/>
-        <location filename="../mainwindow.cpp" line="4419"/>
-        <location filename="../mainwindow.cpp" line="5224"/>
+        <location filename="../mainwindow.cpp" line="1633"/>
+        <location filename="../mainwindow.cpp" line="2184"/>
+        <location filename="../mainwindow.cpp" line="4532"/>
+        <location filename="../mainwindow.cpp" line="5337"/>
         <source>Parametric surface</source>
         <translation>Superficie paramétrica</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1548"/>
-        <location filename="../mainwindow.cpp" line="2093"/>
-        <location filename="../mainwindow.cpp" line="4420"/>
-        <location filename="../mainwindow.cpp" line="5225"/>
+        <location filename="../mainwindow.cpp" line="1634"/>
+        <location filename="../mainwindow.cpp" line="2185"/>
+        <location filename="../mainwindow.cpp" line="4533"/>
+        <location filename="../mainwindow.cpp" line="5338"/>
         <source>Surface equation supplied in parametric form: x=x(u,v), y=y(u,v), z=z(u,v)</source>
         <translation>Ecuación de la superficie en forma paramétrica:x= x(u,v), y=y(u,v), z=z(u,v)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1551"/>
-        <location filename="../mainwindow.cpp" line="2096"/>
-        <location filename="../mainwindow.cpp" line="3208"/>
-        <location filename="../mainwindow.cpp" line="3668"/>
-        <location filename="../mainwindow.cpp" line="4423"/>
-        <location filename="../mainwindow.cpp" line="5228"/>
+        <location filename="../mainwindow.cpp" line="1637"/>
+        <location filename="../mainwindow.cpp" line="2188"/>
+        <location filename="../mainwindow.cpp" line="3312"/>
+        <location filename="../mainwindow.cpp" line="3781"/>
+        <location filename="../mainwindow.cpp" line="4536"/>
+        <location filename="../mainwindow.cpp" line="5341"/>
         <source>2D Planes</source>
         <translation>Planos 2D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1555"/>
-        <location filename="../mainwindow.cpp" line="2100"/>
-        <location filename="../mainwindow.cpp" line="3212"/>
-        <location filename="../mainwindow.cpp" line="3672"/>
-        <location filename="../mainwindow.cpp" line="4427"/>
-        <location filename="../mainwindow.cpp" line="5232"/>
+        <location filename="../mainwindow.cpp" line="1641"/>
+        <location filename="../mainwindow.cpp" line="2192"/>
+        <location filename="../mainwindow.cpp" line="3316"/>
+        <location filename="../mainwindow.cpp" line="3785"/>
+        <location filename="../mainwindow.cpp" line="4540"/>
+        <location filename="../mainwindow.cpp" line="5345"/>
         <source>XY </source>
-        <translation>XY</translation>
+        <translation>XY </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1559"/>
-        <location filename="../mainwindow.cpp" line="2104"/>
-        <location filename="../mainwindow.cpp" line="3216"/>
-        <location filename="../mainwindow.cpp" line="3676"/>
-        <location filename="../mainwindow.cpp" line="4431"/>
-        <location filename="../mainwindow.cpp" line="5236"/>
+        <location filename="../mainwindow.cpp" line="1645"/>
+        <location filename="../mainwindow.cpp" line="2196"/>
+        <location filename="../mainwindow.cpp" line="3320"/>
+        <location filename="../mainwindow.cpp" line="3789"/>
+        <location filename="../mainwindow.cpp" line="4544"/>
+        <location filename="../mainwindow.cpp" line="5349"/>
         <source>XZ </source>
-        <translation>XZ</translation>
+        <translation>XZ </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1563"/>
-        <location filename="../mainwindow.cpp" line="2108"/>
-        <location filename="../mainwindow.cpp" line="3220"/>
-        <location filename="../mainwindow.cpp" line="3680"/>
-        <location filename="../mainwindow.cpp" line="4435"/>
-        <location filename="../mainwindow.cpp" line="5240"/>
+        <location filename="../mainwindow.cpp" line="1649"/>
+        <location filename="../mainwindow.cpp" line="2200"/>
+        <location filename="../mainwindow.cpp" line="3324"/>
+        <location filename="../mainwindow.cpp" line="3793"/>
+        <location filename="../mainwindow.cpp" line="4548"/>
+        <location filename="../mainwindow.cpp" line="5353"/>
         <source>YZ </source>
-        <translation>YZ</translation>
+        <translation>YZ </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1567"/>
-        <location filename="../mainwindow.cpp" line="2112"/>
-        <location filename="../mainwindow.cpp" line="3224"/>
-        <location filename="../mainwindow.cpp" line="3684"/>
-        <location filename="../mainwindow.cpp" line="4439"/>
-        <location filename="../mainwindow.cpp" line="5244"/>
+        <location filename="../mainwindow.cpp" line="1653"/>
+        <location filename="../mainwindow.cpp" line="2204"/>
+        <location filename="../mainwindow.cpp" line="3328"/>
+        <location filename="../mainwindow.cpp" line="3797"/>
+        <location filename="../mainwindow.cpp" line="4552"/>
+        <location filename="../mainwindow.cpp" line="5357"/>
         <source>Other </source>
-        <translation>Otros</translation>
+        <translation>Otros </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1571"/>
-        <location filename="../mainwindow.cpp" line="2116"/>
-        <location filename="../mainwindow.cpp" line="3228"/>
-        <location filename="../mainwindow.cpp" line="3688"/>
-        <location filename="../mainwindow.cpp" line="4443"/>
-        <location filename="../mainwindow.cpp" line="5248"/>
+        <location filename="../mainwindow.cpp" line="1657"/>
+        <location filename="../mainwindow.cpp" line="2208"/>
+        <location filename="../mainwindow.cpp" line="3332"/>
+        <location filename="../mainwindow.cpp" line="3801"/>
+        <location filename="../mainwindow.cpp" line="4556"/>
+        <location filename="../mainwindow.cpp" line="5361"/>
         <source>Plane parameters</source>
         <translation>Parámetros de los planos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1683"/>
-        <location filename="../mainwindow.cpp" line="2228"/>
-        <location filename="../mainwindow.cpp" line="5364"/>
+        <location filename="../mainwindow.cpp" line="1769"/>
+        <location filename="../mainwindow.cpp" line="2320"/>
+        <location filename="../mainwindow.cpp" line="5477"/>
         <source>Tabulation</source>
         <translation>Tabulación</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1686"/>
-        <location filename="../mainwindow.cpp" line="2231"/>
-        <location filename="../mainwindow.cpp" line="4027"/>
-        <location filename="../mainwindow.cpp" line="5367"/>
+        <location filename="../mainwindow.cpp" line="1772"/>
+        <location filename="../mainwindow.cpp" line="2323"/>
+        <location filename="../mainwindow.cpp" line="4140"/>
+        <location filename="../mainwindow.cpp" line="5480"/>
         <source>Tabulation points</source>
         <translation>Puntos de tabulación</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1765"/>
-        <location filename="../mainwindow.cpp" line="5447"/>
+        <location filename="../mainwindow.cpp" line="1851"/>
+        <location filename="../mainwindow.cpp" line="5560"/>
         <source>Generate grids</source>
         <translation>Genera las mallas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1781"/>
-        <location filename="../mainwindow.cpp" line="2327"/>
-        <location filename="../mainwindow.cpp" line="3405"/>
-        <location filename="../mainwindow.cpp" line="3866"/>
-        <location filename="../mainwindow.cpp" line="4639"/>
-        <location filename="../mainwindow.cpp" line="5463"/>
+        <location filename="../mainwindow.cpp" line="1867"/>
+        <location filename="../mainwindow.cpp" line="2419"/>
+        <location filename="../mainwindow.cpp" line="3515"/>
+        <location filename="../mainwindow.cpp" line="3979"/>
+        <location filename="../mainwindow.cpp" line="4752"/>
+        <location filename="../mainwindow.cpp" line="5576"/>
         <source>(A x + B y + C z = 0)</source>
         <translation>(A x + B y + C z = 0)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1782"/>
-        <location filename="../mainwindow.cpp" line="2328"/>
-        <location filename="../mainwindow.cpp" line="3406"/>
-        <location filename="../mainwindow.cpp" line="3867"/>
-        <location filename="../mainwindow.cpp" line="4640"/>
-        <location filename="../mainwindow.cpp" line="5464"/>
+        <location filename="../mainwindow.cpp" line="1868"/>
+        <location filename="../mainwindow.cpp" line="2420"/>
+        <location filename="../mainwindow.cpp" line="3516"/>
+        <location filename="../mainwindow.cpp" line="3980"/>
+        <location filename="../mainwindow.cpp" line="4753"/>
+        <location filename="../mainwindow.cpp" line="5577"/>
         <source>A: </source>
-        <translation>A:</translation>
+        <translation>A: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1783"/>
-        <location filename="../mainwindow.cpp" line="2329"/>
-        <location filename="../mainwindow.cpp" line="3407"/>
-        <location filename="../mainwindow.cpp" line="3868"/>
-        <location filename="../mainwindow.cpp" line="4641"/>
-        <location filename="../mainwindow.cpp" line="5465"/>
+        <location filename="../mainwindow.cpp" line="1869"/>
+        <location filename="../mainwindow.cpp" line="2421"/>
+        <location filename="../mainwindow.cpp" line="3517"/>
+        <location filename="../mainwindow.cpp" line="3981"/>
+        <location filename="../mainwindow.cpp" line="4754"/>
+        <location filename="../mainwindow.cpp" line="5578"/>
         <source>B: </source>
-        <translation>B:</translation>
+        <translation>B: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1784"/>
-        <location filename="../mainwindow.cpp" line="2330"/>
-        <location filename="../mainwindow.cpp" line="3408"/>
-        <location filename="../mainwindow.cpp" line="3869"/>
-        <location filename="../mainwindow.cpp" line="4642"/>
-        <location filename="../mainwindow.cpp" line="5466"/>
+        <location filename="../mainwindow.cpp" line="1870"/>
+        <location filename="../mainwindow.cpp" line="2422"/>
+        <location filename="../mainwindow.cpp" line="3518"/>
+        <location filename="../mainwindow.cpp" line="3982"/>
+        <location filename="../mainwindow.cpp" line="4755"/>
+        <location filename="../mainwindow.cpp" line="5579"/>
         <source>C: </source>
-        <translation>C:</translation>
+        <translation>C: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1984"/>
-        <location filename="../mainwindow.cpp" line="3118"/>
-        <location filename="../mainwindow.cpp" line="3578"/>
+        <location filename="../mainwindow.cpp" line="2060"/>
+        <location filename="../mainwindow.cpp" line="3002"/>
+        <source>Exact potential</source>
+        <translation>Potencial exacto</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="2062"/>
+        <source>Electrostatic potential computed from density matrix and basis set</source>
+        <translation>Potencial electrostático calculado a partir de la matriz de densidad y de la base</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="2076"/>
+        <location filename="../mainwindow.cpp" line="3222"/>
+        <location filename="../mainwindow.cpp" line="3691"/>
         <source>Long-range</source>
         <translation>Largo alcance</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1987"/>
-        <location filename="../mainwindow.cpp" line="3121"/>
+        <location filename="../mainwindow.cpp" line="2079"/>
+        <location filename="../mainwindow.cpp" line="3225"/>
         <source>Long-range only</source>
         <translation>Solo largo alcance</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="1991"/>
-        <location filename="../mainwindow.cpp" line="2899"/>
-        <location filename="../mainwindow.cpp" line="3125"/>
-        <location filename="../mainwindow.cpp" line="3581"/>
+        <location filename="../mainwindow.cpp" line="2083"/>
+        <location filename="../mainwindow.cpp" line="2993"/>
+        <location filename="../mainwindow.cpp" line="3229"/>
+        <location filename="../mainwindow.cpp" line="3694"/>
         <source>Long-range threshold:</source>
         <translation>Umbral del largo alcance:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2005"/>
+        <location filename="../mainwindow.cpp" line="2097"/>
         <source>Tabulate electrostatic potential gradient</source>
         <translation>Tabular el gradiente del potencial electrostático</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2010"/>
+        <location filename="../mainwindow.cpp" line="2102"/>
         <source>Tabulate second derivatives of electrostatic potential</source>
         <translation>Tabular las derivadas segundas del potencial electrostático</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2311"/>
+        <location filename="../mainwindow.cpp" line="2403"/>
         <source>Electrostatic potential calculation</source>
         <translation>Cálculo del potencial electrostático</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2495"/>
+        <location filename="../mainwindow.cpp" line="2589"/>
         <source>Topography type</source>
         <translation>Tipo de topografía</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2498"/>
+        <location filename="../mainwindow.cpp" line="2592"/>
         <source>Molecular density</source>
         <translation>Densidad molecular</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2502"/>
+        <location filename="../mainwindow.cpp" line="2596"/>
         <source>Molecular potential</source>
         <translation>Potencial molecular</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2513"/>
+        <location filename="../mainwindow.cpp" line="2607"/>
         <source>Topography mapping</source>
         <translation>Topografía</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2516"/>
+        <location filename="../mainwindow.cpp" line="2610"/>
         <source>Map critical points</source>
         <translation>Puntos críticos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2520"/>
+        <location filename="../mainwindow.cpp" line="2614"/>
         <source>Box margins size</source>
         <translation>Tamaño de caja</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2530"/>
+        <location filename="../mainwindow.cpp" line="2624"/>
         <source>Box size around default guess points</source>
         <translation>Tamaño de caja alrededor de los puntos de partida</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2532"/>
+        <location filename="../mainwindow.cpp" line="2626"/>
         <source>Convergence threshold</source>
         <translation>Umbral de convergencia</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2538"/>
+        <location filename="../mainwindow.cpp" line="2632"/>
         <source>Convergence threshold. Recommended: 4.0E-12 for MESP and 4.0E-15 for MED</source>
         <translation>Umbral de convergencia. Recomendado:4.0E-12 para MESP y 4.0E-15 para MED</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6389"/>
+        <location filename="../mainwindow.cpp" line="3339"/>
+        <source>A critical point lays on the plane if its distance is lower than this</source>
+        <translation>Un punto crítico se considera en el plano si su distancia es menor que esta</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="3526"/>
+        <source>Basins tolerance</source>
+        <translation>Tolerancia para las cuencas</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="6591"/>
         <source>Check that the program is installed in any of the following directories: 
  %1 
  %2 
 </source>
-        <translation>Compruebe que el programa esté instalado en alguno de los siguientes directorios</translation>
+        <translation>Compruebe que el programa esté instalado en alguno de los siguientes directorios
+ %1 
+ %2 
+</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6396"/>
+        <location filename="../mainwindow.cpp" line="6598"/>
         <source>Check that the program is installed in the directory: 
  %1 
 </source>
-        <translation>Compruebe que el programa esté instalado en el directorio</translation>
+        <translation>Compruebe que el programa esté instalado en el directorio:
+ %1 
+</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14719"/>
+        <location filename="../mainwindow.cpp" line="6824"/>
+        <source>CC Total density matrix</source>
+        <translation>Matriz de densidad total CC</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="6825"/>
+        <source>CC Spin density matrix</source>
+        <translation>Matriz de densidad de espín CC</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="9633"/>
+        <source>File %1 does not exist</source>
+        <translation>El archivo %1 no existe</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="11082"/>
+        <location filename="../mainwindow.cpp" line="12086"/>
+        <source>Do not display this message again</source>
+        <translation>No vuelva a mostrar este mensaje</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="11084"/>
+        <location filename="../mainwindow.cpp" line="12088"/>
+        <source>Beware that MESP calculation from density matrix and basis set </source>
+        <translation>Tenga en cuenta que el cálculo del potencial a partir de la matriz de densidad y de la base </translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="11085"/>
+        <location filename="../mainwindow.cpp" line="12089"/>
+        <source>is a lengthy process. 
+This option is intended only for testing purposes. </source>
+        <translation>es un proceso lento. 
+Esta opción está pensada solo para comprobaciones. </translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="11086"/>
+        <location filename="../mainwindow.cpp" line="12090"/>
+        <source>
+It may take too much time in MESP tabulation of large systems on grids</source>
+        <translation>
+La tabulación del potencial de sistemas grandes en una malla puede llevar mucho tiempo</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="15244"/>
         <source>Executable file %1 does not exist
 
 </source>
-        <translation>El archivo ejecutable %1 no existe</translation>
+        <translation>El archivo ejecutable %1 no existe
+
+</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14720"/>
+        <location filename="../mainwindow.cpp" line="15245"/>
         <source>Check that the program is installed in any of the following directories: 
 
  %1 
  %2 
 
 </source>
-        <translation>Compruebe que el programa esté instalado en alguno de los siguientes directorios</translation>
+        <translation>Compruebe que el programa esté instalado en alguno de los siguientes directorios:
+
+ %1 
+ %2 
+
+</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14723"/>
+        <location filename="../mainwindow.cpp" line="15248"/>
         <source>or in any other directory available in your $PATH</source>
         <translation>o en cualquier otro directorio contenido en $PATH</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="15278"/>
+        <source>get_python</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="15278"/>
+        <source>Python not found</source>
+        <translation>No encuentra python</translation>
     </message>
     <message>
         <source>Guess points</source>
@@ -1707,30 +2410,30 @@
         <translation type="obsolete">Elegir puntos-de-partida</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2574"/>
-        <location filename="../mainwindow.cpp" line="2596"/>
-        <location filename="../mainwindow.cpp" line="2621"/>
+        <location filename="../mainwindow.cpp" line="2668"/>
+        <location filename="../mainwindow.cpp" line="2690"/>
+        <location filename="../mainwindow.cpp" line="2715"/>
         <source>Box size</source>
         <translation>Tamaño de caja</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2581"/>
+        <location filename="../mainwindow.cpp" line="2675"/>
         <source>Box size around optional guess points</source>
         <translation>Tamaño de la caja alrededor de los puntos de partida</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2583"/>
+        <location filename="../mainwindow.cpp" line="2677"/>
         <source>Step size</source>
         <translation>Longitud de paso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2592"/>
+        <location filename="../mainwindow.cpp" line="2686"/>
         <source>Construct molecular graph</source>
         <translation>Construir grafo molecular</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2603"/>
-        <location filename="../mainwindow.cpp" line="2628"/>
+        <location filename="../mainwindow.cpp" line="2697"/>
+        <location filename="../mainwindow.cpp" line="2722"/>
         <source>Square box size computed as distance of farthest CP plus this margin size</source>
         <translation>Tamaño de la caja cuadrada calculado como distancia al CP más lejano más este margen</translation>
     </message>
@@ -1739,43 +2442,43 @@
         <translation type="obsolete">Construir cuenca atómica</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2630"/>
+        <location filename="../mainwindow.cpp" line="2724"/>
         <source>Initial step</source>
         <translation>Paso inicial</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2639"/>
+        <location filename="../mainwindow.cpp" line="2733"/>
         <source>Extra connections</source>
         <translation>Uniones extra</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2644"/>
+        <location filename="../mainwindow.cpp" line="2738"/>
         <source>Connection threshold</source>
         <translation>Umbral de conexión</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2652"/>
+        <location filename="../mainwindow.cpp" line="2746"/>
         <source>Used to determine the number of connecting lines in basin</source>
         <translation>Usado para determinar el número de líneas en la cuenca</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2693"/>
+        <location filename="../mainwindow.cpp" line="2787"/>
         <source>Molecular topography calculation</source>
         <translation>Cálculo de la topografía molecular</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3038"/>
+        <location filename="../mainwindow.cpp" line="3142"/>
         <source>Atomic contributions</source>
         <translation>Contribuciones atómicas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3057"/>
+        <location filename="../mainwindow.cpp" line="3161"/>
         <source>Compute Hellmann-Feynman forces on nuclei</source>
         <translation>Calcula las fuerzas de Hellmann-Feynman sobre los núcleos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3133"/>
-        <location filename="../mainwindow.cpp" line="3589"/>
+        <location filename="../mainwindow.cpp" line="3237"/>
+        <location filename="../mainwindow.cpp" line="3702"/>
         <source>Lines</source>
         <translation>Líneas</translation>
     </message>
@@ -1784,8 +2487,8 @@
         <translation type="obsolete">Automático</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3397"/>
-        <location filename="../mainwindow.cpp" line="3858"/>
+        <location filename="../mainwindow.cpp" line="3507"/>
+        <location filename="../mainwindow.cpp" line="3971"/>
         <source>Highest number of points</source>
         <translation>Máximo número de puntos</translation>
     </message>
@@ -1802,64 +2505,65 @@
         <translation type="obsolete">Longitud del paso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3152"/>
-        <location filename="../mainwindow.cpp" line="3612"/>
+        <location filename="../mainwindow.cpp" line="3256"/>
+        <location filename="../mainwindow.cpp" line="3725"/>
         <source>Allowed range between 0.1 and 0.001</source>
         <translation>Intervalo permitido entre 0.1 y 0.001</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3167"/>
-        <location filename="../mainwindow.cpp" line="3627"/>
+        <location filename="../mainwindow.cpp" line="3271"/>
+        <location filename="../mainwindow.cpp" line="3740"/>
         <source>Based on icosahedron vertices, C2 axes and C3 axes
 </source>
-        <translation>Basados en los vértices y ejes C2 y C3 del icosaedro</translation>
+        <translation>Basados en los vértices y ejes C2 y C3 del icosaedro
+</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3168"/>
-        <location filename="../mainwindow.cpp" line="3628"/>
+        <location filename="../mainwindow.cpp" line="3272"/>
+        <location filename="../mainwindow.cpp" line="3741"/>
         <source>1: vertices (12 points), 2: C3 axes (20 points), 3: C2 axes (30 points)</source>
         <translation>1: vértices (12 puntos), 2: ejes C3 (20 puntos), 3: ejes C2 (30 puntos)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3169"/>
-        <location filename="../mainwindow.cpp" line="3629"/>
+        <location filename="../mainwindow.cpp" line="3273"/>
+        <location filename="../mainwindow.cpp" line="3742"/>
         <source>4: vertices + C3 axes, 5: vertices + C2 axes, 6: C2 axes + C3 axes, 7: vertices + C2 axes + C3 axes</source>
         <translation>4: vértices + ejes.C3, 5: vertices + ejes C2, 6: ejes C2 + ejes C3, 7: vertices + ejes C2 + ejes C3</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3171"/>
-        <location filename="../mainwindow.cpp" line="3631"/>
+        <location filename="../mainwindow.cpp" line="3275"/>
+        <location filename="../mainwindow.cpp" line="3744"/>
         <source>Plot type</source>
         <translation>Tipo de gráfica</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3180"/>
-        <location filename="../mainwindow.cpp" line="3640"/>
+        <location filename="../mainwindow.cpp" line="3284"/>
+        <location filename="../mainwindow.cpp" line="3753"/>
         <source>2D Plot</source>
         <translation>Gráfica 2D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3250"/>
-        <location filename="../mainwindow.cpp" line="3710"/>
+        <location filename="../mainwindow.cpp" line="3359"/>
+        <location filename="../mainwindow.cpp" line="3823"/>
         <source>Change this value to modify the slopes distribution of starting lines around atoms</source>
         <translation>Cambie este valor para modificar la distribución de las pendientes iniciales de las líneas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3252"/>
-        <location filename="../mainwindow.cpp" line="3712"/>
+        <location filename="../mainwindow.cpp" line="3361"/>
+        <location filename="../mainwindow.cpp" line="3825"/>
         <source>3D Plot</source>
         <translation>Imagen 3D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3295"/>
-        <location filename="../mainwindow.cpp" line="3592"/>
-        <location filename="../mainwindow.cpp" line="3754"/>
+        <location filename="../mainwindow.cpp" line="3405"/>
+        <location filename="../mainwindow.cpp" line="3705"/>
+        <location filename="../mainwindow.cpp" line="3867"/>
         <source>Extra lines</source>
         <translation>Líneas extra</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3302"/>
-        <location filename="../mainwindow.cpp" line="3761"/>
+        <location filename="../mainwindow.cpp" line="3412"/>
+        <location filename="../mainwindow.cpp" line="3874"/>
         <source>Add starting points to table</source>
         <translation>Añadir puntos de partida</translation>
     </message>
@@ -1868,67 +2572,67 @@
         <translation type="obsolete">Leer del archivo:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3381"/>
-        <location filename="../mainwindow.cpp" line="3842"/>
+        <location filename="../mainwindow.cpp" line="3491"/>
+        <location filename="../mainwindow.cpp" line="3955"/>
         <source>Electric field calculation</source>
         <translation>Cálculo del campo eléctrico</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3398"/>
-        <location filename="../mainwindow.cpp" line="3859"/>
+        <location filename="../mainwindow.cpp" line="3508"/>
+        <location filename="../mainwindow.cpp" line="3972"/>
         <source>Number of lines per nucleus</source>
         <translation>Número de líneas por núcleo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3400"/>
-        <location filename="../mainwindow.cpp" line="3861"/>
+        <location filename="../mainwindow.cpp" line="3510"/>
+        <location filename="../mainwindow.cpp" line="3974"/>
         <source>Set of starting directions</source>
         <translation>Direcciones de partida</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3409"/>
-        <location filename="../mainwindow.cpp" line="3870"/>
+        <location filename="../mainwindow.cpp" line="3519"/>
+        <location filename="../mainwindow.cpp" line="3983"/>
         <source>Starting slopes ratio</source>
         <translation>Relación de pendientes de partida</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3410"/>
-        <location filename="../mainwindow.cpp" line="3871"/>
+        <location filename="../mainwindow.cpp" line="3520"/>
+        <location filename="../mainwindow.cpp" line="3984"/>
         <source>v/u: </source>
-        <translation>v/u:</translation>
+        <translation>v/u: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4029"/>
+        <location filename="../mainwindow.cpp" line="4142"/>
         <source>Initial</source>
         <translation>Inicial</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4034"/>
+        <location filename="../mainwindow.cpp" line="4147"/>
         <source>Final</source>
         <translation>Final</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4039"/>
+        <location filename="../mainwindow.cpp" line="4152"/>
         <source>Step</source>
         <translation>Paso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4044"/>
+        <location filename="../mainwindow.cpp" line="4157"/>
         <source>Extra values</source>
         <translation>Valores adicionales</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4058"/>
+        <location filename="../mainwindow.cpp" line="4171"/>
         <source>l</source>
         <translation>l</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4066"/>
+        <location filename="../mainwindow.cpp" line="4179"/>
         <source>m</source>
         <translation>m</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4075"/>
+        <location filename="../mainwindow.cpp" line="4188"/>
         <source>Tabulate radial factors</source>
         <translation>Tabular los factores radiales</translation>
     </message>
@@ -1941,433 +2645,436 @@
         <translation type="obsolete">Derivada segunda</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4179"/>
+        <location filename="../mainwindow.cpp" line="4292"/>
         <source>Multipoles</source>
         <translation>Multipolos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4182"/>
+        <location filename="../mainwindow.cpp" line="4295"/>
         <source>lmin</source>
         <translation>lmin</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4190"/>
+        <location filename="../mainwindow.cpp" line="4303"/>
         <source>lmax</source>
         <translation>lmax</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4197"/>
+        <location filename="../mainwindow.cpp" line="4310"/>
         <source>Centers defining plane</source>
         <translation>Centros que definen el plano</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4200"/>
+        <location filename="../mainwindow.cpp" line="4313"/>
         <source>Left</source>
         <translation>Izquierdo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4211"/>
+        <location filename="../mainwindow.cpp" line="4324"/>
         <source>Middle</source>
         <translation>Central</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4221"/>
+        <location filename="../mainwindow.cpp" line="4334"/>
         <source>Right</source>
         <translation>Derecho</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4232"/>
+        <location filename="../mainwindow.cpp" line="4345"/>
         <source>Orient multipoles in a frame with the Z axis orthogonal to the plane defined by the three centers</source>
         <translation>Multipolos orientados en un sistema con el eje Z perpendicular al plano definido por los tres centros</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4340"/>
+        <location filename="../mainwindow.cpp" line="4453"/>
         <source>Tabulate MO gradient</source>
         <translation>Tabular rl gradiente de los OM</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4623"/>
+        <location filename="../mainwindow.cpp" line="4736"/>
         <source>Molecular orbitals calculation</source>
         <translation>Orbitales moleculares</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4797"/>
+        <location filename="../mainwindow.cpp" line="4910"/>
         <source>Ball size (in bohr)</source>
         <translation>Tamaño de esfera (en bohr)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4813"/>
+        <location filename="../mainwindow.cpp" line="4926"/>
         <source>Absolute</source>
         <translation>Absoluto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4815"/>
+        <location filename="../mainwindow.cpp" line="4928"/>
         <source>Value of the ball radius</source>
         <translation>Radio de la esfera</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4818"/>
+        <location filename="../mainwindow.cpp" line="4931"/>
         <source>Relative</source>
         <translation>Relativo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4819"/>
+        <location filename="../mainwindow.cpp" line="4932"/>
         <source>Value added to the largest distance of nuclei to origin to define the ball radius</source>
         <translation>Radio de la esfera igual a este valor más la distancia al origen del núcleo más lejano</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4824"/>
+        <location filename="../mainwindow.cpp" line="4937"/>
         <source>Expansion length</source>
         <translation>Tamaño del desarrollo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4835"/>
-        <location filename="../mainwindow.cpp" line="4846"/>
+        <location filename="../mainwindow.cpp" line="4948"/>
+        <location filename="../mainwindow.cpp" line="4959"/>
         <source>Size of expansion</source>
         <translation>Longitud del desarrollo en l</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4840"/>
-        <location filename="../mainwindow.cpp" line="5114"/>
+        <location filename="../mainwindow.cpp" line="4953"/>
+        <location filename="../mainwindow.cpp" line="5227"/>
         <source>Highest k</source>
         <translation>Máximo k</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4849"/>
+        <location filename="../mainwindow.cpp" line="4962"/>
         <source>Echelon type</source>
         <translation>Escalonada</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4850"/>
+        <location filename="../mainwindow.cpp" line="4963"/>
         <source>Number of functions per l equal to max(highest l+1, highest k)-l</source>
         <translation>Número de funciones por cada valor de l igual al max(máximo l,máximo k)-l</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4858"/>
+        <location filename="../mainwindow.cpp" line="4971"/>
         <source>Zernike 3D</source>
         <translation>Zernike 3D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4862"/>
+        <location filename="../mainwindow.cpp" line="4975"/>
         <source>Jacobi</source>
         <translation>Jacobi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4867"/>
+        <location filename="../mainwindow.cpp" line="4980"/>
         <source>Quadrature length</source>
         <translation>Tamaño de la cuadratura</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4870"/>
+        <location filename="../mainwindow.cpp" line="4983"/>
         <source>No. of sampling points</source>
         <translation>Número de puntos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4878"/>
+        <location filename="../mainwindow.cpp" line="4991"/>
         <source>Number of points for sampling radial factors in projection</source>
         <translation>Número de puntos para el cálculo de factores radiales en la proyección</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4882"/>
+        <location filename="../mainwindow.cpp" line="1320"/>
+        <location filename="../mainwindow.cpp" line="4995"/>
         <source>Thresholds</source>
         <translation>Umbrales</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4885"/>
+        <location filename="../mainwindow.cpp" line="4998"/>
         <source>Multipole cutoff:</source>
-        <translation>Umbral de multipolos</translation>
+        <translation>Umbral de multipolos:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4891"/>
+        <location filename="../mainwindow.cpp" line="5004"/>
         <source>Cutoff for multipole printing</source>
         <translation>Umbral de corte para la impresión de momentos multipolares</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4893"/>
+        <location filename="../mainwindow.cpp" line="5006"/>
         <source>Distributions cutoff:</source>
-        <translation>Umbral de distribuciones</translation>
+        <translation>Umbral de distribuciones:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4899"/>
+        <location filename="../mainwindow.cpp" line="5012"/>
         <source>Overlap cutoff for neglecting distributions</source>
         <translation>Umbral de corte en el solapamiento para considerar las distribuciones despreciables</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5049"/>
+        <location filename="../mainwindow.cpp" line="5162"/>
         <source>Zernike or Jacobi expansion</source>
         <translation>Desarrollo de Zernike o Jacobi</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5070"/>
+        <location filename="../mainwindow.cpp" line="5183"/>
         <source>Density expansion terms</source>
         <translation>Términos del desarrollo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5076"/>
+        <location filename="../mainwindow.cpp" line="5189"/>
         <source>Choose all functions</source>
         <translation>Todas las funciones</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5078"/>
+        <location filename="../mainwindow.cpp" line="5191"/>
         <source>Choose all available functions for projection</source>
         <translation>Toma todas las funciones disponibles para la proyección</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5081"/>
+        <location filename="../mainwindow.cpp" line="5194"/>
         <source>Choose l indices</source>
         <translation>Valores de l</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5083"/>
+        <location filename="../mainwindow.cpp" line="5196"/>
         <source>Choose l indices, all compatible k and m indices are taken</source>
         <translation>Toma los valores seleccionados de l y todos los valores de k y de m compatibles con ellos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5086"/>
+        <location filename="../mainwindow.cpp" line="5199"/>
         <source>Choose k indices</source>
         <translation>Valores de k</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5088"/>
+        <location filename="../mainwindow.cpp" line="5201"/>
         <source>Choose k indices, all compatible l and m indices are taken</source>
         <translation>Toma los valores seleccionados de k y todos los valores de l y de m compatibles con ellos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5091"/>
+        <location filename="../mainwindow.cpp" line="5204"/>
         <source>Choose pairs of (l,k) indices</source>
         <translation>Pares de valores (l,k)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5093"/>
+        <location filename="../mainwindow.cpp" line="5206"/>
         <source>Choose pairs of (l,k) indices, all compatible m indices are taken</source>
         <translation>Toma los pares de índices (l,k) y todos los valores de m compatibles con ellos</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5096"/>
-        <location filename="../mainwindow.cpp" line="5098"/>
+        <location filename="../mainwindow.cpp" line="5209"/>
+        <location filename="../mainwindow.cpp" line="5211"/>
         <source>Choose triads of (l,k,m) indices</source>
         <translation>Tríadas de valores (l,k,m)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5102"/>
+        <location filename="../mainwindow.cpp" line="5215"/>
         <source>Set selected indices here, separated by commas for individual values, or by hyphens for ranges where applicable</source>
         <translation>Seleccione aquí tríos de índices separados por comas o por guiones cuando se deseen intervalos de valores de los índices</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5120"/>
+        <location filename="../mainwindow.cpp" line="5233"/>
         <source>Highest number of Zernike or Jacobi functions per l</source>
         <translation>Máximo número de funciones de Zerkine o Jacobi por cada valor de l</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5130"/>
+        <location filename="../mainwindow.cpp" line="5243"/>
         <source>Lowest l </source>
-        <translation>Mínimo l</translation>
+        <translation>Mínimo l </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5144"/>
+        <location filename="../mainwindow.cpp" line="5257"/>
         <source>Tabulate ZJ density gradient</source>
         <translation>Gradiente de la densidad ZJ</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5688"/>
+        <location filename="../mainwindow.cpp" line="5801"/>
         <source>English</source>
         <translation>Español</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5802"/>
+        <location filename="../mainwindow.cpp" line="5932"/>
         <source>Cannot open project %1</source>
         <translation>No se puede abrir el proyecto %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6388"/>
-        <location filename="../mainwindow.cpp" line="6395"/>
+        <location filename="../mainwindow.cpp" line="6590"/>
+        <location filename="../mainwindow.cpp" line="6597"/>
         <source>Process failed to start program %1
 </source>
         <translation>Falló el proceso al comienzo del programa %1
 </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6391"/>
-        <location filename="../mainwindow.cpp" line="6398"/>
+        <location filename="../mainwindow.cpp" line="6593"/>
+        <location filename="../mainwindow.cpp" line="6600"/>
         <source>or in any other directory in your $PATH</source>
         <translation>o en cualquier otro directorio contenido en $PATH</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="9314"/>
-        <location filename="../mainwindow.cpp" line="9362"/>
-        <location filename="../mainwindow.cpp" line="9556"/>
-        <location filename="../mainwindow.cpp" line="9825"/>
-        <location filename="../mainwindow.cpp" line="10325"/>
-        <location filename="../mainwindow.cpp" line="10796"/>
-        <location filename="../mainwindow.cpp" line="11169"/>
-        <location filename="../mainwindow.cpp" line="11715"/>
-        <location filename="../mainwindow.cpp" line="11988"/>
-        <location filename="../mainwindow.cpp" line="12128"/>
-        <location filename="../mainwindow.cpp" line="12176"/>
-        <location filename="../mainwindow.cpp" line="12445"/>
+        <location filename="../mainwindow.cpp" line="9644"/>
+        <location filename="../mainwindow.cpp" line="9692"/>
+        <location filename="../mainwindow.cpp" line="9886"/>
+        <location filename="../mainwindow.cpp" line="10157"/>
+        <location filename="../mainwindow.cpp" line="10657"/>
+        <location filename="../mainwindow.cpp" line="11176"/>
+        <location filename="../mainwindow.cpp" line="11577"/>
+        <location filename="../mainwindow.cpp" line="12157"/>
+        <location filename="../mainwindow.cpp" line="12446"/>
+        <location filename="../mainwindow.cpp" line="12586"/>
+        <location filename="../mainwindow.cpp" line="12646"/>
+        <location filename="../mainwindow.cpp" line="12927"/>
         <source>Cannot create input file %1</source>
         <translation>No puede crear el archivo de entrada %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14070"/>
+        <location filename="../mainwindow.cpp" line="14586"/>
         <source>read_natom</source>
         <translation>read_natom</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14284"/>
+        <location filename="../mainwindow.cpp" line="14800"/>
         <source>2D Viewer: Delete Confirmation</source>
         <translation>Visor 2D: confirmar eliminación</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14285"/>
+        <location filename="../mainwindow.cpp" line="14801"/>
         <source>Ending application will delete open 2D viewers. Do you want to exit?</source>
         <translation>Al finalizar la aplicación borrará los visores 2D abiertos. ¿Desea salir?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14306"/>
+        <location filename="../mainwindow.cpp" line="14822"/>
         <source>3D Viewer: Delete Confirmation</source>
         <translation>Visor 3D: confirmar eliminación</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14307"/>
+        <location filename="../mainwindow.cpp" line="14823"/>
         <source>Ending application will delete open 3D viewers. Do you want to exit?</source>
         <translation>Al finalizar la aplicación borrará los visores 3D abiertos. ¿Desea salir?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14325"/>
-        <location filename="../mainwindow.cpp" line="14337"/>
+        <location filename="../mainwindow.cpp" line="14841"/>
+        <location filename="../mainwindow.cpp" line="14854"/>
         <source>%1</source>
         <translation>%1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14356"/>
+        <location filename="../mainwindow.cpp" line="14874"/>
         <source>Do you want to remove Plot %1</source>
         <translation>¿Desea eliminar la gráfica %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="582"/>
-        <location filename="../mainwindow.cpp" line="617"/>
-        <location filename="../mainwindow.cpp" line="678"/>
-        <location filename="../mainwindow.cpp" line="5917"/>
-        <location filename="../mainwindow.cpp" line="5994"/>
-        <location filename="../mainwindow.cpp" line="6082"/>
-        <location filename="../mainwindow.cpp" line="6128"/>
-        <location filename="../mainwindow.cpp" line="6172"/>
-        <location filename="../mainwindow.cpp" line="6210"/>
-        <location filename="../mainwindow.cpp" line="6260"/>
-        <location filename="../mainwindow.cpp" line="6305"/>
-        <location filename="../mainwindow.cpp" line="6342"/>
-        <location filename="../mainwindow.cpp" line="6764"/>
-        <location filename="../mainwindow.cpp" line="13078"/>
-        <location filename="../mainwindow.cpp" line="14288"/>
-        <location filename="../mainwindow.cpp" line="14310"/>
-        <location filename="../mainwindow.cpp" line="14359"/>
-        <location filename="../mainwindow.cpp" line="14380"/>
+        <location filename="../mainwindow.cpp" line="629"/>
+        <location filename="../mainwindow.cpp" line="664"/>
+        <location filename="../mainwindow.cpp" line="725"/>
+        <location filename="../mainwindow.cpp" line="6058"/>
+        <location filename="../mainwindow.cpp" line="6130"/>
+        <location filename="../mainwindow.cpp" line="6213"/>
+        <location filename="../mainwindow.cpp" line="6264"/>
+        <location filename="../mainwindow.cpp" line="6313"/>
+        <location filename="../mainwindow.cpp" line="6357"/>
+        <location filename="../mainwindow.cpp" line="6411"/>
+        <location filename="../mainwindow.cpp" line="6453"/>
+        <location filename="../mainwindow.cpp" line="6495"/>
+        <location filename="../mainwindow.cpp" line="6538"/>
+        <location filename="../mainwindow.cpp" line="7001"/>
+        <location filename="../mainwindow.cpp" line="13582"/>
+        <location filename="../mainwindow.cpp" line="14804"/>
+        <location filename="../mainwindow.cpp" line="14826"/>
+        <location filename="../mainwindow.cpp" line="14877"/>
+        <location filename="../mainwindow.cpp" line="14898"/>
         <source>Yes</source>
         <translation>Sí</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="583"/>
-        <location filename="../mainwindow.cpp" line="618"/>
-        <location filename="../mainwindow.cpp" line="679"/>
-        <location filename="../mainwindow.cpp" line="5918"/>
-        <location filename="../mainwindow.cpp" line="5995"/>
-        <location filename="../mainwindow.cpp" line="6083"/>
-        <location filename="../mainwindow.cpp" line="6129"/>
-        <location filename="../mainwindow.cpp" line="6173"/>
-        <location filename="../mainwindow.cpp" line="6211"/>
-        <location filename="../mainwindow.cpp" line="6261"/>
-        <location filename="../mainwindow.cpp" line="6306"/>
-        <location filename="../mainwindow.cpp" line="6343"/>
-        <location filename="../mainwindow.cpp" line="6765"/>
-        <location filename="../mainwindow.cpp" line="13079"/>
-        <location filename="../mainwindow.cpp" line="14289"/>
-        <location filename="../mainwindow.cpp" line="14311"/>
-        <location filename="../mainwindow.cpp" line="14360"/>
-        <location filename="../mainwindow.cpp" line="14381"/>
+        <location filename="../mainwindow.cpp" line="630"/>
+        <location filename="../mainwindow.cpp" line="665"/>
+        <location filename="../mainwindow.cpp" line="726"/>
+        <location filename="../mainwindow.cpp" line="6059"/>
+        <location filename="../mainwindow.cpp" line="6131"/>
+        <location filename="../mainwindow.cpp" line="6214"/>
+        <location filename="../mainwindow.cpp" line="6265"/>
+        <location filename="../mainwindow.cpp" line="6314"/>
+        <location filename="../mainwindow.cpp" line="6358"/>
+        <location filename="../mainwindow.cpp" line="6412"/>
+        <location filename="../mainwindow.cpp" line="6454"/>
+        <location filename="../mainwindow.cpp" line="6496"/>
+        <location filename="../mainwindow.cpp" line="6539"/>
+        <location filename="../mainwindow.cpp" line="7002"/>
+        <location filename="../mainwindow.cpp" line="13583"/>
+        <location filename="../mainwindow.cpp" line="14805"/>
+        <location filename="../mainwindow.cpp" line="14827"/>
+        <location filename="../mainwindow.cpp" line="14878"/>
+        <location filename="../mainwindow.cpp" line="14899"/>
         <source>No</source>
         <translation>No</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14377"/>
+        <location filename="../mainwindow.cpp" line="14895"/>
         <source>Do you want to remove 3D viewer %1</source>
         <translation>¿Desea eliminar el visor %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14527"/>
+        <location filename="../mainwindow.cpp" line="15045"/>
         <source>Raise all viewers</source>
         <translation>Mostrar todos los visores</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14528"/>
+        <location filename="../mainwindow.cpp" line="15046"/>
         <source>Move viewers to front</source>
         <translation>Muestra todos los visores abiertos y no ocultados</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14579"/>
-        <location filename="../mainwindow.cpp" line="14649"/>
+        <location filename="../mainwindow.cpp" line="15097"/>
+        <location filename="../mainwindow.cpp" line="15167"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14582"/>
-        <location filename="../mainwindow.cpp" line="14652"/>
+        <location filename="../mainwindow.cpp" line="15100"/>
+        <location filename="../mainwindow.cpp" line="15170"/>
         <source>Raise</source>
         <translation>Mostrar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14447"/>
-        <location filename="../mainwindow.cpp" line="14472"/>
-        <location filename="../mainwindow.cpp" line="14588"/>
-        <location filename="../mainwindow.cpp" line="14658"/>
+        <location filename="../mainwindow.cpp" line="14965"/>
+        <location filename="../mainwindow.cpp" line="14990"/>
+        <location filename="../mainwindow.cpp" line="15106"/>
+        <location filename="../mainwindow.cpp" line="15176"/>
         <source>Hide</source>
         <translation>Ocultar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14429"/>
-        <location filename="../mainwindow.cpp" line="14454"/>
-        <location filename="../mainwindow.cpp" line="14590"/>
-        <location filename="../mainwindow.cpp" line="14660"/>
+        <location filename="../mainwindow.cpp" line="14947"/>
+        <location filename="../mainwindow.cpp" line="14972"/>
+        <location filename="../mainwindow.cpp" line="15108"/>
+        <location filename="../mainwindow.cpp" line="15178"/>
         <source>Show</source>
         <translation>Visualizar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14675"/>
+        <location filename="../mainwindow.cpp" line="15192"/>
         <source>New 3D Viewer</source>
         <translation>Nuevo visor 3D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14676"/>
+        <location filename="../mainwindow.cpp" line="15193"/>
         <source>Creates a new window for 3D display</source>
         <translation>Crear una ventana nueva para imágenes 3D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5705"/>
+        <location filename="../mainwindow.cpp" line="5818"/>
         <source>Navigate to a directory with a suitable import file </source>
-        <translation>Navegue a un directorio con un archivo apto para su importación</translation>
+        <translation>Navegue a un directorio con un archivo apto para su importación </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2540"/>
+        <location filename="../mainwindow.cpp" line="2634"/>
         <source>Add guess points for CPs</source>
         <translation>Añadir puntos de partida</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2544"/>
+        <location filename="../mainwindow.cpp" line="2638"/>
         <source>Guess points for CPs</source>
         <translation>Puntos de partida para CPs</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2547"/>
+        <location filename="../mainwindow.cpp" line="2641"/>
         <source>Add guess points to table</source>
         <translation>Añadir puntos a la tabla</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2560"/>
+        <location filename="../mainwindow.cpp" line="2654"/>
         <source>Load guess points from file</source>
         <translation>Cargar puntos de un archivo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5715"/>
+        <location filename="../mainwindow.cpp" line="5828"/>
         <source>Introduce project folder</source>
         <translation>Introduzca la carpeta de proyecto</translation>
     </message>
@@ -2376,23 +3083,23 @@
         <translation type="obsolete">Seleccionar la carpeta del proyecto:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5768"/>
-        <location filename="../mainwindow.cpp" line="9450"/>
-        <location filename="../mainwindow.cpp" line="9709"/>
-        <location filename="../mainwindow.cpp" line="11217"/>
-        <location filename="../mainwindow.cpp" line="11763"/>
-        <location filename="../mainwindow.cpp" line="12042"/>
-        <location filename="../mainwindow.cpp" line="12493"/>
+        <location filename="../mainwindow.cpp" line="5897"/>
+        <location filename="../mainwindow.cpp" line="9780"/>
+        <location filename="../mainwindow.cpp" line="10039"/>
+        <location filename="../mainwindow.cpp" line="11625"/>
+        <location filename="../mainwindow.cpp" line="12213"/>
+        <location filename="../mainwindow.cpp" line="12500"/>
+        <location filename="../mainwindow.cpp" line="12983"/>
         <source>Open file ...</source>
         <translation>Abiri el archivo ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5770"/>
+        <location filename="../mainwindow.cpp" line="5900"/>
         <source>Geometry and basis set files</source>
         <translation>Archivos con la geometría y la base</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5771"/>
+        <location filename="../mainwindow.cpp" line="5901"/>
         <source>fchk files</source>
         <translation>archivos fchk</translation>
     </message>
@@ -2401,7 +3108,7 @@
         <translation type="obsolete">Introducir el nombre del archivo fchk</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5711"/>
+        <location filename="../mainwindow.cpp" line="5824"/>
         <source>File %1 not found.</source>
         <translation>No encuentra el archivo %1.</translation>
     </message>
@@ -2410,32 +3117,32 @@
         <translation type="obsolete">Intorducir el nombre del proyecto</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6521"/>
+        <location filename="../mainwindow.cpp" line="6739"/>
         <source>End of calculation</source>
         <translation>Fin del cálculo</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6596"/>
+        <location filename="../mainwindow.cpp" line="6816"/>
         <source>SCF Total density matrix</source>
         <translation>Matriz de densidad total SCF</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6599"/>
+        <location filename="../mainwindow.cpp" line="6819"/>
         <source>SCF Spin density matrix</source>
         <translation>Matriz de densidad de espín SCF</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6600"/>
+        <location filename="../mainwindow.cpp" line="6820"/>
         <source>CI Total density matrix</source>
         <translation>Matriz de densidad total CI</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6601"/>
+        <location filename="../mainwindow.cpp" line="6821"/>
         <source>CI Spin density matrix</source>
         <translation>Matriz de densidad de espín CI</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6737"/>
+        <location filename="../mainwindow.cpp" line="6973"/>
         <source>Computing...</source>
         <translation>Calculando...</translation>
     </message>
@@ -2444,7 +3151,7 @@
         <translation type="obsolete">Falló el proceso al comienzo del programa %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2511"/>
+        <location filename="../mainwindow.cpp" line="2605"/>
         <source>Highest l for MED/MESP computation</source>
         <translation>Máximo l para el cálculo de MED/MESP</translation>
     </message>
@@ -2457,145 +3164,145 @@
         <translation type="obsolete">Fichero con CPs de prueba</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2566"/>
+        <location filename="../mainwindow.cpp" line="2660"/>
         <source>Load file with CPs guess points</source>
         <translation>Cargar el archivo con puntos de prueba</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2605"/>
+        <location filename="../mainwindow.cpp" line="2699"/>
         <source>Gradient convergence</source>
         <translation>Convergencia en el gradiente</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2613"/>
+        <location filename="../mainwindow.cpp" line="2707"/>
         <source>Gradient convergence threshold for finalizing lines or basins</source>
         <translation>Umbral de convergencia en el gradiente para finalizar el cálculo de líneas</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2617"/>
+        <location filename="../mainwindow.cpp" line="2711"/>
         <source>Construct 3D atomic basin</source>
         <translation>Cuencas atómicas 3D</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2847"/>
+        <location filename="../mainwindow.cpp" line="2941"/>
         <source>Import density grid from</source>
         <translation>Importar malla para la densidad desde</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2862"/>
+        <location filename="../mainwindow.cpp" line="2956"/>
         <source>Density value</source>
         <translation>Densidad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2873"/>
+        <location filename="../mainwindow.cpp" line="2967"/>
         <source>Density value on isosurface (it defines molecular boundaries)</source>
         <translation>Valor de la densidad en la isosuperficie (define la superficie que delimita la molécula)</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2876"/>
+        <location filename="../mainwindow.cpp" line="2970"/>
         <source>Threshold for local extrema</source>
         <translation>Umbral para extremos locales</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2879"/>
+        <location filename="../mainwindow.cpp" line="2973"/>
         <source>Defines regions for local extrema search</source>
-        <translation>Define las regiones de búsqueda de extremos locales.</translation>
+        <translation>Define las regiones de búsqueda de extremos locales</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2891"/>
+        <location filename="../mainwindow.cpp" line="2985"/>
         <source>Geometry threshold:</source>
         <translation>Umbral para la geometría:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2907"/>
+        <location filename="../mainwindow.cpp" line="3007"/>
         <source>MESP expansion</source>
         <translation>Desarrollo del potencial</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2917"/>
+        <location filename="../mainwindow.cpp" line="3017"/>
         <source>Highest value of l in expansion of MESP on density isosurface</source>
-        <translation>Máximo valor de l enel desarrollo del potencial electrostático sobre la isosuperficie de densidad.</translation>
+        <translation>Máximo valor de l enel desarrollo del potencial electrostático sobre la isosuperficie de densidad</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="2961"/>
+        <location filename="../mainwindow.cpp" line="3064"/>
         <source>Computes MESP on density isosurface</source>
-        <translation>Calcula el potencial electrostático sobre la superficie de densidad constante.</translation>
+        <translation>Calcula el potencial electrostático sobre la superficie de densidad constante</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3325"/>
-        <location filename="../mainwindow.cpp" line="3785"/>
+        <location filename="../mainwindow.cpp" line="3435"/>
+        <location filename="../mainwindow.cpp" line="3898"/>
         <source>Read from file:</source>
         <translation>Leer del archivo:</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="3399"/>
-        <location filename="../mainwindow.cpp" line="3860"/>
+        <location filename="../mainwindow.cpp" line="3509"/>
+        <location filename="../mainwindow.cpp" line="3973"/>
         <source>Stride length</source>
         <translation>Longitud de paso</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="4091"/>
+        <location filename="../mainwindow.cpp" line="4204"/>
         <source>First derivatives</source>
         <translation>Derivadas primeras</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="5951"/>
-        <location filename="../mainwindow.cpp" line="6029"/>
+        <location filename="../mainwindow.cpp" line="6087"/>
+        <location filename="../mainwindow.cpp" line="6160"/>
         <source>Cannot copy file %1(.gz) to folder %3</source>
-        <translation>No puede copiar el archivo %1(.gz) en el directorio %3  </translation>
+        <translation>No puede copiar el archivo %1(.gz) en el directorio %3</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6403"/>
+        <location filename="../mainwindow.cpp" line="6605"/>
         <source>Error when running program %1</source>
         <translation>Error al ejecutar el programa %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6487"/>
+        <location filename="../mainwindow.cpp" line="6705"/>
         <source>ProcessOutput</source>
         <translation>ProcessOutput</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6583"/>
+        <location filename="../mainwindow.cpp" line="6801"/>
         <source>GAUSS_two_pass_case</source>
         <translation>GAUSS_two_pass_case</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6602"/>
+        <location filename="../mainwindow.cpp" line="6822"/>
         <source>MP2 Total density matrix</source>
         <translation>MP2 Matriz de densidad total</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6603"/>
+        <location filename="../mainwindow.cpp" line="6823"/>
         <source>MP2 Spin density matrix</source>
         <translation>MP2 Matriz de densidad de espín</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6687"/>
+        <location filename="../mainwindow.cpp" line="6923"/>
         <source>MOLPRO_two_pass_case</source>
         <translation>MOLPRO_two_pass_case</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6760"/>
+        <location filename="../mainwindow.cpp" line="6997"/>
         <source>Do you want to kill all processes named %1?</source>
         <translation>¿Desea terminar todos los procesos llamados %1?</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="6761"/>
+        <location filename="../mainwindow.cpp" line="6998"/>
         <source>The following processes will be killed: </source>
-        <translation>Los siguientes procesos terminarán:</translation>
+        <translation>Los siguientes procesos terminarán: </translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="7217"/>
+        <location filename="../mainwindow.cpp" line="7463"/>
         <source>readOptions</source>
         <translation>readOptions</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8225"/>
+        <location filename="../mainwindow.cpp" line="8525"/>
         <source>Warning: failed saving the following options</source>
         <translation>Aviso: falló al guardar las siguientes opciones</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="8289"/>
+        <location filename="../mainwindow.cpp" line="8589"/>
         <source>Error saving options</source>
         <translation>Error al guardar las opciones</translation>
     </message>
@@ -2604,49 +3311,49 @@
         <translation type="obsolete">No pudo crear el archivo %1</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="9321"/>
-        <location filename="../mainwindow.cpp" line="9369"/>
-        <location filename="../mainwindow.cpp" line="9563"/>
-        <location filename="../mainwindow.cpp" line="9832"/>
-        <location filename="../mainwindow.cpp" line="10332"/>
-        <location filename="../mainwindow.cpp" line="10803"/>
-        <location filename="../mainwindow.cpp" line="11176"/>
-        <location filename="../mainwindow.cpp" line="11722"/>
-        <location filename="../mainwindow.cpp" line="11995"/>
-        <location filename="../mainwindow.cpp" line="12135"/>
-        <location filename="../mainwindow.cpp" line="12183"/>
-        <location filename="../mainwindow.cpp" line="12452"/>
+        <location filename="../mainwindow.cpp" line="9651"/>
+        <location filename="../mainwindow.cpp" line="9699"/>
+        <location filename="../mainwindow.cpp" line="9893"/>
+        <location filename="../mainwindow.cpp" line="10164"/>
+        <location filename="../mainwindow.cpp" line="10664"/>
+        <location filename="../mainwindow.cpp" line="11183"/>
+        <location filename="../mainwindow.cpp" line="11584"/>
+        <location filename="../mainwindow.cpp" line="12164"/>
+        <location filename="../mainwindow.cpp" line="12453"/>
+        <location filename="../mainwindow.cpp" line="12593"/>
+        <location filename="../mainwindow.cpp" line="12653"/>
+        <location filename="../mainwindow.cpp" line="12934"/>
         <source>File %1 has been successfully created</source>
         <translation>El archivo %1 se creó correctamente</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="9451"/>
-        <location filename="../mainwindow.cpp" line="9710"/>
+        <location filename="../mainwindow.cpp" line="9781"/>
+        <location filename="../mainwindow.cpp" line="10040"/>
         <source>lin files</source>
         <translation>Archivos lin</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="11158"/>
+        <location filename="../mainwindow.cpp" line="11566"/>
         <source>Choose a file with molecular orbitals coefficients</source>
         <translation>Elija un archivo con los coeficientes de orbitales los moleculares</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="12416"/>
+        <location filename="../mainwindow.cpp" line="12898"/>
         <source>Select indices: 1,3-5,10,13-17,...</source>
         <translation>Índices: 1,3-5,10,13-17,...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="12422"/>
+        <location filename="../mainwindow.cpp" line="12904"/>
         <source>Select pairs of indices: (0,0),(1,2),...</source>
         <translation>Pares de índices: (0,0),(1,2),...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="12428"/>
+        <location filename="../mainwindow.cpp" line="12910"/>
         <source>Select triads of indices:(0,0,0),(1,2,-1),...</source>
         <translation>Tríadas de índices:(0,0,0),(1,2,-1),...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="13065"/>
+        <location filename="../mainwindow.cpp" line="13569"/>
         <source>Introduce options file name</source>
         <translation>Intorduzca el nombre del archivo de opciones</translation>
     </message>
@@ -2655,50 +3362,51 @@
         <translation type="obsolete">Cancelar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="584"/>
-        <location filename="../mainwindow.cpp" line="619"/>
-        <location filename="../mainwindow.cpp" line="680"/>
-        <location filename="../mainwindow.cpp" line="5919"/>
-        <location filename="../mainwindow.cpp" line="5996"/>
-        <location filename="../mainwindow.cpp" line="6084"/>
-        <location filename="../mainwindow.cpp" line="6130"/>
-        <location filename="../mainwindow.cpp" line="6174"/>
-        <location filename="../mainwindow.cpp" line="6212"/>
-        <location filename="../mainwindow.cpp" line="6262"/>
-        <location filename="../mainwindow.cpp" line="6307"/>
-        <location filename="../mainwindow.cpp" line="6344"/>
-        <location filename="../mainwindow.cpp" line="6766"/>
-        <location filename="../mainwindow.cpp" line="13080"/>
+        <location filename="../mainwindow.cpp" line="631"/>
+        <location filename="../mainwindow.cpp" line="666"/>
+        <location filename="../mainwindow.cpp" line="727"/>
+        <location filename="../mainwindow.cpp" line="6060"/>
+        <location filename="../mainwindow.cpp" line="6132"/>
+        <location filename="../mainwindow.cpp" line="6215"/>
+        <location filename="../mainwindow.cpp" line="6266"/>
+        <location filename="../mainwindow.cpp" line="6315"/>
+        <location filename="../mainwindow.cpp" line="6359"/>
+        <location filename="../mainwindow.cpp" line="6413"/>
+        <location filename="../mainwindow.cpp" line="6455"/>
+        <location filename="../mainwindow.cpp" line="6497"/>
+        <location filename="../mainwindow.cpp" line="6540"/>
+        <location filename="../mainwindow.cpp" line="7003"/>
+        <location filename="../mainwindow.cpp" line="13584"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="13074"/>
+        <location filename="../mainwindow.cpp" line="13578"/>
         <source>Options file %1 exists</source>
         <translation>El archivo de opciones %1 existe</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="13116"/>
+        <location filename="../mainwindow.cpp" line="13620"/>
         <source>Parameters A=%1, B=%2, C=%3 do not define a plane</source>
-        <translation>Los parámetros A=%1, B=%2, C=%3 no definen un plano </translation>
+        <translation>Los parámetros A=%1, B=%2, C=%3 no definen un plano</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="13196"/>
+        <location filename="../mainwindow.cpp" line="13700"/>
         <source>Output files</source>
         <translation>Archivos de salida</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="13201"/>
+        <location filename="../mainwindow.cpp" line="13705"/>
         <source>importOUT</source>
         <translation>importOUT</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14006"/>
+        <location filename="../mainwindow.cpp" line="14523"/>
         <source>readGeometry</source>
         <translation>readGeometry</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14059"/>
+        <location filename="../mainwindow.cpp" line="14575"/>
         <source>Error reading geometry in file %1</source>
         <translation>Error al leer la geometría del archivo %1</translation>
     </message>
@@ -2710,89 +3418,89 @@
 <context>
     <name>Plotter</name>
     <message>
-        <location filename="../plotter.cpp" line="822"/>
+        <location filename="../plotter.cpp" line="826"/>
         <source>Saving image file failed</source>
         <translation>Falló al guardar el archivo de imagen</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="822"/>
+        <location filename="../plotter.cpp" line="826"/>
         <source>It could not save the file</source>
         <translation>No pudo salvar el archivo</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="1882"/>
-        <location filename="../plotter.cpp" line="1927"/>
+        <location filename="../plotter.cpp" line="1892"/>
+        <location filename="../plotter.cpp" line="1939"/>
         <source>Label</source>
         <translation>Etiqueta</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="1889"/>
-        <location filename="../plotter.cpp" line="1934"/>
-        <location filename="../plotter.cpp" line="1987"/>
-        <location filename="../plotter.cpp" line="2114"/>
+        <location filename="../plotter.cpp" line="1901"/>
+        <location filename="../plotter.cpp" line="1948"/>
+        <location filename="../plotter.cpp" line="2003"/>
+        <location filename="../plotter.cpp" line="2131"/>
         <source>Color</source>
         <translation>Color</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="1894"/>
-        <location filename="../plotter.cpp" line="1939"/>
+        <location filename="../plotter.cpp" line="1906"/>
+        <location filename="../plotter.cpp" line="1953"/>
         <source>Hide</source>
         <translation>Ocultar</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="1903"/>
-        <location filename="../plotter.cpp" line="1948"/>
-        <location filename="../plotter.cpp" line="1993"/>
-        <location filename="../plotter.cpp" line="2135"/>
+        <location filename="../plotter.cpp" line="1915"/>
+        <location filename="../plotter.cpp" line="1962"/>
+        <location filename="../plotter.cpp" line="2009"/>
+        <location filename="../plotter.cpp" line="2152"/>
         <source>Accept</source>
         <translation>Aceptar</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="1906"/>
-        <location filename="../plotter.cpp" line="1951"/>
-        <location filename="../plotter.cpp" line="1996"/>
-        <location filename="../plotter.cpp" line="2138"/>
+        <location filename="../plotter.cpp" line="1918"/>
+        <location filename="../plotter.cpp" line="1965"/>
+        <location filename="../plotter.cpp" line="2012"/>
+        <location filename="../plotter.cpp" line="2155"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="1909"/>
-        <location filename="../plotter.cpp" line="1954"/>
+        <location filename="../plotter.cpp" line="1921"/>
+        <location filename="../plotter.cpp" line="1968"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="1982"/>
+        <location filename="../plotter.cpp" line="1996"/>
         <source>Contour</source>
         <translation>Curva de nivel</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="2107"/>
+        <location filename="../plotter.cpp" line="2123"/>
         <source>Lines</source>
         <translation>Líneas</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="2119"/>
+        <location filename="../plotter.cpp" line="2136"/>
         <source>Single line</source>
         <translation>Línea individual</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="2121"/>
+        <location filename="../plotter.cpp" line="2138"/>
         <source>Collective lines</source>
         <translation>Conjunto de líneas</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="2123"/>
+        <location filename="../plotter.cpp" line="2140"/>
         <source>All lines</source>
         <translation>Todas</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="2126"/>
+        <location filename="../plotter.cpp" line="2143"/>
         <source>Width</source>
         <translation>Grosor</translation>
     </message>
     <message>
-        <location filename="../plotter.cpp" line="2131"/>
+        <location filename="../plotter.cpp" line="2148"/>
         <source>Show arrows</source>
         <translation>Mostrar flechas</translation>
     </message>
@@ -2800,43 +3508,46 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../geometryprocessor.cpp" line="487"/>
+        <location filename="../geometryprocessor.cpp" line="537"/>
         <source>loadbuffers</source>
         <translation>loadbuffers</translation>
     </message>
     <message>
-        <location filename="../geometryprocessor.cpp" line="488"/>
+        <location filename="../geometryprocessor.cpp" line="538"/>
         <source>Failed allocating buffers</source>
         <translation>Falló al iniciar los buffers</translation>
     </message>
     <message>
-        <location filename="../geometryprocessor.cpp" line="489"/>
+        <location filename="../geometryprocessor.cpp" line="539"/>
         <source>
 If display is not correctly updated after closing this warning, the following workaround may help: </source>
-        <translation>Si el visor no se actualiza correctamente después de cerrar este aviso, el siguiente atajo puede ayudar:</translation>
+        <translation>
+Si el visor no se actualiza correctamente después de cerrar este aviso, el siguiente atajo puede ayudar: </translation>
     </message>
     <message>
-        <location filename="../geometryprocessor.cpp" line="490"/>
+        <location filename="../geometryprocessor.cpp" line="540"/>
         <source>
 in surface edit window, push hide/show button</source>
-        <translation>en la ventana de edición de la superficie pulse el botón mostrar/ocultar</translation>
+        <translation>
+en la ventana de edición de la superficie pulse el botón mostrar/ocultar</translation>
     </message>
     <message>
-        <location filename="../geometryprocessor.cpp" line="491"/>
+        <location filename="../geometryprocessor.cpp" line="541"/>
         <source>
 Push twice if required.</source>
-        <translation>Pulse dos veces si es necesario.</translation>
+        <translation>
+Pulse dos veces si es necesario.</translation>
     </message>
 </context>
 <context>
     <name>Sheet</name>
     <message>
-        <location filename="../Sheet.cpp" line="56"/>
+        <location filename="../Sheet.cpp" line="55"/>
         <source>Adds a new entry to table</source>
         <translation>Añade una nueva entrada a la tabla</translation>
     </message>
     <message>
-        <location filename="../Sheet.cpp" line="60"/>
+        <location filename="../Sheet.cpp" line="59"/>
         <source>Removed selected entries from table</source>
         <translation>Eliminó de la tabla las entradas seleccionadas</translation>
     </message>
@@ -2844,765 +3555,806 @@ Push twice if required.</source>
 <context>
     <name>Viewer2D</name>
     <message>
-        <location filename="../viewer2D.cpp" line="138"/>
+        <location filename="../viewer2D.cpp" line="139"/>
         <source>Contour plots</source>
         <translation>Curvas de nivel</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="145"/>
+        <location filename="../viewer2D.cpp" line="146"/>
         <source>Field lines</source>
         <translation>Líneas de campo</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="152"/>
+        <location filename="../viewer2D.cpp" line="153"/>
         <source>MESP sigma hole histogram</source>
         <translation>Histrograma del MESP sigma hole</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="159"/>
+        <location filename="../viewer2D.cpp" line="160"/>
         <source>Radial factors</source>
         <translation>Factores radiales</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="167"/>
-        <location filename="../viewer2D.cpp" line="1142"/>
+        <location filename="../viewer2D.cpp" line="168"/>
+        <location filename="../viewer2D.cpp" line="1185"/>
         <source>Critical points</source>
         <translation>Puntos críticos</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="175"/>
+        <location filename="../viewer2D.cpp" line="176"/>
         <source>Basins</source>
         <translation>Cuencas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="182"/>
+        <location filename="../viewer2D.cpp" line="183"/>
         <source>Options</source>
         <translation>Opciones</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="189"/>
-        <location filename="../viewer2D.cpp" line="2078"/>
+        <location filename="../viewer2D.cpp" line="190"/>
+        <location filename="../viewer2D.cpp" line="2121"/>
         <source>Image capture</source>
         <translation>Captura de imagen</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="196"/>
+        <location filename="../viewer2D.cpp" line="197"/>
         <source>Save/retrieve settings</source>
         <translation>Guardar/recuperar la configuración</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="509"/>
+        <location filename="../viewer2D.cpp" line="515"/>
         <source>Level values</source>
         <translation>Cotas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="513"/>
-        <location filename="../viewer2D.cpp" line="813"/>
-        <location filename="../viewer2D.cpp" line="941"/>
-        <location filename="../viewer2D.cpp" line="1048"/>
-        <location filename="../viewer2D.cpp" line="1145"/>
-        <location filename="../viewer2D.cpp" line="1244"/>
+        <location filename="../viewer2D.cpp" line="519"/>
+        <location filename="../viewer2D.cpp" line="819"/>
+        <location filename="../viewer2D.cpp" line="947"/>
+        <location filename="../viewer2D.cpp" line="1015"/>
+        <location filename="../viewer2D.cpp" line="1091"/>
+        <location filename="../viewer2D.cpp" line="1188"/>
+        <location filename="../viewer2D.cpp" line="1287"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="514"/>
-        <location filename="../viewer2D.cpp" line="814"/>
-        <location filename="../viewer2D.cpp" line="942"/>
-        <location filename="../viewer2D.cpp" line="1049"/>
-        <location filename="../viewer2D.cpp" line="1146"/>
-        <location filename="../viewer2D.cpp" line="1245"/>
+        <location filename="../viewer2D.cpp" line="520"/>
+        <location filename="../viewer2D.cpp" line="820"/>
+        <location filename="../viewer2D.cpp" line="948"/>
+        <location filename="../viewer2D.cpp" line="1016"/>
+        <location filename="../viewer2D.cpp" line="1092"/>
+        <location filename="../viewer2D.cpp" line="1189"/>
+        <location filename="../viewer2D.cpp" line="1288"/>
         <source>File</source>
         <translation>Archivo</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="519"/>
+        <location filename="../viewer2D.cpp" line="525"/>
         <source>Value</source>
         <translation>Valor</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="524"/>
+        <location filename="../viewer2D.cpp" line="530"/>
         <source>Update</source>
         <translation>Actualizar</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="531"/>
+        <location filename="../viewer2D.cpp" line="537"/>
         <source>Contour labels</source>
         <translation>Etiquetas de las curvas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="533"/>
-        <location filename="../viewer2D.cpp" line="947"/>
-        <location filename="../viewer2D.cpp" line="1072"/>
-        <location filename="../viewer2D.cpp" line="1319"/>
-        <location filename="../viewer2D.cpp" line="1346"/>
+        <location filename="../viewer2D.cpp" line="539"/>
+        <location filename="../viewer2D.cpp" line="953"/>
+        <location filename="../viewer2D.cpp" line="1115"/>
         <location filename="../viewer2D.cpp" line="1362"/>
-        <location filename="../viewer2D.cpp" line="1388"/>
-        <location filename="../viewer2D.cpp" line="1406"/>
-        <location filename="../viewer2D.cpp" line="1438"/>
+        <location filename="../viewer2D.cpp" line="1389"/>
+        <location filename="../viewer2D.cpp" line="1405"/>
+        <location filename="../viewer2D.cpp" line="1431"/>
+        <location filename="../viewer2D.cpp" line="1449"/>
+        <location filename="../viewer2D.cpp" line="1481"/>
         <source>Show/hide</source>
         <translation>Mostrar/ocultar</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="540"/>
-        <location filename="../viewer2D.cpp" line="953"/>
-        <location filename="../viewer2D.cpp" line="1078"/>
-        <location filename="../viewer2D.cpp" line="1679"/>
-        <location filename="../viewer2D.cpp" line="4549"/>
-        <location filename="../viewer2D.cpp" line="4678"/>
-        <location filename="../viewer2D.cpp" line="4825"/>
+        <location filename="../viewer2D.cpp" line="546"/>
+        <location filename="../viewer2D.cpp" line="959"/>
+        <location filename="../viewer2D.cpp" line="1121"/>
+        <location filename="../viewer2D.cpp" line="1722"/>
+        <location filename="../viewer2D.cpp" line="4739"/>
+        <location filename="../viewer2D.cpp" line="4870"/>
+        <location filename="../viewer2D.cpp" line="5019"/>
         <source>Font</source>
         <translation>Tipo de letra</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="550"/>
-        <location filename="../viewer2D.cpp" line="584"/>
-        <location filename="../viewer2D.cpp" line="594"/>
-        <location filename="../viewer2D.cpp" line="604"/>
-        <location filename="../viewer2D.cpp" line="1159"/>
-        <location filename="../viewer2D.cpp" line="1269"/>
-        <location filename="../viewer2D.cpp" line="1530"/>
-        <location filename="../viewer2D.cpp" line="1540"/>
-        <location filename="../viewer2D.cpp" line="1666"/>
-        <location filename="../viewer2D.cpp" line="1687"/>
-        <location filename="../viewer2D.cpp" line="1728"/>
-        <location filename="../viewer2D.cpp" line="4555"/>
-        <location filename="../viewer2D.cpp" line="4683"/>
-        <location filename="../viewer2D.cpp" line="4831"/>
+        <location filename="../viewer2D.cpp" line="556"/>
+        <location filename="../viewer2D.cpp" line="590"/>
+        <location filename="../viewer2D.cpp" line="600"/>
+        <location filename="../viewer2D.cpp" line="610"/>
+        <location filename="../viewer2D.cpp" line="1202"/>
+        <location filename="../viewer2D.cpp" line="1312"/>
+        <location filename="../viewer2D.cpp" line="1573"/>
+        <location filename="../viewer2D.cpp" line="1583"/>
+        <location filename="../viewer2D.cpp" line="1709"/>
+        <location filename="../viewer2D.cpp" line="1730"/>
+        <location filename="../viewer2D.cpp" line="1771"/>
+        <location filename="../viewer2D.cpp" line="4745"/>
+        <location filename="../viewer2D.cpp" line="4875"/>
+        <location filename="../viewer2D.cpp" line="5025"/>
         <source>Color</source>
         <translation>Color</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="555"/>
+        <location filename="../viewer2D.cpp" line="561"/>
         <source>Tolerance</source>
         <translation>Tolerancia</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="563"/>
+        <location filename="../viewer2D.cpp" line="569"/>
         <source>Tolerance for zero</source>
         <translation>Tolerancia para la cota nula</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="574"/>
+        <location filename="../viewer2D.cpp" line="580"/>
         <source>Colors</source>
         <translation>Colores</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="576"/>
+        <location filename="../viewer2D.cpp" line="582"/>
         <source>Multicolor</source>
         <translation>Multicolor</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="581"/>
-        <location filename="../viewer2D.cpp" line="637"/>
+        <location filename="../viewer2D.cpp" line="587"/>
+        <location filename="../viewer2D.cpp" line="643"/>
         <source>Positive levels</source>
         <translation>Cotas positivas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="591"/>
-        <location filename="../viewer2D.cpp" line="652"/>
+        <location filename="../viewer2D.cpp" line="597"/>
+        <location filename="../viewer2D.cpp" line="658"/>
         <source>Negative levels</source>
         <translation>Cotas negativas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="601"/>
-        <location filename="../viewer2D.cpp" line="667"/>
+        <location filename="../viewer2D.cpp" line="607"/>
+        <location filename="../viewer2D.cpp" line="673"/>
         <source>Zero level</source>
         <translation>Cota nula</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="611"/>
+        <location filename="../viewer2D.cpp" line="617"/>
         <source>Transparent labels background</source>
         <translation>Fondo de etiquetas transparente</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="621"/>
-        <location filename="../viewer2D.cpp" line="871"/>
-        <location filename="../viewer2D.cpp" line="959"/>
-        <location filename="../viewer2D.cpp" line="1084"/>
-        <location filename="../viewer2D.cpp" line="1256"/>
+        <location filename="../viewer2D.cpp" line="627"/>
+        <location filename="../viewer2D.cpp" line="877"/>
+        <location filename="../viewer2D.cpp" line="965"/>
+        <location filename="../viewer2D.cpp" line="1127"/>
+        <location filename="../viewer2D.cpp" line="1299"/>
         <source>Pen</source>
         <translation>Plumilla</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="623"/>
-        <location filename="../viewer2D.cpp" line="872"/>
-        <location filename="../viewer2D.cpp" line="960"/>
-        <location filename="../viewer2D.cpp" line="1085"/>
-        <location filename="../viewer2D.cpp" line="1257"/>
+        <location filename="../viewer2D.cpp" line="629"/>
+        <location filename="../viewer2D.cpp" line="878"/>
+        <location filename="../viewer2D.cpp" line="966"/>
+        <location filename="../viewer2D.cpp" line="1128"/>
+        <location filename="../viewer2D.cpp" line="1300"/>
         <source>Thickness</source>
         <translation>Grosor</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="634"/>
+        <location filename="../viewer2D.cpp" line="640"/>
         <source>Styles</source>
         <translation>Estilos</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="638"/>
-        <location filename="../viewer2D.cpp" line="653"/>
-        <location filename="../viewer2D.cpp" line="668"/>
-        <location filename="../viewer2D.cpp" line="1552"/>
+        <location filename="../viewer2D.cpp" line="644"/>
+        <location filename="../viewer2D.cpp" line="659"/>
+        <location filename="../viewer2D.cpp" line="674"/>
+        <location filename="../viewer2D.cpp" line="1595"/>
         <source>Solid</source>
         <translation>Línea continua</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="639"/>
-        <location filename="../viewer2D.cpp" line="654"/>
-        <location filename="../viewer2D.cpp" line="669"/>
-        <location filename="../viewer2D.cpp" line="1555"/>
+        <location filename="../viewer2D.cpp" line="645"/>
+        <location filename="../viewer2D.cpp" line="660"/>
+        <location filename="../viewer2D.cpp" line="675"/>
+        <location filename="../viewer2D.cpp" line="1598"/>
         <source>Dashed</source>
         <translation>Trazos</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="640"/>
-        <location filename="../viewer2D.cpp" line="655"/>
-        <location filename="../viewer2D.cpp" line="670"/>
+        <location filename="../viewer2D.cpp" line="646"/>
+        <location filename="../viewer2D.cpp" line="661"/>
+        <location filename="../viewer2D.cpp" line="676"/>
         <source>Dotted</source>
         <translation>Puntos</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="641"/>
-        <location filename="../viewer2D.cpp" line="656"/>
-        <location filename="../viewer2D.cpp" line="671"/>
+        <location filename="../viewer2D.cpp" line="647"/>
+        <location filename="../viewer2D.cpp" line="662"/>
+        <location filename="../viewer2D.cpp" line="677"/>
         <source>Dashed dotted</source>
         <translation>Puntos y trazos</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="817"/>
+        <location filename="../viewer2D.cpp" line="823"/>
         <source>Show field lines</source>
         <translation>Mostrar líneas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="823"/>
+        <location filename="../viewer2D.cpp" line="829"/>
         <source>Arrows</source>
         <translation>Flechas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="824"/>
+        <location filename="../viewer2D.cpp" line="830"/>
         <source>Show arrows</source>
         <translation>Mostrar flechas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="884"/>
+        <location filename="../viewer2D.cpp" line="890"/>
         <source>Arrows spacing</source>
         <translation>Espaciado entre flechas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="885"/>
+        <location filename="../viewer2D.cpp" line="891"/>
         <source>Arrow Length</source>
         <translation>Longitud de flechas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="886"/>
+        <location filename="../viewer2D.cpp" line="892"/>
         <source>Arrow Width</source>
         <translation>Anchura de flechas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="887"/>
+        <location filename="../viewer2D.cpp" line="893"/>
         <source>Arrows Skew</source>
         <translation>Pendiente de las flechas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="952"/>
-        <location filename="../viewer2D.cpp" line="1077"/>
+        <location filename="../viewer2D.cpp" line="958"/>
+        <location filename="../viewer2D.cpp" line="1120"/>
         <source>Label</source>
         <translation>Etiqueta</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="971"/>
+        <location filename="../viewer2D.cpp" line="977"/>
         <source>Smooth lines</source>
         <translation>Suavizar líneas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="972"/>
+        <location filename="../viewer2D.cpp" line="978"/>
         <source>Set smoothing</source>
         <translation>Suavizado</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="976"/>
+        <location filename="../viewer2D.cpp" line="982"/>
         <source>Smooth factor</source>
         <translation>Factor de suavizado</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="983"/>
-        <location filename="../viewer2D.cpp" line="1475"/>
+        <location filename="../viewer2D.cpp" line="989"/>
+        <location filename="../viewer2D.cpp" line="1518"/>
         <source>Apply</source>
         <translation>Aplicar</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="988"/>
+        <location filename="../viewer2D.cpp" line="994"/>
         <source>Show partial histograms</source>
         <translation>Mostrar histogramas parciales</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1164"/>
-        <source>Open critial points file ...</source>
-        <translation>Abrir archivo con puntos críticos</translation>
+        <location filename="../viewer2D.cpp" line="1004"/>
+        <source>Print histograms data to file</source>
+        <translation>Escriba los datos en un archivo</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1165"/>
+        <location filename="../viewer2D.cpp" line="1010"/>
+        <source>Print</source>
+        <translation>Imprimir</translation>
+    </message>
+    <message>
+        <location filename="../viewer2D.cpp" line="1207"/>
+        <source>Open critial points file ...</source>
+        <translation>Abrir archivo con puntos críticos ...</translation>
+    </message>
+    <message>
+        <location filename="../viewer2D.cpp" line="1208"/>
         <source>(3,+3) CP</source>
         <translation>(3,+3) CP</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1166"/>
+        <location filename="../viewer2D.cpp" line="1209"/>
         <source>(3,+1) CP</source>
         <translation>(3,+1) CP</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1167"/>
+        <location filename="../viewer2D.cpp" line="1210"/>
         <source>(3,-1) CP</source>
         <translation>(3,-1) CP</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1168"/>
+        <location filename="../viewer2D.cpp" line="1211"/>
         <source>(3,-3) CP</source>
         <translation>(3,-3) CP</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1172"/>
+        <location filename="../viewer2D.cpp" line="1215"/>
         <source>Ball radius</source>
         <translation>Radio de la esfera</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1183"/>
+        <location filename="../viewer2D.cpp" line="1226"/>
         <source>1.e-3</source>
         <translation>1.e-3</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1192"/>
+        <location filename="../viewer2D.cpp" line="1235"/>
         <source>Distance to plane tolerance</source>
         <translation>Tolerancia de distancia al plano</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1249"/>
+        <location filename="../viewer2D.cpp" line="1292"/>
         <source>Show basins</source>
         <translation>Mostrar cuencas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1309"/>
-        <location filename="../viewer2D.cpp" line="1318"/>
-        <location filename="../viewer2D.cpp" line="2192"/>
-        <location filename="../viewer2D.cpp" line="4544"/>
-        <location filename="../viewer2D.cpp" line="4673"/>
-        <location filename="../viewer2D.cpp" line="4820"/>
+        <location filename="../viewer2D.cpp" line="1352"/>
+        <location filename="../viewer2D.cpp" line="1361"/>
+        <location filename="../viewer2D.cpp" line="2235"/>
+        <location filename="../viewer2D.cpp" line="4732"/>
+        <location filename="../viewer2D.cpp" line="4863"/>
+        <location filename="../viewer2D.cpp" line="5012"/>
         <source>Title</source>
         <translation>Título</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1319"/>
         <location filename="../viewer2D.cpp" line="1362"/>
-        <location filename="../viewer2D.cpp" line="1406"/>
+        <location filename="../viewer2D.cpp" line="1405"/>
+        <location filename="../viewer2D.cpp" line="1449"/>
         <source>label</source>
         <translation>etiqueta</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1327"/>
-        <location filename="../viewer2D.cpp" line="1369"/>
-        <location filename="../viewer2D.cpp" line="1414"/>
+        <location filename="../viewer2D.cpp" line="1370"/>
+        <location filename="../viewer2D.cpp" line="1412"/>
+        <location filename="../viewer2D.cpp" line="1457"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1332"/>
-        <location filename="../viewer2D.cpp" line="1374"/>
-        <location filename="../viewer2D.cpp" line="1419"/>
+        <location filename="../viewer2D.cpp" line="1375"/>
+        <location filename="../viewer2D.cpp" line="1417"/>
+        <location filename="../viewer2D.cpp" line="1462"/>
         <source>Position</source>
         <translation>Posición</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1346"/>
-        <location filename="../viewer2D.cpp" line="1388"/>
-        <location filename="../viewer2D.cpp" line="1438"/>
+        <location filename="../viewer2D.cpp" line="1389"/>
+        <location filename="../viewer2D.cpp" line="1431"/>
+        <location filename="../viewer2D.cpp" line="1481"/>
         <source>Box</source>
         <translation>caja</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1352"/>
+        <location filename="../viewer2D.cpp" line="1395"/>
         <source>u axis</source>
         <translation>eje u</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1361"/>
-        <location filename="../viewer2D.cpp" line="2194"/>
+        <location filename="../viewer2D.cpp" line="1404"/>
+        <location filename="../viewer2D.cpp" line="2237"/>
         <source>X axis</source>
         <translation>eje X</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1394"/>
+        <location filename="../viewer2D.cpp" line="1437"/>
         <source>v axis</source>
         <translation>eje v</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1405"/>
-        <location filename="../viewer2D.cpp" line="2196"/>
+        <location filename="../viewer2D.cpp" line="1448"/>
+        <location filename="../viewer2D.cpp" line="2239"/>
         <source>Y axis</source>
         <translation>eje Y</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1433"/>
-        <location filename="../viewer2D.cpp" line="4838"/>
+        <location filename="../viewer2D.cpp" line="1476"/>
+        <location filename="../viewer2D.cpp" line="5032"/>
         <source>Horizontal</source>
         <translation>Horizontal</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1434"/>
+        <location filename="../viewer2D.cpp" line="1477"/>
         <source>Orientation</source>
         <translation>Orientación</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1447"/>
+        <location filename="../viewer2D.cpp" line="1490"/>
         <source>Aspect ratio</source>
         <translation>Proporción de escalas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1448"/>
+        <location filename="../viewer2D.cpp" line="1491"/>
         <source>Keep aspect ratio</source>
         <translation>Mantener la proporción</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1454"/>
+        <location filename="../viewer2D.cpp" line="1497"/>
         <source>Zoom region</source>
         <translation>Región de ampliación</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1455"/>
-        <location filename="../viewer2D.cpp" line="2106"/>
+        <location filename="../viewer2D.cpp" line="1498"/>
+        <location filename="../viewer2D.cpp" line="2149"/>
         <source>x</source>
         <translation>x</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1456"/>
+        <location filename="../viewer2D.cpp" line="1499"/>
         <source>y</source>
         <translation>y</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1457"/>
+        <location filename="../viewer2D.cpp" line="1500"/>
         <source>Lowest</source>
         <translation>Mínimo</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1458"/>
+        <location filename="../viewer2D.cpp" line="1501"/>
         <source>Highest</source>
         <translation>Máximo</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1476"/>
+        <location filename="../viewer2D.cpp" line="1519"/>
         <source>Generate grids</source>
         <translation>Generar malla</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1483"/>
-        <location filename="../viewer2D.cpp" line="2200"/>
+        <location filename="../viewer2D.cpp" line="1526"/>
+        <location filename="../viewer2D.cpp" line="2243"/>
         <source>Margins</source>
         <translation>Márgenes</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1485"/>
-        <location filename="../viewer2D.cpp" line="1561"/>
+        <location filename="../viewer2D.cpp" line="1528"/>
+        <location filename="../viewer2D.cpp" line="1604"/>
         <source>Bottom</source>
         <translation>Inferior</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1494"/>
-        <location filename="../viewer2D.cpp" line="1571"/>
+        <location filename="../viewer2D.cpp" line="1537"/>
+        <location filename="../viewer2D.cpp" line="1614"/>
         <source>Left</source>
         <translation>Izquierdo</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1504"/>
-        <location filename="../viewer2D.cpp" line="1576"/>
+        <location filename="../viewer2D.cpp" line="1547"/>
+        <location filename="../viewer2D.cpp" line="1619"/>
         <source>Right</source>
         <translation>Derecho</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1513"/>
-        <location filename="../viewer2D.cpp" line="1566"/>
+        <location filename="../viewer2D.cpp" line="1556"/>
+        <location filename="../viewer2D.cpp" line="1609"/>
         <source>Top</source>
         <translation>Superior</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1527"/>
-        <location filename="../viewer2D.cpp" line="2206"/>
+        <location filename="../viewer2D.cpp" line="1570"/>
+        <location filename="../viewer2D.cpp" line="2249"/>
         <source>Background color</source>
         <translation>Color de fondo</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1536"/>
+        <location filename="../viewer2D.cpp" line="1579"/>
         <source>Grid</source>
         <translation>Malla</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1545"/>
+        <location filename="../viewer2D.cpp" line="1588"/>
         <source>Show grid</source>
         <translation>Mostrar la cuadrícula</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1560"/>
+        <location filename="../viewer2D.cpp" line="1603"/>
         <source>Scales</source>
         <translation>Escalas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1581"/>
+        <location filename="../viewer2D.cpp" line="1624"/>
         <source>Show ticks</source>
         <translation>Mostrar las marcas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1593"/>
+        <location filename="../viewer2D.cpp" line="1636"/>
         <source>Ticks labels</source>
         <translation>Etiquetas de marcas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1595"/>
+        <location filename="../viewer2D.cpp" line="1638"/>
         <source>Automatic</source>
         <translation>Automático</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1600"/>
+        <location filename="../viewer2D.cpp" line="1643"/>
         <source>X ticks</source>
         <translation>Marcas X</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1610"/>
-        <location filename="../viewer2D.cpp" line="1630"/>
+        <location filename="../viewer2D.cpp" line="1653"/>
+        <location filename="../viewer2D.cpp" line="1673"/>
         <source>Decimal figures</source>
         <translation>Decimales</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1620"/>
+        <location filename="../viewer2D.cpp" line="1663"/>
         <source>Y ticks</source>
         <translation>Marcas Y</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1644"/>
+        <location filename="../viewer2D.cpp" line="1687"/>
         <source>Centers</source>
         <translation>Centros</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1649"/>
+        <location filename="../viewer2D.cpp" line="1692"/>
         <source>Show centers</source>
         <translation>Mostrar centros</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1673"/>
+        <location filename="../viewer2D.cpp" line="1716"/>
         <source>Show centers labels</source>
         <translation>Mostrar etiquetas de centros</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1702"/>
+        <location filename="../viewer2D.cpp" line="1745"/>
         <source>Bonds</source>
         <translation>Enlaces</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1705"/>
+        <location filename="../viewer2D.cpp" line="1748"/>
         <source>Show bonds</source>
         <translation>Mostrar enlaces</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1719"/>
+        <location filename="../viewer2D.cpp" line="1762"/>
         <source>1.2</source>
         <translation>1.2</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="1999"/>
+        <location filename="../viewer2D.cpp" line="2042"/>
         <source>Center thickness</source>
-        <translation>Grosor de centros</translation>
+        <translation>Grosor de puntos</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2018"/>
+        <location filename="../viewer2D.cpp" line="2061"/>
         <source>Labels vertical displacement</source>
         <translation>Desplazamiento vertical</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2038"/>
+        <location filename="../viewer2D.cpp" line="2081"/>
         <source>Bonding tolerance</source>
         <translation>Tolerancia de enlace</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2039"/>
+        <location filename="../viewer2D.cpp" line="2082"/>
         <source>Bonds thickness</source>
         <translation>Grosor de enlaces</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2079"/>
+        <location filename="../viewer2D.cpp" line="2122"/>
         <source>Capture</source>
         <translation>Capturar</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2082"/>
+        <location filename="../viewer2D.cpp" line="2125"/>
         <source>Transparent background</source>
         <translation>Fondo transparente</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2093"/>
+        <location filename="../viewer2D.cpp" line="2136"/>
         <source>1.0</source>
         <translation>1.0</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2098"/>
-        <location filename="../viewer2D.cpp" line="2102"/>
+        <location filename="../viewer2D.cpp" line="2141"/>
+        <location filename="../viewer2D.cpp" line="2145"/>
         <source>1000</source>
         <translation>1000</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2109"/>
+        <location filename="../viewer2D.cpp" line="2152"/>
         <source>Scale factor</source>
         <translation>Factor de escala</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2113"/>
+        <location filename="../viewer2D.cpp" line="2156"/>
         <source>Screen resolution</source>
         <translation>Resolución de la pantalla</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2118"/>
+        <location filename="../viewer2D.cpp" line="2161"/>
         <source>Scaled resolution</source>
         <translation>Escalar</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2123"/>
+        <location filename="../viewer2D.cpp" line="2166"/>
         <source>User defined</source>
         <translation>Definida por el usuario</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2130"/>
+        <location filename="../viewer2D.cpp" line="2173"/>
         <source>Image quality</source>
         <translation>Calidad de imagen</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2132"/>
+        <location filename="../viewer2D.cpp" line="2175"/>
         <source>Resolution</source>
         <translation>Resolución</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2183"/>
+        <location filename="../viewer2D.cpp" line="2226"/>
         <source>Settings</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2185"/>
+        <location filename="../viewer2D.cpp" line="2228"/>
         <source>Save</source>
         <translation>Guardar</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2188"/>
+        <location filename="../viewer2D.cpp" line="2231"/>
         <source>Retrieve</source>
         <translation>Recuperar</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2190"/>
+        <location filename="../viewer2D.cpp" line="2233"/>
         <source>Files</source>
         <translation>Archivos</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2198"/>
+        <location filename="../viewer2D.cpp" line="2241"/>
         <source>Zoom</source>
         <translation>Ampliación</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2202"/>
+        <location filename="../viewer2D.cpp" line="2245"/>
         <source>Curves or contours pen</source>
         <translation>Plumilla para curvas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2204"/>
+        <location filename="../viewer2D.cpp" line="2247"/>
         <source>Field lines pen</source>
         <translation>Plumilla para líneas de campo</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2255"/>
+        <location filename="../viewer2D.cpp" line="2298"/>
         <source>Import data from</source>
         <translation>Importar datos de</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2256"/>
+        <location filename="../viewer2D.cpp" line="2299"/>
         <source>Electric field files</source>
         <translation>Líneas de campo eléctrico</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2257"/>
+        <location filename="../viewer2D.cpp" line="2300"/>
         <source>Density gradient files</source>
         <translation>Líneas de gradiente de la densidad</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="3069"/>
+        <location filename="../viewer2D.cpp" line="3122"/>
         <source>Invalid extension of file %1. Must be .cam2D or dengr2D</source>
         <translation>Extensión del archivo %1 inválida. Debe ser .cam2D o .dengr2D</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="4389"/>
-        <source>Open 2D basins file ...</source>
-        <translation>Abrir archivo de cuencas 2D</translation>
+        <location filename="../viewer2D.cpp" line="3321"/>
+        <source>Histograms:
+</source>
+        <translation>Histogramas:
+</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="4389"/>
+        <location filename="../viewer2D.cpp" line="3324"/>
+        <source>Histogram:
+</source>
+        <translation>Histograma:
+</translation>
+    </message>
+    <message>
+        <location filename="../viewer2D.cpp" line="3330"/>
+        <source>written fo file
+</source>
+        <translation>escrito en el archivo
+</translation>
+    </message>
+    <message>
+        <location filename="../viewer2D.cpp" line="3339"/>
+        <source>File for printing sigma hole histrogram ...</source>
+        <translation>Archivo para imprimir el histograma del sigma hole ...</translation>
+    </message>
+    <message>
+        <location filename="../viewer2D.cpp" line="4561"/>
+        <source>Open 2D basins file ...</source>
+        <translation>Abrir archivo de cuencas 2D ...</translation>
+    </message>
+    <message>
+        <location filename="../viewer2D.cpp" line="4561"/>
         <source>Basins files</source>
         <translation>Archivos con cuencas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2258"/>
-        <location filename="../viewer2D.cpp" line="2275"/>
-        <location filename="../viewer2D.cpp" line="2471"/>
-        <location filename="../viewer2D.cpp" line="3763"/>
-        <location filename="../viewer2D.cpp" line="4241"/>
-        <location filename="../viewer2D.cpp" line="4390"/>
-        <location filename="../viewer2D.cpp" line="5219"/>
-        <location filename="../viewer2D.cpp" line="5278"/>
-        <location filename="../viewer2D.cpp" line="5394"/>
+        <location filename="../viewer2D.cpp" line="2301"/>
+        <location filename="../viewer2D.cpp" line="2318"/>
+        <location filename="../viewer2D.cpp" line="2518"/>
+        <location filename="../viewer2D.cpp" line="3340"/>
+        <location filename="../viewer2D.cpp" line="3915"/>
+        <location filename="../viewer2D.cpp" line="4409"/>
+        <location filename="../viewer2D.cpp" line="4562"/>
+        <location filename="../viewer2D.cpp" line="5413"/>
+        <location filename="../viewer2D.cpp" line="5472"/>
+        <location filename="../viewer2D.cpp" line="5588"/>
         <source>All files</source>
         <translation>Todos los archivos</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2668"/>
-        <location filename="../viewer2D.cpp" line="2839"/>
-        <location filename="../viewer2D.cpp" line="3074"/>
-        <location filename="../viewer2D.cpp" line="3504"/>
-        <location filename="../viewer2D.cpp" line="3512"/>
-        <location filename="../viewer2D.cpp" line="3920"/>
-        <location filename="../viewer2D.cpp" line="3928"/>
-        <location filename="../viewer2D.cpp" line="3935"/>
-        <location filename="../viewer2D.cpp" line="3941"/>
-        <location filename="../viewer2D.cpp" line="4292"/>
-        <location filename="../viewer2D.cpp" line="4392"/>
-        <location filename="../viewer2D.cpp" line="4439"/>
-        <location filename="../viewer2D.cpp" line="5191"/>
-        <location filename="../viewer2D.cpp" line="5203"/>
-        <location filename="../viewer2D.cpp" line="5284"/>
-        <location filename="../viewer2D.cpp" line="5402"/>
-        <location filename="../viewer2D.cpp" line="5771"/>
-        <location filename="../viewer2D.cpp" line="5816"/>
+        <location filename="../viewer2D.cpp" line="2715"/>
+        <location filename="../viewer2D.cpp" line="2888"/>
+        <location filename="../viewer2D.cpp" line="3127"/>
+        <location filename="../viewer2D.cpp" line="3329"/>
+        <location filename="../viewer2D.cpp" line="3640"/>
+        <location filename="../viewer2D.cpp" line="3652"/>
+        <location filename="../viewer2D.cpp" line="4072"/>
+        <location filename="../viewer2D.cpp" line="4084"/>
+        <location filename="../viewer2D.cpp" line="4091"/>
+        <location filename="../viewer2D.cpp" line="4097"/>
+        <location filename="../viewer2D.cpp" line="4460"/>
+        <location filename="../viewer2D.cpp" line="4564"/>
+        <location filename="../viewer2D.cpp" line="4611"/>
+        <location filename="../viewer2D.cpp" line="5385"/>
+        <location filename="../viewer2D.cpp" line="5397"/>
+        <location filename="../viewer2D.cpp" line="5478"/>
+        <location filename="../viewer2D.cpp" line="5596"/>
+        <location filename="../viewer2D.cpp" line="5965"/>
+        <location filename="../viewer2D.cpp" line="6010"/>
         <source>DAMQT</source>
         <translation>DAMQT</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="4392"/>
+        <location filename="../viewer2D.cpp" line="4564"/>
         <source>If file with 2D basins is not available:</source>
         <translation>Si el archivo con cuencas 2D o está disponible:</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="4393"/>
+        <location filename="../viewer2D.cpp" line="4565"/>
         <source>carry out Molecular topography analysis,
  and run 2D Electric field or density gradient generation again</source>
-        <translation>efectúe el análsis topológico de la molécula y genere las líneas 2D del campo eléctrico o del gradiente de la densidad  </translation>
+        <translation>efectúe el análsis topológico de la molécula,
+ y genere las líneas 2D del campo eléctrico o del gradiente de la densidad</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2470"/>
+        <location filename="../viewer2D.cpp" line="2517"/>
         <source>Open contour lines file ...</source>
-        <translation>Abrir el archivo de curvas de nivel</translation>
+        <translation>Abrir el archivo de curvas de nivel ...</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2470"/>
+        <location filename="../viewer2D.cpp" line="2517"/>
         <source>Contour lines files</source>
         <translation>Archivos de curvas de nivel</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="4240"/>
+        <location filename="../viewer2D.cpp" line="4408"/>
         <source>Open critical points file ...</source>
         <translation>Abrir archivo con puntos críticos ...</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="4240"/>
+        <location filename="../viewer2D.cpp" line="4408"/>
         <source>Critical points files</source>
         <translation>Archivos con puntos críticos</translation>
     </message>
@@ -3611,49 +4363,49 @@ Push twice if required.</source>
         <translation type="obsolete">Abrir archivo con líneas de campo</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2274"/>
-        <location filename="../viewer2D.cpp" line="3762"/>
+        <location filename="../viewer2D.cpp" line="2317"/>
+        <location filename="../viewer2D.cpp" line="3914"/>
         <source>Radial factors files</source>
         <translation>Archvos de factores radiales</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="3762"/>
+        <location filename="../viewer2D.cpp" line="3914"/>
         <source>Open radial factors file ...</source>
-        <translation>Abrir archivo de factores radiales</translation>
+        <translation>Abrir archivo de factores radiales ...</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2274"/>
+        <location filename="../viewer2D.cpp" line="2317"/>
         <source>Open sigma hole histrogram file ...</source>
-        <translation>Abrir archivo de histograma de sigma hole</translation>
+        <translation>Abrir archivo de histograma de sigma hole ...</translation>
     </message>
     <message>
         <source>Open sigga hole histrogram file ...</source>
         <translation type="obsolete">Abrir archivo de histograma de sigma hole</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="4434"/>
+        <location filename="../viewer2D.cpp" line="4606"/>
         <source>readbasinsfile</source>
         <translation>readbasinsfile</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="4434"/>
+        <location filename="../viewer2D.cpp" line="4606"/>
         <source>Invalid extension of file %1. Must be .basin2D</source>
         <translation>Extensión del archivo %1 no válida. Debe ser .basin2D</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2668"/>
-        <location filename="../viewer2D.cpp" line="2839"/>
-        <location filename="../viewer2D.cpp" line="3074"/>
-        <location filename="../viewer2D.cpp" line="3504"/>
-        <location filename="../viewer2D.cpp" line="3920"/>
-        <location filename="../viewer2D.cpp" line="4292"/>
-        <location filename="../viewer2D.cpp" line="4439"/>
-        <location filename="../viewer2D.cpp" line="5284"/>
+        <location filename="../viewer2D.cpp" line="2715"/>
+        <location filename="../viewer2D.cpp" line="2888"/>
+        <location filename="../viewer2D.cpp" line="3127"/>
+        <location filename="../viewer2D.cpp" line="3640"/>
+        <location filename="../viewer2D.cpp" line="4072"/>
+        <location filename="../viewer2D.cpp" line="4460"/>
+        <location filename="../viewer2D.cpp" line="4611"/>
+        <location filename="../viewer2D.cpp" line="5478"/>
         <source>File %1 cannot be read</source>
         <translation>No se puede leer el archivo %1</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="3069"/>
+        <location filename="../viewer2D.cpp" line="3122"/>
         <source>readfieldfile</source>
         <translation>readfieldfile</translation>
     </message>
@@ -3666,177 +4418,201 @@ Push twice if required.</source>
         <translation type="obsolete">¿Desea superponerla sobre las existentes?</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2662"/>
+        <location filename="../viewer2D.cpp" line="2709"/>
         <source>readcntfile</source>
         <translation>readcntfile</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2662"/>
+        <location filename="../viewer2D.cpp" line="2709"/>
         <source>Invalid extension of file %1. Must be .cnt</source>
         <translation>Extensión del archivo %1 no válida. Debe ser .cnt</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2682"/>
-        <location filename="../viewer2D.cpp" line="2785"/>
+        <location filename="../viewer2D.cpp" line="2729"/>
+        <location filename="../viewer2D.cpp" line="2832"/>
         <source>Viewer</source>
         <translation>Visor</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2682"/>
+        <location filename="../viewer2D.cpp" line="2729"/>
         <source>Error: wrong dimensions</source>
         <translation>Error: dimensiones erróneas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2785"/>
+        <location filename="../viewer2D.cpp" line="2832"/>
         <source>Highest contour value equal to lowest = </source>
         <translation>Cotas superior e inferior iguales = </translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="4287"/>
+        <location filename="../viewer2D.cpp" line="4455"/>
         <source>readcpsfile</source>
         <translation>readcpsfile</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="4287"/>
+        <location filename="../viewer2D.cpp" line="4455"/>
         <source>Invalid file %1. Must be *cps-?.xyz</source>
-        <translation>Archivo %1 no válido. Debe ser *cps-?.xyz </translation>
+        <translation>Archivo %1 no válido. Debe ser *cps-?.xyz</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="3915"/>
+        <location filename="../viewer2D.cpp" line="4067"/>
         <source>readfradfile</source>
         <translation>readfradfile</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="3915"/>
+        <location filename="../viewer2D.cpp" line="4067"/>
         <source>Invalid extension of file %1. Must be .frad, .drvfrad or .drv2frad</source>
         <translation>Extensión del archivo %1 no válida. Debe ser .drv2frad</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="3512"/>
-        <location filename="../viewer2D.cpp" line="3928"/>
+        <location filename="../viewer2D.cpp" line="3652"/>
+        <location filename="../viewer2D.cpp" line="4084"/>
         <source>Invalid %1 file</source>
         <translation>Archivo %1 no válido</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="3935"/>
+        <location filename="../viewer2D.cpp" line="4091"/>
         <source>No tabulated curves</source>
         <translation>No hay curvas tabuladas</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="3941"/>
+        <location filename="../viewer2D.cpp" line="4097"/>
         <source>Insufficient number of tabulation points</source>
         <translation>Número insuficiente de puntos de tabulación</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2688"/>
-        <location filename="../viewer2D.cpp" line="3081"/>
-        <location filename="../viewer2D.cpp" line="3537"/>
-        <location filename="../viewer2D.cpp" line="3972"/>
+        <location filename="../viewer2D.cpp" line="2735"/>
+        <location filename="../viewer2D.cpp" line="3134"/>
+        <location filename="../viewer2D.cpp" line="3677"/>
+        <location filename="../viewer2D.cpp" line="4128"/>
         <source>Do you want to suprimpose curves over existing ones?</source>
         <translation>¿Desea superponerlas sobre las existentes?</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2691"/>
-        <location filename="../viewer2D.cpp" line="3084"/>
-        <location filename="../viewer2D.cpp" line="3306"/>
-        <location filename="../viewer2D.cpp" line="3540"/>
-        <location filename="../viewer2D.cpp" line="3734"/>
-        <location filename="../viewer2D.cpp" line="3975"/>
+        <location filename="../viewer2D.cpp" line="2738"/>
+        <location filename="../viewer2D.cpp" line="3137"/>
+        <location filename="../viewer2D.cpp" line="3442"/>
+        <location filename="../viewer2D.cpp" line="3680"/>
+        <location filename="../viewer2D.cpp" line="3890"/>
+        <location filename="../viewer2D.cpp" line="4131"/>
         <source>Yes</source>
         <translation>Sí</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2692"/>
-        <location filename="../viewer2D.cpp" line="3085"/>
-        <location filename="../viewer2D.cpp" line="3307"/>
-        <location filename="../viewer2D.cpp" line="3541"/>
-        <location filename="../viewer2D.cpp" line="3735"/>
-        <location filename="../viewer2D.cpp" line="3976"/>
+        <location filename="../viewer2D.cpp" line="2739"/>
+        <location filename="../viewer2D.cpp" line="3138"/>
+        <location filename="../viewer2D.cpp" line="3443"/>
+        <location filename="../viewer2D.cpp" line="3681"/>
+        <location filename="../viewer2D.cpp" line="3891"/>
+        <location filename="../viewer2D.cpp" line="4132"/>
         <source>No</source>
         <translation>No</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="3500"/>
+        <location filename="../viewer2D.cpp" line="3636"/>
         <source>readhstfile</source>
         <translation>readhstfile</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="3500"/>
+        <location filename="../viewer2D.cpp" line="3636"/>
         <source>Invalid extension of file %1. Must be .hst</source>
         <translation>Extensión del archivo %1 no válida. Debe ser .hst</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="3303"/>
-        <location filename="../viewer2D.cpp" line="3731"/>
+        <location filename="../viewer2D.cpp" line="3439"/>
+        <location filename="../viewer2D.cpp" line="3887"/>
         <source>Do you want to delete curve %1?</source>
         <translation>¿Desea borrar la curva %1?</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="4562"/>
-        <location filename="../viewer2D.cpp" line="4689"/>
-        <location filename="../viewer2D.cpp" line="4842"/>
+        <location filename="../viewer2D.cpp" line="4752"/>
+        <location filename="../viewer2D.cpp" line="4881"/>
+        <location filename="../viewer2D.cpp" line="5036"/>
         <source>Accept</source>
         <translation>Aceptar</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2693"/>
-        <location filename="../viewer2D.cpp" line="3086"/>
-        <location filename="../viewer2D.cpp" line="3308"/>
-        <location filename="../viewer2D.cpp" line="3542"/>
-        <location filename="../viewer2D.cpp" line="3736"/>
-        <location filename="../viewer2D.cpp" line="3977"/>
-        <location filename="../viewer2D.cpp" line="4565"/>
-        <location filename="../viewer2D.cpp" line="4692"/>
-        <location filename="../viewer2D.cpp" line="4845"/>
+        <location filename="../viewer2D.cpp" line="2740"/>
+        <location filename="../viewer2D.cpp" line="3139"/>
+        <location filename="../viewer2D.cpp" line="3444"/>
+        <location filename="../viewer2D.cpp" line="3682"/>
+        <location filename="../viewer2D.cpp" line="3892"/>
+        <location filename="../viewer2D.cpp" line="4133"/>
+        <location filename="../viewer2D.cpp" line="4755"/>
+        <location filename="../viewer2D.cpp" line="4884"/>
+        <location filename="../viewer2D.cpp" line="5039"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="4567"/>
-        <location filename="../viewer2D.cpp" line="4694"/>
-        <location filename="../viewer2D.cpp" line="4835"/>
+        <location filename="../viewer2D.cpp" line="4646"/>
+        <source>Plotter</source>
+        <translation>Trazador</translation>
+    </message>
+    <message>
+        <location filename="../viewer2D.cpp" line="4647"/>
+        <source>No basin borders found.
+</source>
+        <translation>No encuentra ningún límite de cuenta.
+</translation>
+    </message>
+    <message>
+        <location filename="../viewer2D.cpp" line="4648"/>
+        <source>If you think they must appear, increase basins tolerance
+</source>
+        <translation>SI cree que debe aparecer, aumente la tolerancia para la cuenca
+</translation>
+    </message>
+    <message>
+        <location filename="../viewer2D.cpp" line="4649"/>
+        <source>in electric field calculation and compute again.</source>
+        <translation>en el cálculo del campo eléctrico y repita el cálculo.</translation>
+    </message>
+    <message>
+        <location filename="../viewer2D.cpp" line="4757"/>
+        <location filename="../viewer2D.cpp" line="4886"/>
+        <location filename="../viewer2D.cpp" line="5029"/>
         <source>Hide</source>
         <translation>Ocultar</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="5192"/>
-        <location filename="../viewer2D.cpp" line="5204"/>
+        <location filename="../viewer2D.cpp" line="5386"/>
+        <location filename="../viewer2D.cpp" line="5398"/>
         <source>Size chosen exceeds the highest allowable (%1 x %2)
 Takes the highest compatible </source>
         <translation>El tamaño elegido excede el máximo permitido (%1 x %2
-Toma el mayor compatible  </translation>
+Toma el mayor compatible </translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="5217"/>
+        <location filename="../viewer2D.cpp" line="5411"/>
         <source>Save image as ...</source>
         <translation>Salvar imagen como ...</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="5218"/>
+        <location filename="../viewer2D.cpp" line="5412"/>
         <source>Image files</source>
         <translation>Archivos de imagen</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="2254"/>
-        <location filename="../viewer2D.cpp" line="5277"/>
-        <location filename="../viewer2D.cpp" line="5393"/>
+        <location filename="../viewer2D.cpp" line="2297"/>
+        <location filename="../viewer2D.cpp" line="5471"/>
+        <location filename="../viewer2D.cpp" line="5587"/>
         <source>Open file ...</source>
         <translation>Abrir archivo ...</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="5277"/>
-        <location filename="../viewer2D.cpp" line="5393"/>
+        <location filename="../viewer2D.cpp" line="5471"/>
+        <location filename="../viewer2D.cpp" line="5587"/>
         <source>Geometry and basis set files</source>
         <translation>Archivos de geometría y base</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="5402"/>
-        <location filename="../viewer2D.cpp" line="5771"/>
+        <location filename="../viewer2D.cpp" line="5596"/>
+        <location filename="../viewer2D.cpp" line="5965"/>
         <source>Extension of file %1 not allowed</source>
-        <translation>Extensión del archivo %1 no válida.</translation>
+        <translation>Extensión del archivo %1 no válida</translation>
     </message>
     <message>
-        <location filename="../viewer2D.cpp" line="5816"/>
+        <location filename="../viewer2D.cpp" line="6010"/>
         <source>Parameters A=%1, B=%2, C=%3 do not define a plane</source>
         <translation>Los parámetros A=%1, B=%2, C=%3 no definen un plano</translation>
     </message>
@@ -5280,11 +6056,97 @@ Comprobar el archivo.</translation>
     </message>
 </context>
 <context>
+    <name>axes</name>
+    <message>
+        <location filename="../axes.cpp" line="56"/>
+        <source>Axes</source>
+        <translation>Ejes</translation>
+    </message>
+    <message>
+        <location filename="../axes.cpp" line="59"/>
+        <source>Show axes</source>
+        <translation>Mostrar ejes</translation>
+    </message>
+    <message>
+        <location filename="../axes.cpp" line="63"/>
+        <source>Show axes labels</source>
+        <translation>Mostrar etiquetas de los ejes</translation>
+    </message>
+    <message>
+        <location filename="../axes.cpp" line="70"/>
+        <source>Font</source>
+        <translation>Tipo de letra</translation>
+    </message>
+    <message>
+        <location filename="../axes.cpp" line="77"/>
+        <source>X axis</source>
+        <translation>eje X</translation>
+    </message>
+    <message>
+        <location filename="../axes.cpp" line="83"/>
+        <source>Y axis</source>
+        <translation>eje Y</translation>
+    </message>
+    <message>
+        <location filename="../axes.cpp" line="89"/>
+        <source>Z axis</source>
+        <translation>eje Z</translation>
+    </message>
+    <message>
+        <location filename="../axes.cpp" line="150"/>
+        <source>Axes thickness</source>
+        <translation>Grosor de los ejes</translation>
+    </message>
+    <message>
+        <location filename="../axes.cpp" line="151"/>
+        <source>Axes length</source>
+        <translation>Longitud de los ejes</translation>
+    </message>
+    <message>
+        <location filename="../axes.cpp" line="152"/>
+        <source>Arrows length</source>
+        <translation>Longitud de las flechas</translation>
+    </message>
+    <message>
+        <location filename="../axes.cpp" line="153"/>
+        <source>Arrows width</source>
+        <translation>Grosor de las flechas</translation>
+    </message>
+</context>
+<context>
+    <name>ballscyls</name>
+    <message>
+        <location filename="../ballscyls.cpp" line="44"/>
+        <source>Scale balls with atoms radii</source>
+        <translation>Escalar esferas con radios atómicos</translation>
+    </message>
+    <message>
+        <location filename="../ballscyls.cpp" line="70"/>
+        <source>Apply</source>
+        <translation>Aplicar</translation>
+    </message>
+    <message>
+        <location filename="../ballscyls.cpp" line="116"/>
+        <source>Ball</source>
+        <translation>Esferas</translation>
+    </message>
+    <message>
+        <location filename="../ballscyls.cpp" line="117"/>
+        <source>Cylinder</source>
+        <translation>Cilindros</translation>
+    </message>
+    <message>
+        <location filename="../ballscyls.cpp" line="118"/>
+        <source>Bond threshold</source>
+        <translation>Umbral de enlace</translation>
+    </message>
+</context>
+<context>
     <name>criticalpoints</name>
     <message>
         <location filename="../criticalpoints.cpp" line="101"/>
         <location filename="../criticalpoints.cpp" line="124"/>
-        <location filename="../criticalpoints.cpp" line="166"/>
+        <location filename="../criticalpoints.cpp" line="171"/>
         <source>readcpseigen</source>
         <translation>readcpseigen</translation>
     </message>
@@ -5304,11 +6166,10 @@ No se pueden visualizar los autovalores de la matriz Hessiana</translation>
         <source>different than three times number of CPs.
 Check file.. Hessian eigenvectors cannot be visualized</source>
         <translation>diferente del triple del número de CPs.
-Compruebe el archivo. 
-No se pueden visualizar los autovalores de la matriz Hessiana </translation>
+Compruebe el archivo.. No se pueden visualizar los autovalores de la matriz Hessiana</translation>
     </message>
     <message>
-        <location filename="../criticalpoints.cpp" line="167"/>
+        <location filename="../criticalpoints.cpp" line="172"/>
         <source>Number of eigenvectors read in file %1 different than 3 times the number of critical points. Hessian eigenvectors cannot be visualized</source>
         <translation>Número de autovectores leídos del archivo %1
 diferente del triple del número de CPs.
@@ -5316,26 +6177,26 @@ Compruebe el archivo.
 No se pueden visualizar los autovalores de la matriz Hessiana</translation>
     </message>
     <message>
-        <location filename="../criticalpoints.cpp" line="185"/>
-        <location filename="../criticalpoints.cpp" line="223"/>
+        <location filename="../criticalpoints.cpp" line="190"/>
         <location filename="../criticalpoints.cpp" line="232"/>
+        <location filename="../criticalpoints.cpp" line="241"/>
         <source>readcpsfile</source>
         <translation>readcpsfile</translation>
     </message>
     <message>
-        <location filename="../criticalpoints.cpp" line="186"/>
+        <location filename="../criticalpoints.cpp" line="191"/>
         <source>File %1 cannot be read</source>
         <translation>No se puede leer el archivo %1</translation>
     </message>
     <message>
-        <location filename="../criticalpoints.cpp" line="224"/>
+        <location filename="../criticalpoints.cpp" line="233"/>
         <source>Number of CPs in file %1 higher than declared on top of file </source>
-        <translation>Número de CPs en el archivo %1mayor que el declarado al comienzo del archivo.</translation>
+        <translation>Número de CPs en el archivo %1mayor que el declarado al comienzo del archivo </translation>
     </message>
     <message>
-        <location filename="../criticalpoints.cpp" line="233"/>
+        <location filename="../criticalpoints.cpp" line="242"/>
         <source>Number of CPs in file %1 lower than declared on top of file </source>
-        <translation>Número de CPs en el archivo %1menor que el declarado al comienzo del archivo.</translation>
+        <translation>Número de CPs en el archivo %1menor que el declarado al comienzo del archivo </translation>
     </message>
 </context>
 <context>
@@ -5349,12 +6210,12 @@ No se pueden visualizar los autovalores de la matriz Hessiana</translation>
 <context>
     <name>editclosePushButton</name>
     <message>
-        <location filename="../widgetsubclasses.cpp" line="58"/>
+        <location filename="../widgetsubclasses.cpp" line="61"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="../widgetsubclasses.cpp" line="59"/>
+        <location filename="../widgetsubclasses.cpp" line="62"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
@@ -5376,7 +6237,7 @@ No se pueden visualizar los autovalores de la matriz Hessiana</translation>
     <name>forces</name>
     <message>
         <location filename="../forces.cpp" line="84"/>
-        <location filename="../forces.cpp" line="107"/>
+        <location filename="../forces.cpp" line="111"/>
         <source>readforcesfile</source>
         <translation>readforcesfile</translation>
     </message>
@@ -5386,7 +6247,7 @@ No se pueden visualizar los autovalores de la matriz Hessiana</translation>
         <translation>No se puede leer el archivo %1</translation>
     </message>
     <message>
-        <location filename="../forces.cpp" line="108"/>
+        <location filename="../forces.cpp" line="112"/>
         <source>Error reading file %1: insufficient number of entries in forces</source>
         <translation>Error al leer el archivo %1: insuficiente número de datos en las fuerzas</translation>
     </message>
@@ -5394,514 +6255,638 @@ No se pueden visualizar los autovalores de la matriz Hessiana</translation>
 <context>
     <name>glWidget</name>
     <message>
-        <location filename="../glWidget.cpp" line="158"/>
+        <location filename="../glWidget.cpp" line="197"/>
         <source>Delete Confirmation</source>
         <translation>Confirmar borrado</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="159"/>
+        <location filename="../glWidget.cpp" line="198"/>
         <source>Are you sure you want to close this window?
 Viewer and ancillary windows will be deleted</source>
         <translation>¿Está seguro de que desea destruir esta ventana?
-Al hacerlo, el visor y las ventanas auxiliares se destruirán.</translation>
+Al hacerlo, el visor y las ventanas auxiliares se destruirán</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="162"/>
-        <location filename="../glWidget.cpp" line="315"/>
+        <location filename="../glWidget.cpp" line="201"/>
+        <location filename="../glWidget.cpp" line="368"/>
         <source>Yes</source>
         <translation>Sí</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="163"/>
-        <location filename="../glWidget.cpp" line="316"/>
+        <location filename="../glWidget.cpp" line="202"/>
+        <location filename="../glWidget.cpp" line="369"/>
         <source>No</source>
         <translation>No</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="182"/>
+        <location filename="../glWidget.cpp" line="222"/>
         <source> Main Menu</source>
-        <translation>Menú principal</translation>
+        <translation> Menú principal</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="189"/>
+        <location filename="../glWidget.cpp" line="232"/>
         <source>Add molecule</source>
         <translation>Añadir molécula</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="197"/>
+        <location filename="../glWidget.cpp" line="240"/>
         <source>Geometry measures</source>
         <translation>Medidas geométricas</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="276"/>
+        <location filename="../glWidget.cpp" line="329"/>
         <source>active</source>
         <translation>activa</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="286"/>
+        <location filename="../glWidget.cpp" line="339"/>
         <source>Edit</source>
         <translation>Editar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="289"/>
+        <location filename="../glWidget.cpp" line="342"/>
         <source>Delete</source>
         <translation>Eliminar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="294"/>
+        <location filename="../glWidget.cpp" line="347"/>
         <source>Hide</source>
         <translation>Ocultar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="296"/>
+        <location filename="../glWidget.cpp" line="349"/>
         <source>Show</source>
         <translation>Mostrar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="312"/>
+        <location filename="../glWidget.cpp" line="365"/>
         <source>Do you want to remove </source>
-        <translation>¿Desea eliminarlo</translation>
+        <translation>¿Desea eliminar </translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="348"/>
         <source>Image capture</source>
-        <translation>Captura de imagen</translation>
+        <translation type="vanished">Captura de imagen</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="351"/>
-        <location filename="../glWidget.cpp" line="1164"/>
+        <location filename="../glWidget.cpp" line="470"/>
+        <location filename="../glWidget.cpp" line="1179"/>
         <source>Manage capture</source>
         <translation>Capturador</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="354"/>
         <source>Resolution</source>
-        <translation>Resolución</translation>
+        <translation type="vanished">Resolución</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="358"/>
         <source>Screen resolution</source>
-        <translation>Resolución de la pantalla</translation>
+        <translation type="vanished">Resolución de la pantalla</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="360"/>
         <source>Scaled resolution</source>
-        <translation>Escalar</translation>
+        <translation type="vanished">Escalar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="365"/>
         <source>1.0</source>
-        <translation>1.0</translation>
+        <translation type="vanished">1.0</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="369"/>
         <source>Transparent background</source>
-        <translation>Fondo transparente</translation>
+        <translation type="vanished">Fondo transparente</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="377"/>
         <source>Take picture</source>
-        <translation>Capturar imagen</translation>
+        <translation type="vanished">Capturar imagen</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="384"/>
         <source>Scale factor</source>
-        <translation>Factor de escala</translation>
+        <translation type="vanished">Factor de escala</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="385"/>
         <source>Image quality</source>
-        <translation>Calidad de imagen</translation>
+        <translation type="vanished">Calidad de imagen</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="416"/>
-        <location filename="../glWidget.cpp" line="419"/>
-        <location filename="../glWidget.cpp" line="1189"/>
         <source>Record animation</source>
-        <translation>Grabar animación</translation>
+        <translation type="vanished">Grabar animación</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="422"/>
         <source>Remove frame files at end</source>
-        <translation>Eliminar fotogramas al terminar</translation>
+        <translation type="vanished">Eliminar fotogramas al terminar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="430"/>
         <source>...</source>
-        <translation>...</translation>
+        <translation type="vanished">...</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="438"/>
         <source>Start</source>
-        <translation>Empezar</translation>
+        <translation type="vanished">Empezar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="449"/>
         <source>Number of frames</source>
-        <translation>Número de fotogramas</translation>
+        <translation type="vanished">Número de fotogramas</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="451"/>
         <source>Name for record file</source>
-        <translation>Nombre de archivo</translation>
+        <translation type="vanished">Nombre de archivo</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="486"/>
         <source>Lights properties</source>
-        <translation>Propiedades de las luces</translation>
+        <translation type="vanished">Propiedades de las luces</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="490"/>
-        <location filename="../glWidget.cpp" line="1311"/>
+        <location filename="../glWidget.cpp" line="482"/>
+        <location filename="../glWidget.cpp" line="1252"/>
         <source>Manage lights</source>
         <translation>Iluminación</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="517"/>
-        <location filename="../glWidget.cpp" line="528"/>
-        <location filename="../glWidget.cpp" line="539"/>
-        <location filename="../glWidget.cpp" line="550"/>
         <source>Color</source>
-        <translation>Color</translation>
+        <translation type="vanished">Color</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="566"/>
         <source>Light attenuation</source>
-        <translation>Atenuación</translation>
+        <translation type="vanished">Atenuación</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="567"/>
         <source>Linear</source>
-        <translation>Lineal</translation>
+        <translation type="vanished">Lineal</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="570"/>
         <source>Squared</source>
-        <translation>Cuadrática</translation>
+        <translation type="vanished">Cuadrática</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="593"/>
         <source>Source light color</source>
-        <translation>Fuente luminosa</translation>
+        <translation type="vanished">Fuente luminosa</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="594"/>
         <source>Ambient light color</source>
-        <translation>Luz ambiente</translation>
+        <translation type="vanished">Luz ambiente</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="595"/>
         <source>Material specular color</source>
-        <translation>Luz reflejada</translation>
+        <translation type="vanished">Luz reflejada</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="596"/>
-        <location filename="../glWidget.cpp" line="796"/>
+        <location filename="../glWidget.cpp" line="630"/>
         <source>Background color</source>
         <translation>Color de fondo</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="597"/>
         <source>Light Power</source>
-        <translation>Potencia lumínica</translation>
+        <translation type="vanished">Potencia lumínica</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="628"/>
         <source>Radii sizes</source>
-        <translation>Tamaño de radios</translation>
+        <translation type="vanished">Tamaño de radios</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="632"/>
-        <location filename="../glWidget.cpp" line="1380"/>
+        <location filename="../glWidget.cpp" line="514"/>
+        <location filename="../glWidget.cpp" line="1274"/>
         <source>Manage balls and sticks</source>
         <translation>Esferas y barras</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="637"/>
         <source>Scale balls with atoms radii</source>
-        <translation>Escalar esferas con radios atómicos</translation>
+        <translation type="vanished">Escalar esferas con radios atómicos</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="662"/>
-        <location filename="../glWidget.cpp" line="736"/>
         <source>Apply</source>
-        <translation>Aplicar</translation>
+        <translation type="vanished">Aplicar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="671"/>
         <source>Ball</source>
-        <translation>Esferas</translation>
+        <translation type="vanished">Esferas</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="672"/>
         <source>Cylinder</source>
-        <translation>Cilindros</translation>
+        <translation type="vanished">Cilindros</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="673"/>
         <source>Bond threshold</source>
-        <translation>Umbral de enlace</translation>
+        <translation type="vanished">Umbral de enlace</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="700"/>
         <source>View Port</source>
-        <translation>Visor</translation>
+        <translation type="vanished">Visor</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="704"/>
-        <location filename="../glWidget.cpp" line="1420"/>
+        <location filename="../glWidget.cpp" line="529"/>
+        <location filename="../glWidget.cpp" line="1314"/>
         <source>Manage viewport</source>
         <translation>Manejo del visor</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="712"/>
         <source>Field of view (angle in degrees)</source>
-        <translation>Campo de visión (ángulo en grados)</translation>
+        <translation type="vanished">Campo de visión (ángulo en grados)</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="721"/>
         <source>Farthest distance for objects to be displayed</source>
-        <translation>Máxima distancia para la visualización de objetos</translation>
+        <translation type="vanished">Máxima distancia para la visualización de objetos</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="730"/>
         <source>Nearest distance for objects to be displayed</source>
-        <translation>Mínima distancia para la visualización de objetos</translation>
+        <translation type="vanished">Mínima distancia para la visualización de objetos</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="745"/>
         <source>Field of view</source>
-        <translation>Campo de visión</translation>
+        <translation type="vanished">Campo de visión</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="747"/>
         <source>Angle</source>
-        <translation>Ángulo</translation>
+        <translation type="vanished">Ángulo</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="750"/>
         <source>Clipping planes</source>
-        <translation>Planos de corte</translation>
+        <translation type="vanished">Planos de corte</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="753"/>
         <source>Near:</source>
-        <translation>Cercano:</translation>
+        <translation type="vanished">Cercano:</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="754"/>
         <source>Far:</source>
-        <translation>Lejano:</translation>
+        <translation type="vanished">Lejano:</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="779"/>
+        <location filename="../glWidget.cpp" line="613"/>
         <source>Settings</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="783"/>
-        <location filename="../glWidget.cpp" line="1477"/>
+        <location filename="../glWidget.cpp" line="617"/>
+        <location filename="../glWidget.cpp" line="2503"/>
         <source>Save/retrieve settings</source>
         <translation>Guardar/recuperar la configuración</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="787"/>
+        <location filename="../glWidget.cpp" line="621"/>
         <source>Save</source>
         <translation>Guardar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="790"/>
+        <location filename="../glWidget.cpp" line="624"/>
         <source>Retrieve</source>
         <translation>Recuperar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="792"/>
+        <location filename="../glWidget.cpp" line="626"/>
         <source>Position</source>
         <translation>Posición</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="794"/>
+        <location filename="../glWidget.cpp" line="628"/>
         <source>Rotation</source>
         <translation>Rotación</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="798"/>
+        <location filename="../glWidget.cpp" line="632"/>
         <source>Lights</source>
         <translation>Luces</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="800"/>
+        <location filename="../glWidget.cpp" line="634"/>
         <source>Balls and sticks</source>
         <translation>Barras y esferas</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="802"/>
+        <location filename="../glWidget.cpp" line="636"/>
         <source>Viewport</source>
         <translation>Visor</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="804"/>
+        <location filename="../glWidget.cpp" line="638"/>
         <source>Molecules</source>
         <translation>Moléculas</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="807"/>
+        <location filename="../glWidget.cpp" line="641"/>
         <source>Surfaces</source>
         <translation>Superficies</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="809"/>
+        <location filename="../glWidget.cpp" line="643"/>
         <source>Grids</source>
         <translation>Mallas</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="812"/>
+        <location filename="../glWidget.cpp" line="646"/>
         <source>Isosurfaces</source>
         <translation>Isosuperficies</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1107"/>
-        <location filename="../glWidget.cpp" line="1122"/>
+        <location filename="../glWidget.cpp" line="985"/>
+        <source>Hide rotations manager</source>
+        <translation>Ocultar gestor de rotaciones</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="1076"/>
+        <source>Hide translations manager</source>
+        <translation>Ocultar gestor de traslaciones</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="1096"/>
+        <location filename="../glWidget.cpp" line="1112"/>
         <source>capture</source>
         <translation>Capturar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1108"/>
+        <location filename="../glWidget.cpp" line="1097"/>
         <source>You must display the image to enable capture</source>
         <translation>Debe mostrar la imagen para capturarla</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1117"/>
+        <location filename="../glWidget.cpp" line="1107"/>
         <source>Save image as ...</source>
         <translation>Salvar imagen como ...</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1118"/>
+        <location filename="../glWidget.cpp" line="1108"/>
         <source>Image files</source>
         <translation>Archivos de imagen</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1119"/>
-        <location filename="../glWidget.cpp" line="1251"/>
-        <location filename="../glWidget.cpp" line="1492"/>
-        <location filename="../glWidget.cpp" line="1677"/>
-        <location filename="../glWidget.cpp" line="1990"/>
+        <location filename="../glWidget.cpp" line="1109"/>
+        <location filename="../glWidget.cpp" line="2420"/>
+        <location filename="../glWidget.cpp" line="2430"/>
+        <location filename="../glWidget.cpp" line="2515"/>
+        <location filename="../glWidget.cpp" line="2760"/>
+        <location filename="../glWidget.cpp" line="3121"/>
         <source>All files</source>
         <translation>Todos los archivos</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1123"/>
+        <location filename="../glWidget.cpp" line="1113"/>
         <source>A file name must be supplied for image saving</source>
         <translation>Debe suministrar un nombre de archivo para salvar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1160"/>
+        <location filename="../glWidget.cpp" line="1154"/>
+        <source>Hide axes manager</source>
+        <translation>Ocultar gestor de ejes</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="1175"/>
         <source>Hide capture manager</source>
         <translation>Ocultar capturador</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1185"/>
         <source>Hide record manager</source>
-        <translation>Ocultar grabador</translation>
+        <translation type="vanished">Ocultar grabador</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1250"/>
-        <location filename="../glWidget.cpp" line="1491"/>
-        <location filename="../glWidget.cpp" line="1676"/>
+        <location filename="../glWidget.cpp" line="2419"/>
+        <location filename="../glWidget.cpp" line="2429"/>
+        <location filename="../glWidget.cpp" line="2514"/>
+        <location filename="../glWidget.cpp" line="2759"/>
         <source>Open file ...</source>
-        <translation>Abrir archivo</translation>
+        <translation>Abrir archivo ...</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1307"/>
+        <location filename="../glWidget.cpp" line="1248"/>
         <source>Hide lights manager</source>
-        <translation>Ocultar gestor de iluminación </translation>
+        <translation>Ocultar gestor de iluminación</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1376"/>
+        <location filename="../glWidget.cpp" line="1270"/>
         <source>Hide balls and sticks manager</source>
         <translation>Ocultar gestor de esceras y barras</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1416"/>
+        <location filename="../glWidget.cpp" line="1310"/>
         <source>Hide viewport manager</source>
         <translation>Ocultar gestor de visor</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1473"/>
+        <location filename="../glWidget.cpp" line="2499"/>
         <source>Hide save/retrieve settings</source>
         <translation>Ocultar gestor de salvar/recuperar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1491"/>
-        <location filename="../glWidget.cpp" line="1677"/>
+        <location filename="../glWidget.cpp" line="2420"/>
+        <location filename="../glWidget.cpp" line="2430"/>
+        <location filename="../glWidget.cpp" line="2514"/>
+        <location filename="../glWidget.cpp" line="2760"/>
         <source>Settings saving files</source>
-        <translation>Archivos para salvar opciones </translation>
+        <translation>Archivos para salvar opciones</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1495"/>
-        <location filename="../glWidget.cpp" line="1682"/>
+        <location filename="../glWidget.cpp" line="418"/>
+        <location filename="../glWidget.cpp" line="989"/>
+        <source>Rotations</source>
+        <translation>Rotaciones</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="438"/>
+        <location filename="../glWidget.cpp" line="1080"/>
+        <source>Translations</source>
+        <translation>Traslaciones</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="450"/>
+        <location filename="../glWidget.cpp" line="1158"/>
+        <source>Axes</source>
+        <translation>Ejes</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="563"/>
+        <location filename="../glWidget.cpp" line="1498"/>
+        <source>Optimize cluster</source>
+        <translation>Optimizar el clúster</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="596"/>
+        <location filename="../glWidget.cpp" line="600"/>
+        <source>Save geometry</source>
+        <translation>Guardar geometría</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="1493"/>
+        <source>Hide optimize cluster</source>
+        <translation>Ocultar optimización</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="1630"/>
+        <source>Executable file %1 does not exist
+
+</source>
+        <translation>El archivo ejecutable %1 no existe
+
+</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="1631"/>
+        <source>Check that the program is installed in any of the following directories: 
+
+ %1 
+ %2 
+
+</source>
+        <translation>Compruebe que el programa esté instalado en alguno de los siguientes directorios: 
+
+ %1 
+ %2 
+
+</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="1634"/>
+        <source>or in any other directory available in your $PATH</source>
+        <translation>o en cualquier otro directorio contenido en $PATH</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="1727"/>
+        <location filename="../glWidget.cpp" line="1751"/>
+        <source>End of computation</source>
+        <translation>Findel cálculo</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="1732"/>
+        <source>Could not start running program %1</source>
+        <translation>No pudo empezar a ejecutar el programa %1</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="1735"/>
+        <source>Error when running program %1</source>
+        <translation>Error al ejecutar el programa %1</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="1756"/>
+        <location filename="../glWidget.cpp" line="1758"/>
+        <location filename="../glWidget.cpp" line="2117"/>
+        <location filename="../glWidget.cpp" line="2154"/>
+        <location filename="../glWidget.cpp" line="2284"/>
+        <location filename="../glWidget.cpp" line="2300"/>
+        <source>MESPIMIZER</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="1756"/>
+        <source>Cluster optimization finished</source>
+        <translation>Optimización de clúster terminada</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="1774"/>
+        <source>Computing...</source>
+        <translation>Calculando...</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="2117"/>
+        <location filename="../glWidget.cpp" line="2284"/>
+        <location filename="../glWidget.cpp" line="2436"/>
+        <location filename="../glWidget.cpp" line="2765"/>
+        <source>File %1 cannot be opened</source>
+        <translation>No se pudo abrir el archivo %1</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="2129"/>
+        <source>Animating...</source>
+        <translation>Animando...</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="2154"/>
+        <location filename="../glWidget.cpp" line="2300"/>
+        <source>Error in file %1</source>
+        <translation>Error en el archivo %1</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="2155"/>
+        <location filename="../glWidget.cpp" line="2301"/>
+        <source>wrong format</source>
+        <translation>formato erróneo</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="2261"/>
+        <source>End of animation</source>
+        <translation>Fin de la animación</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="2425"/>
+        <location filename="../glWidget.cpp" line="2436"/>
+        <location filename="../glWidget.cpp" line="2518"/>
+        <location filename="../glWidget.cpp" line="2765"/>
         <source>DAMQT</source>
         <translation>DAMQT</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1495"/>
-        <location filename="../glWidget.cpp" line="1682"/>
-        <location filename="../glWidget.cpp" line="2038"/>
-        <location filename="../glWidget.cpp" line="2104"/>
+        <location filename="../glWidget.cpp" line="2425"/>
+        <source>No molecule available to save geometry</source>
+        <translation>No hay molécula para salvar su geometría</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="2518"/>
+        <location filename="../glWidget.cpp" line="3169"/>
+        <location filename="../glWidget.cpp" line="3239"/>
         <source>File %1 cannot be read</source>
         <translation>No se puede leer el archivo %1</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1989"/>
+        <location filename="../glWidget.cpp" line="3076"/>
+        <source>addmoleculeTowindow</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="3077"/>
+        <source>last system is a cluster.
+You must delete it before adding a new molecule.</source>
+        <translation>el último sistema es un clúster.
+Debe borrarse antes de pode añadir una nueva molécula.</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="3120"/>
         <source>Open geometry file ...</source>
         <translation>Abrir el archivo con la geometría ...</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1989"/>
+        <location filename="../glWidget.cpp" line="3120"/>
         <source>Geometry and basis set files</source>
         <translation>Archivos de geometría y base</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1998"/>
-        <location filename="../glWidget.cpp" line="2010"/>
-        <location filename="../glWidget.cpp" line="2021"/>
+        <location filename="../glWidget.cpp" line="3129"/>
+        <location filename="../glWidget.cpp" line="3141"/>
+        <location filename="../glWidget.cpp" line="3152"/>
         <source>loadmoleculargeometry</source>
         <translation>loadmoleculargeometry</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1999"/>
-        <location filename="../glWidget.cpp" line="2011"/>
-        <source>Error readinfg file %1</source>
-        <translation>Error al leer el archivo %1</translation>
+        <location filename="../glWidget.cpp" line="3130"/>
+        <location filename="../glWidget.cpp" line="3142"/>
+        <source>Error reading file %1</source>
+        <translation>Erro al leer el archivo %1</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2022"/>
+        <source>Error readinfg file %1</source>
+        <translation type="vanished">Error al leer el archivo %1</translation>
+    </message>
+    <message>
+        <location filename="../glWidget.cpp" line="3153"/>
         <source>Extension of file %1 must be ggbs or xyz</source>
         <translation>La extensión del archivo %1 debe ser .ggbs o .xyz</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2037"/>
-        <location filename="../glWidget.cpp" line="2050"/>
-        <location filename="../glWidget.cpp" line="2085"/>
+        <location filename="../glWidget.cpp" line="3168"/>
+        <location filename="../glWidget.cpp" line="3181"/>
+        <location filename="../glWidget.cpp" line="3220"/>
         <source>readggbs</source>
         <translation>readggbs</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2051"/>
-        <location filename="../glWidget.cpp" line="2117"/>
+        <location filename="../glWidget.cpp" line="3182"/>
+        <location filename="../glWidget.cpp" line="3252"/>
         <source>First line of file %1 does not contain the number of centers</source>
         <translation>La primera línea del archivo %1 no contiene el número de centros</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2086"/>
-        <location filename="../glWidget.cpp" line="2143"/>
+        <location filename="../glWidget.cpp" line="3221"/>
+        <location filename="../glWidget.cpp" line="3286"/>
         <source>Wrong number of coordinates</source>
         <translation>Número decoordenadas erróneo</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2103"/>
-        <location filename="../glWidget.cpp" line="2116"/>
-        <location filename="../glWidget.cpp" line="2142"/>
+        <location filename="../glWidget.cpp" line="3238"/>
+        <location filename="../glWidget.cpp" line="3251"/>
+        <location filename="../glWidget.cpp" line="3285"/>
         <source>readxyz</source>
         <translation>readxyz</translation>
     </message>
@@ -5909,1186 +6894,1933 @@ Al hacerlo, el visor y las ventanas auxiliares se destruirán.</translation>
 <context>
     <name>glWindow</name>
     <message>
-        <location filename="../glWindow.cpp" line="166"/>
-        <location filename="../glWindow.cpp" line="185"/>
+        <location filename="../glWindow.cpp" line="353"/>
         <source>Angles selection</source>
         <translation>Ángulos</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="167"/>
         <source>Angles can be measured only among centers of the same system.</source>
-        <translation>Los ángulos solo pueden medirse entre centros del mismo sistema</translation>
+        <translation type="vanished">Los ángulos solo pueden medirse entre centros del mismo sistema</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="186"/>
-        <location filename="../glWindow.cpp" line="231"/>
-        <location filename="../glWindow.cpp" line="274"/>
+        <location filename="../glWindow.cpp" line="354"/>
+        <location filename="../glWindow.cpp" line="381"/>
+        <location filename="../glWindow.cpp" line="403"/>
         <source>Same center chosen twice.</source>
-        <translation>Centro repetido</translation>
+        <translation>Centro repetido.</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="209"/>
-        <location filename="../glWindow.cpp" line="230"/>
+        <location filename="../glWindow.cpp" line="380"/>
         <source>Dihedral angles selection</source>
         <translation>Ángulos dihedros</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="210"/>
         <source>Dihedral angles  can be measured only among centers of the same system.</source>
-        <translation>Los ángulos diedros solo pueden medirse entre centros del mismo sistema</translation>
+        <translation type="vanished">Los ángulos diedros solo pueden medirse entre centros del mismo sistema</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="257"/>
-        <location filename="../glWindow.cpp" line="273"/>
+        <location filename="../glWindow.cpp" line="402"/>
         <source>Distances selection</source>
         <translation>Distancias</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="258"/>
         <source>Distances can be measured only among centers of the same system.</source>
-        <translation>Las distancias solo pueden medirse entre centros del mismo sistema</translation>
+        <translation type="vanished">Las distancias solo pueden medirse entre centros del mismo sistema</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="472"/>
-        <location filename="../glWindow.cpp" line="482"/>
-        <location filename="../glWindow.cpp" line="492"/>
-        <location filename="../glWindow.cpp" line="502"/>
+        <location filename="../glWindow.cpp" line="675"/>
+        <location filename="../glWindow.cpp" line="685"/>
+        <location filename="../glWindow.cpp" line="695"/>
+        <location filename="../glWindow.cpp" line="705"/>
         <source>initShaders</source>
         <translation>initShaders</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="473"/>
+        <location filename="../glWindow.cpp" line="676"/>
         <source>Error opening vertex shader</source>
         <translation>Error al abrir el vertex shader</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="483"/>
+        <location filename="../glWindow.cpp" line="686"/>
         <source>Error opening fragment shader</source>
         <translation>Error al abrir el fragments shader</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="493"/>
+        <location filename="../glWindow.cpp" line="696"/>
         <source>Error linking shader pipeline</source>
         <translation>Error en el shader pipeline linking</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="503"/>
+        <location filename="../glWindow.cpp" line="706"/>
         <source>Error binding shader pipeline</source>
         <translation>Error en el shader pipeline binding</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="654"/>
-        <location filename="../glWindow.cpp" line="675"/>
+        <location filename="../glWindow.cpp" line="918"/>
+        <location filename="../glWindow.cpp" line="939"/>
         <source>create_film</source>
         <translation>Crear película</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="655"/>
+        <location filename="../glWindow.cpp" line="919"/>
         <source>It could not make film</source>
         <translation>No puede crear la película</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="676"/>
+        <location filename="../glWindow.cpp" line="940"/>
         <source>It could not remove files with frames</source>
         <translation>No puede eliminar los fotogramas</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="818"/>
+        <location filename="../glWindow.cpp" line="1125"/>
         <source>paintGLbuff</source>
         <translation>paintGLbuff</translation>
     </message>
     <message>
-        <location filename="../glWindow.cpp" line="819"/>
+        <location filename="../glWindow.cpp" line="1126"/>
         <source>Failed to save the image file </source>
-        <translation>Falló al salvar la imagen</translation>
+        <translation>Falló al salvar la imagen </translation>
     </message>
 </context>
 <context>
     <name>grid</name>
     <message>
-        <location filename="../grid.cpp" line="106"/>
+        <location filename="../grid.cpp" line="111"/>
+        <location filename="../grid.cpp" line="112"/>
         <source>_surf_%1</source>
         <translation>_surf_%1</translation>
     </message>
     <message>
-        <location filename="../grid.cpp" line="143"/>
-        <location filename="../grid.cpp" line="153"/>
+        <location filename="../grid.cpp" line="149"/>
+        <location filename="../grid.cpp" line="162"/>
         <source>generatesurf</source>
         <translation>generatesurf</translation>
     </message>
     <message>
-        <location filename="../grid.cpp" line="144"/>
+        <location filename="../grid.cpp" line="150"/>
         <source>Invalid surface</source>
         <translation>Superficie inválida</translation>
     </message>
     <message>
-        <location filename="../grid.cpp" line="154"/>
+        <location filename="../grid.cpp" line="163"/>
         <source>Number of vertices (%1)</source>
         <translation>El número de vértices (%1)</translation>
     </message>
     <message>
-        <location filename="../grid.cpp" line="155"/>
+        <location filename="../grid.cpp" line="164"/>
         <source>
 does not coincide with the number of normals (%1).</source>
-        <translation>no coincide con el número de vectores normales (%1)</translation>
+        <translation>
+no coincide con el número de vectores normales (%1).</translation>
     </message>
     <message>
-        <location filename="../grid.cpp" line="300"/>
-        <location filename="../grid.cpp" line="396"/>
+        <location filename="../grid.cpp" line="522"/>
+        <location filename="../grid.cpp" line="620"/>
+        <location filename="../grid.cpp" line="693"/>
         <source>readplt</source>
         <translation>readplt</translation>
     </message>
     <message>
-        <location filename="../grid.cpp" line="301"/>
+        <location filename="../grid.cpp" line="523"/>
+        <location filename="../grid.cpp" line="694"/>
         <source>Error: wrong dimensions</source>
         <translation>Dimensiones erróneas</translation>
     </message>
     <message>
-        <location filename="../grid.cpp" line="316"/>
-        <location filename="../grid.cpp" line="321"/>
+        <location filename="../grid.cpp" line="538"/>
+        <location filename="../grid.cpp" line="543"/>
+        <location filename="../grid.cpp" line="705"/>
+        <location filename="../grid.cpp" line="710"/>
         <source>Loading files</source>
         <translation>Cargando archivos</translation>
     </message>
     <message>
-        <location filename="../grid.cpp" line="397"/>
+        <location filename="../grid.cpp" line="621"/>
         <source>Files with derivatives are not compatible with function file.
 </source>
-        <translation>El archivo con las derivadas no es compatible con el de la función</translation>
+        <translation>El archivo con las derivadas no es compatible con el de la función.
+</translation>
     </message>
     <message>
-        <location filename="../grid.cpp" line="398"/>
+        <location filename="../grid.cpp" line="622"/>
         <source>Computes gradient numerically.</source>
-        <translation>Calcula un gradiente numérico</translation>
+        <translation>Calcula un gradiente numérico.</translation>
     </message>
 </context>
 <context>
     <name>isosurface</name>
     <message>
-        <location filename="../isosurface.cpp" line="83"/>
+        <location filename="../isosurface.cpp" line="141"/>
         <source>Value</source>
         <translation>Valor</translation>
     </message>
     <message>
-        <location filename="../isosurface.cpp" line="93"/>
+        <location filename="../isosurface.cpp" line="151"/>
         <source>Scale</source>
         <translation>Escala</translation>
     </message>
     <message>
-        <location filename="../isosurface.cpp" line="96"/>
+        <location filename="../isosurface.cpp" line="154"/>
         <source>Logarithmic</source>
         <translation>Logarítmica</translation>
     </message>
     <message>
-        <location filename="../isosurface.cpp" line="100"/>
+        <location filename="../isosurface.cpp" line="158"/>
         <source>Linear</source>
         <translation>Lineal</translation>
     </message>
     <message>
-        <location filename="../isosurface.cpp" line="112"/>
+        <location filename="../isosurface.cpp" line="170"/>
         <source>Sensitiveness</source>
         <translation>Sensibilidad</translation>
     </message>
     <message>
-        <location filename="../isosurface.cpp" line="127"/>
+        <location filename="../isosurface.cpp" line="185"/>
         <source>Color and type</source>
         <translation>Color y tipo</translation>
     </message>
     <message>
-        <location filename="../isosurface.cpp" line="130"/>
+        <location filename="../isosurface.cpp" line="188"/>
         <source>Color</source>
         <translation>Color</translation>
     </message>
     <message>
-        <location filename="../isosurface.cpp" line="135"/>
+        <location filename="../isosurface.cpp" line="193"/>
         <source>Surface type</source>
         <translation>Tipo de superficie</translation>
     </message>
     <message>
-        <location filename="../isosurface.cpp" line="138"/>
+        <location filename="../isosurface.cpp" line="196"/>
         <source>Solid surface</source>
         <translation>Rellena</translation>
     </message>
     <message>
-        <location filename="../isosurface.cpp" line="142"/>
+        <location filename="../isosurface.cpp" line="200"/>
         <source>Wire frame</source>
         <translation>Trama</translation>
     </message>
     <message>
-        <location filename="../isosurface.cpp" line="149"/>
+        <location filename="../isosurface.cpp" line="207"/>
         <source>Opacity:</source>
-        <translation>Opacidad</translation>
+        <translation>Opacidad:</translation>
     </message>
     <message>
-        <location filename="../isosurface.cpp" line="168"/>
+        <location filename="../isosurface.cpp" line="226"/>
         <source>Translucence correction</source>
         <translation>Corrección de transparencia</translation>
     </message>
     <message>
-        <location filename="../isosurface.cpp" line="174"/>
+        <location filename="../isosurface.cpp" line="232"/>
+        <source>Compute normals from interpolated gradient</source>
+        <translation>Calcular las normales a partir del gradiente interpolado</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="239"/>
         <source>Show grid boundaries</source>
         <translation>Mostrar bordes de la malla</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="246"/>
+        <source>High quality surface</source>
+        <translation>Superficie de alta calidad</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="247"/>
+        <source>Computes the isosurface with analytical gradient and stores it in a file to be loaded with the Add surface option</source>
+        <translation>Calcula la superficie con el gradiente analítico y la guarda en un archivo para ser leído con la opción de añadir superficie</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="251"/>
+        <source>File: </source>
+        <translation>Archivo: </translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="258"/>
+        <source>MPI</source>
+        <translation>MPI</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="261"/>
+        <location filename="../isosurface.cpp" line="268"/>
+        <source>Number of processors</source>
+        <translation>Nº de procesadores</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="283"/>
+        <source>Exec</source>
+        <translation>Ejecutar</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="287"/>
+        <source>Stop</source>
+        <translation>Detener</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="516"/>
+        <location filename="../isosurface.cpp" line="525"/>
+        <location filename="../isosurface.cpp" line="789"/>
+        <location filename="../isosurface.cpp" line="934"/>
+        <source>High quality isosurface</source>
+        <translation>Superficie de alta calidad</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="517"/>
+        <location filename="../isosurface.cpp" line="526"/>
+        <source>File %1 does not exist. Cannot do operation. </source>
+        <translation>El archivo %1 no existe. No se puede efectuar la operación. </translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="690"/>
+        <source>Executable file %1 does not exist
+
+</source>
+        <translation>El archivo ejecutable %1 no existe
+
+</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="691"/>
+        <source>Check that the program is installed in any of the following directories: 
+
+ %1 
+ %2 
+
+</source>
+        <translation>Compruebe que el programa esté instalado en alguno de los siguientes directorios 
+
+ %1 
+ %2 
+
+</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="694"/>
+        <source>or in any other directory available in your $PATH</source>
+        <translation>o en cualquier otro directorio contenido en $PATH</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="714"/>
+        <source>Computing...</source>
+        <translation>Calculando...</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="737"/>
+        <source>Do you want to kill all processes named %1?</source>
+        <translation>¿Desea terminar todos los procesos llamados %1?</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="738"/>
+        <source>The following processes will be killed: </source>
+        <translation>Los siguientes procesos terminarán: </translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="741"/>
+        <source>Yes</source>
+        <translation>Sí</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="742"/>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="743"/>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="763"/>
+        <source>Process stopped</source>
+        <translation>Proceso detenido</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="773"/>
+        <source>Process failed to start program %1
+</source>
+        <translation>Falló el proceso al comienzo del programa %1
+</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="774"/>
+        <source>Check that the program is installed in the directory: 
+ %1 
+</source>
+        <translation>Compruebe que el programa esté instalado en el directorio 
+ %1 
+</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="776"/>
+        <source>or in any other directory in your $PATH</source>
+        <translation>o en cualquier otro directorio contenido en $PATH</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="780"/>
+        <source>Error when running program %1</source>
+        <translation>Error al ejecutar el programa %1</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="783"/>
+        <source>Process failed</source>
+        <translation>Falló el proceso</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="790"/>
+        <source>Process %1 crashed, exit code = %2</source>
+        <translation>Falló el proceso %1, código de salida = %2</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="793"/>
+        <source>Calculation finished</source>
+        <translation>Cálculo terminado</translation>
+    </message>
+    <message>
+        <location filename="../isosurface.cpp" line="935"/>
+        <source>Extension of file %1 must be -d_surf* or -v_surf*. Cannot do operation.</source>
+        <translation>La extensión del archivo %1 debe ser -d.surf* o -v.surf*. No se puede efectuar la operación.</translation>
+    </message>
+</context>
+<context>
+    <name>lights</name>
+    <message>
+        <location filename="../lights.cpp" line="51"/>
+        <source>Lights properties</source>
+        <translation>Propiedades de las luces</translation>
+    </message>
+    <message>
+        <location filename="../lights.cpp" line="77"/>
+        <location filename="../lights.cpp" line="84"/>
+        <location filename="../lights.cpp" line="91"/>
+        <location filename="../lights.cpp" line="98"/>
+        <source>Color</source>
+        <translation>Color</translation>
+    </message>
+    <message>
+        <location filename="../lights.cpp" line="117"/>
+        <source>Light attenuation</source>
+        <translation>Atenuación</translation>
+    </message>
+    <message>
+        <location filename="../lights.cpp" line="118"/>
+        <source>Linear</source>
+        <translation>Lineal</translation>
+    </message>
+    <message>
+        <location filename="../lights.cpp" line="121"/>
+        <source>Squared</source>
+        <translation>Cuadrática</translation>
+    </message>
+    <message>
+        <location filename="../lights.cpp" line="207"/>
+        <source>Source light color</source>
+        <translation>Fuente luminosa</translation>
+    </message>
+    <message>
+        <location filename="../lights.cpp" line="208"/>
+        <source>Ambient light color</source>
+        <translation>Luz ambiente</translation>
+    </message>
+    <message>
+        <location filename="../lights.cpp" line="209"/>
+        <source>Material specular color</source>
+        <translation>Luz reflejada</translation>
+    </message>
+    <message>
+        <location filename="../lights.cpp" line="210"/>
+        <source>Background color</source>
+        <translation>Color de fondo</translation>
+    </message>
+    <message>
+        <location filename="../lights.cpp" line="211"/>
+        <source>Light Power</source>
+        <translation>Potencia lumínica</translation>
+    </message>
+    <message>
+        <location filename="../lights.cpp" line="212"/>
+        <source>Specular index</source>
+        <translation>Índice de reflejo</translation>
     </message>
 </context>
 <context>
     <name>measures</name>
     <message>
-        <location filename="../measures.cpp" line="115"/>
+        <location filename="../measures.cpp" line="119"/>
         <source>Geometry measures</source>
         <translation>Medidas de geometría</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="120"/>
+        <location filename="../measures.cpp" line="124"/>
         <source>Type of measure</source>
         <translation>Tipo de medida</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="123"/>
+        <location filename="../measures.cpp" line="127"/>
         <source>None</source>
         <translation>Ninguno</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="127"/>
-        <location filename="../measures.cpp" line="143"/>
+        <location filename="../measures.cpp" line="131"/>
+        <location filename="../measures.cpp" line="147"/>
         <source>Distances</source>
         <translation>Distancias</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="129"/>
         <location filename="../measures.cpp" line="133"/>
         <location filename="../measures.cpp" line="137"/>
+        <location filename="../measures.cpp" line="141"/>
         <source>Shift+double click on center to select</source>
         <translation>Para seleccionar presionar mayúsculas+doble click sobre el centro</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="131"/>
-        <location filename="../measures.cpp" line="225"/>
+        <location filename="../measures.cpp" line="135"/>
+        <location filename="../measures.cpp" line="229"/>
         <source>Angles</source>
         <translation>Ángulos</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="135"/>
-        <location filename="../measures.cpp" line="295"/>
+        <location filename="../measures.cpp" line="139"/>
+        <location filename="../measures.cpp" line="299"/>
         <source>Dihedral angles</source>
         <translation>Ángulos diedros</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="145"/>
+        <location filename="../measures.cpp" line="149"/>
         <source>Select centers with shift+double click. Pairs of centers required</source>
         <translation>Seleccionar centros con mayúsculas+doble click. Se requieren pares de centros</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="146"/>
+        <location filename="../measures.cpp" line="150"/>
         <source>Show/hide distances in a window</source>
         <translation>Mostrar/ocultar en una ventana</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="150"/>
+        <location filename="../measures.cpp" line="154"/>
         <source>Show/hide distances in the viewer</source>
         <translation>Mostrar/ocultar en el visor</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="155"/>
+        <location filename="../measures.cpp" line="159"/>
         <source>Vertical shift</source>
         <translation>Desplazamiento vertical</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="165"/>
+        <location filename="../measures.cpp" line="169"/>
         <source>Bohr</source>
         <translation>Bohr</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="167"/>
+        <location filename="../measures.cpp" line="171"/>
         <source>Angstrom</source>
         <translation>Angstrom</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="171"/>
-        <location filename="../measures.cpp" line="236"/>
-        <location filename="../measures.cpp" line="307"/>
+        <location filename="../measures.cpp" line="175"/>
+        <location filename="../measures.cpp" line="240"/>
+        <location filename="../measures.cpp" line="311"/>
         <source>Precision</source>
         <translation>Precisión</translation>
-    </message>
-    <message>
-        <location filename="../measures.cpp" line="179"/>
-        <location filename="../measures.cpp" line="244"/>
-        <location filename="../measures.cpp" line="315"/>
-        <source>Font</source>
-        <translation>Tipo de letra</translation>
     </message>
     <message>
         <location filename="../measures.cpp" line="183"/>
         <location filename="../measures.cpp" line="248"/>
         <location filename="../measures.cpp" line="319"/>
-        <location filename="../measures.cpp" line="330"/>
+        <source>Font</source>
+        <translation>Tipo de letra</translation>
+    </message>
+    <message>
+        <location filename="../measures.cpp" line="187"/>
+        <location filename="../measures.cpp" line="252"/>
+        <location filename="../measures.cpp" line="323"/>
+        <location filename="../measures.cpp" line="334"/>
         <source>Color</source>
         <translation>Color</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="187"/>
-        <location filename="../measures.cpp" line="253"/>
-        <location filename="../measures.cpp" line="323"/>
+        <location filename="../measures.cpp" line="191"/>
+        <location filename="../measures.cpp" line="257"/>
+        <location filename="../measures.cpp" line="327"/>
         <source>Reset</source>
         <translation>Restaurar</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="190"/>
+        <location filename="../measures.cpp" line="194"/>
         <source>Show/hide lines</source>
         <translation>Mostrar/ocultar líneas</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="194"/>
-        <location filename="../measures.cpp" line="260"/>
+        <location filename="../measures.cpp" line="198"/>
+        <location filename="../measures.cpp" line="264"/>
         <source>Line width</source>
         <translation>Grosor de línea</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="202"/>
-        <location filename="../measures.cpp" line="268"/>
+        <location filename="../measures.cpp" line="206"/>
+        <location filename="../measures.cpp" line="272"/>
         <source>Line type</source>
         <translation>Tipo de línea</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="204"/>
-        <location filename="../measures.cpp" line="270"/>
+        <location filename="../measures.cpp" line="208"/>
+        <location filename="../measures.cpp" line="274"/>
         <source>No Line</source>
         <translation>Sin líneas</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="205"/>
-        <location filename="../measures.cpp" line="271"/>
+        <location filename="../measures.cpp" line="209"/>
+        <location filename="../measures.cpp" line="275"/>
         <source>Solid</source>
         <translation>Línea continua</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="206"/>
-        <location filename="../measures.cpp" line="272"/>
+        <location filename="../measures.cpp" line="210"/>
+        <location filename="../measures.cpp" line="276"/>
         <source>Dash</source>
         <translation>Línea de trazos</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="207"/>
-        <location filename="../measures.cpp" line="273"/>
+        <location filename="../measures.cpp" line="211"/>
+        <location filename="../measures.cpp" line="277"/>
         <source>Dot</source>
         <translation>Línea de puntos</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="208"/>
-        <location filename="../measures.cpp" line="274"/>
+        <location filename="../measures.cpp" line="212"/>
+        <location filename="../measures.cpp" line="278"/>
         <source>Dash Dot</source>
         <translation>Línea de trazos y puntos</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="209"/>
-        <location filename="../measures.cpp" line="275"/>
+        <location filename="../measures.cpp" line="213"/>
+        <location filename="../measures.cpp" line="279"/>
         <source>Dash Dot Dot</source>
         <translation>Trazo punto punto</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="213"/>
+        <location filename="../measures.cpp" line="217"/>
         <source>Label transparent background</source>
         <translation>Fondo de etiqueta transparente</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="227"/>
+        <location filename="../measures.cpp" line="231"/>
         <source>Select centers with shift+double click. Three bonding centers required for an angle</source>
-        <translation>Seleccione los centros con shift+double click. Se necesitan tres centros para un ángulo.  </translation>
+        <translation>Seleccione los centros con shift+double click. Se necesitan tres centros para un ángulo</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="228"/>
+        <location filename="../measures.cpp" line="232"/>
         <source>Show/hide angles in a window</source>
         <translation>Mostrar/ocultar en una ventana</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="231"/>
+        <location filename="../measures.cpp" line="235"/>
         <source>Show/hide angles in the viewer</source>
         <translation>Mostrar/ocultar en el visor</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="256"/>
-        <source>Show/hide angles</source>
-        <translation>Mostrar/ocultar ángulos</translation>
+        <location filename="../measures.cpp" line="260"/>
+        <source>Show/hide arcs</source>
+        <translation>Mostrar/ocultar arcos</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="279"/>
+        <location filename="../measures.cpp" line="968"/>
+        <location filename="../measures.cpp" line="973"/>
+        <location filename="../measures.cpp" line="1006"/>
+        <location filename="../measures.cpp" line="1011"/>
+        <location filename="../measures.cpp" line="1047"/>
+        <location filename="../measures.cpp" line="1055"/>
+        <source>Last selection: </source>
+        <translation>Última selección: </translation>
+    </message>
+    <message>
+        <location filename="../measures.cpp" line="1361"/>
+        <source>Geometry measures info</source>
+        <translation>Medidas geométricas</translation>
+    </message>
+    <message>
+        <source>Show/hide angles</source>
+        <translation type="vanished">Mostrar/ocultar ángulos</translation>
+    </message>
+    <message>
+        <location filename="../measures.cpp" line="283"/>
         <source>Arc radius</source>
         <translation>Radio de arco</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="297"/>
+        <location filename="../measures.cpp" line="301"/>
         <source>Select centers with shift+double click. Four centers required:</source>
-        <translation>Seleccione los centros con shift+double click. Se necesitan cuatro centros.</translation>
+        <translation>Seleccione los centros con shift+double click. Se necesitan cuatro centros:</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="298"/>
+        <location filename="../measures.cpp" line="302"/>
         <source> first two centers common to both dihedral planes</source>
-        <translation>primeros dos centros comunes para ambos planos diedros</translation>
+        <translation> primeros dos centros comunes para ambos planos diedros</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="299"/>
+        <location filename="../measures.cpp" line="303"/>
         <source>Show/hide dihedral angles in a window</source>
         <translation>Mostrar/ocultar en una ventana</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="302"/>
+        <location filename="../measures.cpp" line="306"/>
         <source>Show/hide dihedral angles in the viewer</source>
         <translation>Mostrar/ocultar en el visor</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="328"/>
+        <location filename="../measures.cpp" line="332"/>
         <source>Planes color and opacity</source>
         <translation>Color y opacidad de los planos</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="336"/>
+        <location filename="../measures.cpp" line="340"/>
         <source>Opacity:</source>
         <translation>Opacidad:</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="355"/>
+        <location filename="../measures.cpp" line="359"/>
         <source>Print report</source>
         <translation>Imprimir informe</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="576"/>
+        <location filename="../measures.cpp" line="580"/>
         <source>Print measurements report</source>
         <translation>Imprimir informe de medidas</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="577"/>
+        <location filename="../measures.cpp" line="581"/>
         <source>No distances, angles or dihedrals angles chosen for report</source>
         <translation>No se han elegido distancias, ni ángulos para el informe</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="585"/>
+        <location filename="../measures.cpp" line="589"/>
         <source>Save measurements report as ...</source>
         <translation>Salvar informe de medidas como ...</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="586"/>
+        <location filename="../measures.cpp" line="590"/>
         <source>Geometry report files</source>
         <translation>Archivos de informes</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="586"/>
+        <location filename="../measures.cpp" line="590"/>
         <source>All files</source>
         <translation>Todos los archivos</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="622"/>
+        <location filename="../measures.cpp" line="626"/>
         <source>   System %1: %2   </source>
-        <translation>   sistemas %1: %2</translation>
+        <translation>   Sistema %1: %2   </translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="629"/>
+        <location filename="../measures.cpp" line="635"/>
         <source>  Distances  </source>
-        <translation> Distancias</translation>
+        <translation>  Distancias  </translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="644"/>
+        <location filename="../measures.cpp" line="652"/>
         <source>  Angles  </source>
-        <translation>Ángulos</translation>
+        <translation>  Ángulos  </translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="659"/>
+        <location filename="../measures.cpp" line="669"/>
         <source>  Dihedral angles  </source>
-        <translation>Ángulos diedro</translation>
+        <translation>  Ángulos diedro  </translation>
     </message>
 </context>
 <context>
     <name>measuresInfoWindow</name>
     <message>
-        <location filename="../measures.cpp" line="1208"/>
+        <location filename="../measures.cpp" line="1466"/>
+        <source>Molecules</source>
+        <translation>Moléculas</translation>
+    </message>
+    <message>
+        <location filename="../measures.cpp" line="1470"/>
         <source>Distances</source>
         <translation>Distancias</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="1213"/>
+        <location filename="../measures.cpp" line="1475"/>
         <source>Angles</source>
         <translation>Ángulos</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="1218"/>
+        <location filename="../measures.cpp" line="1480"/>
         <source>Dihedral angles</source>
         <translation>Ángulos diedros</translation>
     </message>
     <message>
-        <location filename="../measures.cpp" line="1245"/>
+        <location filename="../measures.cpp" line="1538"/>
         <source>Close</source>
         <translation>Cerrar</translation>
     </message>
 </context>
 <context>
-    <name>molecule</name>
+    <name>mespimizer</name>
     <message>
-        <location filename="../molecule.cpp" line="300"/>
-        <source>Hide this menu</source>
-        <translation>Ocultar este menú</translation>
+        <location filename="../mespimizer.cpp" line="40"/>
+        <source>Optimize cluster (EPIC)</source>
+        <translation>Optimizar clúster (EPIC)</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="353"/>
-        <location filename="../molecule.cpp" line="2245"/>
-        <source>Molecular skeleton</source>
-        <translation>Esqueleto molecular</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="356"/>
-        <source>Atoms and bonds</source>
-        <translation>Átomos y enlaces</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="360"/>
-        <source>Hide atoms</source>
-        <translation>Ocultar átomos</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="365"/>
-        <source>Hide bonds</source>
-        <translation>Ocultar enlaces</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="369"/>
-        <source>Hide hydrogens</source>
-        <translation>Ocultar hidrógenos</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="384"/>
-        <location filename="../molecule.cpp" line="2264"/>
-        <source>Labels</source>
-        <translation>Etiquetas</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="387"/>
-        <source>Symbols and indices</source>
-        <translation>Símbolos e índices</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="391"/>
-        <source>Show atom symbols</source>
-        <translation>Mostrar símbolos de átomos</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="396"/>
-        <location filename="../molecule.cpp" line="1526"/>
-        <source>Show indices</source>
-        <translation>Mostrar índices</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="403"/>
-        <source>Show atom coordinates</source>
-        <translation>Mostrar coordenadas atómicas</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="407"/>
-        <location filename="../molecule.cpp" line="1104"/>
-        <location filename="../molecule.cpp" line="1129"/>
-        <location filename="../molecule.cpp" line="1536"/>
-        <location filename="../molecule.cpp" line="1555"/>
-        <source>Precision</source>
-        <translation>Precisión</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="417"/>
-        <source>Only selected atoms</source>
-        <translation>Solo los átomos seleccionados</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="422"/>
-        <location filename="../molecule.cpp" line="1151"/>
-        <source>Select</source>
-        <translation>Seleccionar</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="426"/>
-        <location filename="../molecule.cpp" line="1154"/>
-        <location filename="../molecule.cpp" line="1576"/>
-        <source>All</source>
-        <translation>Todos</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="432"/>
-        <location filename="../molecule.cpp" line="1159"/>
-        <location filename="../molecule.cpp" line="1582"/>
-        <source>None</source>
-        <translation>Ninguno</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="438"/>
-        <location filename="../molecule.cpp" line="711"/>
-        <location filename="../molecule.cpp" line="1174"/>
-        <location filename="../molecule.cpp" line="1632"/>
-        <source>Font</source>
-        <translation>Tipo de letra</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="442"/>
-        <location filename="../molecule.cpp" line="843"/>
-        <location filename="../molecule.cpp" line="965"/>
-        <location filename="../molecule.cpp" line="1083"/>
-        <location filename="../molecule.cpp" line="1186"/>
-        <location filename="../molecule.cpp" line="1213"/>
-        <location filename="../molecule.cpp" line="1466"/>
-        <location filename="../molecule.cpp" line="1604"/>
-        <location filename="../molecule.cpp" line="1612"/>
-        <location filename="../molecule.cpp" line="1636"/>
-        <source>Color</source>
-        <translation>Color</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="447"/>
-        <location filename="../molecule.cpp" line="1177"/>
-        <location filename="../molecule.cpp" line="1620"/>
-        <source>Vertical shift</source>
-        <translation>Desplazamiento vertical</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="493"/>
-        <location filename="../molecule.cpp" line="2210"/>
-        <source>Rotations</source>
-        <translation>Rotaciones</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="496"/>
-        <source>Rotation</source>
-        <translation>Rotación</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="498"/>
-        <source>Axis</source>
-        <translation>Eje</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="499"/>
-        <source>Angle</source>
-        <translation>Ángulo</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="538"/>
-        <location filename="../molecule.cpp" line="655"/>
-        <source>Apply</source>
-        <translation>Aplicar</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="541"/>
-        <source>Animate rotation</source>
-        <translation>Animar la rotación</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="544"/>
-        <location filename="../molecule.cpp" line="718"/>
-        <source>X axis</source>
-        <translation>eje X</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="549"/>
-        <location filename="../molecule.cpp" line="724"/>
-        <source>Y axis</source>
-        <translation>eje Y</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="554"/>
-        <location filename="../molecule.cpp" line="730"/>
-        <source>Z axis</source>
-        <translation>eje Z</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="558"/>
-        <location filename="../molecule.cpp" line="1959"/>
-        <location filename="../molecule.cpp" line="1966"/>
-        <location filename="../molecule.cpp" line="2539"/>
-        <location filename="../molecule.cpp" line="2999"/>
-        <location filename="../molecule.cpp" line="3019"/>
-        <source>Start</source>
-        <translation>Empezar</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="560"/>
-        <location filename="../molecule.cpp" line="1964"/>
-        <location filename="../molecule.cpp" line="3007"/>
-        <source>Stop</source>
-        <translation>Detener</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="574"/>
-        <source>Slow</source>
-        <translation>Lento</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="575"/>
-        <source>Fast</source>
-        <translation>Rápido</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="622"/>
-        <location filename="../molecule.cpp" line="2283"/>
-        <source>Translations</source>
-        <translation>Traslaciones</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="625"/>
-        <source>Translation</source>
-        <translation>Traslación</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="658"/>
-        <source>Stride for zooming with mouse wheel: </source>
-        <translation>Paso para el zoom con la rueda del ratón:</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="696"/>
-        <location filename="../molecule.cpp" line="699"/>
-        <location filename="../molecule.cpp" line="1984"/>
-        <source>Axes</source>
-        <translation>Ejes</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="702"/>
-        <source>Show axes</source>
-        <translation>Mostrar ejes</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="706"/>
-        <source>Show axes labels</source>
-        <translation>Mostrar etiquetas de los ejes</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="736"/>
-        <source>Axes thickness</source>
-        <translation>Grosor de los ejes</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="746"/>
-        <source>Axes length</source>
-        <translation>Longitud de los ejes</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="757"/>
-        <location filename="../molecule.cpp" line="874"/>
-        <location filename="../molecule.cpp" line="994"/>
-        <location filename="../molecule.cpp" line="1242"/>
-        <source>Arrows length</source>
-        <translation>Longitud de las flechas</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="769"/>
-        <location filename="../molecule.cpp" line="886"/>
-        <location filename="../molecule.cpp" line="1004"/>
-        <location filename="../molecule.cpp" line="1254"/>
-        <source>Arrows width</source>
-        <translation>Grosor de las flechas</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="815"/>
-        <location filename="../molecule.cpp" line="819"/>
-        <location filename="../molecule.cpp" line="2047"/>
-        <source>Hellmann-Feynman forces</source>
-        <translation>Fuerzas de Hellmann-Feynman</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="826"/>
-        <location filename="../molecule.cpp" line="957"/>
-        <location filename="../molecule.cpp" line="1069"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="827"/>
-        <source>Open file with Hellmann-Feynman forces ...</source>
-        <translation>Abrir archivo con las fuerzas de Hellmann-Feynman </translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="830"/>
-        <source>External</source>
-        <translation>Externas</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="831"/>
-        <source>Internal</source>
-        <translation>Internas</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="832"/>
-        <source>Total</source>
-        <translation>Totales</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="833"/>
-        <source>Non-conformational</source>
-        <translation>No conformacionales</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="834"/>
-        <source>Conformational</source>
-        <translation>Conformacionales</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="851"/>
-        <location filename="../molecule.cpp" line="1221"/>
-        <source>Vectors thickness</source>
-        <translation>Grosor de los vectores</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="862"/>
-        <location filename="../molecule.cpp" line="1231"/>
-        <source>Vectors length</source>
-        <translation>Longitud de los vectores</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="897"/>
-        <location filename="../molecule.cpp" line="955"/>
-        <location filename="../molecule.cpp" line="1063"/>
-        <source>File</source>
-        <translation>Archivo</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="944"/>
-        <location filename="../molecule.cpp" line="948"/>
-        <location filename="../molecule.cpp" line="2026"/>
-        <source>3D lines</source>
-        <translation>Líneas 3D</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="958"/>
-        <source>Open geometry file ...</source>
-        <translation>Abrir el archivo con la geometría ...</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="961"/>
-        <source>Show lines</source>
-        <translation>Mostrar líneas</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="970"/>
-        <source>Width</source>
-        <translation>Grosor</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="979"/>
-        <source>Arrows</source>
-        <translation>Flechas</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="981"/>
-        <source>Show arrows</source>
-        <translation>Mostrar flechas</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="985"/>
-        <source>Arrows spacing</source>
-        <translation>Espaciado entre flechas</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="1052"/>
-        <location filename="../molecule.cpp" line="1056"/>
-        <location filename="../molecule.cpp" line="2005"/>
-        <source>Critical points</source>
-        <translation>Puntos críticos</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="1070"/>
-        <source>Open file with critical points ...</source>
-        <translation>Abrir archivo con puntos críticos ...</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="1073"/>
-        <source>(3,+3) CP</source>
-        <translation>(3,+3) CP</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="1074"/>
-        <source>(3,+1) CP</source>
-        <translation>(3,+1) CP</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="1075"/>
-        <source>(3,-1) CP</source>
-        <translation>(3,-1) CP</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="1076"/>
-        <source>(3,-3) CP</source>
-        <translation>(3,-3) CP</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="1090"/>
-        <location filename="../molecule.cpp" line="1592"/>
-        <source>Ball radius</source>
-        <translation>Radio de la esfera</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="1100"/>
-        <source>CP coordinates</source>
-        <translation>Coordenadas de CPs</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="1116"/>
-        <source>CP symbols</source>
-        <translation>Símbolos de CPs</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="1119"/>
-        <source>CP indices</source>
-        <translation>Índices de CPs</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="1125"/>
-        <source>CP field values</source>
-        <translation>Valores del campo en CPs</translation>
-    </message>
-    <message>
-        <location filename="../molecule.cpp" line="1139"/>
+        <location filename="../mespimizer.cpp" line="66"/>
         <source>Only selected CPs</source>
         <translation>Solo CP seleccionados</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1196"/>
-        <source>Hessian eigenvectors</source>
-        <translation>Autovectores de mat. hessiana</translation>
+        <location filename="../mespimizer.cpp" line="73"/>
+        <source>Choose guests from canvas</source>
+        <translation>Elegir invitados desde el visor</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1204"/>
-        <source>Display hessian eigenvectors</source>
-        <translation>Mostrar autovectores</translation>
+        <location filename="../mespimizer.cpp" line="78"/>
+        <source>Use template for guests</source>
+        <translation>Usar plantilla para los invitados</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1207"/>
-        <source>Highest abs. eigenvalue</source>
-        <translation>Máximo autovalor</translation>
+        <location filename="../mespimizer.cpp" line="130"/>
+        <location filename="../mespimizer.cpp" line="148"/>
+        <location filename="../mespimizer.cpp" line="165"/>
+        <source>...</source>
+        <translation>...</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1208"/>
-        <source>Interm. abs. eigenvalue</source>
-        <translation>Autovalor intermedio</translation>
+        <location filename="../mespimizer.cpp" line="131"/>
+        <location filename="../mespimizer.cpp" line="149"/>
+        <source>File with frames ...</source>
+        <translation>Archivo con fotogramas ...</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1209"/>
-        <source>Lowest abs. eigenvalue</source>
-        <translation>Mínimo autovalor</translation>
+        <location filename="../mespimizer.cpp" line="138"/>
+        <source>Exec</source>
+        <translation>Ejecutar</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1376"/>
-        <location filename="../molecule.cpp" line="1765"/>
-        <source>Add surface</source>
-        <translation>Añadir superficie</translation>
+        <location filename="../mespimizer.cpp" line="142"/>
+        <source>Animation</source>
+        <translation>Animación</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1382"/>
-        <source>&lt;font color=&quot;black&quot;&gt;Loaded surfaces&lt;/font&gt;</source>
-        <translation>&lt;font color=&quot;black&quot;&gt;Superficies cargadas&lt;/font&gt;</translation>
+        <location filename="../mespimizer.cpp" line="168"/>
+        <source>Remove frame files at end</source>
+        <translation>Eliminar fotogramas al terminar</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1402"/>
-        <location filename="../molecule.cpp" line="1769"/>
-        <location filename="../molecule.cpp" line="1812"/>
-        <source>Delete</source>
-        <translation>Eliminar</translation>
+        <location filename="../mespimizer.cpp" line="171"/>
+        <source>Replay</source>
+        <translation>Reproducir</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1440"/>
-        <source>Surface type</source>
-        <translation>Tipo de superficie</translation>
+        <location filename="../mespimizer.cpp" line="176"/>
+        <source>Reset</source>
+        <translation>Restaurar</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1441"/>
-        <source>Solid surface</source>
-        <translation>Rellena</translation>
+        <location filename="../mespimizer.cpp" line="185"/>
+        <source>EPIC interaction energy</source>
+        <translation>Energía de interacción EPIC</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1443"/>
-        <source>Wire frame</source>
-        <translation>Trama</translation>
+        <location filename="../mespimizer.cpp" line="187"/>
+        <source>Display energy</source>
+        <translation>Mostrar energía</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1449"/>
-        <source>Opacity:</source>
-        <translation>Opacidad:</translation>
+        <location filename="../mespimizer.cpp" line="191"/>
+        <source>Precision</source>
+        <translation>Precisión</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1459"/>
-        <source>Translucence correction</source>
-        <translation>Corrección de transparencia</translation>
+        <location filename="../mespimizer.cpp" line="204"/>
+        <source>Font</source>
+        <translation>Tipo de letra</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1479"/>
-        <source>Color boundaries</source>
-        <translation>Intervalo de colores</translation>
+        <location filename="../mespimizer.cpp" line="211"/>
+        <source>Color</source>
+        <translation>Color</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1496"/>
-        <source>Local maxima</source>
-        <translation>Máximos locales</translation>
+        <location filename="../mespimizer.cpp" line="217"/>
+        <source>Hartree</source>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1500"/>
-        <source>Local minima</source>
-        <translation>Mínimos locales</translation>
+        <location filename="../mespimizer.cpp" line="222"/>
+        <source>kcal/mol</source>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1520"/>
-        <source>Show symbols</source>
-        <translation>Mostrar símbolos</translation>
+        <location filename="../mespimizer.cpp" line="233"/>
+        <source>Quantum mechanics</source>
+        <translation>Cálculos mecanocuánticos</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1532"/>
-        <source>Show MESP values</source>
-        <translation>Mostrar valores del potencial</translation>
+        <location filename="../mespimizer.cpp" line="234"/>
+        <source>Open template for quantum mechanics calculation</source>
+        <translation>Abrir plantilla para cálculos mecanocuánticos</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1551"/>
-        <source>Show coordinates</source>
-        <translation>Mostrar coordenadas</translation>
+        <location filename="../mespimizer.cpp" line="257"/>
+        <location filename="../mespimizer.cpp" line="321"/>
+        <location filename="../mespimizer.cpp" line="328"/>
+        <location filename="../mespimizer.cpp" line="372"/>
+        <location filename="../mespimizer.cpp" line="381"/>
+        <location filename="../mespimizer.cpp" line="450"/>
+        <location filename="../mespimizer.cpp" line="576"/>
+        <location filename="../mespimizer.cpp" line="900"/>
+        <source>MESPIMIZER</source>
+        <translation></translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1570"/>
-        <source>Only selected extrema</source>
-        <translation>Solo extremos seleccionados</translation>
+        <location filename="../mespimizer.cpp" line="257"/>
+        <source>Unable to create input file for cluster optimizationFile %1 cannot be opened</source>
+        <translation>No pudo crear el archivo de entrada pla la opcimizaicón del cluster. El archivo %1 no se puede abrir</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1629"/>
-        <source>Labels format</source>
-        <translation>Formato de etiquetas</translation>
+        <location filename="../mespimizer.cpp" line="321"/>
+        <location filename="../mespimizer.cpp" line="328"/>
+        <source>Unable to create insertloc file for cluster optimization
+File %1 cannot be opened</source>
+        <translation>No pudo crear el archivo insertloc para la optimización de clúster
+El archivo %1 no se puede abrir</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1643"/>
-        <source>Show grid boundaries</source>
-        <translation>Mostrar bordes de la malla</translation>
+        <location filename="../mespimizer.cpp" line="372"/>
+        <source>Unable to create preproc file for cluster optimization
+Two molecules are necessary at least for clustering:
+First molecule will be the host</source>
+        <translation>No pudo crear el archivo preproc para optimización de clúster
+Son necesarias al menos dos moléculas para crear el clúster:
+La primera molécula debe ser la anfitriona</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1752"/>
-        <source>Add grid for isosurfaces</source>
-        <translation>Añadir malla para isosuperficies</translation>
+        <location filename="../mespimizer.cpp" line="381"/>
+        <source>Unable to create preproc file for cluster optimization
+File %1 cannot be opened</source>
+        <translation>Unable to create preproc file for cluster optimization
+El archivo %1 no se puede abrir</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1757"/>
-        <source>&lt;font color=&quot;black&quot;&gt;Loaded grids&lt;/font&gt;</source>
-        <translation>&lt;font color=&quot;black&quot;&gt;Mallas cargadas&lt;/font&gt;</translation>
+        <location filename="../mespimizer.cpp" line="432"/>
+        <source>Template and host molecules are the same: </source>
+        <translation>La molécula anfitriona es la misma que la de la plantilla: </translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1781"/>
-        <source>&lt;font color=&quot;black&quot;&gt;Loaded grids&lt;/font&gt; &lt;font color=&quot;blue&quot;&gt;(Surfaces)&lt;/font&gt;</source>
-        <translation>&lt;font color=&quot;black&quot;&gt;Mallas cargadas&lt;/font&gt; &lt;font color=&quot;blue&quot;&gt;(Superficies)&lt;/font&gt;</translation>
+        <location filename="../mespimizer.cpp" line="433"/>
+        <source>
+Do you want to continue?</source>
+        <translation>
+¿Desea continuar?</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1801"/>
-        <source>Edit</source>
-        <translation>Editar</translation>
+        <location filename="../mespimizer.cpp" line="436"/>
+        <source>Yes</source>
+        <translation>Sí</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="1980"/>
-        <source>Hide axes manager</source>
-        <translation>Ocultar gestor de ejes</translation>
+        <location filename="../mespimizer.cpp" line="437"/>
+        <source>No</source>
+        <translation>No</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2001"/>
-        <source>Hide critical points manager</source>
-        <translation>Ocultar gestor de puntos críticos</translation>
+        <location filename="../mespimizer.cpp" line="438"/>
+        <source>Cancel</source>
+        <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2022"/>
-        <source>Hide 3D lines manager</source>
-        <translation>Ocultar gestor de líneas 3D</translation>
+        <location filename="../mespimizer.cpp" line="450"/>
+        <source>Unable to create template file for cluster optimization.
+File %1 cannot be opened</source>
+        <translation>No pudo crear el archivo con la plantilla para la optimización de clúster
+El archivo %1 no se puede abrir</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2043"/>
-        <source>Hide HF forces manager</source>
-        <translation>Ocultar gestor de fuerzas de HF</translation>
+        <location filename="../mespimizer.cpp" line="576"/>
+        <source>Could not create folder %1</source>
+        <translation>No pudo crear el directorio %1</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2206"/>
-        <source>Hide rotations manager</source>
-        <translation>Ocultar gestor de rotaciones</translation>
+        <location filename="../mespimizer.cpp" line="649"/>
+        <source>Host: </source>
+        <translation>Anfitrión: </translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2241"/>
-        <source>Hide molecular skeleton manager</source>
-        <translation>Ocultar gestor de esquelto molecular</translation>
+        <location filename="../mespimizer.cpp" line="651"/>
+        <source>Interpolation points: </source>
+        <translation>Puntos de interpolación: </translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2260"/>
-        <source>Hide labels manager</source>
-        <translation>Ocultar gestor de etiquetas</translation>
+        <location filename="../mespimizer.cpp" line="652"/>
+        <source>Template: </source>
+        <translation>Plantilla: </translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2279"/>
-        <source>Hide translations manager</source>
-        <translation>Ocultar gestor de traslaciones</translation>
+        <location filename="../mespimizer.cpp" line="657"/>
+        <source>Folder: </source>
+        <translation>Directorio: </translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2683"/>
-        <source>Open 3D grid file ...</source>
-        <translation>Abrit archivo de malla 3D</translation>
+        <location filename="../mespimizer.cpp" line="658"/>
+        <location filename="../mespimizer.cpp" line="706"/>
+        <source>File: </source>
+        <translation>Archivo: </translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2683"/>
-        <source>3D grid files</source>
-        <translation>Archivos de malla 3D</translation>
+        <location filename="../mespimizer.cpp" line="678"/>
+        <source>Translation stride (bohr): </source>
+        <translation>Paso para la traslación (bohr): </translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2684"/>
-        <location filename="../molecule.cpp" line="2714"/>
-        <location filename="../molecule.cpp" line="2840"/>
-        <location filename="../molecule.cpp" line="2870"/>
-        <location filename="../molecule.cpp" line="2888"/>
-        <source>All files</source>
-        <translation>Todos los archivos</translation>
+        <location filename="../mespimizer.cpp" line="683"/>
+        <source>Rotation stride (degrees): </source>
+        <translation>Paso para la rotación (grados): </translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2699"/>
-        <source>Loadgrid</source>
-        <translation>Loadgrid</translation>
+        <location filename="../mespimizer.cpp" line="712"/>
+        <source>Fast</source>
+        <translation>Rápido</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2700"/>
-        <source>Extension of file %1 must be plt</source>
-        <translation>La extensión del archivo %1 debe ser .plt</translation>
+        <location filename="../mespimizer.cpp" line="713"/>
+        <source>Slow</source>
+        <translation>Lento</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2713"/>
-        <source>Open a surface file</source>
-        <translation>Abrir un archivo de superficie</translation>
+        <location filename="../mespimizer.cpp" line="723"/>
+        <source>Record optimization</source>
+        <translation>Grabar la optimización</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2713"/>
-        <location filename="../molecule.cpp" line="2839"/>
-        <location filename="../molecule.cpp" line="2869"/>
-        <location filename="../molecule.cpp" line="2887"/>
+        <location filename="../mespimizer.cpp" line="734"/>
+        <source>Command for converting frames to film</source>
+        <translation>Instrucción para juntar los fotogramas en una película</translation>
+    </message>
+    <message>
+        <location filename="../mespimizer.cpp" line="739"/>
+        <source>Record file</source>
+        <translation>Archivo de grabación</translation>
+    </message>
+    <message>
+        <location filename="../mespimizer.cpp" line="740"/>
+        <source>Folder:</source>
+        <translation>Directorio:</translation>
+    </message>
+    <message>
+        <location filename="../mespimizer.cpp" line="741"/>
+        <source>File:</source>
+        <translation>Archivo:</translation>
+    </message>
+    <message>
+        <location filename="../mespimizer.cpp" line="836"/>
+        <location filename="../mespimizer.cpp" line="854"/>
+        <source>Open file with frames</source>
+        <translation>Abrir archivo con fotogramas</translation>
+    </message>
+    <message>
+        <location filename="../mespimizer.cpp" line="836"/>
         <source>Allowed files</source>
         <translation>Archivos permitidos</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2750"/>
+        <location filename="../mespimizer.cpp" line="837"/>
+        <source>All files</source>
+        <translation>Todos los archivos</translation>
+    </message>
+    <message>
+        <location filename="../mespimizer.cpp" line="863"/>
+        <source>Open Directory</source>
+        <translation>Abrir directorio</translation>
+    </message>
+    <message>
+        <location filename="../mespimizer.cpp" line="900"/>
+        <source>At least one molecule must be loaded</source>
+        <translation>Debe cargarse al menos una molécula</translation>
+    </message>
+</context>
+<context>
+    <name>molecule</name>
+    <message>
+        <location filename="../molecule.cpp" line="342"/>
+        <source>Hide this menu</source>
+        <translation>Ocultar este menú</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="395"/>
+        <location filename="../molecule.cpp" line="2401"/>
+        <source>Molecular skeleton</source>
+        <translation>Esqueleto molecular</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="398"/>
+        <source>Atoms and bonds</source>
+        <translation>Átomos y enlaces</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="402"/>
+        <source>Hide atoms</source>
+        <translation>Ocultar átomos</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="407"/>
+        <source>Hide bonds</source>
+        <translation>Ocultar enlaces</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="411"/>
+        <source>Hide hydrogens</source>
+        <translation>Ocultar hidrógenos</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="426"/>
+        <location filename="../molecule.cpp" line="2420"/>
+        <source>Labels</source>
+        <translation>Etiquetas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="429"/>
+        <source>Symbols and indices</source>
+        <translation>Símbolos e índices</translation>
+    </message>
+    <message>
+        <source>Show atom symbols</source>
+        <translation type="vanished">Mostrar símbolos de átomos</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1657"/>
+        <source>Show indices</source>
+        <translation>Mostrar índices</translation>
+    </message>
+    <message>
+        <source>Show atom coordinates</source>
+        <translation type="vanished">Mostrar coordenadas atómicas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="433"/>
+        <source>Atom symbols</source>
+        <translation>Símbolos atómicos</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="438"/>
+        <source>Atom indices</source>
+        <translation>Índices atómicos</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="445"/>
+        <source>Atom coordinates</source>
+        <translation>Coordenadas atómicas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="449"/>
+        <location filename="../molecule.cpp" line="1231"/>
+        <location filename="../molecule.cpp" line="1256"/>
+        <location filename="../molecule.cpp" line="1667"/>
+        <location filename="../molecule.cpp" line="1686"/>
+        <source>Precision</source>
+        <translation>Precisión</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="461"/>
+        <location filename="../molecule.cpp" line="725"/>
+        <location filename="../molecule.cpp" line="1223"/>
+        <source>angstrom</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="462"/>
+        <location filename="../molecule.cpp" line="726"/>
+        <location filename="../molecule.cpp" line="1224"/>
+        <source>bohr</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="470"/>
+        <source>Only selected atoms</source>
+        <translation>Solo los átomos seleccionados</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="475"/>
+        <location filename="../molecule.cpp" line="1278"/>
+        <source>Select</source>
+        <translation>Seleccionar</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="479"/>
+        <location filename="../molecule.cpp" line="1281"/>
+        <location filename="../molecule.cpp" line="1707"/>
+        <source>All</source>
+        <translation>Todos</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="485"/>
+        <location filename="../molecule.cpp" line="1286"/>
+        <location filename="../molecule.cpp" line="1713"/>
+        <source>None</source>
+        <translation>Ninguno</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="491"/>
+        <location filename="../molecule.cpp" line="829"/>
+        <location filename="../molecule.cpp" line="1301"/>
+        <location filename="../molecule.cpp" line="1763"/>
+        <source>Font</source>
+        <translation>Tipo de letra</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="495"/>
+        <location filename="../molecule.cpp" line="961"/>
+        <location filename="../molecule.cpp" line="1083"/>
+        <location filename="../molecule.cpp" line="1201"/>
+        <location filename="../molecule.cpp" line="1313"/>
+        <location filename="../molecule.cpp" line="1340"/>
+        <location filename="../molecule.cpp" line="1596"/>
+        <location filename="../molecule.cpp" line="1735"/>
+        <location filename="../molecule.cpp" line="1743"/>
+        <location filename="../molecule.cpp" line="1767"/>
+        <source>Color</source>
+        <translation>Color</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="500"/>
+        <location filename="../molecule.cpp" line="1304"/>
+        <location filename="../molecule.cpp" line="1751"/>
+        <source>Vertical shift</source>
+        <translation>Desplazamiento vertical</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="584"/>
+        <location filename="../molecule.cpp" line="2366"/>
+        <source>Rotations</source>
+        <translation>Rotaciones</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="587"/>
+        <source>Rotation</source>
+        <translation>Rotación</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="589"/>
+        <source>Axis</source>
+        <translation>Eje</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="590"/>
+        <source>Angle</source>
+        <translation>Ángulo</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="629"/>
+        <location filename="../molecule.cpp" line="760"/>
+        <source>Apply</source>
+        <translation>Aplicar</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="633"/>
+        <location filename="../molecule.cpp" line="764"/>
+        <source>Reset</source>
+        <translation>Restaurar</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="636"/>
+        <source>Animate rotation</source>
+        <translation>Animar la rotación</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="639"/>
+        <location filename="../molecule.cpp" line="836"/>
+        <source>X axis</source>
+        <translation>eje X</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="644"/>
+        <location filename="../molecule.cpp" line="842"/>
+        <source>Y axis</source>
+        <translation>eje Y</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="649"/>
+        <location filename="../molecule.cpp" line="848"/>
+        <source>Z axis</source>
+        <translation>eje Z</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="653"/>
+        <location filename="../molecule.cpp" line="2111"/>
+        <location filename="../molecule.cpp" line="2120"/>
+        <location filename="../molecule.cpp" line="2701"/>
+        <location filename="../molecule.cpp" line="3204"/>
+        <location filename="../molecule.cpp" line="3224"/>
+        <source>Start</source>
+        <translation>Empezar</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="655"/>
+        <location filename="../molecule.cpp" line="2116"/>
+        <location filename="../molecule.cpp" line="3212"/>
+        <source>Stop</source>
+        <translation>Detener</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="668"/>
+        <source>Slow</source>
+        <translation>Lento</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="669"/>
+        <source>Fast</source>
+        <translation>Rápido</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="717"/>
+        <location filename="../molecule.cpp" line="2439"/>
+        <source>Translations</source>
+        <translation>Traslaciones</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="720"/>
+        <source>Translation</source>
+        <translation>Traslación</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="723"/>
+        <source>Units</source>
+        <translation>Unidades</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="767"/>
+        <source>Stride for zooming with mouse wheel: </source>
+        <translation>Paso para el zoom con la rueda del ratón: </translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="813"/>
+        <location filename="../molecule.cpp" line="816"/>
+        <location filename="../molecule.cpp" line="2140"/>
+        <source>Axes</source>
+        <translation>Ejes</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="819"/>
+        <source>Show axes</source>
+        <translation>Mostrar ejes</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="823"/>
+        <source>Show axes labels</source>
+        <translation>Mostrar etiquetas de los ejes</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="854"/>
+        <source>Axes thickness</source>
+        <translation>Grosor de los ejes</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="864"/>
+        <source>Axes length</source>
+        <translation>Longitud de los ejes</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="875"/>
+        <location filename="../molecule.cpp" line="992"/>
+        <location filename="../molecule.cpp" line="1112"/>
+        <location filename="../molecule.cpp" line="1369"/>
+        <source>Arrows length</source>
+        <translation>Longitud de las flechas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="887"/>
+        <location filename="../molecule.cpp" line="1004"/>
+        <location filename="../molecule.cpp" line="1122"/>
+        <location filename="../molecule.cpp" line="1381"/>
+        <source>Arrows width</source>
+        <translation>Grosor de las flechas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="933"/>
+        <location filename="../molecule.cpp" line="937"/>
+        <location filename="../molecule.cpp" line="2203"/>
+        <source>Hellmann-Feynman forces</source>
+        <translation>Fuerzas de Hellmann-Feynman</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="944"/>
+        <location filename="../molecule.cpp" line="1075"/>
+        <location filename="../molecule.cpp" line="1187"/>
+        <source>...</source>
+        <translation>...</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="945"/>
+        <source>Open file with Hellmann-Feynman forces ...</source>
+        <translation>Abrir archivo con las fuerzas de Hellmann-Feynman ...</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="948"/>
+        <source>External</source>
+        <translation>Externas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="949"/>
+        <source>Internal</source>
+        <translation>Internas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="950"/>
+        <source>Total</source>
+        <translation>Totales</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="951"/>
+        <source>Non-conformational</source>
+        <translation>No conformacionales</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="952"/>
+        <source>Conformational</source>
+        <translation>Conformacionales</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="969"/>
+        <location filename="../molecule.cpp" line="1348"/>
+        <source>Vectors thickness</source>
+        <translation>Grosor de los vectores</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="980"/>
+        <location filename="../molecule.cpp" line="1358"/>
+        <source>Vectors length</source>
+        <translation>Longitud de los vectores</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1015"/>
+        <location filename="../molecule.cpp" line="1073"/>
+        <location filename="../molecule.cpp" line="1181"/>
+        <source>File</source>
+        <translation>Archivo</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1062"/>
+        <location filename="../molecule.cpp" line="1066"/>
+        <location filename="../molecule.cpp" line="2182"/>
+        <source>3D lines</source>
+        <translation>Líneas 3D</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1076"/>
+        <source>Open geometry file ...</source>
+        <translation>Abrir el archivo con la geometría ...</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1079"/>
+        <source>Show lines</source>
+        <translation>Mostrar líneas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1088"/>
+        <source>Width</source>
+        <translation>Grosor</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1097"/>
+        <source>Arrows</source>
+        <translation>Flechas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1099"/>
+        <source>Show arrows</source>
+        <translation>Mostrar flechas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1103"/>
+        <source>Arrows spacing</source>
+        <translation>Espaciado entre flechas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1170"/>
+        <location filename="../molecule.cpp" line="1174"/>
+        <location filename="../molecule.cpp" line="2161"/>
+        <source>Critical points</source>
+        <translation>Puntos críticos</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1188"/>
+        <source>Open file with critical points ...</source>
+        <translation>Abrir archivo con puntos críticos ...</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1191"/>
+        <source>(3,+3) CP</source>
+        <translation>(3,+3) CP</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1192"/>
+        <source>(3,+1) CP</source>
+        <translation>(3,+1) CP</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1193"/>
+        <source>(3,-1) CP</source>
+        <translation>(3,-1) CP</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1194"/>
+        <source>(3,-3) CP</source>
+        <translation>(3,-3) CP</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1208"/>
+        <location filename="../molecule.cpp" line="1723"/>
+        <source>Ball radius</source>
+        <translation>Radio de la esfera</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1218"/>
+        <source>CP coordinates</source>
+        <translation>Coordenadas de CPs</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1243"/>
+        <source>CP symbols</source>
+        <translation>Símbolos de CPs</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1246"/>
+        <source>CP indices</source>
+        <translation>Índices de CPs</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1252"/>
+        <source>CP field values</source>
+        <translation>Valores del campo en CPs</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1266"/>
+        <source>Only selected CPs</source>
+        <translation>Solo CP seleccionados</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1323"/>
+        <source>Hessian eigenvectors</source>
+        <translation>Autovectores de mat. hessiana</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1331"/>
+        <source>Display hessian eigenvectors</source>
+        <translation>Mostrar autovectores</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1334"/>
+        <source>Highest abs. eigenvalue</source>
+        <translation>Máximo autovalor</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1335"/>
+        <source>Interm. abs. eigenvalue</source>
+        <translation>Autovalor intermedio</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1336"/>
+        <source>Lowest abs. eigenvalue</source>
+        <translation>Mínimo autovalor</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1506"/>
+        <location filename="../molecule.cpp" line="1903"/>
+        <source>Add surface</source>
+        <translation>Añadir superficie</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1512"/>
+        <source>&lt;font color=&quot;black&quot;&gt;Loaded surfaces&lt;/font&gt;</source>
+        <translation>&lt;font color=&quot;black&quot;&gt;Superficies cargadas&lt;/font&gt;</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1532"/>
+        <location filename="../molecule.cpp" line="1907"/>
+        <location filename="../molecule.cpp" line="1951"/>
+        <source>Delete</source>
+        <translation>Eliminar</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1570"/>
+        <source>Surface type</source>
+        <translation>Tipo de superficie</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1571"/>
+        <source>Solid surface</source>
+        <translation>Rellena</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1573"/>
+        <source>Wire frame</source>
+        <translation>Trama</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1579"/>
+        <source>Opacity:</source>
+        <translation>Opacidad:</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1589"/>
+        <source>Translucence correction</source>
+        <translation>Corrección de transparencia</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1609"/>
+        <source>Color boundaries</source>
+        <translation>Intervalo de colores</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1627"/>
+        <source>Local maxima</source>
+        <translation>Máximos locales</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1631"/>
+        <source>Local minima</source>
+        <translation>Mínimos locales</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1651"/>
+        <source>Show symbols</source>
+        <translation>Mostrar símbolos</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1663"/>
+        <source>Show MESP values</source>
+        <translation>Mostrar valores del potencial</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1682"/>
+        <source>Show coordinates</source>
+        <translation>Mostrar coordenadas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1701"/>
+        <source>Only selected extrema</source>
+        <translation>Solo extremos seleccionados</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1760"/>
+        <source>Labels format</source>
+        <translation>Formato de etiquetas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1774"/>
+        <source>Show grid boundaries</source>
+        <translation>Mostrar bordes de la malla</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1884"/>
+        <source>Add grid for isosurfaces</source>
+        <translation>Añadir malla para isosuperficies</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1886"/>
+        <source>Loading grid</source>
+        <translation>Cargando malla</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1895"/>
+        <source>&lt;font color=&quot;black&quot;&gt;Loaded grids&lt;/font&gt;</source>
+        <translation>&lt;font color=&quot;black&quot;&gt;Mallas cargadas&lt;/font&gt;</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1919"/>
+        <source>&lt;font color=&quot;black&quot;&gt;Loaded grids&lt;/font&gt; &lt;font color=&quot;blue&quot;&gt;(Surfaces)&lt;/font&gt;</source>
+        <translation>&lt;font color=&quot;black&quot;&gt;Mallas cargadas&lt;/font&gt; &lt;font color=&quot;blue&quot;&gt;(Superficies)&lt;/font&gt;</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="1940"/>
+        <source>Edit</source>
+        <translation>Editar</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2136"/>
+        <source>Hide axes manager</source>
+        <translation>Ocultar gestor de ejes</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2157"/>
+        <source>Hide critical points manager</source>
+        <translation>Ocultar gestor de puntos críticos</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2178"/>
+        <source>Hide 3D lines manager</source>
+        <translation>Ocultar gestor de líneas 3D</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2199"/>
+        <source>Hide HF forces manager</source>
+        <translation>Ocultar gestor de fuerzas de HF</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2362"/>
+        <source>Hide rotations manager</source>
+        <translation>Ocultar gestor de rotaciones</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2397"/>
+        <source>Hide molecular skeleton manager</source>
+        <translation>Ocultar gestor de esquelto molecular</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2416"/>
+        <source>Hide labels manager</source>
+        <translation>Ocultar gestor de etiquetas</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2435"/>
+        <source>Hide translations manager</source>
+        <translation>Ocultar gestor de traslaciones</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2852"/>
+        <source>Open 3D grid file ...</source>
+        <translation>Abrit archivo de malla 3D ...</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2852"/>
+        <source>3D grid files</source>
+        <translation>Archivos de malla 3D</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2853"/>
+        <location filename="../molecule.cpp" line="2884"/>
+        <location filename="../molecule.cpp" line="3026"/>
+        <location filename="../molecule.cpp" line="3056"/>
+        <location filename="../molecule.cpp" line="3074"/>
+        <source>All files</source>
+        <translation>Todos los archivos</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2868"/>
+        <source>Loadgrid</source>
+        <translation>Loadgrid</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2869"/>
+        <source>Extension of file %1 must be plt</source>
+        <translation>La extensión del archivo %1 debe ser .plt</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2882"/>
+        <source>Open a surface file</source>
+        <translation>Abrir un archivo de superficie</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2882"/>
+        <location filename="../molecule.cpp" line="3025"/>
+        <location filename="../molecule.cpp" line="3055"/>
+        <location filename="../molecule.cpp" line="3073"/>
+        <source>Allowed files</source>
+        <translation>Archivos permitidos</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="2929"/>
         <source>loadsurf</source>
         <translation>loadsurf</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2751"/>
-        <source>Extension of file %1 must be srf or sgh</source>
-        <translation>La extensión del archivo %1 debe ser .srf o .sgh</translation>
+        <location filename="../molecule.cpp" line="2930"/>
+        <source>Extension of file %1 must be srf, sgh, isoden or isopot</source>
+        <translation>La extensión del archivo %1 debe ser srf, sgh, isoden o isopot</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2839"/>
+        <source>Extension of file %1 must be srf or sgh</source>
+        <translation type="vanished">La extensión del archivo %1 debe ser .srf o .sgh</translation>
+    </message>
+    <message>
+        <location filename="../molecule.cpp" line="3025"/>
         <source>Open file with critical points</source>
         <translation>Abrir archivo con puntos críticos</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2869"/>
+        <location filename="../molecule.cpp" line="3055"/>
         <source>Open file with field lines</source>
         <translation>Abrir archivo con líneas de campo</translation>
     </message>
     <message>
-        <location filename="../molecule.cpp" line="2887"/>
+        <location filename="../molecule.cpp" line="3073"/>
         <source>Open file with HF forces</source>
         <translation>Abrir archivo con fuerzas HF</translation>
     </message>
 </context>
 <context>
+    <name>recorder</name>
+    <message>
+        <location filename="../recorder.cpp" line="40"/>
+        <source>Record animation</source>
+        <translation>Grabar animación</translation>
+    </message>
+    <message>
+        <location filename="../recorder.cpp" line="44"/>
+        <source>Remove frame files at end</source>
+        <translation>Eliminar fotogramas al terminar</translation>
+    </message>
+    <message>
+        <location filename="../recorder.cpp" line="52"/>
+        <source>...</source>
+        <translation>...</translation>
+    </message>
+    <message>
+        <location filename="../recorder.cpp" line="60"/>
+        <source>Start</source>
+        <translation>Empezar</translation>
+    </message>
+    <message>
+        <location filename="../recorder.cpp" line="146"/>
+        <source>Number of frames</source>
+        <translation>Número de fotogramas</translation>
+    </message>
+    <message>
+        <location filename="../recorder.cpp" line="148"/>
+        <source>Command for converting frames to film</source>
+        <translation>Instrucción para unir fotogramas en una película</translation>
+    </message>
+    <message>
+        <location filename="../recorder.cpp" line="153"/>
+        <source>Name for record file</source>
+        <translation>Nombre de archivo</translation>
+    </message>
+    <message>
+        <location filename="../recorder.cpp" line="196"/>
+        <source>Open file ...</source>
+        <translation>Abrir archivo ...</translation>
+    </message>
+    <message>
+        <location filename="../recorder.cpp" line="197"/>
+        <source>All files</source>
+        <translation>Todos los archivos</translation>
+    </message>
+</context>
+<context>
+    <name>rotations</name>
+    <message>
+        <location filename="../rotations.cpp" line="46"/>
+        <source>Rotation</source>
+        <translation>Rotación</translation>
+    </message>
+    <message>
+        <location filename="../rotations.cpp" line="49"/>
+        <source>Angle</source>
+        <translation>Ángulo</translation>
+    </message>
+    <message>
+        <location filename="../rotations.cpp" line="50"/>
+        <source>Animate rotation</source>
+        <translation>Animar la rotación</translation>
+    </message>
+    <message>
+        <location filename="../rotations.cpp" line="51"/>
+        <source>Axis</source>
+        <translation>Eje</translation>
+    </message>
+    <message>
+        <location filename="../rotations.cpp" line="87"/>
+        <source>Apply</source>
+        <translation>Aplicar</translation>
+    </message>
+    <message>
+        <location filename="../rotations.cpp" line="91"/>
+        <source>Reset</source>
+        <translation>Restaurar</translation>
+    </message>
+    <message>
+        <location filename="../rotations.cpp" line="95"/>
+        <source>X axis</source>
+        <translation>eje X</translation>
+    </message>
+    <message>
+        <location filename="../rotations.cpp" line="100"/>
+        <source>Y axis</source>
+        <translation>eje Y</translation>
+    </message>
+    <message>
+        <location filename="../rotations.cpp" line="105"/>
+        <source>Z axis</source>
+        <translation>eje Z</translation>
+    </message>
+    <message>
+        <location filename="../rotations.cpp" line="109"/>
+        <location filename="../rotations.cpp" line="168"/>
+        <location filename="../rotations.cpp" line="178"/>
+        <source>Start</source>
+        <translation>Empezar</translation>
+    </message>
+    <message>
+        <location filename="../rotations.cpp" line="111"/>
+        <location filename="../rotations.cpp" line="174"/>
+        <source>Stop</source>
+        <translation>Detener</translation>
+    </message>
+    <message>
+        <location filename="../rotations.cpp" line="192"/>
+        <source>Fast</source>
+        <translation>Rápido</translation>
+    </message>
+    <message>
+        <location filename="../rotations.cpp" line="196"/>
+        <source>Slow</source>
+        <translation>Lento</translation>
+    </message>
+</context>
+<context>
+    <name>screenshot</name>
+    <message>
+        <location filename="../screenshot.cpp" line="41"/>
+        <source>Image capture</source>
+        <translation>Captura de imagen</translation>
+    </message>
+    <message>
+        <location filename="../screenshot.cpp" line="45"/>
+        <source>Resolution</source>
+        <translation>Resolución</translation>
+    </message>
+    <message>
+        <location filename="../screenshot.cpp" line="50"/>
+        <source>1.0</source>
+        <translation>1.0</translation>
+    </message>
+    <message>
+        <location filename="../screenshot.cpp" line="54"/>
+        <source>Transparent background</source>
+        <translation>Fondo transparente</translation>
+    </message>
+    <message>
+        <location filename="../screenshot.cpp" line="56"/>
+        <source>Take picture</source>
+        <translation>Capturar imagen</translation>
+    </message>
+    <message>
+        <location filename="../screenshot.cpp" line="61"/>
+        <source>Screen resolution</source>
+        <translation>Resolución de la pantalla</translation>
+    </message>
+    <message>
+        <location filename="../screenshot.cpp" line="63"/>
+        <source>Scaled resolution</source>
+        <translation>Escalar</translation>
+    </message>
+    <message>
+        <location filename="../screenshot.cpp" line="114"/>
+        <source>Scale factor</source>
+        <translation>Factor de escala</translation>
+    </message>
+    <message>
+        <location filename="../screenshot.cpp" line="115"/>
+        <source>Image quality</source>
+        <translation>Calidad de imagen</translation>
+    </message>
+</context>
+<context>
     <name>showhidePushButton</name>
     <message>
-        <location filename="../widgetsubclasses.cpp" line="87"/>
+        <location filename="../widgetsubclasses.cpp" line="90"/>
         <source>Show</source>
         <translation>Mostrar</translation>
     </message>
     <message>
-        <location filename="../widgetsubclasses.cpp" line="88"/>
+        <location filename="../widgetsubclasses.cpp" line="91"/>
         <source>Hide</source>
         <translation>Ocultar</translation>
     </message>
@@ -7098,94 +8830,201 @@ does not coincide with the number of normals (%1).</source>
     <message>
         <location filename="../surface.cpp" line="375"/>
         <location filename="../surface.cpp" line="380"/>
-        <location filename="../surface.cpp" line="489"/>
-        <location filename="../surface.cpp" line="494"/>
-        <location filename="../surface.cpp" line="692"/>
-        <location filename="../surface.cpp" line="697"/>
+        <location filename="../surface.cpp" line="466"/>
+        <location filename="../surface.cpp" line="471"/>
+        <location filename="../surface.cpp" line="577"/>
+        <location filename="../surface.cpp" line="582"/>
+        <location filename="../surface.cpp" line="781"/>
+        <location filename="../surface.cpp" line="786"/>
+        <location filename="../surface.cpp" line="1004"/>
+        <location filename="../surface.cpp" line="1009"/>
+        <location filename="../surface.cpp" line="1153"/>
+        <location filename="../surface.cpp" line="1158"/>
+        <location filename="../surface.cpp" line="1358"/>
+        <location filename="../surface.cpp" line="1363"/>
         <source>Loading files</source>
         <translation>Cargando archivos</translation>
     </message>
     <message>
         <location filename="../surface.cpp" line="398"/>
         <location filename="../surface.cpp" line="419"/>
+        <location filename="../surface.cpp" line="507"/>
         <source>readbasins</source>
         <translation>readbasins</translation>
     </message>
     <message>
         <location filename="../surface.cpp" line="399"/>
-        <location filename="../surface.cpp" line="516"/>
-        <location filename="../surface.cpp" line="530"/>
-        <location filename="../surface.cpp" line="717"/>
-        <location filename="../surface.cpp" line="731"/>
+        <location filename="../surface.cpp" line="604"/>
+        <location filename="../surface.cpp" line="618"/>
+        <location filename="../surface.cpp" line="806"/>
+        <location filename="../surface.cpp" line="820"/>
         <source>Error reading vertices from file %1</source>
         <translation>Error leyendo vértices del archivo %1</translation>
     </message>
     <message>
         <location filename="../surface.cpp" line="420"/>
+        <location filename="../surface.cpp" line="508"/>
         <source>Wrong number of vertices from file %1</source>
         <translation>Número erróneo de vértices leídos del archivo %1</translation>
     </message>
     <message>
-        <location filename="../surface.cpp" line="515"/>
-        <location filename="../surface.cpp" line="529"/>
-        <location filename="../surface.cpp" line="557"/>
-        <location filename="../surface.cpp" line="569"/>
+        <location filename="../surface.cpp" line="603"/>
+        <location filename="../surface.cpp" line="617"/>
+        <location filename="../surface.cpp" line="645"/>
+        <location filename="../surface.cpp" line="657"/>
+        <location filename="../surface.cpp" line="674"/>
+        <location filename="../surface.cpp" line="688"/>
+        <location filename="../surface.cpp" line="707"/>
+        <location filename="../surface.cpp" line="721"/>
+        <location filename="../surface.cpp" line="1068"/>
+        <location filename="../surface.cpp" line="1220"/>
         <source>readsgh</source>
         <translation>readsgh</translation>
     </message>
     <message>
-        <location filename="../surface.cpp" line="558"/>
-        <location filename="../surface.cpp" line="754"/>
+        <location filename="../surface.cpp" line="646"/>
+        <location filename="../surface.cpp" line="843"/>
         <source>Error reading allindices from file %1</source>
         <translation>Error al leer índices del archivo %1</translation>
     </message>
     <message>
-        <location filename="../surface.cpp" line="570"/>
-        <location filename="../surface.cpp" line="766"/>
+        <location filename="../surface.cpp" line="658"/>
+        <location filename="../surface.cpp" line="855"/>
+        <location filename="../surface.cpp" line="1069"/>
+        <location filename="../surface.cpp" line="1221"/>
+        <location filename="../surface.cpp" line="1418"/>
         <source>Wrong number of vertices and allindices from file %1</source>
         <translation>Número erróneo de vértices e índices leídos del archivo %1</translation>
     </message>
     <message>
-        <location filename="../surface.cpp" line="586"/>
-        <location filename="../surface.cpp" line="600"/>
-        <location filename="../surface.cpp" line="619"/>
-        <location filename="../surface.cpp" line="633"/>
-        <location filename="../surface.cpp" line="716"/>
-        <location filename="../surface.cpp" line="730"/>
-        <location filename="../surface.cpp" line="753"/>
-        <location filename="../surface.cpp" line="765"/>
-        <location filename="../surface.cpp" line="780"/>
-        <location filename="../surface.cpp" line="794"/>
-        <location filename="../surface.cpp" line="813"/>
-        <location filename="../surface.cpp" line="827"/>
+        <location filename="../surface.cpp" line="805"/>
+        <location filename="../surface.cpp" line="819"/>
+        <location filename="../surface.cpp" line="842"/>
+        <location filename="../surface.cpp" line="854"/>
+        <location filename="../surface.cpp" line="869"/>
+        <location filename="../surface.cpp" line="883"/>
+        <location filename="../surface.cpp" line="902"/>
+        <location filename="../surface.cpp" line="916"/>
+        <location filename="../surface.cpp" line="1417"/>
         <source>readsrf</source>
         <translation>readsrf</translation>
     </message>
     <message>
-        <location filename="../surface.cpp" line="587"/>
-        <location filename="../surface.cpp" line="601"/>
-        <location filename="../surface.cpp" line="781"/>
-        <location filename="../surface.cpp" line="795"/>
+        <location filename="../surface.cpp" line="675"/>
+        <location filename="../surface.cpp" line="689"/>
+        <location filename="../surface.cpp" line="870"/>
+        <location filename="../surface.cpp" line="884"/>
         <source>Error reading local maxima from file %1</source>
         <translation>Error al leer máximos locales del archivo %1</translation>
     </message>
     <message>
-        <location filename="../surface.cpp" line="620"/>
-        <location filename="../surface.cpp" line="634"/>
-        <location filename="../surface.cpp" line="814"/>
-        <location filename="../surface.cpp" line="828"/>
+        <location filename="../surface.cpp" line="708"/>
+        <location filename="../surface.cpp" line="722"/>
+        <location filename="../surface.cpp" line="903"/>
+        <location filename="../surface.cpp" line="917"/>
         <source>Error reading local minima from file %1</source>
         <translation>Error al leer míimos locales del archivo %1</translation>
     </message>
     <message>
-        <location filename="../surface.cpp" line="1127"/>
+        <location filename="../surface.cpp" line="1763"/>
         <source>settrianglecolors</source>
         <translation>settrianglecolors</translation>
     </message>
     <message>
-        <location filename="../surface.cpp" line="1128"/>
+        <location filename="../surface.cpp" line="1764"/>
         <source>Number of vertices %1 different from number of values %2</source>
         <translation>Número de vértices en %1 diferente del número de valores %2</translation>
+    </message>
+</context>
+<context>
+    <name>translations</name>
+    <message>
+        <location filename="../translations.cpp" line="44"/>
+        <source>Translation</source>
+        <translation>Traslación</translation>
+    </message>
+    <message>
+        <location filename="../translations.cpp" line="47"/>
+        <source>Units</source>
+        <translation>Unidades</translation>
+    </message>
+    <message>
+        <location filename="../translations.cpp" line="49"/>
+        <source>angstrom</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../translations.cpp" line="50"/>
+        <source>bohr</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../translations.cpp" line="80"/>
+        <source>Apply</source>
+        <translation>Aplicar</translation>
+    </message>
+    <message>
+        <location filename="../translations.cpp" line="85"/>
+        <source>Reset</source>
+        <translation>Restaurar</translation>
+    </message>
+    <message>
+        <location filename="../translations.cpp" line="115"/>
+        <source>Stride for zooming with mouse wheel: </source>
+        <translation>Paso para el zoom con la rueda del ratón: </translation>
+    </message>
+</context>
+<context>
+    <name>viewport</name>
+    <message>
+        <location filename="../viewport.cpp" line="36"/>
+        <source>View Port</source>
+        <translation>Visor</translation>
+    </message>
+    <message>
+        <location filename="../viewport.cpp" line="44"/>
+        <source>Field of view (angle in degrees)</source>
+        <translation>Campo de visión (ángulo en grados)</translation>
+    </message>
+    <message>
+        <location filename="../viewport.cpp" line="53"/>
+        <source>Farthest distance for objects to be displayed</source>
+        <translation>Máxima distancia para la visualización de objetos</translation>
+    </message>
+    <message>
+        <location filename="../viewport.cpp" line="62"/>
+        <source>Nearest distance for objects to be displayed</source>
+        <translation>Mínima distancia para la visualización de objetos</translation>
+    </message>
+    <message>
+        <location filename="../viewport.cpp" line="66"/>
+        <source>Apply</source>
+        <translation>Aplicar</translation>
+    </message>
+    <message>
+        <location filename="../viewport.cpp" line="101"/>
+        <source>Field of view</source>
+        <translation>Campo de visión</translation>
+    </message>
+    <message>
+        <location filename="../viewport.cpp" line="103"/>
+        <source>Angle</source>
+        <translation>Ángulo</translation>
+    </message>
+    <message>
+        <location filename="../viewport.cpp" line="106"/>
+        <source>Clipping planes</source>
+        <translation>Planos de corte</translation>
+    </message>
+    <message>
+        <location filename="../viewport.cpp" line="109"/>
+        <source>Near:</source>
+        <translation>Cercano:</translation>
+    </message>
+    <message>
+        <location filename="../viewport.cpp" line="110"/>
+        <source>Far:</source>
+        <translation>Lejano:</translation>
     </message>
 </context>
 </TS>

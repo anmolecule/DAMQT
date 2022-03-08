@@ -1,3 +1,3 @@
 # Project details
 # ---------------
-project(DAM311_samples)
+project(DAM320_samples)

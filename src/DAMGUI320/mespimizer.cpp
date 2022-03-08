@@ -136,7 +136,7 @@ mespimizer::mespimizer(QWidget *parent) : QWidget()
 
 
     BTNmespimize = new QPushButton(QIcon(":/images/exec.png"), tr("Exec"));
-    BTNmespimize->setMaximumWidth(90);
+    BTNmespimize->setMaximumWidth(110);
     connections << connect(BTNmespimize,SIGNAL(clicked(bool)),this,SLOT(BTNmespimize_clicked()));
 
     FRManimation = new QGroupBox(tr("Animation"));
@@ -169,12 +169,12 @@ mespimizer::mespimizer(QWidget *parent) : QWidget()
     CHKremoveframes->setChecked(true);
 
     BTNreplay = new QPushButton(QIcon(":/images/replay.png"), tr("Replay"));
-    BTNreplay->setMaximumWidth(90);
+    BTNreplay->setMaximumWidth(110);
     BTNreplay->setEnabled(false);
     connections << connect(BTNreplay,SIGNAL(clicked(bool)),this,SLOT(BTNreplay_clicked()));
 
     BTNreset = new QPushButton(QIcon(""), tr("Reset"));
-    BTNreset->setMaximumWidth(90);
+    BTNreset->setMaximumWidth(110);
     BTNreset->setEnabled(false);
     connections << connect(BTNreset,SIGNAL(clicked(bool)),this,SLOT(BTNreset_clicked()));
 
