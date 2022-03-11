@@ -257,6 +257,7 @@
     endif
     if (lzdo) then
         CALL MPI_BCAST(lmaxexp,1,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
+        lmtop = (lmaxexp+1)*(lmaxexp+1)
         lmultmx = min(lmultmx,lmaxexp)
     endif
 
@@ -400,7 +401,6 @@
     if (abortroot .gt. 0) then
         call error(1,'Stop')
     endif
-
     CALL MPI_GATHERV(rmultipfr, ilenv(myrank), MPI_REAL8, rmultip, ilenv, idispv, MPI_REAL8, 0, MPI_COMM_WORLD, ierr)
     if (ierr .ne.0) then
         write(6,"('Error gathering rmultip in processor ',i8)") myrank
@@ -778,6 +778,7 @@
         if (myrank .eq. 0) write(6,"('Number of centers lower than number of processors.',/,'Rerun with a lower &
                 &number of processors (lower than or equal to the number of centers).')")
         abort = 1
+        return
     endif
     if (myrank .eq. 0) write(6,"('ncen = ', i5)") ncen
     read(15) nbasis, ncaps
@@ -785,6 +786,7 @@
     if (myrank .eq. 0) write(6,"('nbasis, ncaps, repnuc = ', 2(1x,i8),3x,e22.15)") nbasis, ncaps, repnuc
     if (myrank .eq. 0) write(6,"('Number of basis functions = ', i8)") nbasis
     if (myrank .eq. 0) write(6,"('Number of function shells = ', i8)") ncaps
+    call flush(6)
 
 !    Allocates memory for geometry and basis set
 
@@ -869,6 +871,7 @@
         enddo
     endif
     close(15)
+
 !    prints out the input data
     if (myrank .eq. 0) then
         write(6,"(/24x,'GEOMETRY (BOHR)')")
@@ -3833,12 +3836,16 @@
     real(KREAL) :: aux, aux1, aux2, auxk, auxm, bux, cux, sd, sgn, ss
     mxind = (mxltot+1)*(mxltot+2)/2
     mxbin = max(mxltot,mxlenpol)
+    if (allocated(umedpow)) then
+        deallocate (umedpow, ind, bin, ang)
+    endif
     allocate(umedpow(0:lmaxexp), ind(0:mxind), bin((mxbin+1)*(mxbin+2)/2), ang((lmaxexp+1)*(lmaxexp+2)/2), stat = ierr)
     if (ierr .ne. 0) then
         write(6,"('Memory error when allocating umedpow, ind, bin and angl in processor ',i8)") myrank
         abort = 1
         return
     endif
+
     umedpow(0) = uno                            !
     do i = 1, lmaxexp                            !
         umedpow(i) = umedpow(i-1) * umed            ! 1 / 2^i
@@ -3877,6 +3884,9 @@
 !     into functions of the same type
     mxlcof = mxltot*(mxltot+3)/2
     mxemes = mxltot
+    if (allocated(ssv)) then
+        deallocate (ssv, sdv, msv, mdv)
+    endif
     allocate(ssv(-mxemes:mxemes,-mxemes:mxemes), sdv(-mxemes:mxemes,-mxemes:mxemes), &
             msv(-mxemes:mxemes,-mxemes:mxemes), mdv(-mxemes:mxemes,-mxemes:mxemes), stat = ierr)
     if (ierr .ne. 0) then
@@ -3896,6 +3906,9 @@
 !    Coefficients for the decomposition of products of regular spherical harmonics into
 !    regular spherical harmonics
     mxkcof = mxlcof*(mxlcof+3)/2
+    if (allocated(app)) then
+        deallocate (app, bpp)
+    endif
     allocate(app(0:2*mxltot+1,0:mxkcof), bpp(0:2*mxltot+1,0:mxkcof), stat = ierr)
     if (ierr .ne. 0)  then
         write(6,"('Memory error when allocating app, bbb in processor ',i8)") myrank
@@ -3909,6 +3922,9 @@
     call acof
     call bcof
 !    Tabulates some auxiliary indices for locating the previous coefficients
+    if (allocated(indk12)) then
+        deallocate (indk12)
+    endif
     allocate(indk12((mxltot+1)**2,(mxltot+1)**2), stat = ierr)
     if (ierr .ne. 0) then
         write(6,"('Memory error when allocating indk12 in processor ',i8)") myrank
@@ -3989,6 +4005,9 @@
     idimlml1l2 = ikt
 !     allocates memory for arrays  llm, mlm, i1l1l2, i2l1l2, lml1l2, npl1l2, ccl1l2
     lmtot = (mxltot+1)*(mxltot+1)
+    if (allocated(llm)) then
+        deallocate (llm, mlm, i1l1l2, i2l1l2, lml1l2, npl1l2, ccl1l2)
+    endif
     allocate(llm(lmtot), mlm(lmtot), i1l1l2(lmtot,lmtot), i2l1l2(lmtot,lmtot), lml1l2(idimlml1l2), &
             npl1l2(idimlml1l2), ccl1l2(idimlml1l2), stat = ierr)
     if (ierr .ne. 0)  then
@@ -4079,6 +4098,9 @@
     deallocate(app, bpp)
 
 !    Constants for overlap integrals with ellipsoidal coordinates
+    if (allocated(ap)) then
+        deallocate (ap, alfasol, ipntap, ipntalfa)
+    endif
     allocate (ap((mxn+1)*(mxn+1)*(mxn+3)), alfasol((2*mxl+1)*(mxl+1)*(mxl+2)*(30+mxl*(43+17*mxl))/60), &
             ipntap(0:mxn,0:mxn), ipntalfa((mxl+1)*(mxl+2)/2,0:mxl) , stat = ierr)
     if (ierr .ne. 0)  then

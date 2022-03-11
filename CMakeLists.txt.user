@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.14.2, 2022-03-08T12:07:21. -->
+<!-- Written by QtCreator 4.14.2, 2022-03-11T12:36:42. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -258,7 +258,10 @@
     <value type="int" key="ProjectExplorer.BuildConfiguration.BuildStepListCount">2</value>
     <value type="bool" key="ProjectExplorer.BuildConfiguration.ClearSystemEnvironment">false</value>
     <valuelist type="QVariantList" key="ProjectExplorer.BuildConfiguration.CustomParsers"/>
-    <valuelist type="QVariantList" key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges"/>
+    <valuelist type="QVariantList" key="ProjectExplorer.BuildConfiguration.UserEnvironmentChanges">
+     <value type="QString">GAUSS_EXEDIR=/usr/local/g09/bsd:/usr/local/g09/private:/usr/local/g09</value>
+     <value type="QString">LD_LIBRARY_PATH=/usr/local/g09/bsd:/usr/local/g09/private:/usr/local/g09:$LD_LIBRARY_PATH</value>
+    </valuelist>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Debug</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">CMakeProjectManager.CMakeBuildConfiguration</value>
    </valuemap>

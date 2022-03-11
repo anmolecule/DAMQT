@@ -141,6 +141,7 @@ private:
     QLineEdit *TXTexttime;
     QLineEdit *TXTextworkdir;
     QLineEdit *TXTkeywords;
+    QLineEdit *TXTinputfile;
     QLineEdit *TXTtitle;
 
     QList<QMetaObject::Connection> connectionsext;
