@@ -1,27 +1,38 @@
-# DAMQT
+# DAMQT 
 
-!  Copyright 2013-2022, Jaime Fernández Rico, Rafael López, Ignacio Ema,
-!  Guillermo Ramírez, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
-! 
-!  DAM320 is free software: you can redistribute it and/or modify
-!  it under the terms of the GNU General Public License as published by
-!  the Free Software Foundation, either version 3 of the License, or
-!  (at your option) any later version.
-! 
-!  DAM320 is distributed in the hope that it will be useful,
-!  but WITHOUT ANY WARRANTY; without even the implied warranty of
-!  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-!  GNU General Public License for more details.
-! 
-!  You should have received a copy of the GNU General Public License
-!  along with DAM320.  If not, see <http://www.gnu.org/licenses/>.
-!
-!------------------------------------------------------------------------
+![Release][release]
+[![License][license-image]][license]
+![DAMQT logo][website]
 
-##  A QUICK GUIDE TO DAM320 PACKAGE
+[release]: https://img.shields.io/github/downloads/anmolecule/DAMQT/total
+[license-image]: https://img.shields.io/badge/License-GPLv3-blue.svg
+[license]: https://www.gnu.org/licenses/gpl-3.0
+[logo-image]: media/C6H6-pVTZ-d-l0.png
+[website]: https://img.shields.io/website?up_message=damqt.com&url=http%3A%2F%2Fwww.qfa.uam.es%2FDAMQT%2Fcontent%2Fchemicalforces.html
 
---------------------------------
-                   
+
+## A cross platform GUI-enabled package for fast and efficient analysis of molecular electron density, electrostatic potential, molecular orbitals and much more.
+
+Copyright 2013-2022, Jaime Fernández Rico, Rafael López, Ignacio Ema,
+Guillermo Ramírez, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
+ 
+DAM320 is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+DAM320 is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with DAM320.  If not, see <http://www.gnu.org/licenses/>.
+
+README updated in Feb 2022.
+
+##  A Quick Guide to DAM320 Package
+
 Authors: R. López(1), I. Ema(1), G. Ramírez(1), D. Zorrilla(2), 
 A. Kumar(3), S. Yeole(4) and S. Gadre(5)
 
@@ -40,13 +51,9 @@ P. O. Nahata Commerce College, Bhusawal, India
 
 (5) Savitribai Phule Pune University, India.
 
-Feb 2022
-
 Contact: rafael.lopez@uam.es
 
 ## Introduction
-
-------------
 
 The DAM320 package consists of a set of programs designed for the partition
 and representation of the molecular electron density into atomic
@@ -67,16 +74,13 @@ in that basis set are required. The density matrix may be computed with any
 standard package for molecular structure calculations within the LCAO 
 framework, at any calculation level (HF, CI, MC, functional density, etc).
 
-Interfaces are included in the package for reading data from GAUSSIAN(TM)
-*.fchk; MOLPRO *.out; MOPAC *.aux; NWCHEM *.nwcout; PSI4 *.fchk; 
-TURBOMOLE *.coor, *.basis and *.mos; and MOLEKEL *.mkl files.
+Interfaces are included in the package for reading data from GAUSSIAN(TM) 
+*.fchk files and from MOLEKEL *.mkl files.
 
 Details on the method and its implementation can be found in the
 BIBLIOGRAPHY quoted at the end of this file.
 
-
 ## DAM320 package contents
-------------------------
 
 The package contains the source files and a sample deck of input and output files. 
 
@@ -87,16 +91,17 @@ The parallel versions have been prepared using MPI and tested with openmpi and m
 * Fortran90 compiler
 * Fortran90 MPI compiler
 * C++ compiler 
-* python 2 or 3
 * Qt library (5.9 or higher) 
 * OpenGL (3.3 or above)
 
-## Installation on Linux OS
+## Installation on Linux OS (Ubuntu)
+
 0. ```cd /path/to/DAMQTparentDirectory```
 
 1. If your computer does not have C++ compiler or Fortran compiler, then install the build-essential package which is a reference for all the packages needed to compile a Debian package. It generally includes the GCC/g++ compilers and libraries and some other utilities.
 
 ```
+sudo apt-get update
 sudo apt-get install build-essential
 ```
 
@@ -106,7 +111,7 @@ sudo apt-get install build-essential
 sudo apt-get install qt5-default
 ```
 
-3. Check OpenGL version in your computer
+3. Check OpenGL version in your computer. OpenGL 3.3 or higher is required and most machines with a dedicated GPU from AMD or NVIDIA support OpenGL 3.3 and above as long as this GPU was released within the last 4-5 years. If the GPU is 5 or more years old, there is a possibility that it does not support OpenGL 3.3. In this case you will need to check the specifications for your GPU model on the manufacturer’s website.
   
 ```
 glxinfo | grep "OpenGL version"
@@ -115,15 +120,15 @@ glxinfo | grep "OpenGL version"
 4. If you get an error in above command stating glxinfo not installed, please install mesa-utils
 
 ```
-sudo apt-get install mesa-utils 
+sudo apt-get install pkg-config mesa-utils libglu1-mesa-dev freeglut3-dev mesa-common-dev 
+sudo apt-get install libglew-dev libglfw3-dev libglm-dev
+sudo apt-get install libao-dev libmpg123-dev
 ```
 
-Check step 3 again to verify the version of OpenGL. OpenGL 3.3 or higher is required and most machines with a dedicated GPU from AMD or NVIDIA support OpenGL 3.3 and above as long as this GPU was released within the last 4-5 years. If the GPU is 5 or more years old, there is a possibility that it does not support OpenGL 3.3. In this case you will need to check the specifications for your GPU model on the manufacturer’s website. If you are limited by the version of OpenGL, DAMQT 3D viewer may not work properly. You can still make use of other functionalities.
-
-5. Install freeglut
+5. Check step 3 again to verify the version of OpenGL. If you still don't see OpenGL version >= 3.3 and you are sure that your driver supports OpenGL > 3.3 then
 
 ```
-sudo apt-get install freeglut3 freeglut3-dev libglew-dev
+echo 'export MESA_GL_VERSION_OVERRIDE=3.3' >> ~/.bashrc
 ```
 
 6. If you want to use parallel version of package
@@ -181,7 +186,7 @@ DAMQT320.exe
 To uninstall the package, type 
 
 ```
-rake uninstall
+sudo make uninstall
 ```
 
 To remove executables, type 
@@ -191,7 +196,6 @@ sudo make clean
 ```
 
 ## Samples deck
-------------
 
 A set of files is included to test the installation. The set includes input samples and the 
 corresponding output for the several programs in the package.
@@ -201,7 +205,6 @@ in the package to test that everything works.
 
 
 ## USER's GUIDE
-------------
 
 In all the programs, the input file consists of two parts: the first one
 must always contain a NAMELIST named OPTIONS (although with different
@@ -216,12 +219,11 @@ The following paragraphs briefly summarize the usage of each program in
 the package.
 
 DAMSTO320.F90  (DAMSTO320_mpi.F90)
-==================================
+-----------------------------------
 
 Program for the DAM partition/expansion of a molecular density expressed in terms of Slater functions.
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -288,8 +290,7 @@ Options in namelist and defaults:
     
     iswindows = .false.     .true. if running on a MS-windows system
 
-Output files
-------------
+### Output files
 
 DAMSTO320 writes to the standard output some information of input, the multipolar moments of the atomic fragments
 and the molecular multipolar moments.
@@ -306,12 +307,11 @@ A file "projectname.xyz" with the geometry in angstrom is generated for compatib
 A file "projectname.mltmod"  with the modules of the atomic multipolar moments is also created.
 
 DAMGTO320.F90  (DAMGTO320_mpi.F90)
-==================================
+-----------------------------------
 
 Program for the DAM partition/expansion of a molecular density expressed in terms of Gaussian functions.
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -366,8 +366,7 @@ Options in namelist and defaults:
     iswindows = .false.		! .true. if running on a MS-windows system
     
 
-Output files
-------------
+### Output files
 
 DAMGTO320 writes to the standard output some information of input, the multipolar moments of the atomic fragments
 and the molecular multipolar moments.
@@ -385,12 +384,11 @@ A file "projectname.mltmod"  with the modules of the atomic multipolar moments i
 
 
 DAMDEN320.F90  (DAMDEN320_mpi.F90) 
-==================================
+----------------------------------
 
 Computes electron density from DAM partition/expansion.
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -498,8 +496,7 @@ Options in namelist and defaults:
     planecase = 1
 
     
-Output files
-------------
+### Output files
 
 DAMDEN320 writes to the standard output some information of input and the values of density and its derivatives at
 individual selected points.
@@ -528,12 +525,11 @@ If the selected points tabulation and second derivatives options are chosen (lpo
 a text file "projectname-d.der2" with the second derivatives (dxx, dxy, dxz, dyy, dyz, dzz) is printed. 
 
 DAMPOT320.F90  (DAMPOT320_mpi.F90)
-==================================
+----------------------------------
 
 Computes electrostatic potential from DAM partition/expansion.
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -603,8 +599,7 @@ Options in namelist and defaults:
     
     planecase = 1
     
-Output files
-------------
+### Output files
 
 DAMPOT320 writes to the standard output some information of input and the values of electrostatic potential and its derivatives at
 individual selected points.
@@ -632,12 +627,11 @@ a text file "projectname-v.der2" with the second derivatives (dxx, dxy, dxz, dyy
 
 
 DAMSGHOLE320.F90  (DAMSGHOLE320_mpi.F90)
-========================================
+----------------------------------------
 
 Computes electrostatic potential on a density isosurface from DAM partition/expansion.
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -682,8 +676,7 @@ Options in namelist and defaults:
     iswindows = .false.      true if running on a MS-windows system
 
     
-Output files
-------------
+### Output files
 
 DAMSGHOLE320 writes to the standard output some information of input and the number of 
 electrostatic potential extrema on the density isosurface and the values and coordinates.
@@ -695,12 +688,11 @@ with the 2D ploter.
 A file "summary.txt" is written with a summary of statistics on MESP (see Appendix C in manual for details)
 
 DAMFIELD320.F90  (DAMFIELD320_mpi.F90)
-======================================
+--------------------------------------
 
 Computes electric field from DAM patition/expansion.
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -782,8 +774,7 @@ Options in namelist and defaults:
     
     rlines = cero         Array with coordinates (in au) of points defining lines
 
-Output files
-------------
+### Output files
 
 DAMFIELD320 writes to the standard output some information of input and some statistics.
 
@@ -799,12 +790,11 @@ The "projectname.cam" and "projectname.cam2D" files can be used with gnuplot to 
 An example is included within the samples.
 
 DAMFIELDPNT320.F90
-====================
+--------------------
 
 Computes electric field in slected points from DAM patition/expansion.
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project and
@@ -828,20 +818,18 @@ Options in namelist and defaults:
     
     iswindows = .false.        .true. if running on a MS-windows system
 
-Output files
-------------
+### Output files
 
 DAMFIELDPNT320 writes to the standard output some information of input, the values of the electric field components
 at the tabulation points and some statistics.
 
 
 DAMDENGRAD320.F90  (DAMDENGRAD320_mpi.F90)
-==========================================
+-------------------------------------------
 
 Computes density gradient from DAM partition/expansion.
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -919,8 +907,7 @@ Options in namelist and defaults:
     
     rlines = cero         Array with coordinates (in au) of points defining lines
 
-Output files
-------------
+### Output files
 
 DAMDENGRAD320 writes to the standard output some information of input and some statistics.
 
@@ -937,12 +924,11 @@ An example is included within the samples.
 
 
 DAMFORCES320.F90
-==================
+------------------
 
 Computes Hellmann-Feynman forces on nuclei from DAM patition/expansion.
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -974,8 +960,7 @@ Options in namelist and defaults:
     
     filename = ""           root file name for .fre, .fri, .frt, .fcf, .fnc files
 
-Output files
-------------
+### Output files
 
 DAMFRAD320 writes to the standard output some information of input and the tabulation of the selected radial factor
 and its first and second derivatives.
@@ -989,14 +974,12 @@ conformational forces
 non-conformational forces (spurious forces)
 
 
-
 DAMFRAD320.F90
-================
+--------------
 
 Tabulates radial factors of DAM patition/expansion.
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project.
@@ -1036,20 +1019,18 @@ Options in namelist and defaults:
     
     filename = ""           root file name
 
-Output files
-------------
+### Output files
 
 DAMFRAD320 writes to the standard output some information of input and the tabulation of the selected radial factor
 and its first and second derivatives.
 It also writes a file ".frad" with the tabulation data.
 
 DAMMULTROT320.F90
-===================
+-----------------
 
 Computes oriented multipolar moments of atomic fragments from DAM patition/expansion.
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project, 
@@ -1081,8 +1062,7 @@ Options in namelist and defaults:
                           
     filename = ""		      root file name
 
-Output files
-------------
+### Output files
 
 DAMMULTROT320 writes to the standard output some information of input and the tabulation of the selected multiplar moments
 of the three selected centers referred to normalized spherical harmonics in the frame with:
@@ -1092,12 +1072,11 @@ of the three selected centers referred to normalized spherical harmonics in the 
 
     
 DAMZernike-Jacobi_STO.F90   (DAMZernike-Jacobi_STO_mpi.F90)
-=====================================================================
+------------------------------------------------------------
 
 Computes Zernike 3D and Jacobi moments of a STO molecular density.
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project, 
@@ -1140,8 +1119,7 @@ Options in namelist and defaults:
     
     iswindows = .false.        .true. if running on a MS-windows system
 
-Output files
-------------
+### Output files
 
 DAMZernike-Jacobi_GTO(STO) writes to the standard output some information of input and the one-center expansion
 of GTO(STO) density into Canterkis-Zernike or Jacobi-Zernike functions. In particular, rotationally invariant fingerprints
@@ -1150,12 +1128,11 @@ are quoted.
 It also writes a file ".zernike" (".jacobi") with the expansion of the density in Zernike (Jacobi) functions.
     
 DAMZernike-Jacobi_GTO.F90   (DAMZernike-Jacobi_GTO_mpi.F90)
-=====================================================================
+------------------------------------------------------------
 
 Computes Zernike 3D and Jacobi moments of a GTO molecular density.
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project, 
@@ -1194,8 +1171,7 @@ Options in namelist and defaults:
     
     iswindows = .false.        .true. if running on a MS-windows system
 
-Output files
-------------
+### Output files
 
 DAMZernike-Jacobi_GTO(STO) writes to the standard output some information of input and the one-center expansion
 of GTO(STO) density into Canterkis-Zernike or Jacobi-Zernike functions. In particular, rotationally invariant fingerprints
@@ -1205,12 +1181,11 @@ It also writes a file ".zernike" (".jacobi") with the expansion of the density i
 
     
 DAMDENZJ320.F90
-===============
+----------------
 
 Tabulates density from expansion in Canterakis-Zernike or Jacobi functions
 
-Input files
------------
+### Input files
 
 In the standard input, a namelist (OPTIONS) containing optional parameters will be read first, 
 followed by the projectname wich will be used to identify all the files corresponding to the project, 
@@ -1276,8 +1251,7 @@ Options in namelist and defaults:
     
     vinf, vsup, dltv:       lower and upper bounds, and step in v coordinate for 2D grid
 
-Output files
-------------
+### Output files
 
 DAMDENZJ320 writes to the standard output some information of input and the tabulation of one-center expansion
 of GTO(STO) density into Canterkis-Zernike or Jacobi functions. 
@@ -1293,7 +1267,7 @@ projectname-type-d-dz.pltd:     derivative of the density with respect to z
 where type can be "zernike" or "jacobi"
 
 readdamqt320.F90
-==================
+----------------
 
 Reads the content of an unformatted file "projectname.damqt" and dumps it as text to the standard output.
 
@@ -1310,7 +1284,7 @@ readdamqt320.exe > projectname.damqt_txt
 
 
 readcnt.F90
-===========
+-----------
 
 Reads the content of a binary file with 2D grids "fname.cnt" and dumps it as text to a file "fname.cnt_txt", where 
 fname stands for the corresponding file name. I creates also a "fname.cnt_gnu_txt" that can be loaded with gnuplot.
@@ -1321,7 +1295,7 @@ To run it, just type
 readcnt.exe
 
 readplt320.F90
-================
+---------------
 
 Reads the content of a binary grid file "fname.plt" ("fname.pltd") and prints it to a text file named "fname.plt_txt"
 ("fname.pltd_txt")
@@ -1336,7 +1310,7 @@ press enter.
 Output goes to a file with the same name as the original ".plt" file appended with "txt"
 
 subtractplt320.F90
-====================
+------------------
 
 Subtracts the content of two ".plt" files and generates another ".plt" file with the result. 
 It also gives some statistics of the comparison of the input files. 
@@ -1350,7 +1324,7 @@ Grids of two files must be equal. Otherwise, it will issue an error message.
 Output goes to standard output.
 
 compareplt320.F90
-===================
+-----------------
 
 Compares the content of two ".plt" files. Gives some statistics of the comparison. Intended for accuracy tests.
 
@@ -1365,7 +1339,7 @@ Grids of two files must be equal. Otherwise, it will issue an error message.
 Output goes to standard output.
 
 dmat_GAUSSIAN_to_DAM.F90
-========================
+------------------------
 
 Transforms the density matrix from GAUSSIAN order of the angular functions to DAM order.
 
@@ -1377,11 +1351,10 @@ input:
 output:
     dmatDAM:    lower triangle of density matrix in DAM order (canonical order of spherical hemonics)
 
-INTERFACES
-----------
+## INTERFACES
 
 GAUSS_interface.cpp
-===================
+--------------------
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from  from Gaussian(C) .fchk file.
@@ -1412,7 +1385,7 @@ to the following choices:
 6 :    takes the MP2 spin density
 
 MOLPRO_interface.cpp
-====================
+--------------------
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from MOLPRO output *.out files. 
@@ -1437,7 +1410,7 @@ the file "arinp.F.diff" included in the package. This bug may yield wrong result
 DAM320 is run with MOLPRO symmetry adapted functions.
 
 MOLEKEL_interface.cpp
-=====================
+---------------------
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from  from MOLEKEL .mkl file.
@@ -1446,7 +1419,7 @@ The interface must be run without arguments. It will ask for the name of the .mk
 DAM files .ggbs and .den will be built with the same name as that of the .mkl file. 
 
 TURBOMOLE_interface.cpp
-=======================
+-----------------------
 
 Interface for generating DAM input files with geometry and basis set (.ggbs) 
 and density matrix (.den) from  from TURBOMOLE basis, coords and mos (or alpha and beta)
@@ -1457,13 +1430,13 @@ symmetry-adapted functions.
 
 
 Mopac_aux_interface.cpp
-=======================
+-----------------------
 
 Interface for generating DAM input files with geometry and basis set (".ggbs") 
 and density matrix (".den") from MOPAC ".aux" file.
 
 NWChem_interface.cpp
-====================
+---------------------
 
 To make the interface accesible by just clicking on the outputfile, it is necessary 
 to set the output file extension as ".nwcout".
@@ -1475,7 +1448,7 @@ where $NWCHEM TOP stands for the NWCHEM home directory.
 
 
 BIBLIOGRAPHY
-------------
+=============
 
 (1) Analysis of the molecular density
     Fernández Rico, J.; López, R.; Ramírez, G. J Chem Phys
@@ -1516,47 +1489,47 @@ BIBLIOGRAPHY
     Fernández Rico, J.; López, R.; Ema, I.; Ramírez, G.
     Theor Chem Account 2007, 118, 709-721
     
-(10)DAMQT: A package for the analysis of electron density in molecules 
+(10) DAMQT: A package for the analysis of electron density in molecules 
     López, R.; Fernández Rico, J.; Ramírez, G.; Ema, I., Zorrilla, D.
     Comput. Phys. Commun. 2009, 180, 1654–1660
 
-(11)Translation of real solid spherical harmonics
+(11) Translation of real solid spherical harmonics
     Fernández Rico, J.; López, R.; Ema, I.; Ramírez, G.
     International J Quantum Chem, 2013, 113, 1544–1548
     
-(12)Improved partition-expansion of two-center distributions involving Slater functions
+(12) Improved partition-expansion of two-center distributions involving Slater functions
     López, R.; Ramírez, G.; Ema, I.; Fernández Rico, J.
     J Comput Chem, 2013, 34, 1800–1809
     
-(13)Multipole moments from the partition-expansion method
+(13) Multipole moments from the partition-expansion method
     López, R.; Ramírez, G.; Fernández Rico, J.; Ema, I.
     Theoret. Chem. Acc., 2013, 132, 1406
     
-(14)DAMQT 2.0: A new version of the DAMQT package for the analysis of electron
+(14) DAMQT 2.0: A new version of the DAMQT package for the analysis of electron
     density in molecules
     López, R.; Fernández Rico, J.; Ramírez, G.; Ema, I., Zorrilla, D.
     Comput. Phys. Commun. 2015, 192, 289-294
     
-(15)DAMQT 2.1.0: A New Version of the DAMQT Package Enabled with the 
+(15) DAMQT 2.1.0: A New Version of the DAMQT Package Enabled with the 
     Topographical Analysis of Electron Density and Electrostatic Potential in Molecules
     Kumar, A.; Yeole, S.; Gadre, S.; López, R.; Fernández Rico, J.; Ramírez, G.; Ema, I., Zorrilla, D.
     J Comput Chem, 2015, 36, 2350-2359
     
-(16)Topology of molecular electron density and electrostatic potential with DAMQT
+(16) Topology of molecular electron density and electrostatic potential with DAMQT
     López, R.; Fernández Rico, J.; Ramírez, G.; Ema, I., Zorrilla, D.; Kumar, A.; Yeole, S.; Gadre, S.
     Comput. Phys. Commun. 2017, 214, 2207-215
     
-(17)Efficient Algorithm for Expanding Theoretical Electron Densities in Canterakis-
+(17) Efficient Algorithm for Expanding Theoretical Electron Densities in Canterakis-
     Zernike Functions
     Urquiza-Carvalho, G.; Rocha, G.; López, R
     J Comput Chem, 2018, DOI 10.1002/jcc.25376
     
-(18)Efficient Evaluation of Molecular Electrostatic Potential in Large Systems
+(18) Efficient Evaluation of Molecular Electrostatic Potential in Large Systems
     R. López, F. Martínez, I. Ema, J.M. García de la Vega, G. Ramírez
     Computation, 7, 64, 2019, doi: 10.3390/computation7040064
 
 
-(19)Molecular fingerprints based on Jacobi expansions of electron densities
+(19) Molecular fingerprints based on Jacobi expansions of electron densities
     Rafael López, Frank Martínez, José Manuel García de la Vega
     Theoretical Chemistry Accounts (2021) 140:18, doi: 10.1007/s00214-020-02708-7
 
@@ -1577,6 +1550,3 @@ Dr. George Benthien, Fortran character string utilities and math evaluation modu
 
 Raghavendra Chandrashekara, implementation of marching cubes algorithm based on source code
 provided by Paul Bourke and Cory Gene Bloyd.
-
-
-
