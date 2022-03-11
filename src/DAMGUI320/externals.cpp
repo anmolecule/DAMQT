@@ -41,6 +41,8 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     QDLexternal->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
 
     extInputFileName = "";
+    extJobscriptFileName = "";
+    execname = "";
 
     QLabel *LBLtitle = new QLabel(tr("Title"));
     TXTtitle = new QLineEdit(tr("Title"),QDLexternal);
@@ -159,7 +161,7 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     TXTextworkdir->setPlaceholderText("Working directory...");
     connectionsext << connect(TXTextworkdir,SIGNAL(textChanged(QString)),this,SLOT(externalinputfile_changed()));
 
-    LBLextpathremote = new QLabel(tr("Path"),QDLexternal);
+    LBLextpathremote = new QLabel(tr("Remote Exec Path"),QDLexternal);
     TXTextpathremote = new QLineEdit(QDLexternal);
     TXTextpathremote->setPlaceholderText("Path to remote executable...");
     LBLextpathremote->setEnabled(false);
@@ -306,9 +308,9 @@ Externals::~Externals(){
     delete QDLexternal;
 }
 
-void Externals::BTNjob_clicked(){
-qDebug() << "BTNjob_clicked";
-}
+//void Externals::BTNjob_clicked(){
+//qDebug() << "BTNjob_clicked";
+//}
 
 void Externals::BTNpreview_clicked(){
     preview = !preview;
@@ -359,6 +361,10 @@ void Externals::BTNextreset_clicked(){
             make_Psi4_input();
             break;
     }
+}
+
+void Externals::BTNjob_clicked(){
+    make_sge_script();
 }
 
 void Externals::BTNextsave_clicked(){
@@ -1378,6 +1384,128 @@ void Externals::make_Psi4_template(){
     CHKformchk->setVisible(false);
 
     extextEdit->clear();
+}
+
+
+void Externals::make_sge_script(){
+    extOutputSuffix = ".log";
+    QString filepath = TXTextworkdir->text().trimmed();
+    if (filepath.isEmpty())
+        return;
+    QString filename = QFileInfo(TXTextgeometry->text()).baseName();
+    if (filename.isEmpty())
+        return;
+    extJobscriptFileName = filepath+"/"+filename+".sh";
+
+    // Deciding exec and filename for different programs. 
+    // Filename should not contain path because it is local path
+    switch (CMBengine->currentIndex()) {
+        case 0:     // Gaussian
+            execname=extexecname[0];
+            extInputFileName = filename+".com";
+            break;
+        case 1:     // Gamess
+            execname=extexecname[1];
+            extInputFileName = filename+".inp";
+            break;
+        case 2:     // Molpro
+            execname=extexecname[2];
+            extInputFileName = filename+".com";
+            break;
+        case 3:     // Molpac
+            execname=extexecname[3];
+            extInputFileName = filename+".mop";
+            break;
+        case 4:     // NWChem
+            execname=extexecname[4];
+            extInputFileName = filename+".nwcinp";
+            break;
+        case 5:     // Psi4
+            execname=extexecname[5];
+            extInputFileName = filename+".psi4inp";
+            break;
+    }
+
+    extOutputFileName = filename+extOutputSuffix;
+
+    QFile extJobscriptFile(extJobscriptFileName);
+    if (extJobscriptFile.isOpen()){
+        extJobscriptFile.close();
+    }
+    if (!extJobscriptFile.open(QFile::WriteOnly | QFile::Text )){
+        qCritical() << extJobscriptFile.errorString();
+        return;
+    }
+    QByteArray buff;
+
+    if (RBTSGE->isChecked()){
+        buff.append(QString("#$ -S /bin/bash\n"));
+        buff.append(QString("#$ -cwd\n"));
+        buff.append(QString("#$ -V\n"));
+        buff.append(QString("#$ -R y\n"));
+        buff.append(QString("#$ -j y\n"));
+        buff.append(QString("# ompi is name of the parallel env, which may be different for your HPC\n"));
+        buff.append(QString("#$ -pe ompi %1\n").arg(SPBextproc->value()));
+        buff.append(QString("# Memory to be used per core, maximum time required for the job\n"));
+        buff.append(QString("#$ -l h_data=%1,h_rt=%2\n").arg(TXTextmem->text().trimmed()).arg(TXTexttime->text().trimmed()));
+        buff.append(QString("#$ -N %1_DAMQT\n").arg(filename)); 
+        buff.append(QString("#$ -o %1_out\n\n").arg(filename));
+    }
+    else if (RBTPBS->isChecked()) {
+
+        buff.append(QString("#PBS -S /bin/bash\n"));
+        buff.append(QString("# batch is name of queue. Change it as per your HPC settings.\n"));
+        buff.append(QString("#PBS -q batch\n"));
+        buff.append(QString("#PBS -l nodes=1:ppn=%1\n").arg(SPBextproc->value()));
+        buff.append(QString("#PBS -l mem=%1\n").arg(TXTextmem->text().trimmed()));
+        buff.append(QString("#PBS -l walltime=%1\n").arg(TXTexttime->text().trimmed()));
+        buff.append(QString("#PBS -N %1_DAMQT\n").arg(filename)); 
+        buff.append(QString("#PBS -o %1_out\n\n").arg(filename));
+
+    }
+    else if (RBTSLURM->isChecked()) {
+        buff.append(QString("#SBATCH -S /bin/bash\n"));
+        buff.append(QString("# batch is name of queue. Change it as per your HPC settings.\n"));
+        buff.append(QString("#SBATCH -q batch\n"));
+        buff.append(QString("#SBATCH -l nodes=1:ppn=%1\n").arg(SPBextproc->value()));
+        buff.append(QString("#SBATCH -l mem=%1\n").arg(TXTextmem->text().trimmed()));
+        buff.append(QString("#SBATCH -l walltime=%1\n").arg(TXTexttime->text().trimmed()));
+        buff.append(QString("#SBATCH -N %1_DAMQT\n").arg(filename)); 
+        buff.append(QString("#SBATCH -o %1_out\n\n").arg(filename));
+    }
+
+    if (CMBengine->currentText().toLower() == "psi4"){
+        buff.append(QString("unset PSIDATADIR\n"));
+        buff.append(QString("PSI4_ROOT=%1\n").arg(TXTextpathremote->text().trimmed())); 
+        buff.append(QString("export PATH=$PSI4_ROOT/bin:$PATH\n"));
+        buff.append(QString("export PYTHONPATH=$QM_ROOT/lib\n"));
+        buff.append(QString("export PSI_SCRATCH=/tmp/$USER\n"));
+    }
+    else{
+        buff.append(QString("QMROOT=%1\n").arg(TXTextpathremote->text().trimmed()));
+        buff.append(QString("QM_EXEDIR=$QMROOT\n"));
+        buff.append(QString("QM_ARCHDIR=$HOME\n"));
+        buff.append(QString("QM_SCRATCH=/tmp/$USER\n"));
+        buff.append(QString("QM=$QM_EXEDIR\n"));
+        buff.append(QString("PATH=$QM_EXEDIR:$PATH\n"));
+        buff.append(QString("LD_LIBRARY_PATH=$QM_EXEDIR:/usr/local/lib\n"));
+        buff.append(QString("export QMROOT QM_EXEDIR QM_ARCHDIR QM_SCRATCH QM PATH LD_LIBRARY_PATH\n"));
+    }
+
+    buff.append(QString("#This may be required based on organization of HPC.\n"));
+    buff.append(QString("#module load desiredqmmodule\n"));
+    
+    buff.append(QString("\n%1 < %2 > %3\n").arg(execname,extInputFileName,extOutputFileName));
+
+    extJobscriptFile.write(buff);
+    extJobscriptFile.flush();
+
+    QMessageBox msgBox;
+    msgBox.setText(tr("JobScript"));
+    msgBox.setInformativeText(QString(tr("A job submission script file %1 has been created for SGE architecture. You might have to change it according to your local HPC requirements").arg(extJobscriptFileName)));
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.exec();
+
 }
 
 void Externals::RBTlocal_changed(){

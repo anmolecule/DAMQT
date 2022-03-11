@@ -102,6 +102,7 @@ private slots:
     void runformchk();
 
     void save_external_input();
+    void make_sge_script();
     
     void submitError(QProcess::ProcessError);
     void submitOutput(int, QProcess::ExitStatus);
@@ -162,6 +163,8 @@ private:
     QString extInputFileName;
     QString extOutputSuffix;
     QString extOutputFileName;
+    QString extJobscriptFileName;
+    QString execname;
 
     QStringList extexecname;
 
