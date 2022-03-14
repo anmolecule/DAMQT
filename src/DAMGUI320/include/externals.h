@@ -102,7 +102,7 @@ private slots:
     void runformchk();
 
     void save_external_input();
-    void make_sge_script();
+    void make_remotejobsubmit_script();
     
     void submitError(QProcess::ProcessError);
     void submitOutput(int, QProcess::ExitStatus);

@@ -364,7 +364,7 @@ void Externals::BTNextreset_clicked(){
 }
 
 void Externals::BTNjob_clicked(){
-    make_sge_script();
+    make_remotejobsubmit_script();
 }
 
 void Externals::BTNextsave_clicked(){
@@ -1387,7 +1387,7 @@ void Externals::make_Psi4_template(){
 }
 
 
-void Externals::make_sge_script(){
+void Externals::make_remotejobsubmit_script(){
     extOutputSuffix = ".log";
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
