@@ -481,7 +481,7 @@
             endif
 
             flag = 0
-            do while (flag/=-1) 
+            do while (flag/=-1)
                 do j=1,nbatms
 					bsl(j)=molecules(i)%bs(j)
                     bxl(j)=molecules(i)%bx(j)

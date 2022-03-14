@@ -167,6 +167,14 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     LBLextpathremote->setEnabled(false);
     TXTextpathremote->setEnabled(false);
 
+    QLabel *LBLinputfile = new QLabel(tr("Input file:"));
+    TXTinputfile = new QLineEdit(QDLexternal);
+    TXTinputfile->setPlaceholderText("Set input file name...");
+    connectionsext << connect(TXTinputfile,SIGNAL(textChanged(QString)),this,SLOT(externalinputfile_changed()));
+
+    QLabel *LBLextcommand = new QLabel(tr("Exec command:"));
+    TXTextcommand = new QLineEdit("g09",QDLexternal);
+
     preview = true;
     BTNpreview = new QPushButton(tr("Hide preview"),QDLexternal);
     BTNpreview->setStyleSheet("QPushButton {color: red;}");
@@ -176,12 +184,7 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     extextEdit = new QTextEdit(QDLexternal);
     extextEdit->setFocusPolicy(Qt::ClickFocus);
 
-    QLabel *LBLextcommand = new QLabel(tr("Exec command:"));
-    TXTextcommand = new QLineEdit("g09",QDLexternal);
-
     CHKformchk = new QCheckBox("Formchk",QDLexternal);
-//    CHKformchk->setChecked(true);
-//    CHKformchk->setVisible(true);
 
     QPushButton *BTNextreset = new QPushButton(tr("Reset"));
     BTNextreset->setAutoDefault(false);
@@ -251,13 +254,15 @@ Externals::Externals(QWidget *parent) : QWidget(parent)
     layout10->addWidget(TXTextworkdir,2,1,1,6);
     layout10->addWidget(LBLextpathremote,3,0,1,1);
     layout10->addWidget(TXTextpathremote,3,1,1,6);
-    layout10->addWidget(LBLextcommand,4,0,1,1);
-    layout10->addWidget(TXTextcommand,4,1,1,5);
-    layout10->addWidget(CHKformchk,4,6,1,1);
-    layout10->addWidget(BTNpreview,5,0,1,2);
-    layout10->addWidget(BTNextreset,5,4,1,1);
-    layout10->addWidget(BTNextsave,5,5,1,1);
-    layout10->addWidget(BTNextsubmit,5,6,1,1);
+    layout10->addWidget(LBLinputfile,4,0,1,1);
+    layout10->addWidget(TXTinputfile,4,1,1,5);
+    layout10->addWidget(LBLextcommand,5,0,1,1);
+    layout10->addWidget(TXTextcommand,5,1,1,5);
+    layout10->addWidget(CHKformchk,5,6,1,1);
+    layout10->addWidget(BTNpreview,6,0,1,2);
+    layout10->addWidget(BTNextreset,6,4,1,1);
+    layout10->addWidget(BTNextsave,6,5,1,1);
+    layout10->addWidget(BTNextsubmit,6,6,1,1);
 
     QVBoxLayout *layout = new QVBoxLayout(QDLexternal);
     layout->addLayout(layout1);
@@ -556,13 +561,19 @@ void Externals::make_Gaussian_input(){
     QStringList level2 = {"","r","u","ro"};
     QStringList mm = {"uff","amber","dreiding"};
     QStringList sme = {"pm6","pddg","am1","pm3","indo","cndo"};
+    if (CMBtype->currentIndex() >= type.length()){
+        CMBtype->setCurrentIndex(0);
+    }
+    if (CMBlevel2->currentIndex() >= level2.length()){
+        CMBlevel2->setCurrentIndex(0);
+    }
     extOutputSuffix = "log";
 
 //    TXTextcommand->setText(extexecname[0]);
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
         return;
-    QString filename = QFileInfo(TXTextgeometry->text()).baseName();
+    QString filename = TXTinputfile->text().trimmed();
     if (filename.isEmpty())
         return;
     extInputFileName = filepath+"/"+filename+".com";
@@ -690,16 +701,23 @@ void Externals::make_Gamess_input(){
 
     QStringList type = {"energy","gradient","hessian","optimize"};
     QStringList level = {"rhf","uhf","rohf","gvb","mcscf","none"};
-    QStringList level2 = {};
     QStringList basis = {"STO","N31","G3L","CCD","ACCD","ACCDC"};
-
+    if (CMBtype->currentIndex() >= type.length()){
+        CMBtype->setCurrentIndex(0);
+    }
+    if (CMBlevel->currentIndex() >= level.length()){
+        CMBlevel->setCurrentIndex(0);
+    }
+    if (CMBbasis->currentIndex() >= basis.length()){
+        CMBbasis->setCurrentIndex(0);
+    }            
     extOutputSuffix = "log";
 
 //    TXTextcommand->setText(extexecname[1]);
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
         return;
-    QString filename = QFileInfo(TXTextgeometry->text()).baseName();
+    QString filename = TXTinputfile->text().trimmed();
     if (filename.isEmpty())
         return;
     extInputFileName = filepath+"/"+filename+".inp";
@@ -766,7 +784,7 @@ void Externals::make_Gamess_input(){
     }
     if (ncen != kntcen){
         QMessageBox msgBox;
-        msgBox.setText(tr("make_Gaussian_input"));
+        msgBox.setText(tr("make_Gamess_input"));
         msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
             TXTextgeometry->text().trimmed());
         msgBox.setIcon(QMessageBox::Warning);
@@ -830,11 +848,16 @@ void Externals::make_Molpro_input(){
     QStringList level = {"hf","uhf","ccsdt","casscf","mrci"};
     QStringList basis = {"cc-pVDZ","cc-pVTZ","cc-pVQZ","aug-cc-pVDZ","aug-cc-pVTZ",
                          "aug-cc-pVQZ"};
-
+    if (CMBlevel->currentIndex() >= level.length()){
+        CMBlevel->setCurrentIndex(0);
+    }
+    if (CMBbasis->currentIndex() >= basis.length()){
+        CMBbasis->setCurrentIndex(0);
+    }
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
         return;
-    QString filename = QFileInfo(TXTextgeometry->text()).baseName();
+    QString filename = TXTinputfile->text().trimmed();
     if (filename.isEmpty())
         return;
     extInputFileName = filepath+"/"+filename+".com";
@@ -888,7 +911,7 @@ void Externals::make_Molpro_input(){
     }
     if (ncen != kntcen){
         QMessageBox msgBox;
-        msgBox.setText(tr("make_Gaussian_input"));
+        msgBox.setText(tr("make_Molpro_input"));
         msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
             TXTextgeometry->text().trimmed());
         msgBox.setIcon(QMessageBox::Warning);
@@ -973,11 +996,23 @@ void Externals::make_Mopac_input(){
     QStringList mult = {"","SINGLET","DOUBLET","TRIPLET","QUARTET","QUINTET","SEXTET","SEPTET","OCTET"};
     QStringList level = {"AM1","MNDO","PM3","PM6","PM7"};
     QStringList level2 = {"RHF","UHF","CIS","CISD","CISDT"};
+    if (CMBtype->currentIndex() >= type.length()){
+        CMBtype->setCurrentIndex(0);
+    }
+    if (SPBmult->value() >= mult.length()){
+        SPBmult->setValue(0);
+    }
+    if (CMBlevel->currentIndex() >= level.length()){
+        CMBlevel->setCurrentIndex(0);
+    }
+    if (CMBlevel2->currentIndex() >= level2.length()){
+        CMBlevel2->setCurrentIndex(0);
+    }
 
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
         return;
-    QString filename = QFileInfo(TXTextgeometry->text()).baseName();
+    QString filename = TXTinputfile->text().trimmed();
     if (filename.isEmpty())
         return;
     extInputFileName = filepath+"/"+filename+".mop";
@@ -1037,7 +1072,7 @@ void Externals::make_Mopac_input(){
     }
     if (ncen != kntcen){
         QMessageBox msgBox;
-        msgBox.setText(tr("make_Gaussian_input"));
+        msgBox.setText(tr("make_Mopac_input"));
         msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
             TXTextgeometry->text().trimmed());
         msgBox.setIcon(QMessageBox::Warning);
@@ -1097,6 +1132,15 @@ void Externals::make_NWChem_input(){
     QStringList level2 = {"","r","u","ro"};
     QStringList mult = {"","singlet","doublet","triplet","quartet","quintet","sextet","septet","octet"};
     QStringList mm = {"scf","mp2","ccsd"};
+    if (CMBtype->currentIndex() >= type.length()){
+        CMBtype->setCurrentIndex(0);
+    }
+    if (CMBlevel2->currentIndex() >= level2.length()){
+        CMBlevel2->setCurrentIndex(0);
+    }
+    if (SPBmult->value() >= mult.length()){
+        SPBmult->setValue(0);
+    }
     extOutputSuffix = "nwcout";
 
     SPBmult->setMaximum(mult.length()-1);
@@ -1105,7 +1149,7 @@ void Externals::make_NWChem_input(){
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
         return;
-    QString filename = QFileInfo(TXTextgeometry->text()).baseName();
+    QString filename = TXTinputfile->text().trimmed();
     if (filename.isEmpty())
         return;
     extInputFileName = filepath+"/"+filename+".nwcinp";
@@ -1156,7 +1200,7 @@ void Externals::make_NWChem_input(){
     }
     if (ncen != kntcen){
         QMessageBox msgBox;
-        msgBox.setText(tr("make_Gaussian_input"));
+        msgBox.setText(tr("make_NWChem_input"));
         msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
             TXTextgeometry->text().trimmed());
         msgBox.setIcon(QMessageBox::Warning);
@@ -1256,13 +1300,19 @@ void Externals::make_Psi4_input(){
     extextEdit->clear();
     QStringList type = {"energy","optimize","freq","opt freq","nmr=giao"};
     QStringList level2 = {"","r","u","ro"};
+    if (CMBtype->currentIndex() >= type.length()){
+        CMBtype->setCurrentIndex(0);
+    }
+    if (CMBlevel2->currentIndex() >= level2.length()){
+        CMBlevel2->setCurrentIndex(0);
+    }
     extOutputSuffix = "log";
 
 //    TXTextcommand->setText(extexecname[5]);
     QString filepath = TXTextworkdir->text().trimmed();
     if (filepath.isEmpty())
         return;
-    QString filename = QFileInfo(TXTextgeometry->text()).baseName();
+    QString filename = TXTinputfile->text().trimmed();
     if (filename.isEmpty())
         return;
     extInputFileName = filepath+"/"+filename+".psi4inp";
@@ -1316,7 +1366,7 @@ void Externals::make_Psi4_input(){
     }
     if (ncen != kntcen){
         QMessageBox msgBox;
-        msgBox.setText(tr("make_Gaussian_input"));
+        msgBox.setText(tr("make_Psi4_input"));
         msgBox.setInformativeText(tr("Wrong number of centers in file:\n")+
             TXTextgeometry->text().trimmed());
         msgBox.setIcon(QMessageBox::Warning);
@@ -1641,6 +1691,7 @@ void Externals::TXTextgeometry_changed(){
     if (TXTextworkdir->text().isEmpty()){
         TXTextworkdir->setText(extgeompath);
     }
+    TXTinputfile->setText(QFileInfo(TXTextgeometry->text().trimmed()).baseName());
     externalinputfile_changed();
 }
 

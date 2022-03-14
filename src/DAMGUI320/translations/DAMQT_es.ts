@@ -85,568 +85,608 @@
         <translation>Programa externo</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="45"/>
-        <location filename="../externals.cpp" line="46"/>
+        <location filename="../externals.cpp" line="47"/>
+        <location filename="../externals.cpp" line="48"/>
         <source>Title</source>
         <translation>Título</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="49"/>
+        <location filename="../externals.cpp" line="51"/>
         <source>Engine choice</source>
         <translation>Programa</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="51"/>
+        <location filename="../externals.cpp" line="53"/>
         <source>Gaussian</source>
         <translation>Gaussian</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="52"/>
+        <location filename="../externals.cpp" line="54"/>
         <source>Gamess</source>
         <translation>Gamess</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="53"/>
+        <location filename="../externals.cpp" line="55"/>
         <source>Molpro</source>
         <translation>Molpro</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="54"/>
+        <location filename="../externals.cpp" line="56"/>
         <source>Mopac</source>
         <translation>Mopac</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="55"/>
+        <location filename="../externals.cpp" line="57"/>
         <source>NWChem</source>
         <translation>NWChem</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="56"/>
+        <location filename="../externals.cpp" line="58"/>
         <source>Psi4</source>
         <translation>Psi4</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="62"/>
+        <location filename="../externals.cpp" line="64"/>
         <source>Load file with molecule coordinates</source>
         <translation>Leer archivo con coordenadas moleculares</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="67"/>
+        <location filename="../externals.cpp" line="69"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="70"/>
+        <location filename="../externals.cpp" line="72"/>
         <source>Calculation type</source>
         <translation>Tipo de cálculo</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="81"/>
+        <location filename="../externals.cpp" line="83"/>
         <source>Basis set</source>
         <translation>Base</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="87"/>
+        <location filename="../externals.cpp" line="89"/>
         <source>Keywords</source>
         <translation>Palabras clave</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="95"/>
+        <location filename="../externals.cpp" line="97"/>
         <source>Charge</source>
         <translation>Carga</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="102"/>
+        <location filename="../externals.cpp" line="104"/>
         <source>Mult</source>
         <translation>Mult</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="115"/>
+        <location filename="../externals.cpp" line="117"/>
         <source>Run Locally</source>
         <translation>Ejecución local</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="117"/>
+        <location filename="../externals.cpp" line="119"/>
         <source>Run Remotely</source>
         <translation>Ejecución remota</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="122"/>
+        <location filename="../externals.cpp" line="124"/>
         <source>Generate Job Script</source>
         <translation>Crear un script</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="127"/>
+        <location filename="../externals.cpp" line="129"/>
         <source>number of processors</source>
         <translation>número de procesadores</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="133"/>
+        <location filename="../externals.cpp" line="135"/>
         <source>Memory...</source>
         <translation>Memoria...</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="137"/>
+        <location filename="../externals.cpp" line="139"/>
         <source>Time limit...</source>
         <translation>Tiempo límite...</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="141"/>
+        <location filename="../externals.cpp" line="143"/>
         <source>PBS</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="145"/>
+        <location filename="../externals.cpp" line="147"/>
         <source>SGE</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="148"/>
+        <location filename="../externals.cpp" line="150"/>
         <source>SLURM</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="157"/>
+        <location filename="../externals.cpp" line="159"/>
         <source>Working Dir</source>
         <translation>Directorio de trabajo</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="162"/>
         <source>Path</source>
-        <translation>Ruta</translation>
+        <translation type="vanished">Ruta</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="169"/>
-        <location filename="../externals.cpp" line="316"/>
+        <location filename="../externals.cpp" line="179"/>
+        <location filename="../externals.cpp" line="323"/>
         <source>Hide preview</source>
         <translation>Ocultar vista</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="177"/>
+        <location filename="../externals.cpp" line="175"/>
         <source>Exec command:</source>
         <translation>Ejecutar:</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="184"/>
+        <location filename="../externals.cpp" line="164"/>
+        <source>Remote Exec Path</source>
+        <translation>Ruta para ejecución remota</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="170"/>
+        <source>Input file:</source>
+        <translatorcomment>Archivo de entrada:</translatorcomment>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="189"/>
         <source>Reset</source>
         <translation>Restaurar</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="186"/>
+        <location filename="../externals.cpp" line="191"/>
         <source>Delete all modifications introduced by hand in the editor</source>
         <translation>Borrar todos los cambios introducidos en el editor</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="189"/>
+        <location filename="../externals.cpp" line="194"/>
         <source>Save</source>
         <translation>Guardar</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="191"/>
+        <location filename="../externals.cpp" line="196"/>
         <source>Saves the editor content to a file</source>
         <translation>Guardar el contenido en un archivo</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="194"/>
+        <location filename="../externals.cpp" line="199"/>
         <source>Submit</source>
         <translation>Enviar</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="196"/>
+        <location filename="../externals.cpp" line="201"/>
         <source>Saves the editor content to an input file and submits the job</source>
         <translation>Guarda el contenido del editor en un archivo y envía el trabajo</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="321"/>
+        <location filename="../externals.cpp" line="328"/>
         <source>Edit preview</source>
         <translation>Editar vista</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="372"/>
+        <location filename="../externals.cpp" line="383"/>
         <source>Directory %1 does not exist</source>
         <translation>EL directorio %1 no existe</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="373"/>
+        <location filename="../externals.cpp" line="384"/>
         <source>Do you wish to create?</source>
         <translation>¿Desea crearlo?</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="376"/>
+        <location filename="../externals.cpp" line="387"/>
         <source>Yes</source>
         <translation>Sí</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="377"/>
+        <location filename="../externals.cpp" line="388"/>
         <source>No</source>
         <translation>No</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="378"/>
+        <location filename="../externals.cpp" line="389"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="384"/>
-        <location filename="../externals.cpp" line="1475"/>
-        <location filename="../externals.cpp" line="1496"/>
+        <location filename="../externals.cpp" line="395"/>
+        <location filename="../externals.cpp" line="1653"/>
+        <location filename="../externals.cpp" line="1674"/>
         <source>submitOutput</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="385"/>
+        <location filename="../externals.cpp" line="396"/>
         <source>Could not create directory %1
 </source>
         <translation>No pudo crear el directorio %1
 </translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="458"/>
+        <location filename="../externals.cpp" line="469"/>
         <source>Open file ...</source>
         <translation>Abrir archivo ...</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="459"/>
+        <location filename="../externals.cpp" line="470"/>
         <source>Import geometry from</source>
         <translation>Importar geometría de</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="460"/>
+        <location filename="../externals.cpp" line="471"/>
         <source>All files</source>
         <translation>Todos los archivos</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="499"/>
+        <location filename="../externals.cpp" line="510"/>
         <source>Process failed to start program formchk
 </source>
         <translation>El proceso falló al empezar el programa formchk
 </translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="500"/>
-        <location filename="../externals.cpp" line="1466"/>
+        <location filename="../externals.cpp" line="511"/>
+        <location filename="../externals.cpp" line="1644"/>
         <source>Check that it is installed in your system
 </source>
         <translation>Compruebe que está instalado en su sistema
 </translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="501"/>
-        <location filename="../externals.cpp" line="1467"/>
+        <location filename="../externals.cpp" line="512"/>
+        <location filename="../externals.cpp" line="1645"/>
         <source>If it is installed, add it to your $PATH and try again)</source>
         <translation>Si está instalado, añádalo a su ruta (path) y pruebe de nuevo)</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="509"/>
-        <location filename="../externals.cpp" line="518"/>
+        <location filename="../externals.cpp" line="520"/>
+        <location filename="../externals.cpp" line="529"/>
         <source>formchkOutput</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="510"/>
-        <location filename="../externals.cpp" line="1476"/>
+        <location filename="../externals.cpp" line="521"/>
+        <location filename="../externals.cpp" line="1654"/>
         <source>Computation ended
 </source>
         <translation>Cálculo teminado
 </translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="519"/>
-        <location filename="../externals.cpp" line="1497"/>
+        <location filename="../externals.cpp" line="530"/>
+        <location filename="../externals.cpp" line="1675"/>
         <source>Process crashed, exit code = %1</source>
         <translation>El proceso falló, código = %1</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="529"/>
+        <location filename="../externals.cpp" line="540"/>
         <source>formchk launched...</source>
         <translation>formchk ejecutándose...</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="615"/>
-        <location filename="../externals.cpp" line="763"/>
-        <location filename="../externals.cpp" line="885"/>
-        <location filename="../externals.cpp" line="1034"/>
-        <location filename="../externals.cpp" line="1153"/>
-        <location filename="../externals.cpp" line="1313"/>
+        <location filename="../externals.cpp" line="632"/>
         <source>make_Gaussian_input</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="616"/>
-        <location filename="../externals.cpp" line="764"/>
-        <location filename="../externals.cpp" line="886"/>
-        <location filename="../externals.cpp" line="1035"/>
-        <location filename="../externals.cpp" line="1154"/>
-        <location filename="../externals.cpp" line="1314"/>
+        <location filename="../externals.cpp" line="633"/>
+        <location filename="../externals.cpp" line="788"/>
+        <location filename="../externals.cpp" line="915"/>
+        <location filename="../externals.cpp" line="1076"/>
+        <location filename="../externals.cpp" line="1204"/>
+        <location filename="../externals.cpp" line="1370"/>
         <source>Wrong number of centers in file:
 </source>
         <translation>Número de centros erróneo en archivo:
 </translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="628"/>
-        <location filename="../externals.cpp" line="778"/>
-        <location filename="../externals.cpp" line="923"/>
-        <location filename="../externals.cpp" line="1048"/>
-        <location filename="../externals.cpp" line="1201"/>
-        <location filename="../externals.cpp" line="1340"/>
+        <location filename="../externals.cpp" line="645"/>
+        <location filename="../externals.cpp" line="802"/>
+        <location filename="../externals.cpp" line="952"/>
+        <location filename="../externals.cpp" line="1089"/>
+        <location filename="../externals.cpp" line="1251"/>
+        <location filename="../externals.cpp" line="1396"/>
         <source>Energy</source>
         <translation>Energía</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="629"/>
-        <location filename="../externals.cpp" line="1049"/>
-        <location filename="../externals.cpp" line="1202"/>
-        <location filename="../externals.cpp" line="1341"/>
+        <location filename="../externals.cpp" line="646"/>
+        <location filename="../externals.cpp" line="1090"/>
+        <location filename="../externals.cpp" line="1252"/>
+        <location filename="../externals.cpp" line="1397"/>
         <source>Geometry optimization</source>
         <translation>Optimización de geometría</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="630"/>
-        <location filename="../externals.cpp" line="1050"/>
-        <location filename="../externals.cpp" line="1203"/>
-        <location filename="../externals.cpp" line="1342"/>
+        <location filename="../externals.cpp" line="647"/>
+        <location filename="../externals.cpp" line="1091"/>
+        <location filename="../externals.cpp" line="1253"/>
+        <location filename="../externals.cpp" line="1398"/>
         <source>Frequencies</source>
         <translation>Frecuencias</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="631"/>
-        <location filename="../externals.cpp" line="1204"/>
-        <location filename="../externals.cpp" line="1343"/>
+        <location filename="../externals.cpp" line="648"/>
+        <location filename="../externals.cpp" line="1254"/>
+        <location filename="../externals.cpp" line="1399"/>
         <source>Optimization+Frequencies</source>
         <translation>Optimización+frecuencias</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="632"/>
-        <location filename="../externals.cpp" line="1205"/>
-        <location filename="../externals.cpp" line="1344"/>
+        <location filename="../externals.cpp" line="649"/>
+        <location filename="../externals.cpp" line="1255"/>
+        <location filename="../externals.cpp" line="1400"/>
         <source>NMR</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="637"/>
-        <location filename="../externals.cpp" line="929"/>
-        <location filename="../externals.cpp" line="1210"/>
-        <location filename="../externals.cpp" line="1349"/>
+        <location filename="../externals.cpp" line="654"/>
+        <location filename="../externals.cpp" line="958"/>
+        <location filename="../externals.cpp" line="1260"/>
+        <location filename="../externals.cpp" line="1405"/>
         <source>HF</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="638"/>
-        <location filename="../externals.cpp" line="1350"/>
+        <location filename="../externals.cpp" line="655"/>
+        <location filename="../externals.cpp" line="1406"/>
         <source>B3LYP</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="643"/>
+        <location filename="../externals.cpp" line="660"/>
         <source>PM6</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="644"/>
+        <location filename="../externals.cpp" line="661"/>
         <source>UFF</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="649"/>
-        <location filename="../externals.cpp" line="1218"/>
-        <location filename="../externals.cpp" line="1357"/>
+        <location filename="../externals.cpp" line="666"/>
+        <location filename="../externals.cpp" line="1268"/>
+        <location filename="../externals.cpp" line="1413"/>
         <source>Default Spin</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="650"/>
-        <location filename="../externals.cpp" line="1064"/>
-        <location filename="../externals.cpp" line="1219"/>
-        <location filename="../externals.cpp" line="1358"/>
+        <location filename="../externals.cpp" line="667"/>
+        <location filename="../externals.cpp" line="1105"/>
+        <location filename="../externals.cpp" line="1269"/>
+        <location filename="../externals.cpp" line="1414"/>
         <source>Restricted</source>
         <translation>Restringido</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="651"/>
-        <location filename="../externals.cpp" line="1065"/>
-        <location filename="../externals.cpp" line="1220"/>
-        <location filename="../externals.cpp" line="1359"/>
+        <location filename="../externals.cpp" line="668"/>
+        <location filename="../externals.cpp" line="1106"/>
+        <location filename="../externals.cpp" line="1270"/>
+        <location filename="../externals.cpp" line="1415"/>
         <source>Unrestricted</source>
         <translation>No restringido</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="652"/>
-        <location filename="../externals.cpp" line="1221"/>
-        <location filename="../externals.cpp" line="1360"/>
+        <location filename="../externals.cpp" line="669"/>
+        <location filename="../externals.cpp" line="1271"/>
+        <location filename="../externals.cpp" line="1416"/>
         <source>Open Restricted</source>
         <translation>Restringido abierto</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="660"/>
-        <location filename="../externals.cpp" line="1228"/>
-        <location filename="../externals.cpp" line="1367"/>
+        <location filename="../externals.cpp" line="677"/>
+        <location filename="../externals.cpp" line="1278"/>
+        <location filename="../externals.cpp" line="1423"/>
         <source>STO-3G</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="661"/>
-        <location filename="../externals.cpp" line="1229"/>
-        <location filename="../externals.cpp" line="1368"/>
+        <location filename="../externals.cpp" line="678"/>
+        <location filename="../externals.cpp" line="1279"/>
+        <location filename="../externals.cpp" line="1424"/>
         <source>3-21G</source>
         <translation>3-21G</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="662"/>
-        <location filename="../externals.cpp" line="1230"/>
-        <location filename="../externals.cpp" line="1369"/>
+        <location filename="../externals.cpp" line="679"/>
+        <location filename="../externals.cpp" line="1280"/>
+        <location filename="../externals.cpp" line="1425"/>
         <source>6-31G</source>
         <translation>6-31G</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="663"/>
-        <location filename="../externals.cpp" line="1231"/>
-        <location filename="../externals.cpp" line="1370"/>
+        <location filename="../externals.cpp" line="680"/>
+        <location filename="../externals.cpp" line="1281"/>
+        <location filename="../externals.cpp" line="1426"/>
         <source>6-311G</source>
         <translation>6-311G</translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="664"/>
-        <location filename="../externals.cpp" line="943"/>
-        <location filename="../externals.cpp" line="1232"/>
-        <location filename="../externals.cpp" line="1371"/>
+        <location filename="../externals.cpp" line="681"/>
+        <location filename="../externals.cpp" line="972"/>
+        <location filename="../externals.cpp" line="1282"/>
+        <location filename="../externals.cpp" line="1427"/>
         <source>cc-pVDZ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="665"/>
-        <location filename="../externals.cpp" line="944"/>
-        <location filename="../externals.cpp" line="1233"/>
-        <location filename="../externals.cpp" line="1372"/>
+        <location filename="../externals.cpp" line="682"/>
+        <location filename="../externals.cpp" line="973"/>
+        <location filename="../externals.cpp" line="1283"/>
+        <location filename="../externals.cpp" line="1428"/>
         <source>cc-pVTZ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="666"/>
-        <location filename="../externals.cpp" line="945"/>
-        <location filename="../externals.cpp" line="1234"/>
-        <location filename="../externals.cpp" line="1373"/>
+        <location filename="../externals.cpp" line="683"/>
+        <location filename="../externals.cpp" line="974"/>
+        <location filename="../externals.cpp" line="1284"/>
+        <location filename="../externals.cpp" line="1429"/>
         <source>cc-pVQZ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="667"/>
-        <location filename="../externals.cpp" line="1235"/>
-        <location filename="../externals.cpp" line="1374"/>
+        <location filename="../externals.cpp" line="684"/>
+        <location filename="../externals.cpp" line="1285"/>
+        <location filename="../externals.cpp" line="1430"/>
         <source>cc-pV5Z</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="779"/>
-        <source>Gradient</source>
-        <translation>Gradiente</translation>
-    </message>
-    <message>
-        <location filename="../externals.cpp" line="780"/>
-        <source>Hessian</source>
-        <translation>Hessiana</translation>
-    </message>
-    <message>
-        <location filename="../externals.cpp" line="781"/>
-        <location filename="../externals.cpp" line="924"/>
-        <source>Optimize</source>
-        <translation>Optimizar</translation>
-    </message>
-    <message>
-        <location filename="../externals.cpp" line="786"/>
-        <source>RHF</source>
-        <translation></translation>
-    </message>
-    <message>
         <location filename="../externals.cpp" line="787"/>
-        <location filename="../externals.cpp" line="930"/>
-        <source>UHF</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../externals.cpp" line="801"/>
-        <source>STOnG</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../externals.cpp" line="802"/>
-        <source>n31G</source>
+        <source>make_Gamess_input</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../externals.cpp" line="803"/>
+        <source>Gradient</source>
+        <translation>Gradiente</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="804"/>
+        <source>Hessian</source>
+        <translation>Hessiana</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="805"/>
+        <location filename="../externals.cpp" line="953"/>
+        <source>Optimize</source>
+        <translation>Optimizar</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="810"/>
+        <source>RHF</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="811"/>
+        <location filename="../externals.cpp" line="959"/>
+        <source>UHF</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="825"/>
+        <source>STOnG</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="826"/>
+        <source>n31G</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="827"/>
         <source>G3L</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="804"/>
+        <location filename="../externals.cpp" line="828"/>
         <source>cc-pVnZ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="805"/>
+        <location filename="../externals.cpp" line="829"/>
         <source>aug-cc-pVnZ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="806"/>
+        <location filename="../externals.cpp" line="830"/>
         <source>aug-cc-pCVnZ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="946"/>
+        <location filename="../externals.cpp" line="914"/>
+        <source>make_Molpro_input</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="975"/>
         <source>aug-cc-pVDZ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="947"/>
+        <location filename="../externals.cpp" line="976"/>
         <source>aug-cc-pVTZ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="948"/>
+        <location filename="../externals.cpp" line="977"/>
         <source>aug-cc-pVQZ</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="1055"/>
+        <location filename="../externals.cpp" line="1075"/>
+        <source>make_Mopac_input</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="1096"/>
         <source>AM1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="1056"/>
+        <location filename="../externals.cpp" line="1097"/>
         <source>MNDO</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="1066"/>
+        <location filename="../externals.cpp" line="1107"/>
         <source>CIS</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="1067"/>
+        <location filename="../externals.cpp" line="1108"/>
         <source>CISD</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="1068"/>
+        <location filename="../externals.cpp" line="1109"/>
         <source>CIST</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="1211"/>
+        <location filename="../externals.cpp" line="1203"/>
+        <source>make_NWChem_input</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="1261"/>
         <source>DFT</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="1465"/>
+        <location filename="../externals.cpp" line="1369"/>
+        <source>make_Psi4_input</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="1554"/>
+        <source>JobScript</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="1555"/>
+        <source>A job submission script file %1 has been created for SGE architecture. You might have to change it according to your local HPC requirements</source>
+        <translation>Se ha creado el archivo script %1 para arquitectura SGE. Modífiquelo si fuese necesario de acuerdo con sus requisitos locales HPC</translation>
+    </message>
+    <message>
+        <location filename="../externals.cpp" line="1643"/>
         <source>Process failed to start program %1
 </source>
         <translation>Falló el proceso al comienzo del programa %1
 </translation>
     </message>
     <message>
-        <location filename="../externals.cpp" line="1507"/>
+        <location filename="../externals.cpp" line="1685"/>
         <source>Computing...</source>
         <translation>Calculando...</translation>
     </message>
