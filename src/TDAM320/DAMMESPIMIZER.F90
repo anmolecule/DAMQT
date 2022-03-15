@@ -16,7 +16,7 @@
 !  You should have received a copy of the GNU General Public License
 !  along with DAM320.  If not, see <http://www.gnu.org/licenses/>.
 !
-!> @file TDAMOPTIMIZER.F90
+!> @file TDAMMESPIMIZER.F90
 
 !> @authors Anmol Kumar and Shridhar R. Gadre
 !> @date 01-01-2021
@@ -287,7 +287,7 @@
         enddo
     enddo
 
-    ! If insertlocfile is given, the com of first molecule of template file is replicated at mentioned locations.
+    ! If insertlocfile is given, the center of mass of first molecule of template file is replicated at mentioned locations.
     if (trim(adjustl(preprocfile))==trim(adjustl(templatefile)) .and. len_trim(insertlocfile)/=0) then
         open(unit=304, file = trim(adjustl(insertlocfile)),iostat=ierr)
         if (ierr.ne.0) call error(1,"error reading xyz file")
@@ -324,9 +324,6 @@
                 shiftx = pix(i) - chosenx 
                 shifty = piy(i) - choseny 
                 shiftz = piz(i) - chosenz 
-!write(6,*) 'guest no ', i
-!write(6,*) 'pi (bohr) = ', pix(i), piy(i), piz(i)
-!write(6,*) 'shift (bohr) = ', shiftx, shifty, shiftz
                 if (allocated(molecules(nmols)%bawt)) then
                    deallocate(molecules(nmols)%bawt,molecules(nmols)%bs,molecules(nmols)%bx,&
                    molecules(nmols)%by,molecules(nmols)%bz,molecules(nmols)%bq,molecules(nmols)%bvdw)
@@ -334,17 +331,15 @@
                 allocate (molecules(nmols)%bawt(tn),molecules(nmols)%bs(tn),molecules(nmols)%bx(tn),&
                 molecules(nmols)%by(tn),molecules(nmols)%bz(tn),molecules(nmols)%bq(tn),molecules(nmols)%bvdw(tn),stat=ierr)
                 molecules(nmols)%natoms=tn
-!write(6,*) 'coordinates (bohr) of guest no ', nmols
                 ! Move the coordinates obtained from templatefile by shiftx/y/z amount to place molecule at insertloc points
                 do j = 1,tn
-                    molecules(nmols)%bs(j)  =ts(j)
-                    molecules(nmols)%bx(j)  =tx(j) +shiftx
-                    molecules(nmols)%by(j)  =ty(j) +shifty
-                    molecules(nmols)%bz(j)  =tz(j) +shiftz
-                    molecules(nmols)%bq(j)  =tq(j)
-                    molecules(nmols)%bawt(j)=tw(j)
-                    molecules(nmols)%bvdw(j)=tv(j)
-!write(6,*) molecules(nmols)%bx(j), molecules(nmols)%by(j), molecules(nmols)%bz(j)
+                    molecules(nmols)%bs(j)  = ts(j)
+                    molecules(nmols)%bx(j)  = tx(j) + shiftx
+                    molecules(nmols)%by(j)  = ty(j) + shifty
+                    molecules(nmols)%bz(j)  = tz(j) + shiftz
+                    molecules(nmols)%bq(j)  = tq(j)
+                    molecules(nmols)%bawt(j)= tw(j)
+                    molecules(nmols)%bvdw(j)= tv(j)
                 enddo
             endif
         enddo
@@ -430,28 +425,59 @@
 !!=================================
 !!    Optimization control
 !!=================================
-        SUBROUTINE OPTIMIZE(nmols,tssize,rssize,mespimizervis,mespimizerfinal) 
-        USE DAMINITIAL_T
-        USE DAMBUILD_T
-        IMPLICIT NONE
-        CHARACTER(2), ALLOCATABLE:: bsl(:)
-        REAL(KREAL), ALLOCATABLE:: bxl(:),byl(:),bzl(:),bql(:),bawtl(:),bvdwl(:)
-        integer:: nmols
-        REAL(KREAL) :: Enj,tssize 
-        integer(kint)::ierr,i,j,k,nbatms,flag,icurr,rssize
-        character(256):: mespimizervis,mespimizerfinal
-        logical,external:: accept
-        
+    SUBROUTINE OPTIMIZE(nmols,tssize,rssize,mespimizervis,mespimizerfinal) 
+    USE DAMINITIAL_T
+    USE DAMBUILD_T
+    IMPLICIT NONE
+    CHARACTER(2), ALLOCATABLE:: bsl(:)
+    REAL(KREAL), ALLOCATABLE:: bxl(:),byl(:),bzl(:),bql(:),bawtl(:),bvdwl(:)
+    integer:: nmols
+    REAL(KREAL) :: Enj,tssize 
+    integer(kint)::ierr,i,j,k,nbatms,flag,icurr,rssize
+    character(256):: mespimizervis,mespimizerfinal
+    logical,external:: accept
+    
+    open(11,file=trim(adjustl(mespimizervis)))           
+    do i = 1,nmols
+        Enj=0.0d0 ! Initialize Electrostatic interaction energy 
+        icurr=i
+        nbatms= molecules(i)%natoms
+        allocate (bsl(nbatms),bxl(nbatms),byl(nbatms),bzl(nbatms),bql(nbatms),bawtl(nbatms),bvdwl(nbatms),stat=ierr)
+        flag=0
+        do j=1,nbatms
+            bsl(j)=molecules(i)%bs(j)
+            bxl(j)=molecules(i)%bx(j)
+            byl(j)=molecules(i)%by(j)
+            bzl(j)=molecules(i)%bz(j)
+            bql(j)=molecules(i)%bq(j)
+            bawtl(j)=molecules(i)%bawt(j)
+            bvdwl(j)=molecules(i)%bvdw(j)
+        end do 
+        if (accept(icurr,nbatms,bxl,byl,bzl,bvdwl)) &
+            call ROTATION(icurr,nbatms,bsl,bxl,byl,bzl,bql,bawtl,bvdwl,flag,rssize,enj)
+        do j=1,nbatms
+            molecules(i)%bs(j)=bsl(j)
+            molecules(i)%bx(j)=bxl(j)
+            molecules(i)%by(j)=byl(j)
+            molecules(i)%bz(j)=bzl(j)
+            molecules(i)%bq(j)=bql(j)
+            molecules(i)%bawt(j)=bawtl(j)
+            molecules(i)%bvdw(j)=bvdwl(j)
+        end do 
+        if (flag/=-1) then
+            write(11,*) nbatms
+            write(11,*) Enj  
+            do j=1,nbatms           
+                write(11,"(a2,3f15.10)") molecules(i)%bs(j),molecules(i)%bx(j)*auang,&
+    			    molecules(i)%by(j)*auang,molecules(i)%bz(j)*auang
+            end do
+            call writeframesgeom(nmols,Enj)
+        endif
 
-        open(11,file=trim(adjustl(mespimizervis)))           
-        do i = 1,nmols
-            Enj=0.0d0 ! Initialize Electrostatic interaction energy 
-            icurr=i
-            nbatms= molecules(i)%natoms
-            allocate (bsl(nbatms),bxl(nbatms),byl(nbatms),bzl(nbatms),bql(nbatms),bawtl(nbatms),bvdwl(nbatms),stat=ierr)
-            flag=0
+        flag = 0
+        do while (flag/=-1)
             do j=1,nbatms
-		bsl(j)=molecules(i)%bs(j)
+                bsl(j)=molecules(i)%bs(j)
                 bxl(j)=molecules(i)%bx(j)
                 byl(j)=molecules(i)%by(j)
                 bzl(j)=molecules(i)%bz(j)
@@ -460,9 +486,9 @@
                 bvdwl(j)=molecules(i)%bvdw(j)
             end do 
             if (accept(icurr,nbatms,bxl,byl,bzl,bvdwl)) &
-                call ROTATION(icurr,nbatms,bsl,bxl,byl,bzl,bql,bawtl,bvdwl,flag,rssize,enj)
+                call TRANSLATION(icurr,nbatms,bsl,bxl,byl,bzl,bql,bawtl,bvdwl,flag,tssize,enj)
             do j=1,nbatms
-		molecules(i)%bs(j)=bsl(j)
+                molecules(i)%bs(j)=bsl(j)
                 molecules(i)%bx(j)=bxl(j)
                 molecules(i)%by(j)=byl(j)
                 molecules(i)%bz(j)=bzl(j)
@@ -470,91 +496,59 @@
                 molecules(i)%bawt(j)=bawtl(j)
                 molecules(i)%bvdw(j)=bvdwl(j)
             end do 
+
+            if (.not. (accept(icurr,nbatms,bxl,byl,bzl,bvdwl))) flag = -1
             if (flag/=-1) then
                 write(11,*) nbatms
                 write(11,*) Enj  
                 do j=1,nbatms           
                     write(11,"(a2,3f15.10)") molecules(i)%bs(j),molecules(i)%bx(j)*auang,&
-				    molecules(i)%by(j)*auang,molecules(i)%bz(j)*auang
+    				    molecules(i)%by(j)*auang,molecules(i)%bz(j)*auang
                 end do
                 call writeframesgeom(nmols,Enj)
             endif
+        end do
 
-            flag = 0
-            do while (flag/=-1)
-                do j=1,nbatms
-					bsl(j)=molecules(i)%bs(j)
-                    bxl(j)=molecules(i)%bx(j)
-                    byl(j)=molecules(i)%by(j)
-                    bzl(j)=molecules(i)%bz(j)
-                    bql(j)=molecules(i)%bq(j)
-                    bawtl(j)=molecules(i)%bawt(j)
-                    bvdwl(j)=molecules(i)%bvdw(j)
-                end do 
-                if (accept(icurr,nbatms,bxl,byl,bzl,bvdwl)) &
-                    call TRANSLATION(icurr,nbatms,bsl,bxl,byl,bzl,bql,bawtl,bvdwl,flag,tssize,enj)
-                do j=1,nbatms
-                    molecules(i)%bs(j)=bsl(j)
-                    molecules(i)%bx(j)=bxl(j)
-                    molecules(i)%by(j)=byl(j)
-                    molecules(i)%bz(j)=bzl(j)
-                    molecules(i)%bq(j)=bql(j)
-                    molecules(i)%bawt(j)=bawtl(j)
-                    molecules(i)%bvdw(j)=bvdwl(j)
-                end do 
-
-                if (.not. (accept(icurr,nbatms,bxl,byl,bzl,bvdwl))) flag = -1
-                if (flag/=-1) then
-                    write(11,*) nbatms
-                    write(11,*) Enj  
-                    do j=1,nbatms           
-                        write(11,"(a2,3f15.10)") molecules(i)%bs(j),molecules(i)%bx(j)*auang,&
-					    molecules(i)%by(j)*auang,molecules(i)%bz(j)*auang
-                    end do
-                    call writeframesgeom(nmols,Enj)
-                endif
+        flag=0
+        do j=1,nbatms
+    	    bsl(j)=molecules(i)%bs(j)
+            bxl(j)=molecules(i)%bx(j)
+            byl(j)=molecules(i)%by(j)
+            bzl(j)=molecules(i)%bz(j)
+            bql(j)=molecules(i)%bq(j)
+            bawtl(j)=molecules(i)%bawt(j)
+            bvdwl(j)=molecules(i)%bvdw(j)
+        end do 
+        call ROTATION(icurr,nbatms,bsl,bxl,byl,bzl,bql,bawtl,bvdwl,flag,rssize,enj)
+        do j=1,nbatms
+    	    molecules(i)%bs(j)=bsl(j)
+            molecules(i)%bx(j)=bxl(j)
+            molecules(i)%by(j)=byl(j)
+            molecules(i)%bz(j)=bzl(j)
+            molecules(i)%bq(j)=bql(j)
+            molecules(i)%bawt(j)=bawtl(j)
+            molecules(i)%bvdw(j)=bvdwl(j)
+        end do
+        if (flag/=-1) then
+            write(11,*) nbatms
+            write(11,*) Enj  
+            do j=1,nbatms           
+                write(11,"(a2,3f15.10)") molecules(i)%bs(j),molecules(i)%bx(j)*auang,&
+    			    molecules(i)%by(j)*auang,molecules(i)%bz(j)*auang
             end do
+            call writeframesgeom(nmols,Enj)
+        endif
 
-            flag=0
-            do j=1,nbatms
-				bsl(j)=molecules(i)%bs(j)
-                bxl(j)=molecules(i)%bx(j)
-                byl(j)=molecules(i)%by(j)
-                bzl(j)=molecules(i)%bz(j)
-                bql(j)=molecules(i)%bq(j)
-                bawtl(j)=molecules(i)%bawt(j)
-                bvdwl(j)=molecules(i)%bvdw(j)
-            end do 
-            call ROTATION(icurr,nbatms,bsl,bxl,byl,bzl,bql,bawtl,bvdwl,flag,rssize,enj)
-            do j=1,nbatms
-				molecules(i)%bs(j)=bsl(j)
-                molecules(i)%bx(j)=bxl(j)
-                molecules(i)%by(j)=byl(j)
-                molecules(i)%bz(j)=bzl(j)
-                molecules(i)%bq(j)=bql(j)
-                molecules(i)%bawt(j)=bawtl(j)
-                molecules(i)%bvdw(j)=bvdwl(j)
-            end do
-            if (flag/=-1) then
-                write(11,*) nbatms
-                write(11,*) Enj  
-                do j=1,nbatms           
-                    write(11,"(a2,3f15.10)") molecules(i)%bs(j),molecules(i)%bx(j)*auang,&
-				    molecules(i)%by(j)*auang,molecules(i)%bz(j)*auang
-                end do
-                call writeframesgeom(nmols,Enj)
-            endif
-
-            deallocate(bsl,bxl,byl,bzl,bql,bawtl,bvdwl)
-        enddo
+        deallocate(bsl,bxl,byl,bzl,bql,bawtl,bvdwl)
+    enddo
 !
-        close(11)
-        call writeclustergeom(mespimizerfinal,nmols,Enj)
-        call writeframesgeom(nmols,Enj)
-        close(88)
-        close(89)
+    close(11)
+    call writeclustergeom(mespimizerfinal,nmols,Enj)
+    call writeframesgeom(nmols,Enj)
+    close(88)
+    close(89)
 
-        end subroutine
+    end subroutine
 
         subroutine rotmat(ua,va,wa,ang,rt)
         USE DAMBUILD_T
@@ -645,15 +639,10 @@
                     ang = real(k)*p_i/180.0d0
                     call rotmat(ua,va,wa,ang,rt)
             
-!                     write(11,*) nb
-!                   write(11,*) 
-                    !print *, nbatms
-		    !print *, ""
                     do l=1,nbatms
                         btx(l) = coxl + (rcox(l)*rt(1,1) + rcoy(l)*rt(1,2) + rcoz(l)*rt(1,3))
                         bty(l) = coyl + (rcox(l)*rt(2,1) + rcoy(l)*rt(2,2) + rcoz(l)*rt(2,3))
                         btz(l) = cozl + (rcox(l)*rt(3,1) + rcoy(l)*rt(3,2) + rcoz(l)*rt(3,3))
-                     !   print *, bsl(l),btx(l)*auang,bty(l)*auang,btz(l)*auang
                     end do  
                     do l=1,nbatms
                         bxl(l)=btx(l) 
@@ -669,9 +658,6 @@
                         CALL DAMPOT(vtot,drvx,drvy,drvz,dxxtot,dxytot,dxztot, &
                         & dyytot,dyztot,dzztot,btx(l),bty(l),btz(l))
                         enjr(i1,j1,k1)=enjr(i1,j1,k1)+vtot*bql(l)
-!                       print*,"vtot,bq(l)"
-!                       print*,vtot,bq(l)
-                        !write(6,*)"One move of rotation produces energy = ",enjr(i1,j1,k1)
                     end do
                 end do
             end do
@@ -717,16 +703,16 @@
         IMPLICIT NONE 
         INTEGER::nbatms,flag,icurr
         REAL(KREAL):: enj
-        REAL(KREAL), DIMENSION(3,3,3) :: enjt
-        REAL(KREAL), DIMENSION(nbatms):: btx,bty,btz
+!        REAL(KREAL), DIMENSION(3,3,3) :: enjt
+        REAL(KREAL), DIMENSION(nbatms):: bxlp,bylp,bzlp,bxln,byln,bzln
         REAL(KREAL), DIMENSION(nbatms):: rcom,rcox,rcoy,rcoz
         CHARACTER(2), DIMENSION(nbatms):: bsl
         REAL(KREAL), DIMENSION(nbatms):: bxl,byl,bzl,bql,batwtl,batvdwl
         REAL(KREAL), DIMENSION(3,3) :: rt
         REAL(KREAL) :: vtot,drvx,drvy,drvz,dxxtot, dxytot,dxztot,dyytot,dyztot,dzztot
         REAL(KREAL) :: totdrvx,totdrvy,totdrvz,norm
-        REAL(KREAL) :: theta,phi,ang,ua,va,wa,eval,tssize
-        REAL(KREAL) :: coxl,coyl,cozl
+        REAL(KREAL) :: eval,tssize
+        REAL(KREAL) :: coxl,coyl,cozl,enjtp,enjtn
         INTEGER(KINT), ALLOCATABLE :: ex(:)
         INTEGER(KINT) :: i,j,k,l,a1,a2,a3,i1,j1,k1,as,dm,is,js,ierr,dum,np,nt
         LOGICAL,external:: accept
@@ -745,49 +731,70 @@
             totdrvz=totdrvz+drvz
         end do
         norm=max(abs(totdrvx),abs(totdrvy),abs(totdrvz))
-        totdrvx=-totdrvx/norm;totdrvy=-totdrvy/norm;totdrvz=-totdrvz/norm
+        totdrvx = totdrvx/norm; totdrvy = totdrvy/norm; totdrvz = totdrvz/norm
 
-        !print*,"tssize"
-        !print*,tssize
-        !print*,"totdrvx,totdrvy,totdrvz,totdrv"
-        !print*,totdrvx,totdrvy,totdrvz,sqrt(totdrvx**2+totdrvy**2+totdrvz**2)
-        !print*,"tssize*totdrvx,tssize*totdrvy,tssize*totdrvz"
-        !print*,tssize*totdrvx,tssize*totdrvy,tssize*totdrvz
+!#        print*,"tssize"
+!#        print*,tssize
+!#        print*,"totdrvx,totdrvy,totdrvz,totdrv"
+!#        print*,totdrvx,totdrvy,totdrvz,sqrt(totdrvx**2+totdrvy**2+totdrvz**2)
+!#        print*,"tssize*totdrvx,tssize*totdrvy,tssize*totdrvz"
+!#        print*,tssize*totdrvx,tssize*totdrvy,tssize*totdrvz
         
-        ! Move coordinates in the direction of gradient. Or check with negative gradient
-        !print*,"Actual coordinate"
+        ! Move coordinates in the direction of gradient. 
         do l = 1,nbatms
-         !   print*,bxl(l),byl(l),bzl(l)
-            bxl(l)= bxl(l)+tssize*totdrvx
-            byl(l)= byl(l)+tssize*totdrvy
-            bzl(l)= bzl(l)+tssize*totdrvz
-!           write(11,*) bs(l),btx(l)*auang,bty(l)*auang,btz(l)*auang
+            bxlp(l) = bxl(l) + tssize*totdrvx
+            bylp(l) = byl(l) + tssize*totdrvy
+            bzlp(l) = bzl(l) + tssize*totdrvz
         end do
-      !  print*,""
-      !  print*,"Modified coordinate"
-      !  do l = 1,nbatms
-      !      print*,btx(l),bty(l),btz(l)
-      !  end do
-      !  print*,""
-      !  totdrvx=0.0
-      !  totdrvy=0.0
-      !  totdrvz=0.0     
-      !  do l=1,nbatms
-      !      CALL DAMPOT(vtot,drvx,drvy,drvz,dxxtot,dxytot,dxztot, &
-      !      & dyytot,dyztot,dzztot,bxl(l),byl(l),bzl(l))
-      !      totdrvx=totdrvx+drvx
-      !      totdrvy=totdrvy+drvy
-      !      totdrvz=totdrvz+drvz
-      !  enddo
-      !  norm=max(abs(totdrvx),abs(totdrvy),abs(totdrvz))
-      !  totdrvx=totdrvx/norm;totdrvy=totdrvy/norm;totdrvz=totdrvz/norm
+        if (accept(icurr,nbatms,bxlp,bylp,bzlp,batvdwl).eqv..true.) then
+            do l=1,nbatms
+                CALL DAMPOT(vtot,drvx,drvy,drvz,dxxtot,dxytot,dxztot, &
+                & dyytot,dyztot,dzztot,bxlp(l),bylp(l),bzlp(l))
+                enjtp = enjtp + vtot*bql(l)
+            end do
+        else   
+            enjtp = +10000.0d0
+        end if
+        
+        ! Move coordinates in the opposite direction of gradient. 
+        do l = 1,nbatms
+            bxln(l) = bxl(l) - tssize*totdrvx
+            byln(l) = byl(l) - tssize*totdrvy
+            bzln(l) = bzl(l) - tssize*totdrvz
+        end do
+        if (accept(icurr,nbatms,bxln,byln,bzln,batvdwl).eqv..true.) then
+            do l=1,nbatms
+                CALL DAMPOT(vtot,drvx,drvy,drvz,dxxtot,dxytot,dxztot, &
+                & dyytot,dyztot,dzztot,bxln(l),byln(l),bzln(l))
+                enjtn = enjtn + vtot*bql(l)
+            end do
+        else   
+            enjtn = +10000.0d0
+        end if
+        
+        eval = min(enjtn,enjtp)
+        if (enjtp < enj .and. enjtp < enjtn .and. (enj - enjtp).gt.1e-6) then
+            Enj=enjtp
+            do l = 1,nbatms
+                bxl(l) = bxl(l) + tssize*totdrvx
+                byl(l) = byl(l) + tssize*totdrvy
+                bzl(l) = bzl(l) + tssize*totdrvz
+            end do
+        elseif (enjtn < enj .and. enjtn < enjtp .and. (enj - enjtn).gt.1e-6) then
+            Enj=enjtn
+            do l = 1,nbatms
+                bxl(l) = bxl(l) - tssize*totdrvx
+                byl(l) = byl(l) - tssize*totdrvy
+                bzl(l) = bzl(l) - tssize*totdrvz
+            end do
+        elseif ((enj-min(enjtn,enjtp)).le.1e-6) then
+            flag=-1
+        end if
+        !print*,"enj,enjtp,enjtn"
+        !print*,enj,enjtp,enjtn
+        return 
+        end subroutine
 
-        !print*,"tssize"
-        !print*,tssize
-     !   print*,"totdrvx,totdrvy,totdrvz,totdrv"
-     !   print*,totdrvx,totdrvy,totdrvz,sqrt(totdrvx**2+totdrvy**2+totdrvz**2)
-        !print*,"tssize*totdrvx,tssize*totdrvy,tssize*totdrvz"
-        !print*,tssize*totdrvx,tssize*totdrvy,tssize*totdrvz
         !=======================================================================
        ! enjt = 0.0d0
        ! do i= -1,1
@@ -838,8 +845,8 @@
        !     flag=-1
        ! end if
        ! deallocate(ex)
-        return 
-        end subroutine
+       !return 
+       !end subroutine
 
 !!=================================
 !!    Center of Mass
@@ -902,13 +909,13 @@
                 dist(ju) = sqrt((rcen(1,ju)-bxl(ku))**2+(rcen(2,ju)-byl(ku))**2+(rcen(3,ju)-bzl(ku))**2)
                 if ((atvdw(ju)*0.7d0+bvdwl(ku)).gt.dist(ju)) then  ! The van der waals radius of host atoms was not scaled yet. Scaled by 0.8
                     accept=.false.
-                    print*, "Minimum distance"
-                    print*, minval(dist)
-                    if(abs(minval(dist)-1.0)<0.0001) then
-                        print*,rcen(1,ju),bxl(ku),rcen(2,ju),byl(ku),rcen(3,ju),bzl(ku)
-                    endif
-                    print*, ju,atvdw(ju),ku,bvdwl(ku) !minloc(dist,dim=1)
-                    print*, ""
+                    !print*, "Minimum distance"
+                    !print*, minval(dist)
+                    !if(abs(minval(dist)-1.0)<0.0001) then
+                    !    print*,rcen(1,ju),bxl(ku),rcen(2,ju),byl(ku),rcen(3,ju),bzl(ku)
+                    !endif
+                    !print*, ju,atvdw(ju),ku,bvdwl(ku) !minloc(dist,dim=1)
+                    !print*, ""
                     goto 98 
                 end if   
             end do
