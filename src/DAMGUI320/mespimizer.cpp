@@ -83,7 +83,7 @@ mespimizer::mespimizer(QWidget *parent) : QWidget()
     SPBtssize = new QDoubleSpinBox();
     SPBtssize->setMinimum(0.1);
     SPBtssize->setMaximum(1.);
-    SPBtssize->setMaximumWidth(55);
+    SPBtssize->setMaximumWidth(75);
     SPBtssize->setSingleStep(0.1);
     SPBtssize->setValue(0.5);
     SPBtssize->setDecimals(1);
@@ -92,10 +92,19 @@ mespimizer::mespimizer(QWidget *parent) : QWidget()
     SPBrssize = new QSpinBox();
     SPBrssize->setMinimum(5);
     SPBrssize->setMaximum(30);
-    SPBrssize->setMaximumWidth(55);
+    SPBrssize->setMaximumWidth(75);
     SPBrssize->setSingleStep(5);
     SPBrssize->setValue(20);
     SPBrssize->setEnabled(true);
+
+    SPBiterations = new QSpinBox();
+    SPBiterations->setMinimum(10);
+    SPBiterations->setMaximum(10000);
+    SPBiterations->setMaximumWidth(75);
+    SPBiterations->setSingleStep(100);
+    SPBiterations->setValue(500);
+    SPBiterations->setToolTip(tr("Highest number of iterations per molecule"));
+    SPBiterations->setEnabled(true);
 
     SLDspeed = new QSlider(Qt::Horizontal);
     SLDspeed->setRange(0,INTERVAL_SCALE);
@@ -251,6 +260,10 @@ mespimizer::~mespimizer()
 
 bool mespimizer::create_mespimizer_input(){
     QString mespimizerpath = getmespimizerpath();
+    QString errorfileName = mespimizerpath + "/mespimizer.err";
+    if (QFileInfo(errorfileName).exists()){
+        QFile(errorfileName).remove();
+    }
     QString fileName = mespimizerpath + "/mespimizer.inp";
     QFile fileout(fileName);
     if (!fileout.open(QFile::WriteOnly | QFile::Text)) {
@@ -276,6 +289,7 @@ bool mespimizer::create_mespimizer_input(){
     buff.append(QString("nocharge=.true.\n").toLatin1());
     buff.append(QString("tssize=%1\n").arg(SPBtssize->value()).toLatin1());
     buff.append(QString("rssize=%1\n").arg(SPBrssize->value()).toLatin1());
+    buff.append(QString("maxiter=%1\n").arg(SPBiterations->value()).toLatin1());
     if (!mespimizerpath.isEmpty()){
         buff.append(QString("path=\"%1/\"\n").arg(mespimizerpath).toLatin1());
     }
@@ -685,12 +699,18 @@ void mespimizer::create_optimize_cluster_layouts(){
     layout4b->addWidget(LBLrssize);
     layout4b->addWidget(SPBrssize);
 
+    QLabel *LBLiterations = new QLabel(tr("Number of iterations: "));
+    QHBoxLayout *layout4c = new QHBoxLayout();
+    layout4c->addWidget(LBLiterations);
+    layout4c->addWidget(SPBiterations);
+
     QVBoxLayout *layout5 = new QVBoxLayout(FRMoptimizeopt);
     layout5->addLayout(layout3);
     layout5->addWidget(RBToptimizecanvas);
     layout5->addWidget(RBToptimizetemplate);
     layout5->addLayout(layout4a);
     layout5->addLayout(layout4b);
+    layout5->addLayout(layout4c);
 
     QGridLayout *layout6 = new QGridLayout(FRMtemplate);
     layout6->addWidget(CHKoptimizeselect,0,0,1,3,Qt::AlignLeft);

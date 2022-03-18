@@ -49,7 +49,7 @@
     namelist / options / lgradient, lderiv2, largo, lexact, &
             & lmaxi,filename,preprocfile,templatefile,insertlocfile,&
             & iswindows,tssize,rssize,nocharge,qmsoftware,qmkeywords, &
-            & clustername, path, lwriteqm
+            & clustername, path, lwriteqm, maxiter
 
     tiempo = dtime(tarray)
     lgradient    = .true.
@@ -70,6 +70,7 @@
     lwriteqm     = .false.
     qmsoftware   = "gaussian"
     qmkeywords   = "nproc=8,mem=2000Mb,lot=MP2,basis=6-31+G(d),charge=0,multi=1"
+    maxiter      = 500         ! highest number of steps per molecule for optimization
 
     read(5,options)     ! Read from standard input
     read(5,*) projectname
@@ -379,7 +380,7 @@
 
     call writeframesgeom(nmols,0.0d0)
 
-    call optimize(nmols,tssize,rssize,mespimizervis,mespimizerfinal)
+    call optimize(nmols,tssize,rssize,mespimizervis,mespimizerfinal,path)
 
 !   Writes an input file for QM programs if desired
     if (lwriteqm) call writeqminput(qmsoftware,qmkeywords,mespimizerbase,nmols)
@@ -425,20 +426,21 @@
 !!=================================
 !!    Optimization control
 !!=================================
-    SUBROUTINE OPTIMIZE(nmols,tssize,rssize,mespimizervis,mespimizerfinal) 
+    SUBROUTINE OPTIMIZE(nmols,tssize,rssize,mespimizervis,mespimizerfinal,path)
     USE DAMINITIAL_T
     USE DAMBUILD_T
     IMPLICIT NONE
     CHARACTER(2), ALLOCATABLE:: bsl(:)
     REAL(KREAL), ALLOCATABLE:: bxl(:),byl(:),bzl(:),bql(:),bawtl(:),bvdwl(:)
-    integer:: nmols
+    integer:: nmols, numiter
     REAL(KREAL) :: Enj,tssize 
     integer(kint)::ierr,i,j,k,nbatms,flag,icurr,rssize
-    character(256):: mespimizervis,mespimizerfinal
+    character(256):: mespimizervis, mespimizerfinal, errname, path
     logical,external:: accept
     
-    open(11,file=trim(adjustl(mespimizervis)))           
-    do i = 1,nmols
+    open(11,file=trim(adjustl(mespimizervis)))
+
+    mainloop: do i = 1,nmols
         Enj=0.0d0 ! Initialize Electrostatic interaction energy 
         icurr=i
         nbatms= molecules(i)%natoms
@@ -475,7 +477,18 @@
         endif
 
         flag = 0
+        numiter = 0
         do while (flag/=-1)
+            numiter = numiter + 1
+            if (numiter .gt. maxiter) then
+                errname = "mespimizer.err"
+                open(12,file=trim(adjustl(path))//trim(adjustl(errname)))
+                write(6,"('Highest number of iterations:', i6,' reached in molecule ', i6,&
+                    /,'Abort optimization')") maxiter, i
+                write(12,"(i6,2x,i6)") maxiter, i
+                close(12)
+                exit mainloop
+            endif
             do j=1,nbatms
                 bsl(j)=molecules(i)%bs(j)
                 bxl(j)=molecules(i)%bx(j)
@@ -540,7 +553,7 @@
         endif
 
         deallocate(bsl,bxl,byl,bzl,bql,bawtl,bvdwl)
-    enddo
+    enddo mainloop
 !
     close(11)
     call writeclustergeom(mespimizerfinal,nmols,Enj)

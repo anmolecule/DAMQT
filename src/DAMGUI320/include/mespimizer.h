@@ -218,6 +218,7 @@ private:
     QSpinBox *SPBenergyprecision;
     QSpinBox *SPBhost;
     QSpinBox *SPBinterpol;
+    QSpinBox *SPBiterations;
     QSpinBox *SPBrssize;
     QSpinBox *SPBtemplate;
 

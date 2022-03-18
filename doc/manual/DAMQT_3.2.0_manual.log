@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.8.31)  8 MAR 2022 12:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.8.31)  17 MAR 2022 12:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1488,24 +1488,24 @@ Package pdftex.def Info: ./figs/Clipping_plane_3.png  used on input line 2572.
  [35 <./figs/damqt320_balls_sticks.png (PNG copy)> <./figs/damqt320_viewport.pn
 g (PNG copy)> <./figs/Clipping_plane_1.png> <./figs/Clipping_plane_2.png> <./fi
 gs/Clipping_plane_3.png>]
-<./figs/damqt320_mespimizer_1.png, id=866, 282.30469pt x 473.64647pt>
+<./figs/damqt320_mespimizer_1.png, id=866, 285.12773pt x 520.344pt>
 File: ./figs/damqt320_mespimizer_1.png Graphic file (type png)
 <use ./figs/damqt320_mespimizer_1.png>
 Package pdftex.def Info: ./figs/damqt320_mespimizer_1.png  used on input line 2
 599.
-(pdftex.def)             Requested size: 107.893pt x 181.02103pt.
-<./figs/damqt320_mespimizer_2.png, id=867, 280.04625pt x 524.79138pt>
+(pdftex.def)             Requested size: 102.43094pt x 186.9267pt.
+<./figs/damqt320_mespimizer_2.png, id=867, 285.69234pt x 585.94292pt>
 File: ./figs/damqt320_mespimizer_2.png Graphic file (type png)
 <use ./figs/damqt320_mespimizer_2.png>
 Package pdftex.def Info: ./figs/damqt320_mespimizer_2.png  used on input line 2
 610.
-(pdftex.def)             Requested size: 95.60179pt x 179.1554pt.
+(pdftex.def)             Requested size: 90.82118pt x 186.27173pt.
 <./figs/damqt320_mespimizer_3.png, id=868, 280.61086pt x 406.37978pt>
 File: ./figs/damqt320_mespimizer_3.png Graphic file (type png)
 <use ./figs/damqt320_mespimizer_3.png>
 Package pdftex.def Info: ./figs/damqt320_mespimizer_3.png  used on input line 2
 621.
-(pdftex.def)             Requested size: 101.06595pt x 146.35861pt.
+(pdftex.def)             Requested size: 105.16302pt x 152.29282pt.
  [36 <./figs/damqt320_mespimizer_1.png (PNG copy)> <./figs/damqt320_mespimizer_
 2.png (PNG copy)> <./figs/damqt320_mespimizer_3.png (PNG copy)>]
 <./figs/damqt320_3D_settings.png, id=885, 353.44547pt x 453.0773pt>
@@ -2292,7 +2292,7 @@ ts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
-Output written on DAMQT_3.2.0_manual.pdf (70 pages, 17479980 bytes).
+Output written on DAMQT_3.2.0_manual.pdf (70 pages, 17496157 bytes).
 PDF statistics:
  1817 PDF objects out of 2073 (max. 8388607)
  1492 compressed objects within 15 object streams

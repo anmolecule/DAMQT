@@ -1753,7 +1753,30 @@ void glWidget::processOutput(int exitCode, QProcess::ExitStatus exitStatus)
     mainWin->statusBar()->clearMessage();
     mainWin->statusBar()->setStyleSheet("color: black");
     if(exitStatus==QProcess::NormalExit){
-        QMessageBox::information(this, tr("MESPIMIZER"),tr("Cluster optimization finished"));
+        if(QFileInfo(mespimizerpath+"/mespimizer.err").exists()){
+            QFile file(mespimizerpath+"/mespimizer.err");
+            if (!file.open(QFile::ReadOnly | QFile::Text)) {
+                return;
+            }
+            QTextStream in(&file);
+            QString line = in.readLine();
+#if QT_VERSION < 0x050E00
+            QStringList fields = line.split(' ',QString::SkipEmptyParts);
+#else
+            QStringList fields = line.split(' ',Qt::SkipEmptyParts);
+#endif
+            if (fields.count() < 2)
+                return;
+            int iter = fields.takeFirst().toInt();
+            int molec = fields.takeFirst().toInt();
+            QMessageBox::information(this, tr("MESPIMIZER"),
+                QString(tr("Cluster optimization aborted, highest number of iterations: %1\nreached in molecule %2"))
+                        .arg(iter).arg(molec));
+        }
+        else{
+            QMessageBox::information(this, tr("MESPIMIZER"),tr("Cluster optimization finished"));
+        }
+
     }else if (exitStatus==QProcess::CrashExit){
         QMessageBox::warning(this, tr("MESPIMIZER"),
                 tr(QString("MESPIMIZER crashed, exit code = %1").arg(exitCode).toLatin1()));

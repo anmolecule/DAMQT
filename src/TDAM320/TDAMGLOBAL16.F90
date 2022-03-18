@@ -275,7 +275,7 @@
         USE DAMINITIAL_T, ONLY: KINT, KREAL, KREAL4,KINT8,auang,angau,p_i,ncen,rcen,atwt,atvdw
         USE DAM320_DATA_T, ONLY: zn
         IMPLICIT NONE
-        integer(KINT) :: kntframes
+        integer(KINT) :: kntframes, maxiter
         type molecule
             integer:: natoms
             CHARACTER(2), ALLOCATABLE:: bs(:)
