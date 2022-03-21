@@ -1,20 +1,20 @@
-//  Copyright 2013-2017, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+//  Copyright 2013-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 //  Guillermo Ramirez, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
 // 
-//  This file is part of DAM2017.
+//  This file is part of DAM320.
 // 
-//  DAM2017 is free software: you can redistribute it and/or modify
+//  DAM320 is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
 // 
-//  DAM2017 is distributed in the hope that it will be useful,
+//  DAM320 is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
 // 
 //  You should have received a copy of the GNU General Public License
-//  along with DAM2017.  If not, see <http://www.gnu.org/licenses/>.
+//  along with DAM320.  If not, see <http://www.gnu.org/licenses/>.
 //
 //------------------------------------------------------------------------
 //
@@ -422,9 +422,16 @@ int main(int argc,char *argv[]) {
             tokenPrt = strtok_s(NULL," ",&newtoken);
             tokenPrt = strtok_s(NULL," ",&newtoken);
             movecs = string(tokenPrt);
-            bool existmovecs = exists_test3(inpath+movecs);
+            string movecsfile;
+            if (movecs.find(inpath) != std::string::npos) {
+                movecsfile = movecs;
+            }
+            else{
+                movecsfile = inpath+movecs;
+            }
+            bool existmovecs = exists_test3(movecsfile);
             if (!existmovecs){
-                outimportfile << "File " << inpath+movecs << " with molecular orbitals does not exist" << endl;
+                outimportfile << "File " << movecsfile << " with molecular orbitals does not exist" << endl;
                 outimportfile << "Operation is aborted" << endl;
                 exit(1);
             }
@@ -433,6 +440,10 @@ int main(int argc,char *argv[]) {
 //             outimportfile << "output vectors = " << movecs << endl;
         }
     }
+    if (movecs.length() < 3){
+        movecs = projectname+".movecs";
+    }
+//    outimportfile << "output vectors = " << movecs << endl;
 //     cout << "Number of geometries read = " << kntgeom << " Keeps the coordinates of the last one. "<< endl ;
 
 //    redefines the coordinates with respect to the center of positive charges and writes the to file .ggbs
@@ -493,10 +504,44 @@ int main(int argc,char *argv[]) {
     stringstream ss;
     ss << nbasis;
     string mov2asc;
+    string movecsfile;
+    if (movecs.find(inpath) != std::string::npos) {
+        movecsfile = movecs;
+    }
+    else{
+        movecsfile = inpath+movecs;
+    }
+
 //    outimportfile << "antes de mov2asc: inpath = " << inpath << " outpath = " << outpath << " newprojectname = " << newprojectname << " ss = " << ss.str() << endl;
-    mov2asc = "$NWCHEM_TOP/contrib/mov2asc/mov2asc " + ss.str() + " " + inpath + movecs + " " + outpath + newprojectname + "_txt";
-//    outimportfile << "mov2asc = " << mov2asc << endl;
-    system(mov2asc.c_str());
+    mov2asc = "$NWCHEM_TOP/contrib/mov2asc/mov2asc " + ss.str() + " " + movecsfile + " " + outpath + newprojectname + "_txt";
+//   outimportfile << "mov2asc = " << mov2asc << endl;
+    int indmovasc = system(mov2asc.c_str());
+    if (indmovasc != 0){
+        outimportfile << "\nError trying to run \"" <<  mov2asc << "\". Error code = " << indmovasc;
+        char* nwchemtop = std::getenv("NWCHEM_TOP");
+        outimportfile << "\n\nCheck that variable \"NWCHEM_TOP = ";
+        if (nwchemtop) outimportfile << nwchemtop;
+        outimportfile << "\" is correctly set.\n\nTrying an alternative\n";
+        mov2asc = "mov2asc " + ss.str() + " " + movecsfile + " " + outpath + newprojectname + "_txt";
+        indmovasc = system(mov2asc.c_str());
+        if (indmovasc != 0){
+            char* pPath = std::getenv("PATH");
+            outimportfile << "\nError trying to run \"" <<  mov2asc << "\". Error code = " << indmovasc
+                    << "\n\nCheck that mov2asc utility is installed in your system."
+                    << " (It usually resides in $NWCHEM_TOP/contrib/mov2asc/).\n"
+                    << "Check that it has been compiled and the executable is available. Otherwise, run make in that directory.\n"
+                    << "\nIf mov2asc is installed, set NWCHEM_TOP in the working dir (that from which DAMQT was launched) "
+                    << "to the current home directory of nwchem, export it and restart DAMQT.\n"
+                    << "\nIf this does not work, add the directory where mov2asc resides to variable PATH in the working dir and restart DAMQT."
+                    << "\nCurrent PATH = " << pPath
+                    << "\n\nAlternatively, create a symbolic link or copy the mov2asc executable to the working dir.\n";
+            outimportfile << endl;
+            exit(1);
+        }
+        else{
+            outimportfile << mov2asc << " succesfully run\n\n";
+        }
+    }
 
     ofstream lvecfile;
     s = outpath + newprojectname + ".lvec";

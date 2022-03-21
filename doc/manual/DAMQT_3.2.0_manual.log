@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.8.31)  14 JUN 2021 14:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.8.31)  17 MAR 2022 12:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -675,13 +675,7 @@ Package: calligra 2012/04/10 v1.9 LaTeX package calligra
 Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 \symrsfs=\mathgroup6
 )
-(/usr/share/texlive/texmf-dist/tex/latex/showlabels/showlabels.sty
-Package: showlabels 2016/06/09 v1.8
-
-Package: `showlabels' v1.8 <2016/06/09>
-with amsmath equation tags
-\SL@labelposition=\count124
-) (./DAMQT_3.2.0_manual.aux)
+(./DAMQT_3.2.0_manual.aux)
 \openout1 = `DAMQT_3.2.0_manual.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 84.
@@ -701,16 +695,16 @@ LaTeX Font Info:    ... okay on input line 84.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count125
+\scratchcounter=\count124
 \scratchdimen=\dimen134
 \scratchbox=\box57
-\nofMPsegments=\count126
-\nofMParguments=\count127
+\nofMPsegments=\count125
+\nofMParguments=\count126
 \everyMPshowfont=\toks26
-\MPscratchCnt=\count128
+\MPscratchCnt=\count127
 \MPscratchDim=\dimen135
-\MPnumerator=\count129
-\makeMPintoPDFobject=\count130
+\MPnumerator=\count128
+\makeMPintoPDFobject=\count129
 \everyMPtoPDFconversion=\toks27
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -738,7 +732,7 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count131
+\c@section@level=\count130
 )
 LaTeX Info: Redefining \ref on input line 84.
 LaTeX Info: Redefining \pageref on input line 84.
@@ -750,31 +744,31 @@ LaTeX Info: Redefining \nameref on input line 84.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for U+msa on input line 349.
+LaTeX Font Info:    Try loading font information for U+msa on input line 359.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 349.
+LaTeX Font Info:    Try loading font information for U+msb on input line 359.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+rsfs on input line 349.
+LaTeX Font Info:    Try loading font information for U+rsfs on input line 359.
 
 (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 349.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 359.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 349.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 359.
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 349.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 359.
  [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./DAMQT_3.2.0_manual.toc 
@@ -783,1487 +777,1481 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
 \openout6 = `DAMQT_3.2.0_manual.toc'.
 
  [3]
-LaTeX Font Info:    Font shape `OMS/cmr/m/sl' in size <9> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 358.
 <./figs/DAMQT_structure.pdf, id=432, 845.0471pt x 597.50829pt>
 File: ./figs/DAMQT_structure.pdf Graphic file (type pdf)
 <use ./figs/DAMQT_structure.pdf>
-Package pdftex.def Info: ./figs/DAMQT_structure.pdf  used on input line 401.
+Package pdftex.def Info: ./figs/DAMQT_structure.pdf  used on input line 414.
 (pdftex.def)             Requested size: 455.24408pt x 321.89293pt.
- [4 <./figs/DAMQT_structure.pdf>] [5]
-<./figs/damqt320_splash.png, id=459, 452.2521pt x 278.51746pt>
+ [4 <./figs/DAMQT_structure.pdf>] [5] [6]
+<./figs/damqt320_splash.png, id=462, 452.2521pt x 278.51746pt>
 File: ./figs/damqt320_splash.png Graphic file (type png)
 <use ./figs/damqt320_splash.png>
-Package pdftex.def Info: ./figs/damqt320_splash.png  used on input line 523.
+Package pdftex.def Info: ./figs/damqt320_splash.png  used on input line 556.
 (pdftex.def)             Requested size: 143.58614pt x 88.42618pt.
 
-Overfull \hbox (15.87897pt too wide) in paragraph at lines 507--528
+Overfull \hbox (15.87897pt too wide) in paragraph at lines 540--561
 $[]$ $[]$ 
  []
 
-[6] [7 <./figs/damqt320_splash.png (PNG copy)>]
-<./figs/damqt320_main_panel.png, id=472, 1087.43765pt x 579.27185pt>
+[7 <./figs/damqt320_splash.png (PNG copy)>]
+<./figs/damqt320_main_panel.png, id=470, 1086.87305pt x 580.3837pt>
 File: ./figs/damqt320_main_panel.png Graphic file (type png)
 <use ./figs/damqt320_main_panel.png>
-Package pdftex.def Info: ./figs/damqt320_main_panel.png  used on input line 541
+Package pdftex.def Info: ./figs/damqt320_main_panel.png  used on input line 574
 .
-(pdftex.def)             Requested size: 227.62204pt x 121.25291pt.
-<./figs/damqt320_toolbar.png, id=473, 264.61938pt x 24.46062pt>
+(pdftex.def)             Requested size: 227.62204pt x 121.54764pt.
+<./figs/damqt320_toolbar.png, id=471, 280.74115pt x 26.68431pt>
 File: ./figs/damqt320_toolbar.png Graphic file (type png)
 <use ./figs/damqt320_toolbar.png>
-Package pdftex.def Info: ./figs/damqt320_toolbar.png  used on input line 549.
-(pdftex.def)             Requested size: 227.62204pt x 21.04129pt.
-<./figs/toolb1.png, id=475, 28.105pt x 31.11626pt>
+Package pdftex.def Info: ./figs/damqt320_toolbar.png  used on input line 582.
+(pdftex.def)             Requested size: 227.62204pt x 21.63574pt.
+<./figs/toolb1.png, id=473, 28.105pt x 31.11626pt>
 File: ./figs/toolb1.png Graphic file (type png)
 <use ./figs/toolb1.png>
-Package pdftex.def Info: ./figs/toolb1.png  used on input line 559.
+Package pdftex.def Info: ./figs/toolb1.png  used on input line 592.
 (pdftex.def)             Requested size: 14.22636pt x 15.75084pt.
-<./figs/toolb2.png, id=476, 31.11626pt x 31.11626pt>
+<./figs/toolb2.png, id=474, 31.11626pt x 31.11626pt>
 File: ./figs/toolb2.png Graphic file (type png)
 <use ./figs/toolb2.png>
-Package pdftex.def Info: ./figs/toolb2.png  used on input line 560.
+Package pdftex.def Info: ./figs/toolb2.png  used on input line 593.
 (pdftex.def)             Requested size: 14.22636pt x 14.22675pt.
-<./figs/toolb3.png, id=477, 31.11626pt x 33.12375pt>
+<./figs/toolb3.png, id=475, 31.11626pt x 33.12375pt>
 File: ./figs/toolb3.png Graphic file (type png)
 <use ./figs/toolb3.png>
-Package pdftex.def Info: ./figs/toolb3.png  used on input line 561.
+Package pdftex.def Info: ./figs/toolb3.png  used on input line 594.
 (pdftex.def)             Requested size: 14.22636pt x 15.1446pt.
-<./figs/toolb4.png, id=478, 28.105pt x 29.10875pt>
+<./figs/toolb4.png, id=476, 28.105pt x 29.10875pt>
 File: ./figs/toolb4.png Graphic file (type png)
 <use ./figs/toolb4.png>
-Package pdftex.def Info: ./figs/toolb4.png  used on input line 562.
+Package pdftex.def Info: ./figs/toolb4.png  used on input line 595.
 (pdftex.def)             Requested size: 14.22636pt x 14.73466pt.
-<./figs/toolb5.png, id=479, 28.105pt x 29.10875pt>
+<./figs/toolb5.png, id=477, 28.105pt x 29.10875pt>
 File: ./figs/toolb5.png Graphic file (type png)
 <use ./figs/toolb5.png>
-Package pdftex.def Info: ./figs/toolb5.png  used on input line 564.
+Package pdftex.def Info: ./figs/toolb5.png  used on input line 597.
 (pdftex.def)             Requested size: 14.22636pt x 14.73466pt.
+<./figs/toolb11.png, id=478, 56.21pt x 48.18pt>
+File: ./figs/toolb11.png Graphic file (type png)
+<use ./figs/toolb11.png>
+Package pdftex.def Info: ./figs/toolb11.png  used on input line 599.
+(pdftex.def)             Requested size: 14.22636pt x 12.1942pt.
 <./figs/toolb6.png, id=480, 50.1875pt x 41.15375pt>
 File: ./figs/toolb6.png Graphic file (type png)
 <use ./figs/toolb6.png>
-Package pdftex.def Info: ./figs/toolb6.png  used on input line 566.
+Package pdftex.def Info: ./figs/toolb6.png  used on input line 600.
 (pdftex.def)             Requested size: 14.22636pt x 11.66551pt.
 <./figs/toolb7.png, id=481, 48.18pt x 48.18pt>
 File: ./figs/toolb7.png Graphic file (type png)
 <use ./figs/toolb7.png>
-Package pdftex.def Info: ./figs/toolb7.png  used on input line 567.
+Package pdftex.def Info: ./figs/toolb7.png  used on input line 601.
 (pdftex.def)             Requested size: 14.22636pt x 14.2262pt.
-<./figs/toolb8.png, id=483, 28.105pt x 27.10126pt>
+<./figs/toolb8.png, id=482, 28.105pt x 27.10126pt>
 File: ./figs/toolb8.png Graphic file (type png)
 <use ./figs/toolb8.png>
-Package pdftex.def Info: ./figs/toolb8.png  used on input line 568.
+Package pdftex.def Info: ./figs/toolb8.png  used on input line 602.
 (pdftex.def)             Requested size: 14.22636pt x 13.71848pt.
-<./figs/toolb9.png, id=484, 29.10875pt x 32.12pt>
+<./figs/toolb9.png, id=483, 29.10875pt x 32.12pt>
 File: ./figs/toolb9.png Graphic file (type png)
 <use ./figs/toolb9.png>
-Package pdftex.def Info: ./figs/toolb9.png  used on input line 569.
+Package pdftex.def Info: ./figs/toolb9.png  used on input line 603.
 (pdftex.def)             Requested size: 14.22636pt x 15.69775pt.
-<./figs/toolb10.png, id=485, 30.1125pt x 30.1125pt>
+<./figs/toolb10.png, id=484, 30.1125pt x 30.1125pt>
 File: ./figs/toolb10.png Graphic file (type png)
 <use ./figs/toolb10.png>
-Package pdftex.def Info: ./figs/toolb10.png  used on input line 570.
+Package pdftex.def Info: ./figs/toolb10.png  used on input line 604.
 (pdftex.def)             Requested size: 14.22636pt x 14.22638pt.
  [8 <./figs/damqt320_main_panel.png (PNG copy)> <./figs/damqt320_toolbar.png (P
 NG copy)> <./figs/toolb1.png (PNG copy)> <./figs/toolb2.png (PNG copy)> <./figs
 /toolb3.png (PNG copy)> <./figs/toolb4.png (PNG copy)> <./figs/toolb5.png (PNG 
-copy)> <./figs/toolb6.png> <./figs/toolb7.png> <./figs/toolb8.png (PNG copy)> <
-./figs/toolb9.png (PNG copy)> <./figs/toolb10.png (PNG copy)>]
+copy)> <./figs/toolb11.png> <./figs/toolb6.png> <./figs/toolb7.png> <./figs/too
+lb8.png (PNG copy)> <./figs/toolb9.png (PNG copy)> <./figs/toolb10.png (PNG cop
+y)>]
 <./figs/damqt_fig_2_1_1.png, id=493, 501.37312pt x 328.55054pt>
 File: ./figs/damqt_fig_2_1_1.png Graphic file (type png)
 <use ./figs/damqt_fig_2_1_1.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_1_1.png  used on input line 606.
+Package pdftex.def Info: ./figs/damqt_fig_2_1_1.png  used on input line 640.
 (pdftex.def)             Requested size: 227.62204pt x 149.15985pt.
 <./figs/3dots.png, id=496, 26.34843pt x 25.59563pt>
 File: ./figs/3dots.png Graphic file (type png)
 <use ./figs/3dots.png>
-Package pdftex.def Info: ./figs/3dots.png  used on input line 626.
+Package pdftex.def Info: ./figs/3dots.png  used on input line 660.
 (pdftex.def)             Requested size: 9.95863pt x 9.67409pt.
 <./figs/damqt320_project_menu.png, id=498, 227.92847pt x 283.52077pt>
 File: ./figs/damqt320_project_menu.png Graphic file (type png)
 <use ./figs/damqt320_project_menu.png>
 Package pdftex.def Info: ./figs/damqt320_project_menu.png  used on input line 6
-37.
+71.
 (pdftex.def)             Requested size: 111.53624pt x 138.74036pt.
- [9 <./figs/damqt_fig_2_1_1.png (PNG copy)> <./figs/3dots.png> <./figs/damqt320
-_project_menu.png (PNG copy)>]
-<./figs/damqt320_info_load.png, id=512, 171.78023pt x 97.84247pt>
+ [9 <./figs/damqt_fig_2_1_1.png (PNG copy)> <./figs/3dots.png>]
+<./figs/damqt320_info_load.png, id=509, 171.78023pt x 97.84247pt>
 File: ./figs/damqt320_info_load.png Graphic file (type png)
 <use ./figs/damqt320_info_load.png>
-Package pdftex.def Info: ./figs/damqt320_info_load.png  used on input line 694.
+Package pdftex.def Info: ./figs/damqt320_info_load.png  used on input line 729.
 
 (pdftex.def)             Requested size: 68.2873pt x 38.89592pt.
-<./figs/damqt320_info_open.png, id=513, 244.60616pt x 97.84247pt>
+<./figs/damqt320_info_open.png, id=510, 244.60616pt x 97.84247pt>
 File: ./figs/damqt320_info_open.png Graphic file (type png)
 <use ./figs/damqt320_info_open.png>
-Package pdftex.def Info: ./figs/damqt320_info_open.png  used on input line 703.
+Package pdftex.def Info: ./figs/damqt320_info_open.png  used on input line 738.
 
 (pdftex.def)             Requested size: 99.01503pt x 39.60655pt.
-<./figs/exec.png, id=516, 61.73062pt x 26.34843pt>
+<./figs/exec.png, id=513, 61.73062pt x 26.34843pt>
 File: ./figs/exec.png Graphic file (type png)
 <use ./figs/exec.png>
-Package pdftex.def Info: ./figs/exec.png  used on input line 714.
+Package pdftex.def Info: ./figs/exec.png  used on input line 749.
 (pdftex.def)             Requested size: 19.91684pt x 8.50122pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 714--714
+Underfull \hbox (badness 10000) in paragraph at lines 749--749
 
  []
 
 File: ./figs/toolb2.png Graphic file (type png)
 <use ./figs/toolb2.png>
-Package pdftex.def Info: ./figs/toolb2.png  used on input line 721.
+Package pdftex.def Info: ./figs/toolb2.png  used on input line 756.
 (pdftex.def)             Requested size: 9.95863pt x 9.95882pt.
-<./figs/damqt320_atomic_densities.png, id=520, 233.74828pt x 404.712pt>
+<./figs/damqt320_atomic_densities.png, id=517, 233.74828pt x 404.712pt>
 File: ./figs/damqt320_atomic_densities.png Graphic file (type png)
 <use ./figs/damqt320_atomic_densities.png>
 Package pdftex.def Info: ./figs/damqt320_atomic_densities.png  used on input li
-ne 764.
+ne 799.
 (pdftex.def)             Requested size: 100.15271pt x 173.40523pt.
-[10 <./figs/damqt320_info_load.png (PNG copy)> <./figs/damqt320_info_open.png (
-PNG copy)> <./figs/exec.png> <./figs/damqt320_atomic_densities.png (PNG copy)>]
+[10 <./figs/damqt320_project_menu.png (PNG copy)> <./figs/damqt320_info_load.pn
+g (PNG copy)> <./figs/damqt320_info_open.png (PNG copy)> <./figs/exec.png>]
 File: ./figs/exec.png Graphic file (type png)
 <use ./figs/exec.png>
-Package pdftex.def Info: ./figs/exec.png  used on input line 809.
+Package pdftex.def Info: ./figs/exec.png  used on input line 844.
 (pdftex.def)             Requested size: 19.91684pt x 8.50122pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 809--809
+Underfull \hbox (badness 10000) in paragraph at lines 844--844
 
  []
 
-<./figs/damqt320_standard_output.png, id=530, 1081.79156pt x 578.16pt>
+[11 <./figs/damqt320_atomic_densities.png (PNG copy)>]
+<./figs/damqt320_standard_output.png, id=536, 1081.79156pt x 578.16pt>
 File: ./figs/damqt320_standard_output.png Graphic file (type png)
 <use ./figs/damqt320_standard_output.png>
 Package pdftex.def Info: ./figs/damqt320_standard_output.png  used on input lin
-e 832.
+e 867.
 (pdftex.def)             Requested size: 196.66235pt x 105.1053pt.
-<./figs/damqt320_output_files_menu.png, id=531, 1083.4854pt x 580.3837pt>
+<./figs/damqt320_output_files_menu.png, id=537, 1083.4854pt x 580.3837pt>
 File: ./figs/damqt320_output_files_menu.png Graphic file (type png)
 <use ./figs/damqt320_output_files_menu.png>
 Package pdftex.def Info: ./figs/damqt320_output_files_menu.png  used on input l
-ine 841.
+ine 876.
 (pdftex.def)             Requested size: 196.66235pt x 105.3413pt.
 
-Overfull \hbox (5.78635pt too wide) in paragraph at lines 828--847
+Overfull \hbox (5.78635pt too wide) in paragraph at lines 863--882
  [] 
  []
 
-[11 <./figs/damqt320_standard_output.png (PNG copy)> <./figs/damqt320_output_fi
-les_menu.png (PNG copy)>]
-<./figs/stop1.png, id=539, 60.97781pt x 26.34843pt>
+<./figs/stop1.png, id=538, 60.97781pt x 26.34843pt>
 File: ./figs/stop1.png Graphic file (type png)
 <use ./figs/stop1.png>
-Package pdftex.def Info: ./figs/stop1.png  used on input line 860.
+Package pdftex.def Info: ./figs/stop1.png  used on input line 895.
 (pdftex.def)             Requested size: 19.91684pt x 8.60614pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 860--860
+Underfull \hbox (badness 10000) in paragraph at lines 895--895
 
  []
 
-<./figs/listados.png, id=540, 28.60687pt x 26.34843pt>
+<./figs/listados.png, id=539, 28.60687pt x 26.34843pt>
 File: ./figs/listados.png Graphic file (type png)
 <use ./figs/listados.png>
-Package pdftex.def Info: ./figs/listados.png  used on input line 860.
+Package pdftex.def Info: ./figs/listados.png  used on input line 895.
 (pdftex.def)             Requested size: 9.95863pt x 9.17223pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 860--860
+Underfull \hbox (badness 10000) in paragraph at lines 895--895
 
  []
 
-<./figs/damqt320_density_1.png, id=544, 233.18367pt x 496.4393pt>
+<./figs/damqt320_density_1.png, id=543, 233.18367pt x 496.4393pt>
 File: ./figs/damqt320_density_1.png Graphic file (type png)
 <use ./figs/damqt320_density_1.png>
-Package pdftex.def Info: ./figs/damqt320_density_1.png  used on input line 918.
+Package pdftex.def Info: ./figs/damqt320_density_1.png  used on input line 953.
 
 (pdftex.def)             Requested size: 87.40474pt x 186.08095pt.
-<./figs/damqt320_density_2.png, id=545, 232.61906pt x 500.88669pt>
+<./figs/damqt320_density_2.png, id=544, 232.61906pt x 500.88669pt>
 File: ./figs/damqt320_density_2.png Graphic file (type png)
 <use ./figs/damqt320_density_2.png>
-Package pdftex.def Info: ./figs/damqt320_density_2.png  used on input line 920.
+Package pdftex.def Info: ./figs/damqt320_density_2.png  used on input line 955.
 
 (pdftex.def)             Requested size: 87.40474pt x 188.1989pt.
 
-Overfull \hbox (18.79753pt too wide) in paragraph at lines 868--926
+Overfull \hbox (18.79753pt too wide) in paragraph at lines 903--961
 [][] 
  []
 
-<./figs/damqt_fig_2_3_2.png, id=548, 231.86626pt x 145.29282pt>
+[12 <./figs/damqt320_standard_output.png (PNG copy)> <./figs/damqt320_output_fi
+les_menu.png (PNG copy)> <./figs/stop1.png> <./figs/listados.png>]
+<./figs/damqt_fig_2_3_2.png, id=553, 231.86626pt x 145.29282pt>
 File: ./figs/damqt_fig_2_3_2.png Graphic file (type png)
 <use ./figs/damqt_fig_2_3_2.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_3_2.png  used on input line 964.
+Package pdftex.def Info: ./figs/damqt_fig_2_3_2.png  used on input line 999.
 (pdftex.def)             Requested size: 100.15271pt x 62.75845pt.
 
-Overfull \hbox (18.79753pt too wide) in paragraph at lines 943--970
+Overfull \hbox (18.79753pt too wide) in paragraph at lines 978--1005
 [][] 
  []
 
-<./figs/damqt_fig_2_3_3.png, id=551, 237.88875pt x 433.62pt>
+<./figs/damqt_fig_2_3_3.png, id=556, 237.88875pt x 433.62pt>
 File: ./figs/damqt_fig_2_3_3.png Graphic file (type png)
 <use ./figs/damqt_fig_2_3_3.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_3_3.png  used on input line 1017.
+Package pdftex.def Info: ./figs/damqt_fig_2_3_3.png  used on input line 1052.
 (pdftex.def)             Requested size: 91.04742pt x 165.96165pt.
-<./figs/damqt_fig_2_2_7.png, id=552, 243.15843pt x 327.47343pt>
+<./figs/damqt_fig_2_2_7.png, id=557, 243.15843pt x 327.47343pt>
 File: ./figs/damqt_fig_2_2_7.png Graphic file (type png)
 <use ./figs/damqt_fig_2_2_7.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_2_7.png  used on input line 1026.
+Package pdftex.def Info: ./figs/damqt_fig_2_2_7.png  used on input line 1061.
 (pdftex.def)             Requested size: 91.04742pt x 122.61736pt.
 
-Overfull \hbox (18.79753pt too wide) in paragraph at lines 974--1033
+Overfull \hbox (18.79753pt too wide) in paragraph at lines 1009--1068
 [][]
  []
 
-[12 <./figs/stop1.png> <./figs/listados.png> <./figs/damqt320_density_1.png (PN
-G copy)> <./figs/damqt320_density_2.png (PNG copy)>] [13 <./figs/damqt_fig_2_3_
-2.png> <./figs/damqt_fig_2_3_3.png> <./figs/damqt_fig_2_2_7.png>]
-<./figs/damqt_fig_2_4_1.png, id=571, 236.38312pt x 636.87938pt>
+[13 <./figs/damqt320_density_1.png (PNG copy)> <./figs/damqt320_density_2.png (
+PNG copy)>] [14 <./figs/damqt_fig_2_3_2.png> <./figs/damqt_fig_2_3_3.png> <./fi
+gs/damqt_fig_2_2_7.png>]
+<./figs/damqt_fig_2_4_1.png, id=575, 236.38312pt x 636.87938pt>
 File: ./figs/damqt_fig_2_4_1.png Graphic file (type png)
 <use ./figs/damqt_fig_2_4_1.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_4_1.png  used on input line 1117.
+Package pdftex.def Info: ./figs/damqt_fig_2_4_1.png  used on input line 1152.
 (pdftex.def)             Requested size: 118.36053pt x 318.89565pt.
 
-Overfull \hbox (18.79753pt too wide) in paragraph at lines 1074--1125
+Overfull \hbox (18.79753pt too wide) in paragraph at lines 1109--1160
 []
  []
 
-[14 <./figs/damqt_fig_2_4_1.png>]
-<./figs/damqt_fig_2_5_1.png, id=583, 231.11343pt x 688.82344pt>
+[15 <./figs/damqt_fig_2_4_1.png>]
+<./figs/damqt_fig_2_5_1.png, id=587, 231.11343pt x 688.82344pt>
 File: ./figs/damqt_fig_2_5_1.png Graphic file (type png)
 <use ./figs/damqt_fig_2_5_1.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_5_1.png  used on input line 1157.
+Package pdftex.def Info: ./figs/damqt_fig_2_5_1.png  used on input line 1192.
 (pdftex.def)             Requested size: 108.5747pt x 323.59991pt.
-<./figs/damqt_fig_2_6_1a.png, id=584, 250.68657pt x 420.06938pt>
+<./figs/damqt_fig_2_6_1a.png, id=588, 250.68657pt x 420.06938pt>
 File: ./figs/damqt_fig_2_6_1a.png Graphic file (type png)
 <use ./figs/damqt_fig_2_6_1a.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_6_1a.png  used on input line 1167.
+Package pdftex.def Info: ./figs/damqt_fig_2_6_1a.png  used on input line 1202.
 (pdftex.def)             Requested size: 111.26285pt x 186.43994pt.
-<./figs/damqt_fig_2_6_1b.png, id=585, 248.42813pt x 309.40594pt>
+<./figs/damqt_fig_2_6_1b.png, id=589, 248.42813pt x 309.40594pt>
 File: ./figs/damqt_fig_2_6_1b.png Graphic file (type png)
 <use ./figs/damqt_fig_2_6_1b.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_6_1b.png  used on input line 1168.
+Package pdftex.def Info: ./figs/damqt_fig_2_6_1b.png  used on input line 1203.
 (pdftex.def)             Requested size: 111.26285pt x 138.57513pt.
 
-Overfull \hbox (24.0pt too wide) in paragraph at lines 1152--1174
+Overfull \hbox (24.0pt too wide) in paragraph at lines 1187--1209
 [][] 
  []
 
-[15 <./figs/damqt_fig_2_5_1.png> <./figs/damqt_fig_2_6_1a.png> <./figs/damqt_fi
+[16 <./figs/damqt_fig_2_5_1.png> <./figs/damqt_fig_2_6_1a.png> <./figs/damqt_fi
 g_2_6_1b.png>]
-<./figs/damqt320_mesp_sg_hole.png, id=592, 234.8775pt x 395.2613pt>
+<./figs/damqt320_mesp_sg_hole.png, id=596, 234.8775pt x 395.2613pt>
 File: ./figs/damqt320_mesp_sg_hole.png Graphic file (type png)
 <use ./figs/damqt320_mesp_sg_hole.png>
 Package pdftex.def Info: ./figs/damqt320_mesp_sg_hole.png  used on input line 1
-246.
+281.
 (pdftex.def)             Requested size: 145.67642pt x 245.14993pt.
 
-Overfull \hbox (18.79753pt too wide) in paragraph at lines 1212--1252
+Overfull \hbox (18.79753pt too wide) in paragraph at lines 1247--1287
 [][] 
  []
 
-[16 <./figs/damqt320_mesp_sg_hole.png (PNG copy)>]
-<./figs/damqt_fig_2_8_1a.png, id=603, 248.42813pt x 350.05782pt>
+[17 <./figs/damqt320_mesp_sg_hole.png (PNG copy)>]
+<./figs/damqt_fig_2_8_1a.png, id=607, 248.42813pt x 350.05782pt>
 File: ./figs/damqt_fig_2_8_1a.png Graphic file (type png)
 <use ./figs/damqt_fig_2_8_1a.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_8_1a.png  used on input line 1283.
+Package pdftex.def Info: ./figs/damqt_fig_2_8_1a.png  used on input line 1318.
 (pdftex.def)             Requested size: 91.04742pt x 128.29616pt.
-<./figs/damqt_fig_2_8_1b.png, id=604, 248.42813pt x 400.49625pt>
+<./figs/damqt_fig_2_8_1b.png, id=608, 248.42813pt x 400.49625pt>
 File: ./figs/damqt_fig_2_8_1b.png Graphic file (type png)
 <use ./figs/damqt_fig_2_8_1b.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_8_1b.png  used on input line 1284.
+Package pdftex.def Info: ./figs/damqt_fig_2_8_1b.png  used on input line 1319.
 (pdftex.def)             Requested size: 91.04742pt x 146.78185pt.
-<./figs/damqt_fig_2_8_1c.png, id=605, 248.42813pt x 96.36pt>
+<./figs/damqt_fig_2_8_1c.png, id=609, 248.42813pt x 96.36pt>
 File: ./figs/damqt_fig_2_8_1c.png Graphic file (type png)
 <use ./figs/damqt_fig_2_8_1c.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_8_1c.png  used on input line 1285.
+Package pdftex.def Info: ./figs/damqt_fig_2_8_1c.png  used on input line 1320.
 (pdftex.def)             Requested size: 91.04742pt x 35.31592pt.
-<./figs/damqt_fig_2_9_1a.png, id=606, 248.42813pt x 328.97906pt>
+<./figs/damqt_fig_2_9_1a.png, id=610, 248.42813pt x 328.97906pt>
 File: ./figs/damqt_fig_2_9_1a.png Graphic file (type png)
 <use ./figs/damqt_fig_2_9_1a.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_9_1a.png  used on input line 1294.
+Package pdftex.def Info: ./figs/damqt_fig_2_9_1a.png  used on input line 1329.
 (pdftex.def)             Requested size: 102.42921pt x 135.64027pt.
-<./figs/damqt_fig_2_9_1b.png, id=607, 248.42813pt x 423.08063pt>
+<./figs/damqt_fig_2_9_1b.png, id=611, 248.42813pt x 423.08063pt>
 File: ./figs/damqt_fig_2_9_1b.png Graphic file (type png)
 <use ./figs/damqt_fig_2_9_1b.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_9_1b.png  used on input line 1295.
+Package pdftex.def Info: ./figs/damqt_fig_2_9_1b.png  used on input line 1330.
 (pdftex.def)             Requested size: 102.42921pt x 174.43898pt.
 
-Overfull \hbox (10.13086pt too wide) in paragraph at lines 1277--1301
+Overfull \hbox (10.13086pt too wide) in paragraph at lines 1312--1336
 [][] 
  []
 
-[17 <./figs/damqt_fig_2_8_1a.png> <./figs/damqt_fig_2_8_1b.png> <./figs/damqt_f
+[18 <./figs/damqt_fig_2_8_1a.png> <./figs/damqt_fig_2_8_1b.png> <./figs/damqt_f
 ig_2_8_1c.png> <./figs/damqt_fig_2_9_1a.png> <./figs/damqt_fig_2_9_1b.png>]
-<./figs/damqt_fig_2_10.png, id=619, 233.37187pt x 205.5178pt>
+<./figs/damqt_fig_2_10.png, id=623, 233.37187pt x 205.5178pt>
 File: ./figs/damqt_fig_2_10.png Graphic file (type png)
 <use ./figs/damqt_fig_2_10.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_10.png  used on input line 1408.
+Package pdftex.def Info: ./figs/damqt_fig_2_10.png  used on input line 1443.
 (pdftex.def)             Requested size: 127.46584pt x 112.25114pt.
 
-Overfull \hbox (18.79753pt too wide) in paragraph at lines 1379--1415
+Overfull \hbox (18.79753pt too wide) in paragraph at lines 1414--1450
 [][]
  []
 
-[18 <./figs/damqt_fig_2_10.png>]
-<./figs/damqt_fig_2_11.png, id=629, 235.63031pt x 420.82219pt>
+[19 <./figs/damqt_fig_2_10.png>]
+<./figs/damqt_fig_2_11.png, id=634, 235.63031pt x 420.82219pt>
 File: ./figs/damqt_fig_2_11.png Graphic file (type png)
 <use ./figs/damqt_fig_2_11.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_11.png  used on input line 1475.
+Package pdftex.def Info: ./figs/damqt_fig_2_11.png  used on input line 1510.
 (pdftex.def)             Requested size: 95.60179pt x 170.74026pt.
-<./figs/damqt_fig_2_12_1.png, id=630, 234.1247pt x 292.09125pt>
+<./figs/damqt_fig_2_12_1.png, id=635, 234.1247pt x 292.09125pt>
 File: ./figs/damqt_fig_2_12_1.png Graphic file (type png)
 <use ./figs/damqt_fig_2_12_1.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_12_1.png  used on input line 1485.
+Package pdftex.def Info: ./figs/damqt_fig_2_12_1.png  used on input line 1520.
 (pdftex.def)             Requested size: 101.06595pt x 126.09149pt.
-<./figs/damqt_fig_2_12_2.png, id=631, 1505.625pt x 1281.78876pt>
+<./figs/damqt_fig_2_12_2.png, id=636, 1505.625pt x 1281.78876pt>
 File: ./figs/damqt_fig_2_12_2.png Graphic file (type png)
 <use ./figs/damqt_fig_2_12_2.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_12_2.png  used on input line 1496.
+Package pdftex.def Info: ./figs/damqt_fig_2_12_2.png  used on input line 1531.
 (pdftex.def)             Requested size: 166.62117pt x 141.83821pt.
 
-Overfull \hbox (30.04657pt too wide) in paragraph at lines 1496--1497
+Overfull \hbox (30.04657pt too wide) in paragraph at lines 1531--1532
  [] 
  []
 
-[19 <./figs/damqt_fig_2_11.png> <./figs/damqt_fig_2_12_1.png> <./figs/damqt_fig
+[20 <./figs/damqt_fig_2_11.png> <./figs/damqt_fig_2_12_1.png> <./figs/damqt_fig
 _2_12_2.png (PNG copy)>]
-<./figs/damqt_fig_2_13.png, id=645, 225.09094pt x 493.845pt>
+<./figs/damqt_fig_2_13.png, id=649, 225.09094pt x 493.845pt>
 File: ./figs/damqt_fig_2_13.png Graphic file (type png)
 <use ./figs/damqt_fig_2_13.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_13.png  used on input line 1544.
+Package pdftex.def Info: ./figs/damqt_fig_2_13.png  used on input line 1579.
 (pdftex.def)             Requested size: 113.81102pt x 249.70247pt.
-<./figs/damqt_fig_2_14_1.png, id=646, 229.60782pt x 779.91376pt>
+<./figs/damqt_fig_2_14_1.png, id=650, 229.60782pt x 779.91376pt>
 File: ./figs/damqt_fig_2_14_1.png Graphic file (type png)
 <use ./figs/damqt_fig_2_14_1.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_14_1.png  used on input line 1555.
+Package pdftex.def Info: ./figs/damqt_fig_2_14_1.png  used on input line 1590.
 (pdftex.def)             Requested size: 113.81102pt x 386.58807pt.
 
-Overfull \hbox (24.00003pt too wide) in paragraph at lines 1538--1563
+Overfull \hbox (24.00003pt too wide) in paragraph at lines 1573--1598
 [][]
  []
 
-[20 <./figs/damqt_fig_2_13.png> <./figs/damqt_fig_2_14_1.png>]
-<./figs/damqt_fig_2_14_2.png, id=653, 236.38312pt x 811.53188pt>
+[21 <./figs/damqt_fig_2_13.png> <./figs/damqt_fig_2_14_1.png>]
+<./figs/damqt_fig_2_14_2.png, id=657, 236.38312pt x 811.53188pt>
 File: ./figs/damqt_fig_2_14_2.png Graphic file (type png)
 <use ./figs/damqt_fig_2_14_2.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_14_2.png  used on input line 1581.
+Package pdftex.def Info: ./figs/damqt_fig_2_14_2.png  used on input line 1616.
 (pdftex.def)             Requested size: 95.60179pt x 328.22282pt.
-<./figs/damqt_fig_2_14_3.png, id=654, 236.38312pt x 811.53188pt>
+<./figs/damqt_fig_2_14_3.png, id=658, 236.38312pt x 811.53188pt>
 File: ./figs/damqt_fig_2_14_3.png Graphic file (type png)
 <use ./figs/damqt_fig_2_14_3.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_14_3.png  used on input line 1593.
+Package pdftex.def Info: ./figs/damqt_fig_2_14_3.png  used on input line 1628.
 (pdftex.def)             Requested size: 102.43094pt x 351.66377pt.
-<./figs/damqt_fig_2_14_4.png, id=655, 236.38312pt x 811.53188pt>
+<./figs/damqt_fig_2_14_4.png, id=659, 236.38312pt x 811.53188pt>
 File: ./figs/damqt_fig_2_14_4.png Graphic file (type png)
 <use ./figs/damqt_fig_2_14_4.png>
-Package pdftex.def Info: ./figs/damqt_fig_2_14_4.png  used on input line 1603.
+Package pdftex.def Info: ./figs/damqt_fig_2_14_4.png  used on input line 1638.
 (pdftex.def)             Requested size: 102.43094pt x 351.66377pt.
-
-Underfull \hbox (badness 2261) in paragraph at lines 1605--1605
-[]\OT1/cmr/m/n/10 Figure 30: |Choose $(\OML/cmm/m/it/10 l; k; m\OT1/cmr/m/n/10 
-)$
- []
-
-[21 <./figs/damqt_fig_2_14_2.png> <./figs/damqt_fig_2_14_3.png> <./figs/damqt_f
-ig_2_14_4.png>] [22]
+ [22 <./figs/damqt_fig_2_14_2.png> <./figs/damqt_fig_2_14_3.png> <./figs/damqt_
+fig_2_14_4.png>]
+[23]
 File: ./figs/toolb6.png Graphic file (type png)
 <use ./figs/toolb6.png>
-Package pdftex.def Info: ./figs/toolb6.png  used on input line 1632.
+Package pdftex.def Info: ./figs/toolb6.png  used on input line 1667.
 (pdftex.def)             Requested size: 14.22636pt x 11.66551pt.
-<./figs/damqt320_2D_start_window.png, id=672, 1094.77757pt x 579.82777pt>
+<./figs/damqt320_2D_start_window.png, id=676, 1094.77757pt x 579.82777pt>
 File: ./figs/damqt320_2D_start_window.png Graphic file (type png)
 <use ./figs/damqt320_2D_start_window.png>
 Package pdftex.def Info: ./figs/damqt320_2D_start_window.png  used on input lin
-e 1641.
+e 1676.
 (pdftex.def)             Requested size: 227.62204pt x 120.55531pt.
-<./figs/undock.png, id=675, 13.55063pt x 14.30344pt>
+<./figs/undock.png, id=679, 13.55063pt x 14.30344pt>
 File: ./figs/undock.png Graphic file (type png)
 <use ./figs/undock.png>
-Package pdftex.def Info: ./figs/undock.png  used on input line 1665.
+Package pdftex.def Info: ./figs/undock.png  used on input line 1700.
 (pdftex.def)             Requested size: 8.5359pt x 9.01054pt.
-<./figs/damqt320_2D_viewer_undock.png, id=676, 1144.4632pt x 580.3837pt>
+<./figs/damqt320_2D_viewer_undock.png, id=680, 1144.4632pt x 580.3837pt>
 File: ./figs/damqt320_2D_viewer_undock.png Graphic file (type png)
 <use ./figs/damqt320_2D_viewer_undock.png>
 Package pdftex.def Info: ./figs/damqt320_2D_viewer_undock.png  used on input li
-ne 1672.
+ne 1707.
 (pdftex.def)             Requested size: 227.62204pt x 115.42819pt.
- [23 <./figs/damqt320_2D_start_window.png (PNG copy)> <./figs/undock.png> <./fi
+ [24 <./figs/damqt320_2D_start_window.png (PNG copy)> <./figs/undock.png> <./fi
 gs/damqt320_2D_viewer_undock.png (PNG copy)>]
-<./figs/damqt_fig_3_3a.png, id=683, 223.58531pt x 536.75531pt>
+<./figs/damqt_fig_3_3a.png, id=687, 223.58531pt x 536.75531pt>
 File: ./figs/damqt_fig_3_3a.png Graphic file (type png)
 <use ./figs/damqt_fig_3_3a.png>
-Package pdftex.def Info: ./figs/damqt_fig_3_3a.png  used on input line 1690.
+Package pdftex.def Info: ./figs/damqt_fig_3_3a.png  used on input line 1725.
 (pdftex.def)             Requested size: 113.81102pt x 273.22559pt.
-<./figs/damqt_fig_3_3b.png, id=684, 227.34938pt x 402.00188pt>
+<./figs/damqt_fig_3_3b.png, id=688, 227.34938pt x 402.00188pt>
 File: ./figs/damqt_fig_3_3b.png Graphic file (type png)
 <use ./figs/damqt_fig_3_3b.png>
-Package pdftex.def Info: ./figs/damqt_fig_3_3b.png  used on input line 1691.
+Package pdftex.def Info: ./figs/damqt_fig_3_3b.png  used on input line 1726.
 (pdftex.def)             Requested size: 113.81102pt x 201.2458pt.
-<./figs/damqt_fig_3_4.png, id=687, 1927.2pt x 1084.05pt>
+<./figs/damqt_fig_3_4.png, id=691, 1927.2pt x 1084.05pt>
 File: ./figs/damqt_fig_3_4.png Graphic file (type png)
 <use ./figs/damqt_fig_3_4.png>
-Package pdftex.def Info: ./figs/damqt_fig_3_4.png  used on input line 1727.
+Package pdftex.def Info: ./figs/damqt_fig_3_4.png  used on input line 1762.
 (pdftex.def)             Requested size: 182.09831pt x 102.42342pt.
 
-Overfull \hbox (18.79755pt too wide) in paragraph at lines 1682--1734
+Overfull \hbox (18.79755pt too wide) in paragraph at lines 1717--1769
 [][] 
  []
 
-<./figs/damqt_fig_3_5.png, id=689, 226.59656pt x 243.91125pt>
+<./figs/damqt_fig_3_5.png, id=693, 226.59656pt x 243.91125pt>
 File: ./figs/damqt_fig_3_5.png Graphic file (type png)
 <use ./figs/damqt_fig_3_5.png>
-Package pdftex.def Info: ./figs/damqt_fig_3_5.png  used on input line 1755.
+Package pdftex.def Info: ./figs/damqt_fig_3_5.png  used on input line 1790.
 (pdftex.def)             Requested size: 89.22746pt x 96.04428pt.
-[24 <./figs/damqt_fig_3_3a.png> <./figs/damqt_fig_3_3b.png> <./figs/damqt_fig_3
+[25 <./figs/damqt_fig_3_3a.png> <./figs/damqt_fig_3_3b.png> <./figs/damqt_fig_3
 _4.png>]
-<./figs/damqt320_2D_histogram.png, id=697, 1068.48416pt x 580.3837pt>
+<./figs/damqt320_2D_histogram.png, id=702, 1068.48416pt x 580.3837pt>
 File: ./figs/damqt320_2D_histogram.png Graphic file (type png)
 <use ./figs/damqt320_2D_histogram.png>
 Package pdftex.def Info: ./figs/damqt320_2D_histogram.png  used on input line 1
-769.
+804.
 (pdftex.def)             Requested size: 227.62204pt x 123.63763pt.
-<./figs/damqt320_2D_histogram_query.png, id=699, 285.18854pt x 98.39839pt>
+<./figs/damqt320_2D_histogram_query.png, id=704, 285.18854pt x 98.39839pt>
 File: ./figs/damqt320_2D_histogram_query.png Graphic file (type png)
 <use ./figs/damqt320_2D_histogram_query.png>
 Package pdftex.def Info: ./figs/damqt320_2D_histogram_query.png  used on input 
-line 1787.
+line 1822.
 (pdftex.def)             Requested size: 113.81102pt x 39.26706pt.
-<./figs/damqt320_2D_histogram_editor.png, id=700, 348.00784pt x 60.03969pt>
+<./figs/damqt320_2D_histogram_editor.png, id=705, 348.00784pt x 60.03969pt>
 File: ./figs/damqt320_2D_histogram_editor.png Graphic file (type png)
 <use ./figs/damqt320_2D_histogram_editor.png>
 Package pdftex.def Info: ./figs/damqt320_2D_histogram_editor.png  used on input
- line 1797.
+ line 1832.
 (pdftex.def)             Requested size: 227.62204pt x 39.27084pt.
 
-Overfull \hbox (2.22221pt too wide) in paragraph at lines 1783--1803
+Overfull \hbox (2.22221pt too wide) in paragraph at lines 1818--1838
 []$[]$ $[]$ 
  []
 
-[25 <./figs/damqt_fig_3_5.png> <./figs/damqt320_2D_histogram.png (PNG copy)> <.
+[26 <./figs/damqt_fig_3_5.png> <./figs/damqt320_2D_histogram.png (PNG copy)> <.
 /figs/damqt320_2D_histogram_query.png (PNG copy)> <./figs/damqt320_2D_histogram
 _editor.png (PNG copy)>]
-<./figs/damqt_fig_3_6.png, id=714, 226.59656pt x 282.30469pt>
+<./figs/damqt_fig_3_6.png, id=718, 226.59656pt x 282.30469pt>
 File: ./figs/damqt_fig_3_6.png Graphic file (type png)
 <use ./figs/damqt_fig_3_6.png>
-Package pdftex.def Info: ./figs/damqt_fig_3_6.png  used on input line 1827.
+Package pdftex.def Info: ./figs/damqt_fig_3_6.png  used on input line 1862.
 (pdftex.def)             Requested size: 81.94559pt x 102.09052pt.
-<./figs/damqt_fig_3_7.png, id=715, 226.59656pt x 221.32687pt>
+<./figs/damqt_fig_3_7.png, id=719, 226.59656pt x 221.32687pt>
 File: ./figs/damqt_fig_3_7.png Graphic file (type png)
 <use ./figs/damqt_fig_3_7.png>
-Package pdftex.def Info: ./figs/damqt_fig_3_7.png  used on input line 1838.
+Package pdftex.def Info: ./figs/damqt_fig_3_7.png  used on input line 1873.
 (pdftex.def)             Requested size: 101.06595pt x 98.71472pt.
-<./figs/damqt_fig_3_8.png, id=716, 226.59656pt x 138.5175pt>
+<./figs/damqt_fig_3_8.png, id=720, 226.59656pt x 138.5175pt>
 File: ./figs/damqt_fig_3_8.png Graphic file (type png)
 <use ./figs/damqt_fig_3_8.png>
-Package pdftex.def Info: ./figs/damqt_fig_3_8.png  used on input line 1849.
+Package pdftex.def Info: ./figs/damqt_fig_3_8.png  used on input line 1884.
 (pdftex.def)             Requested size: 122.9163pt x 75.13861pt.
-<./figs/damqt320_2D_options_1.png, id=719, 233.18367pt x 366.3533pt>
+<./figs/damqt320_2D_options_1.png, id=723, 233.18367pt x 366.3533pt>
 File: ./figs/damqt320_2D_options_1.png Graphic file (type png)
 <use ./figs/damqt320_2D_options_1.png>
 Package pdftex.def Info: ./figs/damqt320_2D_options_1.png  used on input line 1
-880.
+915.
 (pdftex.def)             Requested size: 99.69887pt x 156.63443pt.
-<./figs/damqt320_2D_options_2.png, id=720, 233.18367pt x 356.90262pt>
+<./figs/damqt320_2D_options_2.png, id=724, 233.18367pt x 356.90262pt>
 File: ./figs/damqt320_2D_options_2.png Graphic file (type png)
 <use ./figs/damqt320_2D_options_2.png>
 Package pdftex.def Info: ./figs/damqt320_2D_options_2.png  used on input line 1
-892.
+927.
 (pdftex.def)             Requested size: 99.69887pt x 152.59378pt.
-<./figs/damqt320_2D_options_3.png, id=721, 232.61906pt x 420.27785pt>
+<./figs/damqt320_2D_options_3.png, id=725, 232.61906pt x 420.27785pt>
 File: ./figs/damqt320_2D_options_3.png Graphic file (type png)
 <use ./figs/damqt320_2D_options_3.png>
 Package pdftex.def Info: ./figs/damqt320_2D_options_3.png  used on input line 1
-905.
+940.
 (pdftex.def)             Requested size: 99.69887pt x 180.12596pt.
- [26 <./figs/damqt_fig_3_6.png> <./figs/damqt_fig_3_7.png> <./figs/damqt_fig_3_
+ [27 <./figs/damqt_fig_3_6.png> <./figs/damqt_fig_3_7.png> <./figs/damqt_fig_3_
 8.png> <./figs/damqt320_2D_options_1.png (PNG copy)> <./figs/damqt320_2D_option
 s_2.png (PNG copy)> <./figs/damqt320_2D_options_3.png (PNG copy)>]
-<./figs/damqt_fig_3_10.png, id=735, 226.59656pt x 227.34938pt>
+<./figs/damqt_fig_3_10.png, id=739, 226.59656pt x 227.34938pt>
 File: ./figs/damqt_fig_3_10.png Graphic file (type png)
 <use ./figs/damqt_fig_3_10.png>
-Package pdftex.def Info: ./figs/damqt_fig_3_10.png  used on input line 1939.
+Package pdftex.def Info: ./figs/damqt_fig_3_10.png  used on input line 1974.
 (pdftex.def)             Requested size: 95.60179pt x 95.91971pt.
-<./figs/damqt320_2D_save_retrieve.png, id=736, 233.74828pt x 176.78354pt>
+<./figs/damqt320_2D_save_retrieve.png, id=740, 233.74828pt x 176.78354pt>
 File: ./figs/damqt320_2D_save_retrieve.png Graphic file (type png)
 <use ./figs/damqt320_2D_save_retrieve.png>
 Package pdftex.def Info: ./figs/damqt320_2D_save_retrieve.png  used on input li
-ne 1950.
+ne 1985.
 (pdftex.def)             Requested size: 125.64838pt x 95.02737pt.
-<./figs/damqt320_sghist_popup.png, id=737, 781.07193pt x 475.87015pt>
+<./figs/damqt320_sghist_popup.png, id=741, 781.07193pt x 475.87015pt>
 File: ./figs/damqt320_sghist_popup.png Graphic file (type png)
 <use ./figs/damqt320_sghist_popup.png>
 Package pdftex.def Info: ./figs/damqt320_sghist_popup.png  used on input line 1
-961.
+996.
 (pdftex.def)             Requested size: 163.8891pt x 99.84854pt.
 
-Overfull \hbox (27.3145pt too wide) in paragraph at lines 1961--1962
+Overfull \hbox (27.3145pt too wide) in paragraph at lines 1996--1997
  [] 
  []
 
 
-Underfull \hbox (badness 1616) in paragraph at lines 1963--1963
+Underfull \hbox (badness 1616) in paragraph at lines 1998--1998
 []\OT1/cmr/m/n/10 Figure 45: |Sigma hole his-
  []
 
-<./figs/damqt320_2D_field_lines_popup.png, id=739, 803.43915pt x 488.10046pt>
+<./figs/damqt320_2D_field_lines_popup.png, id=743, 803.43915pt x 488.10046pt>
 File: ./figs/damqt320_2D_field_lines_popup.png Graphic file (type png)
 <use ./figs/damqt320_2D_field_lines_popup.png>
 Package pdftex.def Info: ./figs/damqt320_2D_field_lines_popup.png  used on inpu
-t line 2001.
+t line 2036.
 (pdftex.def)             Requested size: 150.58475pt x 91.48137pt.
-<./figs/damqt320_2D_point.png, id=740, 804.56836pt x 488.10046pt>
+<./figs/damqt320_2D_point.png, id=744, 804.56836pt x 488.10046pt>
 File: ./figs/damqt320_2D_point.png Graphic file (type png)
 <use ./figs/damqt320_2D_point.png>
-Package pdftex.def Info: ./figs/damqt320_2D_point.png  used on input line 2012.
+Package pdftex.def Info: ./figs/damqt320_2D_point.png  used on input line 2047.
 
 (pdftex.def)             Requested size: 150.58475pt x 91.3473pt.
 
-Overfull \hbox (24.00003pt too wide) in paragraph at lines 1996--2019
+Overfull \hbox (24.00003pt too wide) in paragraph at lines 2031--2054
 [][] 
  []
 
-[27 <./figs/damqt_fig_3_10.png> <./figs/damqt320_2D_save_retrieve.png (PNG copy
+[28 <./figs/damqt_fig_3_10.png> <./figs/damqt320_2D_save_retrieve.png (PNG copy
 )> <./figs/damqt320_sghist_popup.png (PNG copy)>]
-<./figs/zoom_in.png, id=750, 48.18pt x 48.18pt>
+<./figs/zoom_in.png, id=754, 48.18pt x 48.18pt>
 File: ./figs/zoom_in.png Graphic file (type png)
 <use ./figs/zoom_in.png>
-Package pdftex.def Info: ./figs/zoom_in.png  used on input line 2034.
+Package pdftex.def Info: ./figs/zoom_in.png  used on input line 2070.
 (pdftex.def)             Requested size: 8.5359pt x 8.53528pt.
-<./figs/zoom_out.png, id=751, 48.18pt x 48.18pt>
+<./figs/zoom_out.png, id=755, 48.18pt x 48.18pt>
 File: ./figs/zoom_out.png Graphic file (type png)
 <use ./figs/zoom_out.png>
-Package pdftex.def Info: ./figs/zoom_out.png  used on input line 2035.
+Package pdftex.def Info: ./figs/zoom_out.png  used on input line 2071.
 (pdftex.def)             Requested size: 8.5359pt x 8.53528pt.
- [28 <./figs/damqt320_2D_field_lines_popup.png (PNG copy)> <./figs/damqt320_2D_
+ [29 <./figs/damqt320_2D_field_lines_popup.png (PNG copy)> <./figs/damqt320_2D_
 point.png (PNG copy)> <./figs/zoom_in.png> <./figs/zoom_out.png>]
 File: ./figs/toolb7.png Graphic file (type png)
 <use ./figs/toolb7.png>
-Package pdftex.def Info: ./figs/toolb7.png  used on input line 2048.
+Package pdftex.def Info: ./figs/toolb7.png  used on input line 2084.
 (pdftex.def)             Requested size: 14.22636pt x 14.2262pt.
-<./figs/damqt320_3D_display_menu.png, id=761, 1184.55048pt x 579.82777pt>
+<./figs/damqt320_3D_display_menu.png, id=765, 1081.22696pt x 579.27185pt>
 File: ./figs/damqt320_3D_display_menu.png Graphic file (type png)
 <use ./figs/damqt320_3D_display_menu.png>
 Package pdftex.def Info: ./figs/damqt320_3D_display_menu.png  used on input lin
-e 2067.
-(pdftex.def)             Requested size: 254.93654pt x 124.7844pt.
-<./figs/damqt320_3D_display_menu_2.png, id=762, 282.8693pt x 319.09985pt>
+e 2103.
+(pdftex.def)             Requested size: 254.93654pt x 136.57968pt.
+<./figs/damqt320_3D_display_menu_2.png, id=766, 282.8693pt x 319.09985pt>
 File: ./figs/damqt320_3D_display_menu_2.png Graphic file (type png)
 <use ./figs/damqt320_3D_display_menu_2.png>
 Package pdftex.def Info: ./figs/damqt320_3D_display_menu_2.png  used on input l
-ine 2078.
+ine 2114.
 (pdftex.def)             Requested size: 95.60179pt x 107.84492pt.
- [29 <./figs/damqt320_3D_display_menu.png (PNG copy)> <./figs/damqt320_3D_displ
+ [30 <./figs/damqt320_3D_display_menu.png (PNG copy)> <./figs/damqt320_3D_displ
 ay_menu_2.png (PNG copy)>]
-<./figs/damqt320_3D_display.png, id=773, 458.46281pt x 303.534pt>
+<./figs/damqt320_3D_display.png, id=778, 458.46281pt x 303.534pt>
 File: ./figs/damqt320_3D_display.png Graphic file (type png)
 <use ./figs/damqt320_3D_display.png>
-Package pdftex.def Info: ./figs/damqt320_3D_display.png  used on input line 216
-1.
+Package pdftex.def Info: ./figs/damqt320_3D_display.png  used on input line 219
+7.
 (pdftex.def)             Requested size: 227.62204pt x 150.70135pt.
-<./figs/damqt320_measures.png, id=775, 238.82977pt x 159.54993pt>
+ [31 <./figs/damqt320_3D_display.png (PNG copy)>]
+<./figs/damqt320_measures.png, id=786, 238.82977pt x 159.54993pt>
 File: ./figs/damqt320_measures.png Graphic file (type png)
 <use ./figs/damqt320_measures.png>
-Package pdftex.def Info: ./figs/damqt320_measures.png  used on input line 2178.
+Package pdftex.def Info: ./figs/damqt320_measures.png  used on input line 2214.
 
-(pdftex.def)             Requested size: 91.04742pt x 60.82436pt.
- [30 <./figs/damqt320_3D_display.png (PNG copy)>]
-<./figs/damqt320_distances_1.png, id=785, 241.65282pt x 397.485pt>
+(pdftex.def)             Requested size: 68.28383pt x 45.61583pt.
+<./figs/damqt320_distances_1.png, id=790, 241.65282pt x 397.485pt>
 File: ./figs/damqt320_distances_1.png Graphic file (type png)
 <use ./figs/damqt320_distances_1.png>
 Package pdftex.def Info: ./figs/damqt320_distances_1.png  used on input line 22
-00.
+36.
 (pdftex.def)             Requested size: 63.73291pt x 104.8296pt.
-<./figs/damqt320_distances_2.png, id=786, 1083.4854pt x 579.27185pt>
+<./figs/damqt320_distances_2.png, id=791, 1083.4854pt x 579.27185pt>
 File: ./figs/damqt320_distances_2.png Graphic file (type png)
 <use ./figs/damqt320_distances_2.png>
 Package pdftex.def Info: ./figs/damqt320_distances_2.png  used on input line 22
-12.
+48.
 (pdftex.def)             Requested size: 204.85844pt x 109.5236pt.
-<./figs/damqt320_distances_3.png, id=787, 381.11133pt x 210.69484pt>
+<./figs/damqt320_distances_3.png, id=792, 381.11133pt x 210.69484pt>
 File: ./figs/damqt320_distances_3.png Graphic file (type png)
 <use ./figs/damqt320_distances_3.png>
 Package pdftex.def Info: ./figs/damqt320_distances_3.png  used on input line 22
-23.
+59.
 (pdftex.def)             Requested size: 102.42921pt x 56.62473pt.
-<./figs/damqt320_angles_1.png, id=791, 240.52359pt x 383.58693pt>
+<./figs/damqt320_angles_1.png, id=796, 240.52359pt x 383.58693pt>
 File: ./figs/damqt320_angles_1.png Graphic file (type png)
 <use ./figs/damqt320_angles_1.png>
-Package pdftex.def Info: ./figs/damqt320_angles_1.png  used on input line 2248.
+Package pdftex.def Info: ./figs/damqt320_angles_1.png  used on input line 2284.
 
 (pdftex.def)             Requested size: 72.83821pt x 116.16563pt.
 
-Underfull \hbox (badness 1776) in paragraph at lines 2251--2251
+Underfull \hbox (badness 1776) in paragraph at lines 2287--2287
 []\OT1/cmr/m/n/10 Figure 55: |An-gles
  []
 
-<./figs/damqt320_angles_2.png, id=792, 1083.4854pt x 579.27185pt>
+<./figs/damqt320_angles_2.png, id=797, 1083.4854pt x 579.27185pt>
 File: ./figs/damqt320_angles_2.png Graphic file (type png)
 <use ./figs/damqt320_angles_2.png>
-Package pdftex.def Info: ./figs/damqt320_angles_2.png  used on input line 2260.
+Package pdftex.def Info: ./figs/damqt320_angles_2.png  used on input line 2296.
 
 (pdftex.def)             Requested size: 204.85844pt x 109.5236pt.
 
-Overfull \hbox (2.22221pt too wide) in paragraph at lines 2259--2261
+Overfull \hbox (2.22221pt too wide) in paragraph at lines 2295--2297
  |  [] 
  []
 
-<./figs/damqt320_angles_3.png, id=793, 306.01828pt x 210.13892pt>
+<./figs/damqt320_angles_3.png, id=798, 306.01828pt x 210.13892pt>
 File: ./figs/damqt320_angles_3.png Graphic file (type png)
 <use ./figs/damqt320_angles_3.png>
-Package pdftex.def Info: ./figs/damqt320_angles_3.png  used on input line 2271.
+Package pdftex.def Info: ./figs/damqt320_angles_3.png  used on input line 2307.
 
 (pdftex.def)             Requested size: 91.04915pt x 62.5195pt.
-[31 <./figs/damqt320_measures.png (PNG copy)> <./figs/damqt320_distances_1.png 
+[32 <./figs/damqt320_measures.png (PNG copy)> <./figs/damqt320_distances_1.png 
 (PNG copy)> <./figs/damqt320_distances_2.png (PNG copy)> <./figs/damqt320_dista
 nces_3.png (PNG copy)> <./figs/damqt320_angles_1.png (PNG copy)> <./figs/damqt3
 20_angles_2.png (PNG copy)> <./figs/damqt320_angles_3.png (PNG copy)>]
-<./figs/damqt320_dihedrals_1.png, id=808, 242.21742pt x 387.47838pt>
+<./figs/damqt320_dihedrals_1.png, id=813, 242.21742pt x 387.47838pt>
 File: ./figs/damqt320_dihedrals_1.png Graphic file (type png)
 <use ./figs/damqt320_dihedrals_1.png>
-Package pdftex.def Info: ./figs/damqt320_dihedrals_1.png  used on input line 22
-99.
+Package pdftex.def Info: ./figs/damqt320_dihedrals_1.png  used on input line 23
+34.
 (pdftex.def)             Requested size: 74.65955pt x 119.4312pt.
-<./figs/damqt320_dihedrals_2.png, id=809, 1083.4854pt x 579.82777pt>
+<./figs/damqt320_dihedrals_2.png, id=814, 1083.4854pt x 579.82777pt>
 File: ./figs/damqt320_dihedrals_2.png Graphic file (type png)
 <use ./figs/damqt320_dihedrals_2.png>
 Package pdftex.def Info: ./figs/damqt320_dihedrals_2.png  used on input line 23
-10.
+45.
 (pdftex.def)             Requested size: 204.85844pt x 109.62872pt.
-<./figs/damqt320_dihedrals_3.png, id=810, 347.79938pt x 115.632pt>
+<./figs/damqt320_dihedrals_3.png, id=815, 347.79938pt x 115.632pt>
 File: ./figs/damqt320_dihedrals_3.png Graphic file (type png)
 <use ./figs/damqt320_dihedrals_3.png>
 Package pdftex.def Info: ./figs/damqt320_dihedrals_3.png  used on input line 23
-23.
+58.
 (pdftex.def)             Requested size: 113.81102pt x 37.83755pt.
-<./figs/damqt320_lab_rotations.png, id=813, 277.2232pt x 509.78146pt>
+<./figs/damqt320_lab_rotations.png, id=818, 277.2232pt x 509.78146pt>
 File: ./figs/damqt320_lab_rotations.png Graphic file (type png)
 <use ./figs/damqt320_lab_rotations.png>
 Package pdftex.def Info: ./figs/damqt320_lab_rotations.png  used on input line 
-2353.
+2393.
 (pdftex.def)             Requested size: 87.63649pt x 161.14984pt.
-<./figs/damqt320_lab_translations.png, id=814, 283.99852pt x 163.44139pt>
+<./figs/damqt320_lab_translations.png, id=819, 283.99852pt x 163.44139pt>
 File: ./figs/damqt320_lab_translations.png Graphic file (type png)
 <use ./figs/damqt320_lab_translations.png>
 Package pdftex.def Info: ./figs/damqt320_lab_translations.png  used on input li
-ne 2364.
+ne 2404.
 (pdftex.def)             Requested size: 95.60388pt x 55.02066pt.
-<./figs/damqt320_lab_axes.png, id=815, 284.56313pt x 194.01715pt>
+<./figs/damqt320_lab_axes.png, id=820, 284.56313pt x 194.01715pt>
 File: ./figs/damqt320_lab_axes.png Graphic file (type png)
 <use ./figs/damqt320_lab_axes.png>
-Package pdftex.def Info: ./figs/damqt320_lab_axes.png  used on input line 2372.
+Package pdftex.def Info: ./figs/damqt320_lab_axes.png  used on input line 2412.
 
 (pdftex.def)             Requested size: 95.60388pt x 65.18338pt.
- [32 <./figs/damqt320_dihedrals_1.png (PNG copy)> <./figs/damqt320_dihedrals_2.
+ [33 <./figs/damqt320_dihedrals_1.png (PNG copy)> <./figs/damqt320_dihedrals_2.
 png (PNG copy)> <./figs/damqt320_dihedrals_3.png (PNG copy)> <./figs/damqt320_l
 ab_rotations.png (PNG copy)> <./figs/damqt320_lab_translations.png (PNG copy)> 
 <./figs/damqt320_lab_axes.png (PNG copy)>]
-<./figs/damqt320_capture.png, id=830, 354.57469pt x 515.3407pt>
+<./figs/damqt320_capture.png, id=835, 282.30469pt x 566.48561pt>
 File: ./figs/damqt320_capture.png Graphic file (type png)
 <use ./figs/damqt320_capture.png>
-Package pdftex.def Info: ./figs/damqt320_capture.png  used on input line 2430.
-(pdftex.def)             Requested size: 102.42921pt x 148.87094pt.
-<./figs/damqt320_lights.png, id=831, 353.44547pt x 513.117pt>
+Package pdftex.def Info: ./figs/damqt320_capture.png  used on input line 2470.
+(pdftex.def)             Requested size: 81.94212pt x 164.4322pt.
+<./figs/damqt320_lights.png, id=836, 278.91704pt x 578.16pt>
 File: ./figs/damqt320_lights.png Graphic file (type png)
 <use ./figs/damqt320_lights.png>
-Package pdftex.def Info: ./figs/damqt320_lights.png  used on input line 2441.
-(pdftex.def)             Requested size: 102.42921pt x 148.69833pt.
- [33 <./figs/damqt320_capture.png (PNG copy)> <./figs/damqt320_lights.png (PNG 
+Package pdftex.def Info: ./figs/damqt320_lights.png  used on input line 2481.
+(pdftex.def)             Requested size: 79.89465pt x 165.60657pt.
+ [34 <./figs/damqt320_capture.png (PNG copy)> <./figs/damqt320_lights.png (PNG 
 copy)>]
-<./figs/damqt320_balls_sticks.png, id=845, 354.57469pt x 416.9423pt>
+<./figs/damqt320_balls_sticks.png, id=849, 277.78781pt x 566.48561pt>
 File: ./figs/damqt320_balls_sticks.png Graphic file (type png)
 <use ./figs/damqt320_balls_sticks.png>
 Package pdftex.def Info: ./figs/damqt320_balls_sticks.png  used on input line 2
-504.
-(pdftex.def)             Requested size: 107.893pt x 126.87138pt.
-<./figs/damqt320_viewport.png, id=846, 290.19185pt x 388.59023pt>
+544.
+(pdftex.def)             Requested size: 81.94212pt x 167.10316pt.
+<./figs/damqt320_viewport.png, id=850, 280.04625pt x 565.37376pt>
 File: ./figs/damqt320_viewport.png Graphic file (type png)
 <use ./figs/damqt320_viewport.png>
-Package pdftex.def Info: ./figs/damqt320_viewport.png  used on input line 2515.
+Package pdftex.def Info: ./figs/damqt320_viewport.png  used on input line 2555.
 
-(pdftex.def)             Requested size: 95.60179pt x 128.01578pt.
-<./figs/damqt320_3D_settings.png, id=847, 353.44547pt x 453.0773pt>
-File: ./figs/damqt320_3D_settings.png Graphic file (type png)
-<use ./figs/damqt320_3D_settings.png>
-Package pdftex.def Info: ./figs/damqt320_3D_settings.png  used on input line 25
-26.
-(pdftex.def)             Requested size: 101.06595pt x 129.557pt.
-<./figs/Clipping_plane_1.png, id=848, 662.66031pt x 516.45255pt>
+(pdftex.def)             Requested size: 81.94212pt x 165.42938pt.
+<./figs/Clipping_plane_1.png, id=851, 662.66031pt x 516.45255pt>
 File: ./figs/Clipping_plane_1.png Graphic file (type png)
 <use ./figs/Clipping_plane_1.png>
-Package pdftex.def Info: ./figs/Clipping_plane_1.png  used on input line 2539.
+Package pdftex.def Info: ./figs/Clipping_plane_1.png  used on input line 2568.
 (pdftex.def)             Requested size: 136.5746pt x 106.44084pt.
-<./figs/Clipping_plane_2.png, id=849, 662.66031pt x 516.45255pt>
+<./figs/Clipping_plane_2.png, id=852, 662.66031pt x 516.45255pt>
 File: ./figs/Clipping_plane_2.png Graphic file (type png)
 <use ./figs/Clipping_plane_2.png>
-Package pdftex.def Info: ./figs/Clipping_plane_2.png  used on input line 2541.
+Package pdftex.def Info: ./figs/Clipping_plane_2.png  used on input line 2570.
 (pdftex.def)             Requested size: 136.5746pt x 106.44084pt.
-<./figs/Clipping_plane_3.png, id=850, 662.66031pt x 516.45255pt>
+<./figs/Clipping_plane_3.png, id=853, 662.66031pt x 516.45255pt>
 File: ./figs/Clipping_plane_3.png Graphic file (type png)
 <use ./figs/Clipping_plane_3.png>
-Package pdftex.def Info: ./figs/Clipping_plane_3.png  used on input line 2543.
+Package pdftex.def Info: ./figs/Clipping_plane_3.png  used on input line 2572.
 (pdftex.def)             Requested size: 136.5746pt x 106.44084pt.
-pdfTeX warning (ext4): destination with the same identifier (name{Hfootnote.7})
- has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.2556 ...t{Gadre S, Babu K Resonance 4 (1999) 40}
-                                                   [34 <./figs/damqt320_balls_s
-ticks.png (PNG copy)> <./figs/damqt320_viewport.png (PNG copy)> <./figs/damqt32
-0_3D_settings.png (PNG copy)> <./figs/Clipping_plane_1.png> <./figs/Clipping_pl
-ane_2.png> <./figs/Clipping_plane_3.png>]
-<./figs/damqt320_mespimizer_1.png, id=862, 280.61086pt x 336.88939pt>
+ [35 <./figs/damqt320_balls_sticks.png (PNG copy)> <./figs/damqt320_viewport.pn
+g (PNG copy)> <./figs/Clipping_plane_1.png> <./figs/Clipping_plane_2.png> <./fi
+gs/Clipping_plane_3.png>]
+<./figs/damqt320_mespimizer_1.png, id=866, 285.12773pt x 520.344pt>
 File: ./figs/damqt320_mespimizer_1.png Graphic file (type png)
 <use ./figs/damqt320_mespimizer_1.png>
 Package pdftex.def Info: ./figs/damqt320_mespimizer_1.png  used on input line 2
-568.
-(pdftex.def)             Requested size: 107.893pt x 129.53061pt.
-<./figs/damqt320_mespimizer_2.png, id=863, 271.5771pt x 403.04424pt>
+599.
+(pdftex.def)             Requested size: 102.43094pt x 186.9267pt.
+<./figs/damqt320_mespimizer_2.png, id=867, 285.69234pt x 585.94292pt>
 File: ./figs/damqt320_mespimizer_2.png Graphic file (type png)
 <use ./figs/damqt320_mespimizer_2.png>
 Package pdftex.def Info: ./figs/damqt320_mespimizer_2.png  used on input line 2
-579.
-(pdftex.def)             Requested size: 95.60179pt x 141.87938pt.
-<./figs/damqt320_mespimizer_3.png, id=864, 277.78781pt x 326.88277pt>
+610.
+(pdftex.def)             Requested size: 90.82118pt x 186.27173pt.
+<./figs/damqt320_mespimizer_3.png, id=868, 280.61086pt x 406.37978pt>
 File: ./figs/damqt320_mespimizer_3.png Graphic file (type png)
 <use ./figs/damqt320_mespimizer_3.png>
 Package pdftex.def Info: ./figs/damqt320_mespimizer_3.png  used on input line 2
-590.
-(pdftex.def)             Requested size: 101.06595pt x 118.92964pt.
- [35 <./figs/damqt320_mespimizer_1.png (PNG copy)> <./figs/damqt320_mespimizer_
+621.
+(pdftex.def)             Requested size: 105.16302pt x 152.29282pt.
+ [36 <./figs/damqt320_mespimizer_1.png (PNG copy)> <./figs/damqt320_mespimizer_
 2.png (PNG copy)> <./figs/damqt320_mespimizer_3.png (PNG copy)>]
-<./figs/damqt320_molecule_delete.png, id=881, 140.02313pt x 126.19453pt>
+<./figs/damqt320_3D_settings.png, id=885, 353.44547pt x 453.0773pt>
+File: ./figs/damqt320_3D_settings.png Graphic file (type png)
+<use ./figs/damqt320_3D_settings.png>
+Package pdftex.def Info: ./figs/damqt320_3D_settings.png  used on input line 27
+37.
+(pdftex.def)             Requested size: 113.81102pt x 145.89336pt.
+<./figs/damqt320_molecule_delete.png, id=886, 140.02313pt x 126.19453pt>
 File: ./figs/damqt320_molecule_delete.png Graphic file (type png)
 <use ./figs/damqt320_molecule_delete.png>
 Package pdftex.def Info: ./figs/damqt320_molecule_delete.png  used on input lin
-e 2714.
+e 2746.
 (pdftex.def)             Requested size: 91.04742pt x 82.0582pt.
 
-Overfull \hbox (18.79755pt too wide) in paragraph at lines 2697--2721
+Overfull \hbox (18.79753pt too wide) in paragraph at lines 2697--2753
 [][] 
  []
 
-<./figs/damqt320_molecule_edit.png, id=884, 240.52359pt x 269.06677pt>
+<./figs/damqt320_molecule_edit.png, id=890, 240.52359pt x 269.06677pt>
 File: ./figs/damqt320_molecule_edit.png Graphic file (type png)
 <use ./figs/damqt320_molecule_edit.png>
 Package pdftex.def Info: ./figs/damqt320_molecule_edit.png  used on input line 
-2749.
+2791.
 (pdftex.def)             Requested size: 159.33473pt x 178.2456pt.
 
-Overfull \hbox (18.79755pt too wide) in paragraph at lines 2725--2756
+Overfull \hbox (18.79755pt too wide) in paragraph at lines 2765--2798
 [][] 
  []
 
-[36]
-<./figs/damqt320_molecular_skeleton.png, id=892, 241.0882pt x 354.123pt>
+[37 <./figs/damqt320_3D_settings.png (PNG copy)> <./figs/damqt320_molecule_dele
+te.png (PNG copy)>]
+<./figs/damqt320_molecular_skeleton.png, id=901, 241.0882pt x 354.123pt>
 File: ./figs/damqt320_molecular_skeleton.png Graphic file (type png)
 <use ./figs/damqt320_molecular_skeleton.png>
 Package pdftex.def Info: ./figs/damqt320_molecular_skeleton.png  used on input 
-line 2778.
+line 2820.
 (pdftex.def)             Requested size: 109.26009pt x 160.48318pt.
-<./figs/damqt320_atom_labels.png, id=893, 241.0882pt x 394.70538pt>
+<./figs/damqt320_atom_labels.png, id=902, 241.0882pt x 394.70538pt>
 File: ./figs/damqt320_atom_labels.png Graphic file (type png)
 <use ./figs/damqt320_atom_labels.png>
-Package pdftex.def Info: ./figs/damqt320_atom_labels.png  used on input line 27
-89.
+Package pdftex.def Info: ./figs/damqt320_atom_labels.png  used on input line 28
+31.
 (pdftex.def)             Requested size: 109.26009pt x 178.87453pt.
-<./figs/damqt320_labels_selected.png, id=894, 241.0882pt x 272.95824pt>
+<./figs/damqt320_labels_selected.png, id=903, 241.0882pt x 272.95824pt>
 File: ./figs/damqt320_labels_selected.png Graphic file (type png)
 <use ./figs/damqt320_labels_selected.png>
 Package pdftex.def Info: ./figs/damqt320_labels_selected.png  used on input lin
-e 2800.
+e 2842.
 (pdftex.def)             Requested size: 109.26009pt x 123.70055pt.
-<./figs/damqt320_toggle_selection.png, id=895, 116.87415pt x 112.85239pt>
+<./figs/damqt320_toggle_selection.png, id=904, 116.87415pt x 112.85239pt>
 File: ./figs/damqt320_toggle_selection.png Graphic file (type png)
 <use ./figs/damqt320_toggle_selection.png>
 Package pdftex.def Info: ./figs/damqt320_toggle_selection.png  used on input li
-ne 2808.
+ne 2850.
 (pdftex.def)             Requested size: 54.629pt x 52.7496pt.
- [37 <./figs/damqt320_molecule_delete.png (PNG copy)> <./figs/damqt320_molecule
-_edit.png (PNG copy)>]
-<./figs/damqt320_rotations.png, id=911, 337.63641pt x 454.18915pt>
+ [38 <./figs/damqt320_molecule_edit.png (PNG copy)> <./figs/damqt320_molecular_
+skeleton.png (PNG copy)> <./figs/damqt320_atom_labels.png (PNG copy)> <./figs/d
+amqt320_labels_selected.png (PNG copy)> <./figs/damqt320_toggle_selection.png (
+PNG copy)>]
+<./figs/damqt320_rotations.png, id=918, 345.54094pt x 469.755pt>
 File: ./figs/damqt320_rotations.png Graphic file (type png)
 <use ./figs/damqt320_rotations.png>
-Package pdftex.def Info: ./figs/damqt320_rotations.png  used on input line 2840
+Package pdftex.def Info: ./figs/damqt320_rotations.png  used on input line 2882
 .
-(pdftex.def)             Requested size: 79.6691pt x 107.17107pt.
-<./figs/damqt320_translations.png, id=912, 275.52937pt x 361.35pt>
+(pdftex.def)             Requested size: 101.97633pt x 138.63387pt.
+<./figs/damqt320_translations.png, id=919, 276.09398pt x 471.9787pt>
 File: ./figs/damqt320_translations.png Graphic file (type png)
 <use ./figs/damqt320_translations.png>
 Package pdftex.def Info: ./figs/damqt320_translations.png  used on input line 2
-851.
-(pdftex.def)             Requested size: 79.6691pt x 104.48555pt.
- [38 <./figs/damqt320_molecular_skeleton.png (PNG copy)> <./figs/damqt320_atom_
-labels.png (PNG copy)> <./figs/damqt320_labels_selected.png (PNG copy)> <./figs
-/damqt320_toggle_selection.png (PNG copy)> <./figs/damqt320_rotations.png (PNG 
-copy)> <./figs/damqt320_translations.png (PNG copy)>]
-<./figs/damqt320_axes.png, id=924, 239.95898pt x 460.86023pt>
+893.
+(pdftex.def)             Requested size: 79.6691pt x 136.19334pt.
+<./figs/damqt320_axes.png, id=925, 239.95898pt x 460.86023pt>
 File: ./figs/damqt320_axes.png Graphic file (type png)
 <use ./figs/damqt320_axes.png>
-Package pdftex.def Info: ./figs/damqt320_axes.png  used on input line 2885.
+Package pdftex.def Info: ./figs/damqt320_axes.png  used on input line 2927.
 (pdftex.def)             Requested size: 88.77264pt x 170.4945pt.
 
-Underfull \hbox (badness 3942) in paragraph at lines 2888--2888
+Underfull \hbox (badness 3942) in paragraph at lines 2930--2930
 []\OT1/cmr/m/n/10 Figure 81: |Molec-u-lar axes
  []
 
-<./figs/damqt320_HFforces_menu.png, id=925, 240.52359pt x 504.77815pt>
+<./figs/damqt320_HFforces_menu.png, id=926, 240.52359pt x 504.77815pt>
 File: ./figs/damqt320_HFforces_menu.png Graphic file (type png)
 <use ./figs/damqt320_HFforces_menu.png>
 Package pdftex.def Info: ./figs/damqt320_HFforces_menu.png  used on input line 
-2896.
+2938.
 (pdftex.def)             Requested size: 81.94559pt x 171.9766pt.
-<./figs/damqt320_HFforces_and_axes.png, id=926, 368.1253pt x 557.03493pt>
+<./figs/damqt320_HFforces_and_axes.png, id=927, 368.1253pt x 557.03493pt>
 File: ./figs/damqt320_HFforces_and_axes.png Graphic file (type png)
 <use ./figs/damqt320_HFforces_and_axes.png>
 Package pdftex.def Info: ./figs/damqt320_HFforces_and_axes.png  used on input l
-ine 2907.
+ine 2949.
 (pdftex.def)             Requested size: 109.26009pt x 165.32683pt.
 
-Underfull \hbox (badness 3098) in paragraph at lines 2910--2910
+Underfull \hbox (badness 3098) in paragraph at lines 2952--2952
 []\OT1/cmr/m/n/10 Figure 83: |HF forces and
  []
 
-<./figs/damqt320_field_lines.png, id=930, 241.0882pt x 466.97539pt>
+[39 <./figs/damqt320_rotations.png (PNG copy)> <./figs/damqt320_translations.pn
+g (PNG copy)>]
+<./figs/damqt320_field_lines.png, id=939, 241.0882pt x 466.97539pt>
 File: ./figs/damqt320_field_lines.png Graphic file (type png)
 <use ./figs/damqt320_field_lines.png>
 Package pdftex.def Info: ./figs/damqt320_field_lines.png  used on input line 29
-33.
+75.
 (pdftex.def)             Requested size: 54.629pt x 105.8131pt.
-<./figs/damqt320_field_display.png, id=931, 457.89821pt x 302.42215pt>
+<./figs/damqt320_field_display.png, id=940, 457.89821pt x 302.42215pt>
 File: ./figs/damqt320_field_display.png Graphic file (type png)
 <use ./figs/damqt320_field_display.png>
 Package pdftex.def Info: ./figs/damqt320_field_display.png  used on input line 
-2944.
+2986.
 (pdftex.def)             Requested size: 175.26917pt x 115.75684pt.
 
-Overfull \hbox (11.99586pt too wide) in paragraph at lines 2927--2952
+Overfull \hbox (11.99586pt too wide) in paragraph at lines 2969--2994
 []|  []
  []
 
-[39 <./figs/damqt320_axes.png (PNG copy)> <./figs/damqt320_HFforces_menu.png (P
-NG copy)> <./figs/damqt320_HFforces_and_axes.png (PNG copy)> <./figs/damqt320_f
-ield_lines.png (PNG copy)> <./figs/damqt320_field_display.png (PNG copy)>]
 <./figs/damqt320_CPs_menu.png, id=942, 238.82977pt x 594.28177pt>
 File: ./figs/damqt320_CPs_menu.png Graphic file (type png)
 <use ./figs/damqt320_CPs_menu.png>
-Package pdftex.def Info: ./figs/damqt320_CPs_menu.png  used on input line 2966.
+Package pdftex.def Info: ./figs/damqt320_CPs_menu.png  used on input line 3008.
 
 (pdftex.def)             Requested size: 113.80928pt x 283.19356pt.
 <./figs/damqt320_CPs_MESP.png, id=943, 457.33359pt x 302.42215pt>
 File: ./figs/damqt320_CPs_MESP.png Graphic file (type png)
 <use ./figs/damqt320_CPs_MESP.png>
-Package pdftex.def Info: ./figs/damqt320_CPs_MESP.png  used on input line 2976.
+Package pdftex.def Info: ./figs/damqt320_CPs_MESP.png  used on input line 3018.
 
 (pdftex.def)             Requested size: 177.54532pt x 117.40425pt.
 <./figs/damqt320_CPs_field.png, id=944, 458.46281pt x 303.534pt>
 File: ./figs/damqt320_CPs_field.png Graphic file (type png)
 <use ./figs/damqt320_CPs_field.png>
-Package pdftex.def Info: ./figs/damqt320_CPs_field.png  used on input line 2983
+Package pdftex.def Info: ./figs/damqt320_CPs_field.png  used on input line 3025
 .
 (pdftex.def)             Requested size: 177.54532pt x 117.54872pt.
 
-Overfull \hbox (11.99586pt too wide) in paragraph at lines 2960--2991
+Overfull \hbox (11.99586pt too wide) in paragraph at lines 3002--3033
 []|  []
  []
 
-[40 <./figs/damqt320_CPs_menu.png (PNG copy)> <./figs/damqt320_CPs_MESP.png (PN
+[40 <./figs/damqt320_axes.png (PNG copy)> <./figs/damqt320_HFforces_menu.png (P
+NG copy)> <./figs/damqt320_HFforces_and_axes.png (PNG copy)> <./figs/damqt320_f
+ield_lines.png (PNG copy)> <./figs/damqt320_field_display.png (PNG copy)>]
+[41 <./figs/damqt320_CPs_menu.png (PNG copy)> <./figs/damqt320_CPs_MESP.png (PN
 G copy)> <./figs/damqt320_CPs_field.png (PNG copy)>]
-<./figs/damqt320_surfaces_menu.png, id=959, 280.04625pt x 304.64584pt>
+<./figs/damqt320_surfaces_menu.png, id=966, 280.04625pt x 304.64584pt>
 File: ./figs/damqt320_surfaces_menu.png Graphic file (type png)
 <use ./figs/damqt320_surfaces_menu.png>
 Package pdftex.def Info: ./figs/damqt320_surfaces_menu.png  used on input line 
-3037.
+3079.
 (pdftex.def)             Requested size: 109.26009pt x 118.85788pt.
-<./figs/damqt320_basins_menu.png, id=960, 261.97874pt x 218.47777pt>
+<./figs/damqt320_basins_menu.png, id=967, 261.97874pt x 218.47777pt>
 File: ./figs/damqt320_basins_menu.png Graphic file (type png)
 <use ./figs/damqt320_basins_menu.png>
 Package pdftex.def Info: ./figs/damqt320_basins_menu.png  used on input line 30
-48.
+90.
 (pdftex.def)             Requested size: 116.08923pt x 96.81058pt.
-<./figs/damqt320_sgh_menu.png, id=961, 297.54913pt x 411.38307pt>
+<./figs/damqt320_sgh_menu.png, id=968, 297.54913pt x 411.38307pt>
 File: ./figs/damqt320_sgh_menu.png Graphic file (type png)
 <use ./figs/damqt320_sgh_menu.png>
-Package pdftex.def Info: ./figs/damqt320_sgh_menu.png  used on input line 3058.
+Package pdftex.def Info: ./figs/damqt320_sgh_menu.png  used on input line 3100.
 
 (pdftex.def)             Requested size: 102.43094pt x 141.61345pt.
-<./figs/damqt320_basins_display.png, id=963, 587.61069pt x 433.62pt>
+<./figs/damqt320_basins_display.png, id=970, 587.61069pt x 433.62pt>
 File: ./figs/damqt320_basins_display.png Graphic file (type png)
 <use ./figs/damqt320_basins_display.png>
 Package pdftex.def Info: ./figs/damqt320_basins_display.png  used on input line
- 3077.
+ 3119.
 (pdftex.def)             Requested size: 182.09831pt x 134.3745pt.
-<./figs/damqt320_sgh_display.png, id=964, 587.61069pt x 434.17592pt>
+<./figs/damqt320_sgh_display.png, id=971, 587.61069pt x 434.17592pt>
 File: ./figs/damqt320_sgh_display.png Graphic file (type png)
 <use ./figs/damqt320_sgh_display.png>
-Package pdftex.def Info: ./figs/damqt320_sgh_display.png  used on input line 30
-87.
+Package pdftex.def Info: ./figs/damqt320_sgh_display.png  used on input line 31
+29.
 (pdftex.def)             Requested size: 182.09831pt x 134.54677pt.
 
-Overfull \hbox (11.99588pt too wide) in paragraph at lines 3071--3095
+Overfull \hbox (11.99588pt too wide) in paragraph at lines 3113--3137
 []|  []
  []
 
-[41 <./figs/damqt320_surfaces_menu.png (PNG copy)> <./figs/damqt320_basins_menu
+[42 <./figs/damqt320_surfaces_menu.png (PNG copy)> <./figs/damqt320_basins_menu
 .png (PNG copy)> <./figs/damqt320_sgh_menu.png (PNG copy)> <./figs/damqt320_bas
 ins_display.png (PNG copy)> <./figs/damqt320_sgh_display.png (PNG copy)>]
-<./figs/damqt320_grid_menu.png, id=975, 296.41992pt x 346.34007pt>
+<./figs/damqt320_grid_menu.png, id=982, 296.41992pt x 346.34007pt>
 File: ./figs/damqt320_grid_menu.png Graphic file (type png)
 <use ./figs/damqt320_grid_menu.png>
-Package pdftex.def Info: ./figs/damqt320_grid_menu.png  used on input line 3119
+Package pdftex.def Info: ./figs/damqt320_grid_menu.png  used on input line 3161
 .
 (pdftex.def)             Requested size: 91.04742pt x 106.38135pt.
-<./figs/damqt320_isosurface_menu.png, id=976, 265.93102pt x 476.42607pt>
+<./figs/damqt320_isosurface_menu.png, id=983, 265.93102pt x 476.42607pt>
 File: ./figs/damqt320_isosurface_menu.png Graphic file (type png)
 <use ./figs/damqt320_isosurface_menu.png>
 Package pdftex.def Info: ./figs/damqt320_isosurface_menu.png  used on input lin
-e 3129.
+e 3171.
 (pdftex.def)             Requested size: 91.04742pt x 163.10951pt.
-<./figs/damqt320_solid_surface_1.png, id=979, 517.56439pt x 471.42278pt>
+<./figs/damqt320_solid_surface_1.png, id=986, 517.56439pt x 471.42278pt>
 File: ./figs/damqt320_solid_surface_1.png Graphic file (type png)
 <use ./figs/damqt320_solid_surface_1.png>
 Package pdftex.def Info: ./figs/damqt320_solid_surface_1.png  used on input lin
-e 3162.
+e 3204.
 (pdftex.def)             Requested size: 100.15425pt x 91.21852pt.
-<./figs/damqt320_solid_surface_2.png, id=980, 517.56439pt x 470.86685pt>
+<./figs/damqt320_solid_surface_2.png, id=987, 517.56439pt x 470.86685pt>
 File: ./figs/damqt320_solid_surface_2.png Graphic file (type png)
 <use ./figs/damqt320_solid_surface_2.png>
 Package pdftex.def Info: ./figs/damqt320_solid_surface_2.png  used on input lin
-e 3164.
+e 3206.
 (pdftex.def)             Requested size: 100.15425pt x 91.11095pt.
-<./figs/damqt320_wired_surface_1.png, id=981, 517.56439pt x 471.9787pt>
+<./figs/damqt320_wired_surface_1.png, id=988, 517.56439pt x 471.9787pt>
 File: ./figs/damqt320_wired_surface_1.png Graphic file (type png)
 <use ./figs/damqt320_wired_surface_1.png>
 Package pdftex.def Info: ./figs/damqt320_wired_surface_1.png  used on input lin
-e 3166.
+e 3208.
 (pdftex.def)             Requested size: 100.15425pt x 91.3261pt.
-<./figs/damqt320_wired_surface_2.png, id=982, 518.1203pt x 470.86685pt>
+<./figs/damqt320_wired_surface_2.png, id=989, 518.1203pt x 470.86685pt>
 File: ./figs/damqt320_wired_surface_2.png Graphic file (type png)
 <use ./figs/damqt320_wired_surface_2.png>
 Package pdftex.def Info: ./figs/damqt320_wired_surface_2.png  used on input lin
-e 3168.
+e 3210.
 (pdftex.def)             Requested size: 100.15425pt x 91.01755pt.
 
-[42 <./figs/damqt320_grid_menu.png (PNG copy)> <./figs/damqt320_isosurface_menu
+[43 <./figs/damqt320_grid_menu.png (PNG copy)> <./figs/damqt320_isosurface_menu
 .png (PNG copy)> <./figs/damqt320_solid_surface_1.png (PNG copy)> <./figs/damqt
 320_solid_surface_2.png (PNG copy)> <./figs/damqt320_wired_surface_1.png (PNG c
 opy)> <./figs/damqt320_wired_surface_2.png (PNG copy)>]
-<./figs/damqt320_atom_toggle_selection.png, id=999, 166.221pt x 159.54993pt>
+<./figs/damqt320_atom_toggle_selection.png, id=1007, 166.221pt x 159.54993pt>
 File: ./figs/damqt320_atom_toggle_selection.png Graphic file (type png)
 <use ./figs/damqt320_atom_toggle_selection.png>
 Package pdftex.def Info: ./figs/damqt320_atom_toggle_selection.png  used on inp
-ut line 3240.
+ut line 3283.
 (pdftex.def)             Requested size: 113.81102pt x 109.24234pt.
-<./figs/damqt320_CP_toggle_selection.png, id=1000, 180.11908pt x 207.35931pt>
+<./figs/damqt320_CP_toggle_selection.png, id=1008, 180.11908pt x 207.35931pt>
 File: ./figs/damqt320_CP_toggle_selection.png Graphic file (type png)
 <use ./figs/damqt320_CP_toggle_selection.png>
 Package pdftex.def Info: ./figs/damqt320_CP_toggle_selection.png  used on input
- line 3250.
+ line 3293.
 (pdftex.def)             Requested size: 113.81102pt x 131.02306pt.
 
-Overfull \hbox (11.99588pt too wide) in paragraph at lines 3234--3258
+Overfull \hbox (11.99588pt too wide) in paragraph at lines 3277--3301
 []|  []
  []
 
-[43] [44 <./figs/damqt320_atom_toggle_selection.png (PNG copy)> <./figs/damqt32
+[44] [45 <./figs/damqt320_atom_toggle_selection.png (PNG copy)> <./figs/damqt32
 0_CP_toggle_selection.png (PNG copy)>]
 File: ./figs/3dots.png Graphic file (type png)
 <use ./figs/3dots.png>
-Package pdftex.def Info: ./figs/3dots.png  used on input line 3291.
+Package pdftex.def Info: ./figs/3dots.png  used on input line 3334.
 (pdftex.def)             Requested size: 9.95863pt x 9.67409pt.
 File: ./figs/exec.png Graphic file (type png)
 <use ./figs/exec.png>
-Package pdftex.def Info: ./figs/exec.png  used on input line 3292.
+Package pdftex.def Info: ./figs/exec.png  used on input line 3335.
 (pdftex.def)             Requested size: 19.91684pt x 8.50122pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3292--3292
+Underfull \hbox (badness 10000) in paragraph at lines 3335--3335
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 330
-6.
-LaTeX Font Info:    No file OMScmtt.fd. on input line 3306.
+LaTeX Font Info:    Try loading font information for OMS+cmtt on input line 334
+9.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 3349.
 
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 3306.
-
-[45]
-File: ./figs/3dots.png Graphic file (type png)
-<use ./figs/3dots.png>
-Package pdftex.def Info: ./figs/3dots.png  used on input line 3357.
-(pdftex.def)             Requested size: 9.95863pt x 9.67409pt.
-File: ./figs/exec.png Graphic file (type png)
-<use ./figs/exec.png>
-Package pdftex.def Info: ./figs/exec.png  used on input line 3358.
-(pdftex.def)             Requested size: 19.91684pt x 8.50122pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 3358--3358
-
- []
+(Font)              for symbol `textbraceleft' on input line 3349.
 
 [46]
 File: ./figs/3dots.png Graphic file (type png)
 <use ./figs/3dots.png>
-Package pdftex.def Info: ./figs/3dots.png  used on input line 3433.
+Package pdftex.def Info: ./figs/3dots.png  used on input line 3400.
 (pdftex.def)             Requested size: 9.95863pt x 9.67409pt.
 File: ./figs/exec.png Graphic file (type png)
 <use ./figs/exec.png>
-Package pdftex.def Info: ./figs/exec.png  used on input line 3434.
+Package pdftex.def Info: ./figs/exec.png  used on input line 3401.
 (pdftex.def)             Requested size: 19.91684pt x 8.50122pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 3434--3434
-
- []
-
-File: ./figs/3dots.png Graphic file (type png)
-<use ./figs/3dots.png>
-Package pdftex.def Info: ./figs/3dots.png  used on input line 3449.
-(pdftex.def)             Requested size: 9.95863pt x 9.67409pt.
-File: ./figs/exec.png Graphic file (type png)
-<use ./figs/exec.png>
-Package pdftex.def Info: ./figs/exec.png  used on input line 3450.
-(pdftex.def)             Requested size: 19.91684pt x 8.50122pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 3450--3450
-
- []
-
-File: ./figs/3dots.png Graphic file (type png)
-<use ./figs/3dots.png>
-Package pdftex.def Info: ./figs/3dots.png  used on input line 3464.
-(pdftex.def)             Requested size: 9.95863pt x 9.67409pt.
-File: ./figs/exec.png Graphic file (type png)
-<use ./figs/exec.png>
-Package pdftex.def Info: ./figs/exec.png  used on input line 3465.
-(pdftex.def)             Requested size: 19.91684pt x 8.50122pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 3465--3465
-
- []
-
-File: ./figs/3dots.png Graphic file (type png)
-<use ./figs/3dots.png>
-Package pdftex.def Info: ./figs/3dots.png  used on input line 3471.
-(pdftex.def)             Requested size: 9.95863pt x 9.67409pt.
-File: ./figs/exec.png Graphic file (type png)
-<use ./figs/exec.png>
-Package pdftex.def Info: ./figs/exec.png  used on input line 3472.
-(pdftex.def)             Requested size: 19.91684pt x 8.50122pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 3472--3472
+Underfull \hbox (badness 10000) in paragraph at lines 3401--3401
 
  []
 
 [47]
-<./figs/CH3Cl-QVTZ-d-tot.png, id=1027, 962.09438pt x 645.16031pt>
+File: ./figs/3dots.png Graphic file (type png)
+<use ./figs/3dots.png>
+Package pdftex.def Info: ./figs/3dots.png  used on input line 3476.
+(pdftex.def)             Requested size: 9.95863pt x 9.67409pt.
+File: ./figs/exec.png Graphic file (type png)
+<use ./figs/exec.png>
+Package pdftex.def Info: ./figs/exec.png  used on input line 3477.
+(pdftex.def)             Requested size: 19.91684pt x 8.50122pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3477--3477
+
+ []
+
+File: ./figs/3dots.png Graphic file (type png)
+<use ./figs/3dots.png>
+Package pdftex.def Info: ./figs/3dots.png  used on input line 3492.
+(pdftex.def)             Requested size: 9.95863pt x 9.67409pt.
+File: ./figs/exec.png Graphic file (type png)
+<use ./figs/exec.png>
+Package pdftex.def Info: ./figs/exec.png  used on input line 3493.
+(pdftex.def)             Requested size: 19.91684pt x 8.50122pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3493--3493
+
+ []
+
+File: ./figs/3dots.png Graphic file (type png)
+<use ./figs/3dots.png>
+Package pdftex.def Info: ./figs/3dots.png  used on input line 3507.
+(pdftex.def)             Requested size: 9.95863pt x 9.67409pt.
+File: ./figs/exec.png Graphic file (type png)
+<use ./figs/exec.png>
+Package pdftex.def Info: ./figs/exec.png  used on input line 3508.
+(pdftex.def)             Requested size: 19.91684pt x 8.50122pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3508--3508
+
+ []
+
+File: ./figs/3dots.png Graphic file (type png)
+<use ./figs/3dots.png>
+Package pdftex.def Info: ./figs/3dots.png  used on input line 3514.
+(pdftex.def)             Requested size: 9.95863pt x 9.67409pt.
+File: ./figs/exec.png Graphic file (type png)
+<use ./figs/exec.png>
+Package pdftex.def Info: ./figs/exec.png  used on input line 3515.
+(pdftex.def)             Requested size: 19.91684pt x 8.50122pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3515--3515
+
+ []
+
+[48]
+<./figs/CH3Cl-QVTZ-d-tot.png, id=1034, 962.09438pt x 645.16031pt>
 File: ./figs/CH3Cl-QVTZ-d-tot.png Graphic file (type png)
 <use ./figs/CH3Cl-QVTZ-d-tot.png>
-Package pdftex.def Info: ./figs/CH3Cl-QVTZ-d-tot.png  used on input line 3514.
+Package pdftex.def Info: ./figs/CH3Cl-QVTZ-d-tot.png  used on input line 3557.
 (pdftex.def)             Requested size: 150.23137pt x 100.73714pt.
-<./figs/CH3Cl-QVTZ-d-l0.png, id=1028, 962.09438pt x 645.16031pt>
+<./figs/CH3Cl-QVTZ-d-l0.png, id=1035, 962.09438pt x 645.16031pt>
 File: ./figs/CH3Cl-QVTZ-d-l0.png Graphic file (type png)
 <use ./figs/CH3Cl-QVTZ-d-l0.png>
-Package pdftex.def Info: ./figs/CH3Cl-QVTZ-d-l0.png  used on input line 3516.
+Package pdftex.def Info: ./figs/CH3Cl-QVTZ-d-l0.png  used on input line 3559.
 (pdftex.def)             Requested size: 150.23137pt x 100.73714pt.
-<./figs/CH3Cl-QVTZ-d-defpos.png, id=1030, 962.09438pt x 645.16031pt>
+<./figs/CH3Cl-QVTZ-d-defpos.png, id=1037, 962.09438pt x 645.16031pt>
 File: ./figs/CH3Cl-QVTZ-d-defpos.png Graphic file (type png)
 <use ./figs/CH3Cl-QVTZ-d-defpos.png>
-Package pdftex.def Info: ./figs/CH3Cl-QVTZ-d-defpos.png  used on input line 353
-1.
+Package pdftex.def Info: ./figs/CH3Cl-QVTZ-d-defpos.png  used on input line 357
+4.
 (pdftex.def)             Requested size: 150.23137pt x 100.73714pt.
-<./figs/CH3Cl-QVTZ-d-defneg.png, id=1031, 962.09438pt x 645.16031pt>
+<./figs/CH3Cl-QVTZ-d-defneg.png, id=1038, 962.09438pt x 645.16031pt>
 File: ./figs/CH3Cl-QVTZ-d-defneg.png Graphic file (type png)
 <use ./figs/CH3Cl-QVTZ-d-defneg.png>
-Package pdftex.def Info: ./figs/CH3Cl-QVTZ-d-defneg.png  used on input line 353
-3.
+Package pdftex.def Info: ./figs/CH3Cl-QVTZ-d-defneg.png  used on input line 357
+6.
 (pdftex.def)             Requested size: 150.23137pt x 100.73714pt.
-<./figs/C6H6-pVTZ-d-tot.png, id=1032, 962.09438pt x 645.16031pt>
+<./figs/C6H6-pVTZ-d-tot.png, id=1039, 962.09438pt x 645.16031pt>
 File: ./figs/C6H6-pVTZ-d-tot.png Graphic file (type png)
 <use ./figs/C6H6-pVTZ-d-tot.png>
-Package pdftex.def Info: ./figs/C6H6-pVTZ-d-tot.png  used on input line 3546.
+Package pdftex.def Info: ./figs/C6H6-pVTZ-d-tot.png  used on input line 3589.
 (pdftex.def)             Requested size: 150.23137pt x 100.73714pt.
-<./figs/C6H6-pVTZ-d-tot_b.png, id=1033, 962.09438pt x 645.16031pt>
+<./figs/C6H6-pVTZ-d-tot_b.png, id=1040, 962.09438pt x 645.16031pt>
 File: ./figs/C6H6-pVTZ-d-tot_b.png Graphic file (type png)
 <use ./figs/C6H6-pVTZ-d-tot_b.png>
-Package pdftex.def Info: ./figs/C6H6-pVTZ-d-tot_b.png  used on input line 3548.
+Package pdftex.def Info: ./figs/C6H6-pVTZ-d-tot_b.png  used on input line 3591.
 
 (pdftex.def)             Requested size: 150.23137pt x 100.73714pt.
-<./figs/C6H6-pVTZ-d-l0.png, id=1034, 962.09438pt x 645.16031pt>
+<./figs/C6H6-pVTZ-d-l0.png, id=1041, 962.09438pt x 645.16031pt>
 File: ./figs/C6H6-pVTZ-d-l0.png Graphic file (type png)
 <use ./figs/C6H6-pVTZ-d-l0.png>
-Package pdftex.def Info: ./figs/C6H6-pVTZ-d-l0.png  used on input line 3551.
+Package pdftex.def Info: ./figs/C6H6-pVTZ-d-l0.png  used on input line 3594.
 (pdftex.def)             Requested size: 150.23137pt x 100.73714pt.
-<./figs/C6H6-pVTZ-d-l0_b.png, id=1035, 962.09438pt x 645.16031pt>
+<./figs/C6H6-pVTZ-d-l0_b.png, id=1042, 962.09438pt x 645.16031pt>
 File: ./figs/C6H6-pVTZ-d-l0_b.png Graphic file (type png)
 <use ./figs/C6H6-pVTZ-d-l0_b.png>
-Package pdftex.def Info: ./figs/C6H6-pVTZ-d-l0_b.png  used on input line 3553.
+Package pdftex.def Info: ./figs/C6H6-pVTZ-d-l0_b.png  used on input line 3596.
 (pdftex.def)             Requested size: 150.23137pt x 100.73714pt.
- [48 <./figs/CH3Cl-QVTZ-d-tot.png> <./figs/CH3Cl-QVTZ-d-l0.png> <./figs/CH3Cl-Q
+ [49 <./figs/CH3Cl-QVTZ-d-tot.png> <./figs/CH3Cl-QVTZ-d-l0.png> <./figs/CH3Cl-Q
 VTZ-d-defpos.png> <./figs/CH3Cl-QVTZ-d-defneg.png>]
-<./figs/C6H6-pVTZ-def-1.png, id=1045, 962.09438pt x 645.16031pt>
+<./figs/C6H6-pVTZ-def-1.png, id=1053, 962.09438pt x 645.16031pt>
 File: ./figs/C6H6-pVTZ-def-1.png Graphic file (type png)
 <use ./figs/C6H6-pVTZ-def-1.png>
-Package pdftex.def Info: ./figs/C6H6-pVTZ-def-1.png  used on input line 3566.
+Package pdftex.def Info: ./figs/C6H6-pVTZ-def-1.png  used on input line 3609.
 (pdftex.def)             Requested size: 150.23137pt x 100.73714pt.
-<./figs/C6H6-pVTZ-def-2.png, id=1046, 962.09438pt x 645.16031pt>
+<./figs/C6H6-pVTZ-def-2.png, id=1054, 962.09438pt x 645.16031pt>
 File: ./figs/C6H6-pVTZ-def-2.png Graphic file (type png)
 <use ./figs/C6H6-pVTZ-def-2.png>
-Package pdftex.def Info: ./figs/C6H6-pVTZ-def-2.png  used on input line 3568.
+Package pdftex.def Info: ./figs/C6H6-pVTZ-def-2.png  used on input line 3611.
 (pdftex.def)             Requested size: 150.23137pt x 100.73714pt.
-<./figs/CH3Cl-pVTZ-d-Cl.png, id=1049, 962.09438pt x 645.16031pt>
+<./figs/CH3Cl-pVTZ-d-Cl.png, id=1057, 962.09438pt x 645.16031pt>
 File: ./figs/CH3Cl-pVTZ-d-Cl.png Graphic file (type png)
 <use ./figs/CH3Cl-pVTZ-d-Cl.png>
-Package pdftex.def Info: ./figs/CH3Cl-pVTZ-d-Cl.png  used on input line 3587.
+Package pdftex.def Info: ./figs/CH3Cl-pVTZ-d-Cl.png  used on input line 3630.
 (pdftex.def)             Requested size: 141.12454pt x 94.63364pt.
-<./figs/CH3Cl-pVTZ-def-Cl-upp.png, id=1050, 962.09438pt x 645.16031pt>
+<./figs/CH3Cl-pVTZ-def-Cl-upp.png, id=1058, 962.09438pt x 645.16031pt>
 File: ./figs/CH3Cl-pVTZ-def-Cl-upp.png Graphic file (type png)
 <use ./figs/CH3Cl-pVTZ-def-Cl-upp.png>
 Package pdftex.def Info: ./figs/CH3Cl-pVTZ-def-Cl-upp.png  used on input line 3
-589.
+632.
 (pdftex.def)             Requested size: 141.12454pt x 94.63364pt.
- [49 <./figs/C6H6-pVTZ-d-tot.png> <./figs/C6H6-pVTZ-d-tot_b.png> <./figs/C6H6-p
+ [50 <./figs/C6H6-pVTZ-d-tot.png> <./figs/C6H6-pVTZ-d-tot_b.png> <./figs/C6H6-p
 VTZ-d-l0.png> <./figs/C6H6-pVTZ-d-l0_b.png> <./figs/C6H6-pVTZ-def-1.png> <./fig
 s/C6H6-pVTZ-def-2.png>]
-<./figs/CH3Cl-pVTZ-d-C.png, id=1060, 962.09438pt x 645.16031pt>
+<./figs/CH3Cl-pVTZ-d-C.png, id=1067, 962.09438pt x 645.16031pt>
 File: ./figs/CH3Cl-pVTZ-d-C.png Graphic file (type png)
 <use ./figs/CH3Cl-pVTZ-d-C.png>
-Package pdftex.def Info: ./figs/CH3Cl-pVTZ-d-C.png  used on input line 3600.
+Package pdftex.def Info: ./figs/CH3Cl-pVTZ-d-C.png  used on input line 3643.
 (pdftex.def)             Requested size: 136.5746pt x 91.5819pt.
-<./figs/CH3Cl-pVTZ-def-C.png, id=1061, 962.09438pt x 645.16031pt>
+<./figs/CH3Cl-pVTZ-def-C.png, id=1068, 962.09438pt x 645.16031pt>
 File: ./figs/CH3Cl-pVTZ-def-C.png Graphic file (type png)
 <use ./figs/CH3Cl-pVTZ-def-C.png>
-Package pdftex.def Info: ./figs/CH3Cl-pVTZ-def-C.png  used on input line 3602.
+Package pdftex.def Info: ./figs/CH3Cl-pVTZ-def-C.png  used on input line 3645.
 (pdftex.def)             Requested size: 136.5746pt x 91.5819pt.
-<./figs/CO-def.jpg, id=1062, 962.09438pt x 645.16031pt>
+<./figs/CO-def.jpg, id=1069, 962.09438pt x 645.16031pt>
 File: ./figs/CO-def.jpg Graphic file (type jpg)
 <use ./figs/CO-def.jpg>
-Package pdftex.def Info: ./figs/CO-def.jpg  used on input line 3619.
+Package pdftex.def Info: ./figs/CO-def.jpg  used on input line 3662.
 (pdftex.def)             Requested size: 136.5746pt x 91.5819pt.
-<./figs/C2H2-def.png, id=1063, 962.09438pt x 645.16031pt>
+<./figs/C2H2-def.png, id=1070, 962.09438pt x 645.16031pt>
 File: ./figs/C2H2-def.png Graphic file (type png)
 <use ./figs/C2H2-def.png>
-Package pdftex.def Info: ./figs/C2H2-def.png  used on input line 3621.
+Package pdftex.def Info: ./figs/C2H2-def.png  used on input line 3664.
 (pdftex.def)             Requested size: 136.5746pt x 91.5819pt.
-<./figs/C2H4-def.png, id=1064, 962.09438pt x 645.16031pt>
+<./figs/C2H4-def.png, id=1071, 962.09438pt x 645.16031pt>
 File: ./figs/C2H4-def.png Graphic file (type png)
 <use ./figs/C2H4-def.png>
-Package pdftex.def Info: ./figs/C2H4-def.png  used on input line 3624.
+Package pdftex.def Info: ./figs/C2H4-def.png  used on input line 3667.
 (pdftex.def)             Requested size: 136.5746pt x 91.5819pt.
-<./figs/C2H6-def.png, id=1065, 962.09438pt x 645.16031pt>
+<./figs/C2H6-def.png, id=1072, 962.09438pt x 645.16031pt>
 File: ./figs/C2H6-def.png Graphic file (type png)
 <use ./figs/C2H6-def.png>
-Package pdftex.def Info: ./figs/C2H6-def.png  used on input line 3626.
+Package pdftex.def Info: ./figs/C2H6-def.png  used on input line 3669.
 (pdftex.def)             Requested size: 136.5746pt x 91.5819pt.
-<./figs/CO-def-b.png, id=1068, 962.09438pt x 645.16031pt>
+<./figs/CO-def-b.png, id=1075, 962.09438pt x 645.16031pt>
 File: ./figs/CO-def-b.png Graphic file (type png)
 <use ./figs/CO-def-b.png>
-Package pdftex.def Info: ./figs/CO-def-b.png  used on input line 3643.
+Package pdftex.def Info: ./figs/CO-def-b.png  used on input line 3686.
 (pdftex.def)             Requested size: 182.09485pt x 122.10919pt.
-<./figs/C2H2-def-b.png, id=1069, 962.09438pt x 645.16031pt>
+<./figs/C2H2-def-b.png, id=1076, 962.09438pt x 645.16031pt>
 File: ./figs/C2H2-def-b.png Graphic file (type png)
 <use ./figs/C2H2-def-b.png>
-Package pdftex.def Info: ./figs/C2H2-def-b.png  used on input line 3645.
+Package pdftex.def Info: ./figs/C2H2-def-b.png  used on input line 3688.
 (pdftex.def)             Requested size: 182.09485pt x 122.10919pt.
 
-[50 <./figs/CH3Cl-pVTZ-d-Cl.png> <./figs/CH3Cl-pVTZ-def-Cl-upp.png> <./figs/CH3
+[51 <./figs/CH3Cl-pVTZ-d-Cl.png> <./figs/CH3Cl-pVTZ-def-Cl-upp.png> <./figs/CH3
 Cl-pVTZ-d-C.png> <./figs/CH3Cl-pVTZ-def-C.png> <./figs/CO-def.jpg> <./figs/C2H2
 -def.png> <./figs/C2H4-def.png> <./figs/C2H6-def.png>]
-<./figs/C6H6-pVQZ-def-0p005.png, id=1076, 962.09438pt x 645.16031pt>
+<./figs/C6H6-pVQZ-def-0p005.png, id=1083, 962.09438pt x 645.16031pt>
 File: ./figs/C6H6-pVQZ-def-0p005.png Graphic file (type png)
 <use ./figs/C6H6-pVQZ-def-0p005.png>
-Package pdftex.def Info: ./figs/C6H6-pVQZ-def-0p005.png  used on input line 366
-2.
+Package pdftex.def Info: ./figs/C6H6-pVQZ-def-0p005.png  used on input line 370
+5.
 (pdftex.def)             Requested size: 182.09485pt x 122.10919pt.
-<./figs/C6H6-pVQZ-def-0p002.png, id=1077, 962.09438pt x 645.16031pt>
+<./figs/C6H6-pVQZ-def-0p002.png, id=1084, 962.09438pt x 645.16031pt>
 File: ./figs/C6H6-pVQZ-def-0p002.png Graphic file (type png)
 <use ./figs/C6H6-pVQZ-def-0p002.png>
-Package pdftex.def Info: ./figs/C6H6-pVQZ-def-0p002.png  used on input line 366
-4.
+Package pdftex.def Info: ./figs/C6H6-pVQZ-def-0p002.png  used on input line 370
+7.
 (pdftex.def)             Requested size: 182.09485pt x 122.10919pt.
-<./figs/C6H6-pVQZ-def-0p0015.png, id=1078, 962.09438pt x 645.16031pt>
+<./figs/C6H6-pVQZ-def-0p0015.png, id=1085, 962.09438pt x 645.16031pt>
 File: ./figs/C6H6-pVQZ-def-0p0015.png Graphic file (type png)
 <use ./figs/C6H6-pVQZ-def-0p0015.png>
-Package pdftex.def Info: ./figs/C6H6-pVQZ-def-0p0015.png  used on input line 36
-67.
+Package pdftex.def Info: ./figs/C6H6-pVQZ-def-0p0015.png  used on input line 37
+10.
 (pdftex.def)             Requested size: 182.09485pt x 122.10919pt.
-<./figs/C6H6-pVQZ-def-0p001.png, id=1079, 962.09438pt x 645.16031pt>
+<./figs/C6H6-pVQZ-def-0p001.png, id=1086, 962.09438pt x 645.16031pt>
 File: ./figs/C6H6-pVQZ-def-0p001.png Graphic file (type png)
 <use ./figs/C6H6-pVQZ-def-0p001.png>
-Package pdftex.def Info: ./figs/C6H6-pVQZ-def-0p001.png  used on input line 366
-9.
+Package pdftex.def Info: ./figs/C6H6-pVQZ-def-0p001.png  used on input line 371
+2.
 (pdftex.def)             Requested size: 182.09485pt x 122.10919pt.
- [51 <./figs/CO-def-b.png> <./figs/C2H2-def-b.png> <./figs/C6H6-pVQZ-def-0p005.
+ [52 <./figs/CO-def-b.png> <./figs/C2H2-def-b.png> <./figs/C6H6-pVQZ-def-0p005.
 png> <./figs/C6H6-pVQZ-def-0p002.png> <./figs/C6H6-pVQZ-def-0p0015.png> <./figs
 /C6H6-pVQZ-def-0p001.png>]
-<./figs/H2O-pot.png, id=1089, 962.09438pt x 645.16031pt>
+<./figs/H2O-pot.png, id=1096, 962.09438pt x 645.16031pt>
 File: ./figs/H2O-pot.png Graphic file (type png)
 <use ./figs/H2O-pot.png>
-Package pdftex.def Info: ./figs/H2O-pot.png  used on input line 3691.
+Package pdftex.def Info: ./figs/H2O-pot.png  used on input line 3734.
 (pdftex.def)             Requested size: 182.09485pt x 122.10919pt.
-<./figs/NH3-pot.png, id=1090, 962.09438pt x 645.16031pt>
+<./figs/NH3-pot.png, id=1097, 962.09438pt x 645.16031pt>
 File: ./figs/NH3-pot.png Graphic file (type png)
 <use ./figs/NH3-pot.png>
-Package pdftex.def Info: ./figs/NH3-pot.png  used on input line 3693.
+Package pdftex.def Info: ./figs/NH3-pot.png  used on input line 3736.
 (pdftex.def)             Requested size: 182.09485pt x 122.10919pt.
-<./figs/CH3Cl-pot-pos-b.png, id=1091, 962.09438pt x 645.16031pt>
+<./figs/CH3Cl-pot-pos-b.png, id=1098, 962.09438pt x 645.16031pt>
 File: ./figs/CH3Cl-pot-pos-b.png Graphic file (type png)
 <use ./figs/CH3Cl-pot-pos-b.png>
-Package pdftex.def Info: ./figs/CH3Cl-pot-pos-b.png  used on input line 3704.
+Package pdftex.def Info: ./figs/CH3Cl-pot-pos-b.png  used on input line 3747.
 (pdftex.def)             Requested size: 182.09485pt x 122.10919pt.
-<./figs/CH3Cl-pot-neg-b.png, id=1092, 962.09438pt x 645.16031pt>
+<./figs/CH3Cl-pot-neg-b.png, id=1099, 962.09438pt x 645.16031pt>
 File: ./figs/CH3Cl-pot-neg-b.png Graphic file (type png)
 <use ./figs/CH3Cl-pot-neg-b.png>
-Package pdftex.def Info: ./figs/CH3Cl-pot-neg-b.png  used on input line 3706.
+Package pdftex.def Info: ./figs/CH3Cl-pot-neg-b.png  used on input line 3749.
 (pdftex.def)             Requested size: 182.09485pt x 122.10919pt.
-<./figs/H2O_v_CPs_Rafa.png, id=1094, 752.8125pt x 1053.9375pt>
+<./figs/H2O_v_CPs_Rafa.png, id=1101, 752.8125pt x 1053.9375pt>
 File: ./figs/H2O_v_CPs_Rafa.png Graphic file (type png)
 <use ./figs/H2O_v_CPs_Rafa.png>
-Package pdftex.def Info: ./figs/H2O_v_CPs_Rafa.png  used on input line 3735.
+Package pdftex.def Info: ./figs/H2O_v_CPs_Rafa.png  used on input line 3778.
 (pdftex.def)             Requested size: 113.81102pt x 159.3221pt.
-<./figs/NH3_v_CPs_Rafa.png, id=1095, 752.8125pt x 1053.9375pt>
+<./figs/NH3_v_CPs_Rafa.png, id=1102, 752.8125pt x 1053.9375pt>
 File: ./figs/NH3_v_CPs_Rafa.png Graphic file (type png)
 <use ./figs/NH3_v_CPs_Rafa.png>
-Package pdftex.def Info: ./figs/NH3_v_CPs_Rafa.png  used on input line 3737.
+Package pdftex.def Info: ./figs/NH3_v_CPs_Rafa.png  used on input line 3780.
 (pdftex.def)             Requested size: 113.81102pt x 159.3221pt.
- [52 <./figs/H2O-pot.png> <./figs/NH3-pot.png> <./figs/CH3Cl-pot-pos-b.png> <./
+ [53 <./figs/H2O-pot.png> <./figs/NH3-pot.png> <./figs/CH3Cl-pot-pos-b.png> <./
 figs/CH3Cl-pot-neg-b.png>]
-<./figs/H2O_v_topograph_Rafa.png, id=1103, 1053.9375pt x 1053.9375pt>
+<./figs/H2O_v_topograph_Rafa.png, id=1110, 1053.9375pt x 1053.9375pt>
 File: ./figs/H2O_v_topograph_Rafa.png Graphic file (type png)
 <use ./figs/H2O_v_topograph_Rafa.png>
 Package pdftex.def Info: ./figs/H2O_v_topograph_Rafa.png  used on input line 37
-50.
+93.
 (pdftex.def)             Requested size: 127.46777pt x 127.46411pt.
-<./figs/NH3_v_topograph_Rafa.png, id=1104, 752.8125pt x 1053.9375pt>
+<./figs/NH3_v_topograph_Rafa.png, id=1111, 752.8125pt x 1053.9375pt>
 File: ./figs/NH3_v_topograph_Rafa.png Graphic file (type png)
 <use ./figs/NH3_v_topograph_Rafa.png>
 Package pdftex.def Info: ./figs/NH3_v_topograph_Rafa.png  used on input line 37
-52.
+95.
 (pdftex.def)             Requested size: 91.04742pt x 127.46411pt.
-<./figs/H2O-bs.jpg, id=1106, 563.10374pt x 594.22pt>
+<./figs/H2O-bs.jpg, id=1113, 563.10374pt x 594.22pt>
 File: ./figs/H2O-bs.jpg Graphic file (type jpg)
 <use ./figs/H2O-bs.jpg>
-Package pdftex.def Info: ./figs/H2O-bs.jpg  used on input line 3766.
+Package pdftex.def Info: ./figs/H2O-bs.jpg  used on input line 3809.
 (pdftex.def)             Requested size: 136.5746pt x 144.12083pt.
-<./figs/NH3-bs.jpg, id=1107, 545.03625pt x 504.88625pt>
+<./figs/NH3-bs.jpg, id=1114, 545.03625pt x 504.88625pt>
 File: ./figs/NH3-bs.jpg Graphic file (type jpg)
 <use ./figs/NH3-bs.jpg>
-Package pdftex.def Info: ./figs/NH3-bs.jpg  used on input line 3768.
+Package pdftex.def Info: ./figs/NH3-bs.jpg  used on input line 3811.
 (pdftex.def)             Requested size: 154.78131pt x 143.3779pt.
- [53 <./figs/H2O_v_CPs_Rafa.png> <./figs/NH3_v_CPs_Rafa.png> <./figs/H2O_v_topo
+ [54 <./figs/H2O_v_CPs_Rafa.png> <./figs/NH3_v_CPs_Rafa.png> <./figs/H2O_v_topo
 graph_Rafa.png> <./figs/NH3_v_topograph_Rafa.png>]
-<./figs/damqt320_benzoic_sgh.png, id=1119, 549.252pt x 389.70207pt>
+<./figs/damqt320_benzoic_sgh.png, id=1126, 549.252pt x 389.70207pt>
 File: ./figs/damqt320_benzoic_sgh.png Graphic file (type png)
 <use ./figs/damqt320_benzoic_sgh.png>
-Package pdftex.def Info: ./figs/damqt320_benzoic_sgh.png  used on input line 37
-85.
+Package pdftex.def Info: ./figs/damqt320_benzoic_sgh.png  used on input line 38
+28.
 (pdftex.def)             Requested size: 154.78131pt x 109.8175pt.
-<./figs/damqt320_sg_hole_mesp_extrema.png, id=1120, 877.80254pt x 527.571pt>
+<./figs/damqt320_sg_hole_mesp_extrema.png, id=1127, 877.80254pt x 527.571pt>
 File: ./figs/damqt320_sg_hole_mesp_extrema.png Graphic file (type png)
 <use ./figs/damqt320_sg_hole_mesp_extrema.png>
 Package pdftex.def Info: ./figs/damqt320_sg_hole_mesp_extrema.png  used on inpu
-t line 3787.
+t line 3830.
 (pdftex.def)             Requested size: 182.09485pt x 109.44077pt.
-<./figs/H2O-field-1.png, id=1122, 962.09438pt x 645.16031pt>
+<./figs/H2O-field-1.png, id=1129, 962.09438pt x 645.16031pt>
 File: ./figs/H2O-field-1.png Graphic file (type png)
 <use ./figs/H2O-field-1.png>
-Package pdftex.def Info: ./figs/H2O-field-1.png  used on input line 3803.
+Package pdftex.def Info: ./figs/H2O-field-1.png  used on input line 3846.
 (pdftex.def)             Requested size: 159.3382pt x 106.84062pt.
-<./figs/H2O-field-2.png, id=1123, 962.09438pt x 645.16031pt>
+<./figs/H2O-field-2.png, id=1130, 962.09438pt x 645.16031pt>
 File: ./figs/H2O-field-2.png Graphic file (type png)
 <use ./figs/H2O-field-2.png>
-Package pdftex.def Info: ./figs/H2O-field-2.png  used on input line 3805.
+Package pdftex.def Info: ./figs/H2O-field-2.png  used on input line 3848.
 (pdftex.def)             Requested size: 159.3382pt x 106.84062pt.
 
-[54 <./figs/H2O-bs.jpg> <./figs/NH3-bs.jpg> <./figs/damqt320_benzoic_sgh.png (P
+[55 <./figs/H2O-bs.jpg> <./figs/NH3-bs.jpg> <./figs/damqt320_benzoic_sgh.png (P
 NG copy)> <./figs/damqt320_sg_hole_mesp_extrema.png (PNG copy)> <./figs/H2O-fie
 ld-1.png> <./figs/H2O-field-2.png>]
-<./figs/CH3Cl-pVQZ_Cp_field.jpg, id=1131, 1505.625pt x 1505.625pt>
+<./figs/CH3Cl-pVQZ_Cp_field.jpg, id=1139, 1505.625pt x 1505.625pt>
 File: ./figs/CH3Cl-pVQZ_Cp_field.jpg Graphic file (type jpg)
 <use ./figs/CH3Cl-pVQZ_Cp_field.jpg>
-Package pdftex.def Info: ./figs/CH3Cl-pVQZ_Cp_field.jpg  used on input line 381
-6.
+Package pdftex.def Info: ./figs/CH3Cl-pVQZ_Cp_field.jpg  used on input line 385
+9.
 (pdftex.def)             Requested size: 136.5746pt x 136.5572pt.
-<./figs/4ap-forces-1.png, id=1133, 965.10562pt x 647.41875pt>
+<./figs/4ap-forces-1.png, id=1141, 965.10562pt x 647.41875pt>
 File: ./figs/4ap-forces-1.png Graphic file (type png)
 <use ./figs/4ap-forces-1.png>
-Package pdftex.def Info: ./figs/4ap-forces-1.png  used on input line 3843.
+Package pdftex.def Info: ./figs/4ap-forces-1.png  used on input line 3886.
 (pdftex.def)             Requested size: 136.5746pt x 91.616pt.
-<./figs/4ap-forces-2.png, id=1134, 964.35281pt x 645.16031pt>
+<./figs/4ap-forces-2.png, id=1142, 964.35281pt x 645.16031pt>
 File: ./figs/4ap-forces-2.png Graphic file (type png)
 <use ./figs/4ap-forces-2.png>
-Package pdftex.def Info: ./figs/4ap-forces-2.png  used on input line 3845.
+Package pdftex.def Info: ./figs/4ap-forces-2.png  used on input line 3888.
 (pdftex.def)             Requested size: 136.5746pt x 91.36533pt.
- [55 <./figs/CH3Cl-pVQZ_Cp_field.jpg> <./figs/4ap-forces-1.png> <./figs/4ap-for
+ [56 <./figs/CH3Cl-pVQZ_Cp_field.jpg> <./figs/4ap-forces-1.png> <./figs/4ap-for
 ces-2.png>]
-<./figs/biphenyl_dens_2D_exact.png, id=1146, 958.3303pt x 691.83469pt>
+<./figs/biphenyl_dens_2D_exact.png, id=1153, 958.3303pt x 691.83469pt>
 File: ./figs/biphenyl_dens_2D_exact.png Graphic file (type png)
 <use ./figs/biphenyl_dens_2D_exact.png>
 Package pdftex.def Info: ./figs/biphenyl_dens_2D_exact.png  used on input line 
-3874.
+3917.
 (pdftex.def)             Requested size: 159.3382pt x 115.02399pt.
-<./figs/biphenyl_dens_2D_Zernike_2.png, id=1147, 958.3303pt x 691.83469pt>
+<./figs/biphenyl_dens_2D_Zernike_2.png, id=1154, 958.3303pt x 691.83469pt>
 File: ./figs/biphenyl_dens_2D_Zernike_2.png Graphic file (type png)
 <use ./figs/biphenyl_dens_2D_Zernike_2.png>
 Package pdftex.def Info: ./figs/biphenyl_dens_2D_Zernike_2.png  used on input l
-ine 3876.
+ine 3919.
 (pdftex.def)             Requested size: 159.3382pt x 115.02399pt.
-<./figs/biphenyl_dens_2D_Zernike.png, id=1148, 958.3303pt x 691.83469pt>
+<./figs/biphenyl_dens_2D_Zernike.png, id=1155, 958.3303pt x 691.83469pt>
 File: ./figs/biphenyl_dens_2D_Zernike.png Graphic file (type png)
 <use ./figs/biphenyl_dens_2D_Zernike.png>
 Package pdftex.def Info: ./figs/biphenyl_dens_2D_Zernike.png  used on input lin
-e 3878.
+e 3921.
 (pdftex.def)             Requested size: 159.3382pt x 115.02399pt.
-<./figs/biphenyl_dens_2D_Zernike_l15_k10.png, id=1149, 958.3303pt x 691.83469pt
+<./figs/biphenyl_dens_2D_Zernike_l15_k10.png, id=1156, 958.3303pt x 691.83469pt
 >
 File: ./figs/biphenyl_dens_2D_Zernike_l15_k10.png Graphic file (type png)
 <use ./figs/biphenyl_dens_2D_Zernike_l15_k10.png>
 Package pdftex.def Info: ./figs/biphenyl_dens_2D_Zernike_l15_k10.png  used on i
-nput line 3880.
+nput line 3923.
 (pdftex.def)             Requested size: 159.3382pt x 115.02399pt.
-<./figs/biphenyl_dens_3D_exact_0p1.png, id=1150, 1126.96031pt x 691.08188pt>
+<./figs/biphenyl_dens_3D_exact_0p1.png, id=1157, 1126.96031pt x 691.08188pt>
 File: ./figs/biphenyl_dens_3D_exact_0p1.png Graphic file (type png)
 <use ./figs/biphenyl_dens_3D_exact_0p1.png>
 Package pdftex.def Info: ./figs/biphenyl_dens_3D_exact_0p1.png  used on input l
-ine 3890.
+ine 3933.
 (pdftex.def)             Requested size: 159.3382pt x 97.71039pt.
-<./figs/biphenyl_dens_3D_Zernike_0p1.png, id=1151, 1023.07219pt x 632.3625pt>
+<./figs/biphenyl_dens_3D_Zernike_0p1.png, id=1158, 1023.07219pt x 632.3625pt>
 File: ./figs/biphenyl_dens_3D_Zernike_0p1.png Graphic file (type png)
 <use ./figs/biphenyl_dens_3D_Zernike_0p1.png>
 Package pdftex.def Info: ./figs/biphenyl_dens_3D_Zernike_0p1.png  used on input
- line 3892.
+ line 3935.
 (pdftex.def)             Requested size: 159.3382pt x 98.47832pt.
-<./figs/biphenyl_dens_3D_exact_0p03.png, id=1152, 1154.06157pt x 679.78969pt>
+<./figs/biphenyl_dens_3D_exact_0p03.png, id=1159, 1154.06157pt x 679.78969pt>
 File: ./figs/biphenyl_dens_3D_exact_0p03.png Graphic file (type png)
 <use ./figs/biphenyl_dens_3D_exact_0p03.png>
 Package pdftex.def Info: ./figs/biphenyl_dens_3D_exact_0p03.png  used on input 
-line 3894.
+line 3937.
 (pdftex.def)             Requested size: 159.3382pt x 93.85257pt.
-<./figs/biphenyl_dens_3D_Zernike_0p03.png, id=1153, 1278.27562pt x 894.34125pt>
+<./figs/biphenyl_dens_3D_Zernike_0p03.png, id=1160, 1278.27562pt x 894.34125pt>
 
 File: ./figs/biphenyl_dens_3D_Zernike_0p03.png Graphic file (type png)
 <use ./figs/biphenyl_dens_3D_Zernike_0p03.png>
 Package pdftex.def Info: ./figs/biphenyl_dens_3D_Zernike_0p03.png  used on inpu
-t line 3896.
+t line 3939.
 (pdftex.def)             Requested size: 159.3382pt x 111.4785pt.
- [56 <./figs/biphenyl_dens_2D_exact.png> <./figs/biphenyl_dens_2D_Zernike_2.png
+ [57 <./figs/biphenyl_dens_2D_exact.png> <./figs/biphenyl_dens_2D_Zernike_2.png
 > <./figs/biphenyl_dens_2D_Zernike.png> <./figs/biphenyl_dens_2D_Zernike_l15_k1
 0.png> <./figs/biphenyl_dens_3D_exact_0p1.png> <./figs/biphenyl_dens_3D_Zernike
 _0p1.png> <./figs/biphenyl_dens_3D_exact_0p03.png> <./figs/biphenyl_dens_3D_Zer
 nike_0p03.png>]
-Overfull \hbox (37.92523pt too wide) detected at line 3970
+Overfull \hbox (37.92523pt too wide) detected at line 4013
 []
  []
 
 
-Overfull \hbox (4.23557pt too wide) detected at line 4023
+Overfull \hbox (4.23557pt too wide) detected at line 4066
 []
  []
 
 
-Overfull \hbox (23.18147pt too wide) detected at line 4040
+Overfull \hbox (23.18147pt too wide) detected at line 4083
 []
  []
 
 
-Overfull \hbox (4.23557pt too wide) detected at line 4085
+Overfull \hbox (4.23557pt too wide) detected at line 4128
 []
  []
 
-[57] [58] [59]
-<./figs/damqt320_epic_1.png, id=1189, 801.18071pt x 544.24869pt>
+[58] [59] [60]
+<./figs/damqt320_epic_1.png, id=1196, 801.18071pt x 544.24869pt>
 File: ./figs/damqt320_epic_1.png Graphic file (type png)
 <use ./figs/damqt320_epic_1.png>
-Package pdftex.def Info: ./figs/damqt320_epic_1.png  used on input line 4286.
+Package pdftex.def Info: ./figs/damqt320_epic_1.png  used on input line 4329.
 (pdftex.def)             Requested size: 154.88739pt x 105.2104pt.
-<./figs/damqt320_epic_2_b.png, id=1190, 1083.4854pt x 581.49554pt>
+<./figs/damqt320_epic_2_b.png, id=1197, 1083.4854pt x 581.49554pt>
 File: ./figs/damqt320_epic_2_b.png Graphic file (type png)
 <use ./figs/damqt320_epic_2_b.png>
-Package pdftex.def Info: ./figs/damqt320_epic_2_b.png  used on input line 4295.
+Package pdftex.def Info: ./figs/damqt320_epic_2_b.png  used on input line 4338.
 
 (pdftex.def)             Requested size: 196.1889pt x 105.28578pt.
- [60 <./figs/damqt320_epic_1.png (PNG copy)> <./figs/damqt320_epic_2_b.png>]
-<./figs/damqt320_epic_3_b.png, id=1210, 801.74532pt x 557.59085pt>
+ [61 <./figs/damqt320_epic_1.png (PNG copy)> <./figs/damqt320_epic_2_b.png>]
+<./figs/damqt320_epic_3_b.png, id=1218, 801.74532pt x 557.59085pt>
 File: ./figs/damqt320_epic_3_b.png Graphic file (type png)
 <use ./figs/damqt320_epic_3_b.png>
-Package pdftex.def Info: ./figs/damqt320_epic_3_b.png  used on input line 4334.
+Package pdftex.def Info: ./figs/damqt320_epic_3_b.png  used on input line 4377.
 
 (pdftex.def)             Requested size: 165.21286pt x 114.89392pt.
-<./figs/damqt320_epic_4.png, id=1211, 801.74532pt x 544.24869pt>
+<./figs/damqt320_epic_4.png, id=1219, 801.74532pt x 544.24869pt>
 File: ./figs/damqt320_epic_4.png Graphic file (type png)
 <use ./figs/damqt320_epic_4.png>
-Package pdftex.def Info: ./figs/damqt320_epic_4.png  used on input line 4343.
+Package pdftex.def Info: ./figs/damqt320_epic_4.png  used on input line 4386.
 (pdftex.def)             Requested size: 165.21286pt x 112.14471pt.
 
-Overfull \hbox (6.78656pt too wide) in paragraph at lines 4330--4349
+Overfull \hbox (6.78656pt too wide) in paragraph at lines 4373--4392
  [] 
  []
 
-<./figs/damqt320_epic_5_b.png, id=1215, 1083.4854pt x 577.60408pt>
+<./figs/damqt320_epic_5_b.png, id=1223, 1083.4854pt x 577.60408pt>
 File: ./figs/damqt320_epic_5_b.png Graphic file (type png)
 <use ./figs/damqt320_epic_5_b.png>
-Package pdftex.def Info: ./figs/damqt320_epic_5_b.png  used on input line 4371.
+Package pdftex.def Info: ./figs/damqt320_epic_5_b.png  used on input line 4414.
 
 (pdftex.def)             Requested size: 165.21286pt x 88.07347pt.
-<./figs/damqt320_epic_6_b.png, id=1216, 1083.4854pt x 580.3837pt>
+<./figs/damqt320_epic_6_b.png, id=1224, 1083.4854pt x 580.3837pt>
 File: ./figs/damqt320_epic_6_b.png Graphic file (type png)
 <use ./figs/damqt320_epic_6_b.png>
-Package pdftex.def Info: ./figs/damqt320_epic_6_b.png  used on input line 4380.
+Package pdftex.def Info: ./figs/damqt320_epic_6_b.png  used on input line 4423.
 
 (pdftex.def)             Requested size: 165.21286pt x 88.4973pt.
 
-Overfull \hbox (6.78656pt too wide) in paragraph at lines 4367--4386
+Overfull \hbox (6.78656pt too wide) in paragraph at lines 4410--4429
  [] 
  []
 
-<./figs/damqt320_epic_7_b.png, id=1218, 1083.4854pt x 579.82777pt>
+<./figs/damqt320_epic_7_b.png, id=1226, 1084.05pt x 578.71593pt>
 File: ./figs/damqt320_epic_7_b.png Graphic file (type png)
 <use ./figs/damqt320_epic_7_b.png>
-Package pdftex.def Info: ./figs/damqt320_epic_7_b.png  used on input line 4399.
+Package pdftex.def Info: ./figs/damqt320_epic_7_b.png  used on input line 4442.
 
-(pdftex.def)             Requested size: 165.21286pt x 88.41254pt.
-<./figs/damqt320_epic_8.png, id=1219, 1083.4854pt x 580.3837pt>
+(pdftex.def)             Requested size: 165.21286pt x 88.19002pt.
+<./figs/damqt320_epic_8.png, id=1227, 1083.4854pt x 580.3837pt>
 File: ./figs/damqt320_epic_8.png Graphic file (type png)
 <use ./figs/damqt320_epic_8.png>
-Package pdftex.def Info: ./figs/damqt320_epic_8.png  used on input line 4408.
+Package pdftex.def Info: ./figs/damqt320_epic_8.png  used on input line 4451.
 (pdftex.def)             Requested size: 165.21286pt x 88.4973pt.
 
-Overfull \hbox (6.78656pt too wide) in paragraph at lines 4395--4414
+Overfull \hbox (6.78656pt too wide) in paragraph at lines 4438--4457
  [] 
  []
 
-[61 <./figs/damqt320_epic_3_b.png> <./figs/damqt320_epic_4.png (PNG copy)> <./f
+[62 <./figs/damqt320_epic_3_b.png> <./figs/damqt320_epic_4.png (PNG copy)> <./f
 igs/damqt320_epic_5_b.png> <./figs/damqt320_epic_6_b.png>]
-<./figs/damqt320_epic_9_b.png, id=1241, 1083.4854pt x 580.3837pt>
+<./figs/damqt320_epic_9_b.png, id=1248, 1083.4854pt x 580.3837pt>
 File: ./figs/damqt320_epic_9_b.png Graphic file (type png)
 <use ./figs/damqt320_epic_9_b.png>
-Package pdftex.def Info: ./figs/damqt320_epic_9_b.png  used on input line 4436.
+Package pdftex.def Info: ./figs/damqt320_epic_9_b.png  used on input line 4479.
 
 (pdftex.def)             Requested size: 165.21286pt x 88.4973pt.
-<./figs/damqt320_epic_10.png, id=1242, 801.18071pt x 545.91646pt>
+<./figs/damqt320_epic_10.png, id=1249, 800.61609pt x 542.58092pt>
 File: ./figs/damqt320_epic_10.png Graphic file (type png)
 <use ./figs/damqt320_epic_10.png>
-Package pdftex.def Info: ./figs/damqt320_epic_10.png  used on input line 4445.
-(pdftex.def)             Requested size: 132.16966pt x 90.05566pt.
+Package pdftex.def Info: ./figs/damqt320_epic_10.png  used on input line 4489.
+(pdftex.def)             Requested size: 128.03847pt x 86.76505pt.
 
-Overfull \hbox (6.78656pt too wide) in paragraph at lines 4432--4451
+Overfull \hbox (6.78656pt too wide) in paragraph at lines 4475--4495
  [] 
  []
 
-[62 <./figs/damqt320_epic_7_b.png> <./figs/damqt320_epic_8.png (PNG copy)> <./f
-igs/damqt320_epic_9_b.png> <./figs/damqt320_epic_10.png (PNG copy)>]
-(./DAMQT_3.2.0_manual.lof [63] [64])
+[63 <./figs/damqt320_epic_7_b.png> <./figs/damqt320_epic_8.png (PNG copy)> <./f
+igs/damqt320_epic_9_b.png> <./figs/damqt320_epic_10.png (PNG copy)>] [64]
+(./DAMQT_3.2.0_manual.lof [65] [66])
 \tf@lof=\write7
 \openout7 = `DAMQT_3.2.0_manual.lof'.
 
- [65]
+ [67]
 runsystem(makeindex DAMQT_3.2.0_manual.idx)...executed safely (allowed).
 
- (./DAMQT_3.2.0_manual.ind [66
+ (./DAMQT_3.2.0_manual.ind [68
 
 ]
-[67])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4481.
- [68]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 4481.
+[69])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 4551.
+ [70]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 4551.
  (./DAMQT_3.2.0_manual.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4481.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4481.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 4551.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 4551.
 
 Package rerunfilecheck Info: File `DAMQT_3.2.0_manual.out' has not changed.
 (rerunfilecheck)             Checksum: 96717DA5D2ABBC43353CBCAD4B13A363;5567.
@@ -2271,16 +2259,16 @@ Package rerunfilecheck Info: File `DAMQT_3.2.0_manual.out' has not changed.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 4481.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 4551.
  ) 
 Here is how much of TeX's memory you used:
- 10145 strings out of 492982
- 161613 string characters out of 6134896
- 241829 words of memory out of 5000000
- 13064 multiletter control sequences out of 15000+600000
- 15919 words of font info for 63 fonts, out of 8000000 for 9000
+ 10071 strings out of 492982
+ 160488 string characters out of 6134896
+ 239610 words of memory out of 5000000
+ 12992 multiletter control sequences out of 15000+600000
+ 15013 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 53i,20n,92p,323b,659s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,20n,92p,323b,621s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
@@ -2294,22 +2282,20 @@ s/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
 6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl9.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-ti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
-Output written on DAMQT_3.2.0_manual.pdf (68 pages, 17386786 bytes).
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/rsfs/rsfs10.pfb>
+Output written on DAMQT_3.2.0_manual.pdf (70 pages, 17496157 bytes).
 PDF statistics:
- 1807 PDF objects out of 2073 (max. 8388607)
- 1484 compressed objects within 15 object streams
- 313 named destinations out of 1000 (max. 500000)
- 1576 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1817 PDF objects out of 2073 (max. 8388607)
+ 1492 compressed objects within 15 object streams
+ 317 named destinations out of 1000 (max. 500000)
+ 1581 words of extra memory for PDF output out of 10000 (max. 10000000)
 

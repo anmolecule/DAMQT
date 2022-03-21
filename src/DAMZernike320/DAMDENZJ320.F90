@@ -1,4 +1,4 @@
-!  Copyright 2011-2019, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+!  Copyright 2011-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 !  Guillermo Ramirez
 ! 
 !  This file is part of DAM320.
@@ -18,7 +18,7 @@
 !
 !------------------------------------------------------------------------
 ! 
-! Program for the tabulation of molecular density from its expansion in Canterakis-Zernike or Jacobi expansion  
+! Program for the tabulation of molecular density from its expansion in Canterakis-Zernike or Jacobi functions
 !
 ! Requires file DAM320_GLOBAL.F90 which must be compiled first (contains the modules)
 !

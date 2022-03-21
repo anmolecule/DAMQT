@@ -1,4 +1,4 @@
-﻿!  Copyright 2017-2018, Rafael Lopez, Gabriel Urquiza Carvalho
+﻿!  Copyright 2017-2021, Rafael Lopez, Gabriel Urquiza Carvalho
 ! 
 !  This file is part of Zernike_Jacobi_320 package.
 !  Zernike_Jacobi_320 is distributed in the hope that it will be useful,

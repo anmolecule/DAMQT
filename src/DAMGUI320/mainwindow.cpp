@@ -1,4 +1,4 @@
-﻿//  Copyright 2008-2019, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+﻿//  Copyright 2008-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 //  Guillermo Ramirez, David Zorrilla, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
 // 
 //  This file is part of DAMQT.
@@ -231,6 +231,23 @@ string MainWindow::toString(QString qv)
     return v;
 }
 
+void MainWindow::update_textedit(QString a){
+    QFile file(a);
+    if(!file.open(QIODevice::ReadOnly)){
+        QMessageBox msgBox;
+        msgBox.setText(tr("submitOutput"));
+        msgBox.setInformativeText(QString(tr("Failed opening %1 output file. Error: %1\n")
+                        .arg(a).arg(file.errorString())));
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.exec();
+    }
+    else{
+        QTextStream in(&file);
+        textEdit->setFont(QFont("Courier",10));
+        textEdit->setPlainText(in.readAll());
+    }
+}
+
 /*****************************************************************************************************/
 /******************************* ACTIONS  ************************************************************/
 /*****************************************************************************************************/
@@ -266,6 +283,11 @@ void MainWindow::CreateActions()
     AccPdf->setShortcut(tr("Ctrl+D"));
     AccPdf->setStatusTip(tr("Print output file as Pdf"));
     connect(AccPdf, SIGNAL(triggered()), this, SLOT(PrintFilePdf()));
+//    External packages
+    AccExternal = new QAction(QIcon(":/images/External_program.png"),tr("E&xternal"), this);
+    AccExternal->setShortcut(tr("Ctrl+E"));
+    AccExternal->setStatusTip(tr("External packages"));
+    connect(AccExternal, SIGNAL(triggered()), this, SLOT(external_package()));
 //    2D Viewer2D
     Acc2Dplot = new QAction(QIcon(":/images/plot2D_tiny.png"),tr("&2D Viewer"), this);
     Acc2Dplot->setStatusTip(tr("2D Viewer"));
@@ -274,6 +296,7 @@ void MainWindow::CreateActions()
     Acc3Dview = new QAction(QIcon(":/images/cube_molecule.png"),tr("&3D Viewer"), this);
     Acc3Dview->setStatusTip(tr("3D Viewer"));
     connect(Acc3Dview, SIGNAL(triggered()), this, SLOT(addglWidget()));
+
 //    Recent files
     for (int i = 0; i < MAX_ARCHIVOS_RECIENTES; ++i) {
         if (!AccRecentFiles[i]){
@@ -653,7 +676,7 @@ bool MainWindow::mustSave()
 void MainWindow::about()
 {
     QMessageBox::about(this,tr("About DAMQT"), "<h2>"+tr("DAMQT 3.2")+"</h2>" "<p>"
-        +tr("Copyright &copy; 2008-2019")+"</p>"
+        +tr("Copyright &copy; 2008-2021")+"</p>"
         "<p>"+tr("DAMQT is a program for the analysis of electron molecular density, "
         "electrostatic potential and field and Hellman-Feynman forces on nuclei.")
         +"</p>" "<p>"+tr("Developed in the Departamento de Quimica-Fisica Aplicada of "
@@ -792,6 +815,7 @@ void MainWindow::CreateMenus()
     FileMenu->addSeparator();
     FileMenu->addAction(AccPrint);
     FileMenu->addAction(AccPdf);
+    FileMenu->addAction(AccExternal);
     if(MAX_ARCHIVOS_RECIENTES>0){
         FileMenu->addSeparator();
         for (int i = 0; i < MAX_ARCHIVOS_RECIENTES; ++i){
@@ -825,6 +849,7 @@ void MainWindow::CreateToolBars()
     ToolBarFile->addAction(AccSave);
     ToolBarFile->addAction(AccPrint);
     ToolBarFile->addAction(AccPdf);
+    ToolBarFile->addAction(AccExternal);
     ToolBarHelp=addToolBar(tr("Graphics"));
     ToolBarHelp->addAction(Acc2Dplot);
     ToolBarHelp->addAction(Acc3Dview);
@@ -838,6 +863,10 @@ void MainWindow::CreateToolBars()
 void MainWindow::CreateStatusBar()
 {
     statusBar()->showMessage(tr("DAMQT"));
+}
+
+void MainWindow::update_statusbar(QString a){
+    statusBar()->showMessage(a);
 }
 
 /*******************************************************************************************************/
@@ -1163,7 +1192,7 @@ void MainWindow::page_project_widgets()
 
     LBLProjectFolder = new QLabel(tr("Project folder")+":");
     TXTProjectFolder = new QLineEdit();
-    connect(TXTProjectFolder, SIGNAL(textChanged(const QString &)), this, SLOT(TXTProjectFolder_changed(const QString )));
+    connect(TXTProjectFolder, SIGNAL(textChanged(const QString &)), this, SLOT(TXTProjectFolder_changed(const QString &)));
     TXTProjectFolder->setEnabled(true);
 
 //                    Project Name
@@ -1292,9 +1321,9 @@ void MainWindow::page_atdens_widgets()
     FRMfitthrs->setMaximumSize(QSize(400, 2000));
 
 
-    LBLfitthreshold = new QLabel("Fitting threshold: 10^",FRMfitthrs);
+    LBLfitthreshold = new QLabel(tr("Fitting threshold: 10^"),FRMfitthrs);
     LBLfitthreshold->setToolTip(tr("Threshold for truncating expansions of radial factors "));
-    LBLfradthreshold = new QLabel("Cutoff threshold: 10^",FRMfitthrs);
+    LBLfradthreshold = new QLabel(tr("Cutoff threshold: 10^"),FRMfitthrs);
     LBLfradthreshold->setToolTip(tr("Threshold for neglecting radial factors "));
 
     SPBfitthreshold = new QSpinBox(FRMfitthrs);
@@ -3304,6 +3333,11 @@ void MainWindow::page_Efield_widgets()
     FRMefplaneABC->setMaximumSize(QSize(400, 2000));
     FRMefplaneABC->setVisible(false);
 
+    TXTefbas2dtol = new QLineEdit(FRMefplane2D);
+    TXTefbas2dtol->setValidator(myDoubleValidator);
+    TXTefbas2dtol->setText("0.1");
+    TXTefbas2dtol->setToolTip(tr("A critical point lays on the plane if its distance is lower than this"));
+
     TXTefplaneA=new QLineEdit(FRMefplaneABC);
     TXTefplaneA->setText("0.");
     TXTefplaneA->setValidator(myDoubleValidator);
@@ -3366,6 +3400,7 @@ void MainWindow::page_Efield_widgets()
 
     FRMefextralines = new QGroupBox();
     FRMefextralines->setMaximumSize(QSize(400, 2000));
+    FRMefextralines->setVisible(false);
 
     CHKefextralines = new QCheckBox(tr("Extra lines"),FRMefextralines);
     CHKefextralines->setChecked(false);
@@ -3380,7 +3415,7 @@ void MainWindow::page_Efield_widgets()
     connect(CHKefxyz, SIGNAL(stateChanged(int)), this, SLOT(CHKefxyz_changed()));
 
     Wtabledenef=new QWidget(FRMefxyz);
-    SHTefxyz = new Sheet(0, 4, 0,true, Wtabledenef);
+    SHTefxyz = new Sheet(0, 4, 0,true, Wtabledenef,59);
     QStringList QSLefxyz;
     QSLefxyz << "cntr" << "x" << "y" << "z";
     SHTefxyz->setHeader(QSLefxyz);
@@ -3488,6 +3523,7 @@ void MainWindow::page_Efield_layouts()
     QLabel *LBLefz=new QLabel(tr("z"),FRMefplot3D);
     QLabel *LBLefinfb = new QLabel(tr("Lowest"));
     QLabel *LBLefsupb = new QLabel(tr("Highest"));
+    QLabel *LBLefbas2dtol = new QLabel(tr("Basins tolerance"),FRMeflines);
 
     QHBoxLayout *Layout1=new QHBoxLayout(FRMeffilename);
     Layout1->addWidget(TXTeffilename);
@@ -3560,6 +3596,8 @@ void MainWindow::page_Efield_layouts()
     Layout14->addWidget(TXTefvinf,3,1);
     Layout14->addWidget(TXTefvsup,3,2);
     Layout14->addWidget(FRMefplane2D,4,0,1,3,Qt::AlignCenter);
+    Layout14->addWidget(LBLefbas2dtol,5,0,1,2,Qt::AlignLeft);
+    Layout14->addWidget(TXTefbas2dtol,5,2,Qt::AlignLeft);
 
     QVBoxLayout *Layout15=new QVBoxLayout(FRMefplot2D);
     Layout15->addLayout(Layout8);
@@ -5812,22 +5850,22 @@ void MainWindow::execImport()
         execSxyzDen();
     }else if (suffix=="fchk"){
         lslater = false;
-        execFchk();
+        readFchk();
     }else if (suffix=="mos" || suffix=="coord" || suffix=="basis"){
         lslater = false;
-        execTurbom();
+        readTurbom();
     }else if (suffix=="mkl"){
         lslater = false;
-        execMOLEKEL();
+        readMOLEKEL();
     }else if (suffix=="out" || suffix=="xml"){
-        execMolpro();
+        readMolpro();
         lslater = false;
     }else if (suffix=="aux"){
         lslater = true;
-        execMopac();
+        readMopac();
     }else if (suffix=="nwcout"){
         lslater = false;
-        execNWChem();
+        readNWChem();
     }else if (suffix=="psiauxden"){
         lslater = false;
         execPsi4auxiliary();
@@ -6158,7 +6196,7 @@ void MainWindow::execSxyzDen()
 /**************************************************************************************************/
 
 /* Reads data from a GAUSSIAN fchk file */
-void MainWindow::execFchk()
+void MainWindow::readFchk()
 {
     if (ImportFolder.at(ImportFolder.length()-1) != '/')
         ImportFolder.append('/');
@@ -6214,7 +6252,7 @@ void MainWindow::create_damproj(int exitCode, QProcess::ExitStatus exitStatus){
 }
 
 /* Reads data from an MOLEKEL .mkl  file */
-void MainWindow::execMOLEKEL()
+void MainWindow::readMOLEKEL()
 {
     QDir path(ProjectFolder);
 
@@ -6255,7 +6293,7 @@ void MainWindow::execMOLEKEL()
 }
 
 /* Reads data from a MOLPRO out file */
-void MainWindow::execMolpro()
+void MainWindow::readMolpro()
 {
     if (ImportFolder.at(ImportFolder.length()-1) != '/') ImportFolder.append('/');
     QString DirNombreImport = ImportFolder+ImportFile;
@@ -6355,7 +6393,7 @@ void MainWindow::execMolpro()
 }
 
 /* Reads data from a MOPAC aux file */
-void MainWindow::execMopac()
+void MainWindow::readMopac()
 {
     if (ImportFolder.at(ImportFolder.length()-1) != '/') ImportFolder.append('/');
     QString DirNombreImport = ImportFolder+ImportFile;
@@ -6403,7 +6441,7 @@ void MainWindow::execMopac()
 }
 
 /* Reads data from a TURBOMOLE coord, mos and basis  files */
-void MainWindow::execTurbom()
+void MainWindow::readTurbom()
 {
     QDir path(ProjectFolder);
 
@@ -6440,12 +6478,12 @@ void MainWindow::execTurbom()
     connect(myProcess, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
     connect(myProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processOutput(int, QProcess::ExitStatus)));
     executing = 1;
-    QByteArray qbarray = myProcess->readAllStandardError();
+//    QByteArray qbarray = myProcess->readAllStandardError();
     myProcess->start(strprocess,Parameters);
 }
 
 /* Reads data from a NWChem output file (IMPORTANT! extension must be nwcout) */
-void MainWindow::execNWChem()
+void MainWindow::readNWChem()
 {
     QDir path(ProjectFolder);
 
@@ -6482,7 +6520,7 @@ void MainWindow::execNWChem()
     connect(myProcess, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
     connect(myProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processOutput(int, QProcess::ExitStatus)));
     executing = 7;
-    QByteArray qbarray = myProcess->readAllStandardError();
+//    QByteArray qbarray = myProcess->readAllStandardError();
     myProcess->start(strprocess,Parameters);
 }
 
@@ -6525,7 +6563,7 @@ void MainWindow::execPsi4auxiliary()
     connect(myProcess, SIGNAL(error(QProcess::ProcessError)), this, SLOT(processError(QProcess::ProcessError)));
     connect(myProcess, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(processOutput(int, QProcess::ExitStatus)));
     executing = 8;
-    QByteArray qbarray = myProcess->readAllStandardError();
+//    QByteArray qbarray = myProcess->readAllStandardError();
     myProcess->start(strprocess,Parameters);
 }
 
@@ -6571,8 +6609,8 @@ void MainWindow::processError(QProcess::ProcessError error)
 //    Slot to be run when a process ends
 void MainWindow::processOutput(int exitCode, QProcess::ExitStatus exitStatus)
 {
-//    Processes numbering:  0: execFchk ; 1: execTurbom ; 2: execMOLEKEL ; 3: execMolpro (.out) ; 4: execMolpro (.xml)
-//           5: execMopac ; 6: execsgbs2sxyz ; 7: execNWChem ; 8: execPsi4auxiliary ; 9: void ; 10: void ;
+//    Processes numbering:  0: readFchk ; 1: readTurbom ; 2: readMOLEKEL ; 3: readMolpro (.out) ; 4: readMolpro (.xml)
+//           5: readMopac ; 6: execsgbs2sxyz ; 7: readNWChem ; 8: execPsi4auxiliary ; 9: void ; 10: void ;
 //          11: execDam ; 12: execDamden ; 13: execDampot ; 14: execDamforces ; 15: execDamfield
 //          16: execDamfrad ; 17: execDammultrot ; 18: execDamorb ; 19: execDamTopography
 //          20: execDamZJ ; 21: execDamdenZJ ; 22: execDamdengrad ; 23: execDamSGhole
@@ -6712,7 +6750,7 @@ void MainWindow::processOutput(int exitCode, QProcess::ExitStatus exitStatus)
         };
         if(mden>0){
             QApplication::setOverrideCursor(QPixmap(":/images/wait.png"));
-            execFchk();
+            readFchk();
             QApplication::restoreOverrideCursor();
             return;
         }else{
@@ -6725,7 +6763,7 @@ void MainWindow::processOutput(int exitCode, QProcess::ExitStatus exitStatus)
         MOLPRO_two_pass_case(fileName);
         if(mden>0){
             QApplication::setOverrideCursor(QPixmap(":/images/wait.png"));
-            execMolpro();
+            readMolpro();
             QApplication::restoreOverrideCursor();
             return;
         }else{
@@ -6949,7 +6987,7 @@ void MainWindow::processStop()
                 QProcess getprocesses;
                 QString pgrep;
                 pgrep = QString("pgrep -f %1").arg(processname);
-                qDebug() << "pgrep = " << pgrep;
+//                qDebug() << "pgrep = " << pgrep;
                 getprocesses.start(pgrep);
                 getprocesses.waitForFinished();
                 QByteArray procnumbers = getprocesses.readAllStandardOutput();
@@ -8010,6 +8048,8 @@ void MainWindow::read_page_Efield(string file)
     read_double_to_TXT("planeC","DAMFIELDSECT",TXTefplaneC,file);
     read_double_to_TXT("uvratio","DAMFIELDSECT",TXTefuvratio,file);
 
+    read_double_to_TXT("basintol","DAMFIELDSECT",TXTefbas2dtol,file);
+
     if (TXTefplaneC->text() == "0."){
         if (TXTefplaneB->text() == "0."){
             RBTefplaneYZ->setChecked(true);
@@ -8942,6 +8982,7 @@ void MainWindow::saveOptions_5(string file, bool *printwarns, QString *warns)
     write_option("planeB", "DAMFIELDSECT", TXTefplaneB->text(), file, printwarns, warns);
     write_option("planeC", "DAMFIELDSECT", TXTefplaneC->text(), file, printwarns, warns);
     write_option("uvratio", "DAMFIELDSECT", TXTefuvratio->text(), file, printwarns, warns);
+    write_option("basintol", "DAMFIELDSECT", TXTefbas2dtol->text(), file, printwarns, warns);
 
     if (CHKefextralines->isChecked()) write_option("lextralines", "DAMFIELDSECT", QString("T"), file, printwarns, warns);
     else write_option("lextralines", "DAMFIELDSECT", QString("F"), file, printwarns, warns);
@@ -10051,6 +10092,7 @@ void MainWindow::CHKefextralines_changed()
         TXTeffilelines->setVisible(false);
         BTNeffilelines->setEnabled(false);
         BTNeffilelines->setVisible(false);
+        FRMefextralines->setVisible(false);
         CHKefxyz->setVisible(false);
         CHKefxyz->setEnabled(false);
     }else{
@@ -10060,6 +10102,7 @@ void MainWindow::CHKefextralines_changed()
         TXTeffilelines->setVisible(true);
         BTNeffilelines->setEnabled(true);
         BTNeffilelines->setVisible(true);
+        FRMefextralines->setVisible(true);
         CHKefxyz->setVisible(true);
         CHKefxyz->setEnabled(true);
     }
@@ -13109,6 +13152,16 @@ void MainWindow::ZJ_resolution_changed(){
     }
 }
 
+/**************************************************************************************************/
+/********** FUNCTIONS FOR EXTERNAL PACKAGES DIALOG                      ***************************/
+/**************************************************************************************************/
+
+void MainWindow::external_package(){
+    Externals *external = new Externals(this);
+    connect(external, SIGNAL(computing(QString)), this, SLOT(update_statusbar(QString)));
+    connect(external, SIGNAL(updatetextedit(QString)), this, SLOT(update_textedit(QString)));
+}
+
 
 /**************************************************************************************************/
 /********** FUNCTIONS FOR READING/WRITING OPTIONS FROM/TO .damproj FILE ***************************/
@@ -13663,6 +13716,7 @@ void MainWindow::initpointers()
 {
     Acc2Dplot = nullpointer;
     Acc3Dview = nullpointer;
+    AccExternal = nullpointer;
     AccAbout = nullpointer;
     AccAboutQt = nullpointer;
     AccExit = nullpointer;
@@ -14305,6 +14359,7 @@ void MainWindow::initpointers()
     TXTdZJzformula2D = nullpointer;
     TXTdZJzinf = nullpointer;
     TXTdZJzsup = nullpointer;
+    TXTefbas2dtol = nullpointer;
     TXTefdlt0 = nullpointer;
     TXTeffilelines = nullpointer;
     TXTeffilename = nullpointer;
@@ -15224,6 +15279,10 @@ QString MainWindow::get_python(){
     return execName;
 }
 
+
+/**************************************************************************************************/
+/********************************  External packages handlers       *******************************/
+/**************************************************************************************************/
 
 /*******************************************************************************************************/
 /********************************  Class ViewerDialog  implementation  *******************************/

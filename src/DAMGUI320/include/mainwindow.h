@@ -1,4 +1,4 @@
-//  Copyright 2008-2018, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+//  Copyright 2008-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 //  Guillermo Ramirez, David Zorrilla, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
 // 
 //  This file is part of DAMQT.
@@ -26,6 +26,7 @@
 #define MAINWINDOW_H
 
 #include <QApplication>
+#include <QButtonGroup>
 #include <QComboBox>
 #include <QDockWidget>
 #include <QFileDialog>
@@ -51,6 +52,7 @@
 #include <QtDebug>
 
 #include "dialog.h"
+#include "externals.h"
 #include "IniFile.h"
 #include "math.h"
 #include "viewer2D.h"
@@ -89,8 +91,6 @@ class QStringList;
 class QPrinter;
 class QPainter;
 class Sheet;
-//class Visor3D;
-//class Visor2D;
 class Surface2D;
 class QDoubleValidator;
 
@@ -135,10 +135,10 @@ signals:
     void initproject();
 
 public slots:
-    void addglWidget();
-    void addviewer2D();
+
     void deleteplot(int); 
     void deletewidget(int);
+    void external_package();
     void raiseplot(int);
     void raisewidget(int);
     void showplot(int);
@@ -150,12 +150,11 @@ private slots:      // Alphabetically sorted (including type in sort)
     bool end_Viewer3DDialog();
     bool GAUSS_two_pass_case(QString);
     bool saveProject();
-    bool SaveProjectAs();        
-     
-    void openProject();
-    void openRecentProjects();
+    bool SaveProjectAs();
+
     void about();
-    void Help();
+    void addglWidget();
+    void addviewer2D();
     
     void BTNdgfilelines_clicked();
     void BTNeffilelines_clicked();
@@ -227,21 +226,17 @@ private slots:      // Alphabetically sorted (including type in sort)
     void execDamfrad();
     void execDamSGhole();
     void execDamZJ();
-    void execFchk();
     void execGgbsDen();
     void execDammultrot();
     void execDamorb();
     void execDampot();
     void execDamTopography();
     void execImport();
-    void execMolpro();
-    void execMopac();
-    void execNWChem();
     void execPsi4auxiliary();
     void execsgbs2sxyz(QString qstring);
     void execSxyzDen();
-    void execTurbom();
-    void execMOLEKEL();
+
+    void Help();
 
     void importFile();
     void ImportFileNameMO();
@@ -274,6 +269,9 @@ private slots:      // Alphabetically sorted (including type in sort)
     void MOLPRO_two_pass_case(QString);
 
     void newProject();
+
+    void openProject();
+    void openRecentProjects();
 
     void page_project_layouts();
     void page_atdens_layouts();
@@ -362,6 +360,13 @@ private slots:      // Alphabetically sorted (including type in sort)
         const QLineEdit * yi, const QLineEdit * yf, const QLineEdit * zi, const QLineEdit * zf,
         QRadioButton * d3, QRadioButton * l, QRadioButton * m, QRadioButton * h, QRadioButton * c);
 
+    void readFchk();
+    void readMolpro();
+    void readMopac();
+    void readNWChem();
+    void readTurbom();
+    void readMOLEKEL();
+
     void saveOptions_0(string file, bool *printwarns, QString *warns);
     void saveOptions_1(string file, bool *printwarns, QString *warns);
     void saveOptions_2(string file, bool *printwarns, QString *warns);
@@ -401,7 +406,7 @@ private slots:      // Alphabetically sorted (including type in sort)
     void SPBZJmpi_changed(int nprocessors);
         
     void start();
-    
+
     void tabChanged(int index);
     void TXTdensatoms_changed();
     void TXTdgdlt0_changed();
@@ -423,6 +428,8 @@ private slots:      // Alphabetically sorted (including type in sort)
     void update_dockright();
     void update_menu_viewer2D();
     void update_menu_viewer3D();
+    void update_statusbar(QString);
+    void update_textedit(QString);
     void updatewindowsoverlay();
         
     void write_intervals(const char * a, const char * b, const char * c, const char * d, const string file, 
@@ -467,6 +474,7 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
     QAction *AccAbout;
     QAction *AccAboutQt;
     QAction *AccExit;
+    QAction *AccExternal;
     QAction *AccHelp;
 //    QAction *AccLanguage[10];
     QAction *AccNew;
@@ -1085,6 +1093,7 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
     QSpinBox *SPBeflmaxexp;
     QSpinBox *SPBeflongthreshold;
 
+    QLineEdit *TXTefbas2dtol;
     QLineEdit *TXTefdlt0;
     QLineEdit *TXTeffilelines;
     QLineEdit *TXTeffilename;
@@ -1427,68 +1436,68 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
     QWidget *WtabledZJ;
     
     Sheet *SHTdZJxyz;
-    
-    
+
 //  Functions (alphabetically sorted including type in sort)
 //  --------------------------------------------------------
 
-        bool Open(const QString &fileName);
-        bool compareIntegers(const QString& s1, const QString& s2);
-        bool createDir(QString &fullPathName);
-        bool mustSave();
-        bool existsinp(QString fullinputName,int tab,int def, bool pregunta);
-        bool Save(const QString &fileName);
+    bool Open(const QString &fileName);
+    bool compareIntegers(const QString& s1, const QString& s2);
+    bool createDir(QString &fullPathName);
+    bool mustSave();
+    bool existsinp(QString fullinputName,int tab,int def, bool pregunta);
+    bool Save(const QString &fileName);
 
-        void initpointers();
-        void UpdateRecentFiles();
-        void CreateActions();
-        void loadDefault(int all);
-        void CreateLeftMenu();
-        void CreateRightMenu();
-        void CreateMenus();
-        void CreateStatusBar();
-        void CreateToolBars();
-        void DAMDENdatafile(const QString &fullFileName, const QString projectDir, const QString projectName);
-        void defineRanges();
-        void SetCurrentFile(const QString &fileName,bool usar,bool modificado);
-        void SetDir(const QString &carpeta,const QString &nombre);
-        void setuvxyz();
-        void GDAMdatafile(const QString &fullinputName, const QString projectDir, const QString projectName);
-        void import(const QString &fileName);
-        void inputdatafile(const char *suffix, const char *section, const QString &fullFileName,
-            const QString projectDir, const QString projectName);
-        void saveOptions(const QString &fullFileName,int clase);
-        void readGeometry(int &natom,QVector<double> &x,QVector<double> &y,QVector<double> &z,QVector<int> &ncarga);
-        void readOptions(const QString &fullFileName);
-        void readSettings();
-        void rename_density_cntfile();
-        void rename_pot_cntfile();
-        void set_natom(int);
-        void writeSettings();
+    void initpointers();
+    void UpdateRecentFiles();
+    void CreateActions();
+    void loadDefault(int all);
+    void CreateLeftMenu();
+    void CreateRightMenu();
+    void CreateMenus();
+    void CreateStatusBar();
+    void CreateToolBars();
+    void DAMDENdatafile(const QString &fullFileName, const QString projectDir, const QString projectName);
+    void defineRanges();
+    void SetCurrentFile(const QString &fileName,bool usar,bool modificado);
+    void SetDir(const QString &carpeta,const QString &nombre);
+    void setuvxyz();
+    void GDAMdatafile(const QString &fullinputName, const QString projectDir, const QString projectName);
+    void import(const QString &fileName);
+    void inputdatafile(const char *suffix, const char *section, const QString &fullFileName,
+        const QString projectDir, const QString projectName);
+    void saveOptions(const QString &fullFileName,int clase);
+    void readGeometry(int &natom,QVector<double> &x,QVector<double> &y,QVector<double> &z,QVector<int> &ncarga);
+    void readOptions(const QString &fullFileName);
+    void readSettings();
+    void rename_density_cntfile();
+    void rename_pot_cntfile();
+    void set_natom(int);
+    void writeSettings();
 
-        int get_natom();
-        int get_plane_case(double, double, double);
-        int read_natom(QString fileName);
+    int get_natom();
+    int get_plane_case(double, double, double);
+    int read_natom(QString fileName);
 
-        double set_delta(const char * c, double ini, double fin);
-        double set_deltaorb(const char * c, double ini, double fin);
-        double set_deltapot(const char * c, double ini, double fin);
-        double set_deltaZJ(const char * c, double ini, double fin);
+    double set_delta(const char * c, double ini, double fin);
+    double set_deltaorb(const char * c, double ini, double fin);
+    double set_deltapot(const char * c, double ini, double fin);
+    double set_deltaZJ(const char * c, double ini, double fin);
 
-        QByteArray ReadSectionOptions(const char *SectionName, QFile *FileName);
+    QByteArray ReadSectionOptions(const char *SectionName, QFile *FileName);
 
-        QString FileWithoutExt(const QString &fullFileName);
-        QString FileWithoutPath(const QString &fullFileName);
-        QString Extension(const QString &fullFileName);
-        QString Path(const QString &fullFileName);
-        QString planesuffix(int);
-        QString Who_executing(int caso);
-        QString toQString(string v);
+    QString FileWithoutExt(const QString &fullFileName);
+    QString FileWithoutPath(const QString &fullFileName);
+    QString Extension(const QString &fullFileName);
+    QString Path(const QString &fullFileName);
+    QString planesuffix(int);
+    QString Who_executing(int caso);
+    QString toQString(string v);
 
-        QVector3D wu;
-        QVector3D wv;
+    QVector3D wu;
+    QVector3D wv;
 
-        string toString(QString qv);
+    string toString(QString qv);
+
 };
 
 #endif

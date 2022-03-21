@@ -1,4 +1,4 @@
-!  Copyright 2013-2019, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+!  Copyright 2013-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 !  Guillermo Ramirez, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
 ! 
 !  This file is part of DAM320.
@@ -63,11 +63,12 @@
     integer(KINT) :: nfi(3)
     character(256) :: filelines
     logical :: lcpsv, lnucleo, lexist
-    namelist / options / dlt0, filename, filelines, icntlines, ioplines3D, iswindows, largo, lextralines, lmaxrep, longoutput &
-            , lplot2d, lvalence, nlines, nlinpernuc, numpnt, planeA, planeB, planeC &
+    namelist / options / basintol, dlt0, filename, filelines, icntlines, ioplines3D, iswindows, largo, lextralines &
+            , lmaxrep, longoutput, lplot2d, lvalence, nlines, nlinpernuc, numpnt, planeA, planeB, planeC &
             , thresh, umbrlargo, usalto, uvratio, rlines &
             , vmod, xinf, xsup, yinf, ysup, zinf, zsup, uinf, usup, vinf, vsup
 !	Namelist default values
+    basintol = 1.e-6        ! A point lays on the plane if its distance is lower than this
     ioplines3D = 1          ! Set of lines per nucleus for 3D plots based on icosahedron vertices, C2 axes and C3 axes or combinations of them:
                             ! 1: vertices (12 points);   2: C3 axes (20 points);   3: C2 axes (30 points)
                             ! 4: vertices + c3 ;   5: vertices + C2;   6: C2 + C3;   7: vertices + C2 + C3
@@ -179,6 +180,8 @@
         endif
         write(6,"('zinf = ', e17.10, ' zsup = ', e17.10)") zinf, zsup
     endif
+
+    write(6,"('Tolerance for critial points = ', e12.5)") basintol
 !	Opens file for field lines
     if (lplot2d) then
         open(12,file=trim(filename)//".cam2D",status='unknown',form='formatted',iostat=ioerr)
@@ -322,7 +325,7 @@
             xcnt = rcen(1,ia)
             ycnt = rcen(2,ia)
             zcnt = rcen(3,ia)
-            if (abs(planeA * xcnt + planeB * ycnt + planeC * zcnt) .gt. 1.e-6) cycle
+            if (abs(planeA * xcnt + planeB * ycnt + planeC * zcnt) .gt. basintol) cycle
             ncntplane = ncntplane + 1
             if (planecase .eq. 1) then
                 ucnt = xcnt
@@ -377,7 +380,7 @@
                     xcnt = rcen(1,icnt)
                     ycnt = rcen(2,icnt)
                     zcnt = rcen(3,icnt)
-                    if (abs(planeA * xcnt + planeB * ycnt + planeC * zcnt) .gt. 1.e-6) cycle
+                    if (abs(planeA * xcnt + planeB * ycnt + planeC * zcnt) .gt. basintol) cycle
                     if (planecase .eq. 1) then
                         ucnt = xcnt
                         vcnt = ycnt
@@ -435,7 +438,7 @@
                         xcnt = rcen(1,icnt)
                         ycnt = rcen(2,icnt)
                         zcnt = rcen(3,icnt)
-                        if (abs(planeA * xcnt + planeB * ycnt + planeC * zcnt) .gt. 1.e-6) cycle
+                        if (abs(planeA * xcnt + planeB * ycnt + planeC * zcnt) .gt. basintol) cycle
                         if (planecase .eq. 1) then
                             ucnt = xcnt
                             vcnt = ycnt
@@ -503,7 +506,7 @@
                     x0 = x0 * angs2bohr
                     y0 = y0 * angs2bohr
                     z0 = z0 * angs2bohr
-                    if (cpslabel .ne. 'z' .or. abs(planeA * x0 + planeB * y0 + planeC * z0) .gt. 1.e-6) cycle
+                    if (cpslabel .ne. 'z' .or. abs(planeA * x0 + planeB * y0 + planeC * z0) .gt. basintol) cycle
                     if (planecase .eq. 1) then
                         ucnt = x0
                         vcnt = y0

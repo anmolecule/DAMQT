@@ -1,5 +1,5 @@
 # Project details
 # ---------------
-project(DAM2017_windows)
+project(DAM320_windows)
 
 add_subdirectory(doc)

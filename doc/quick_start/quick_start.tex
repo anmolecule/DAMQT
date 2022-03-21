@@ -2,11 +2,12 @@
 
 \usepackage{float}
 \usepackage{graphicx}
-% \usepackage[spanish]{babel}
+\usepackage[english]{babel}
 % Package for hyperlinks
 %\usepackage[pdftex=true,colorlinks=true,plainpages=false]{hyperref}
 \usepackage[pdftex=true,colorlinks=true,linkcolor=blue]{hyperref}
 
+% \usepackage{showlabels}
 
 \textwidth 16cm
 \oddsidemargin 0cm
@@ -16,7 +17,12 @@
 \graphicspath{{./figs/}{../manual/figs/}} % para
 %poner las gráficas en un subdirectorio
 
+\usepackage{caption}  % Cambiar Figure: por Figure (sin los dos puntos) en las figure captions
+\captionsetup[figure]{labelsep=space}
+ \addto\captionsenglish{\renewcommand{\figurename}{Figure }}
+
 \begin{document}
+% \renewcommand{\showlabelfont}{\small\slshape\color{red}}
 \newcommand{\teclapuntos}{
 \begin{minipage}[t][1mm][t]{.5cm}{
 \vspace*{-10pt}\includegraphics[width=.5cm]{3dots.png}}
@@ -160,8 +166,10 @@ panel (see fig \ref{fig:5}).
 check the \texttt{Density deformations} button and press
 the \exec key  (see fig \ref{fig:6}).
 
-\item To compute full molecular density in a 2D grid, check radio button
-\texttt{2D grid} and press the \exec key  (see fig \ref{fig:7}).
+\item To compute full molecular density in a 2D grid, check radio buttons
+\texttt{Full electron density} and \texttt{2D grid},
+select the plane \texttt{YZ} which is the molecular plane, and press 
+the \exec key  (see fig \ref{fig:7}).
 Notice that box following grid type has suitably changed for the 2D grid 
 specification.
 
@@ -169,7 +177,8 @@ specification.
 click on the \exec key to compute the grid for the molecular electrostatic
 potential (see fig \ref{fig:8}).
 
-\item Check radio button \texttt{2D grid} and press the \exec key to generate
+\item Check radio button \texttt{2D grid}, select \texttt{YZ} plane, 
+and press the \exec key to generate
 a 2D grid tabulation (see fig \ref{fig:9}).
 
 \item Press on tab \texttt{Molecular orbitals} on the left side menu. 
@@ -204,8 +213,8 @@ click on the \exec key to compute 3D density gradient lines
 (see fig \ref{fig:16}). 
 
 \item Check \texttt{2D grid} button and
-in \texttt{2D planes} check \texttt{YZ} plane, which is the molecular plane,
-to generate electric field lines on the plane (see fig \ref{fig:17}).
+in \texttt{2D planes} check \texttt{YZ} plane
+to generate density gradient lines on the molecular plane (see fig \ref{fig:17}).
 
 \item Press on tab \texttt{H-F Forces on nuclei} on the left side menu and
 click on the \exec key to compute the Hellmann-Feynman forces on nuclei (see fig
@@ -354,74 +363,67 @@ which contains a tabulation of MESP on a 3D grid. A menu for adding isosurfaces
 will be displayed. Press button \texttt{Add surface} and next \texttt{Edit}.
 An editor will be displayed for the isosurface. Choose a value in the box and
 press {\it Enter} key or, alternatively, move the slider. The isosurface will
-be displayed (see fig \ref{fig:48}).
+be displayed. Check {\it wire frame} option if desired (see fig \ref{fig:48}).
 
-\item You can add more isosurfaces coming from the same grid, or more grids and
-isosurfaces.
+\end{enumerate}
 
-\item Finally, try to add more molecules in the same 3D viewer or open new viewers.
+\newpage
+
+For cluster optimization
+
+\begin{enumerate}
+
+\item Remove or hide displayed surfaces. 
+
+\item Add one more C$_2$H$_4$ molecule in the canvas (see fig \ref{fig:49}).
+
+\item Deactivate the first C$_2$H$_4$ molecule (host) and move the second one (guest) to a 
+suitable position. Display some distances to check the relative positions of molecules
+and press the \texttt{Optimize cluster} button
+(see fig \ref{fig:50}).
+
+\item In the new menu, choose a name for the cluster files and, selecting the option
+\texttt{Choose guests from canvas}, press the \texttt{Exec} button (see fig \ref{fig:51}).
+
+\item Wait until the message of cluster optimization finished appears (see fig \ref{fig:52}).
+
+\item Display some distances to check the relative positions of molecules, select the file with
+the cluster optimization frames, move the system to change the point of view if desired,
+and press the \texttt{Replay} button to animate the optimization process (see fig \ref{fig:53}). 
+During animation, the point of view can be changed by interactively rotating or translating the cluster.
+
+\item Remove the cluster from the viewer (see fig \ref{fig:54}) 
+and restore the guest molecule to its initial position (see fig \ref{fig:55}).
+
+\item Edit the host molecule and load its MESP critical points (CP), 
+keep only $(3,+3)$ CP selected and display CP symbols
+(see fig \ref{fig:56}).
+
+\item Check the option \texttt{Only selected CPs}, deactivate the 
+guest molecule and activate the host. Rotate the host to see 
+the CP and double click on one of them to select (see fig \ref{fig:57}).
+
+\item In the cluster optimization menu, change the name of the cluster files, 
+check the options \texttt{Use template for guests}
+and \texttt{Only selected CPs}, and press the \texttt{Exec} button to carry out optimization using
+CP for starting guest positions (see fig \ref{fig:58}).
+
+\item Wait until optimization finishes. Load the file with frames, 
+change the point of view if desired, display some distances and press
+\texttt{Replay button} to animate the optimization process (see fig \ref{fig:59}).
+
+\item Check the \texttt{Record optimization} option. Verify that the command for creating 
+movie is correct (\texttt{fframe} must be installed and accessible in your system
+if this is the program chosen for this purpose). Select a name for the movie file and
+the option \texttt{Remove frame files at end} unless you want to keep the PNG
+files corresponding to the single frames (see fig \ref{fig:60}). 
+Repeat animation by pressing \texttt{Replay} and wait until recording ends. 
+An {\it *.mp4} file will be generated that can be reproduced
+with VLC, for instance. (Some multimedia programs, such as MSWindows multimedia,
+are unable to reproduce this file issuing format incompatibility).
 
 
 
-
-% \item Press the tab \texttt{Geometry} in the right side menu and click on the 
-% \teclapuntos key. A window will be opened with the available \ggbs{ } and 
-% {\it .xyz} files of
-% the project containing the geometry (see fig \ref{fig:22}). 
-% {\bf Do not choose {\it -cps-d.xyz} or 
-% {\it -cps-v.xyz} files}, since they correspond to critical points coordinates,
-% not to atoms coordinates. Open the file by double clicking on the name or
-% clicking once and pressing the \openkey key. A figure with the molecule will be
-% visualized. You can choose among four schemes for visualizing the molecular 
-% skeleton. Fine tuning of the display is also possible.
-% Use the mouse buttons for reorienting or displacing the molecule
-% (this can be done also in the \texttt{Options} tab; see fig \ref{fig:23}).
-% 
-% \item Press the tab \texttt{Geometry measurements} in the right side menu
-% and check the \texttt{Distances} radio button. Check also the boxes labeled as
-% {\it Show/hide distances in a window} and {\it Show/hide distances in the viewer}.
-% Next, hold the shift key and double click on a pair of centers.
-% Distance between the selected centers will be displayed both in the viewer and in
-% a pop window (see fig \ref{fig:24}). You can repeat with angles (choosing three 
-% centers) and dihedral angles (four centers). Angles can be displayed only in a 
-% pop window(see fig \ref{fig:25}).
-% 
-% \item Press the tab \texttt{Surfaces} in the right side menu and click on the 
-% \teclapuntos key for selecting a 3D grid to be visualized (files \plt{ }). A
-% window with the \plt{ } files available will be opened (see fig \ref{fig:26}).
-% Choose one by double clicking on it. Use the ruler or the box to choose a
-% contour value. To change sign of contour, press on the \pluskey or
-% \minuskey keys. The contour surface will be dynamically rendered (see fig
-% \ref{fig:27}). Each contour to be displayed must be
-% selected in a different
-% tab. Up to 8 contours can be visualized at the same time. Single contours can
-% be shown or hidden by checking (unchecking) the \texttt{Show/hide contour surface} checkbox.
-% 
-% \item Hide surfaces by unchecking the boxes labeled \texttt{Show/hide contour surface}
-% (see fig \ref{fig:28}).
-% 
-% \item Press the tab \texttt{Molecular topography} in the right side menu(see fig \ref{fig:29}). 
-% Click on the \teclapuntos keys for selecting a {\it -cps-d.xyz} or 
-% {\it -cps-v.xyz} file with the critical points (CP) of density (the former) or electrostatic
-% potential (the latter) to be visualized. (See fig \ref{fig:30}). CP symbols, indices
-% and field value at CP can be also displayed for all CPs (see fig \ref{fig:31}), or only for
-% selected ones  (see fig \ref{fig:32}).
-% Hessian eigenvectors at CPs can be displayed as well (see fig \ref{fig:33}).
-% Choose a file {\it -d.gpdat} or {\it -v.gpdat} with a gradient path to display gradient 
-% lines of density or electrostatic potential (see fig \ref{fig:34}).
-% Choose a file {\it -d.bswir}, {\it -d.bssol}, {\it -v.bswir} or {\it -v.bssol}
-% in the \texttt{Atomic basins} section to display atomic basins (see fig \ref{fig:35}).
-% Hide CPs, atomic basins, gradient lines and hessian eigenvectors by unchecking
-% the pertaining boxes.
-% 
-% \item Press the tab \texttt{Forces} in the right side menu and 
-% click on the \teclapuntos keys for selecting a {\it .forces} file with the 
-% Hellmann-Feynman forces to be visualized. Increase vectors lengths if required
-% (See fig \ref{fig:36}). Hide vectors by unchecking the boxes.
-% 
-% \item Press the tab \texttt{Field lines} in the right side menu and click on
-% the \teclapuntos keys for selecting the file with the electric field lines to be
-% visualized. (See fig \ref{fig:37}).
 
 \end{enumerate}
 
@@ -430,7 +432,7 @@ other included in the package.
 
 \newpage
 
-\begin{minipage}{.45\linewidth}
+\begin{minipage}{.5\linewidth}
 \begin{figure}[H]
 \caption{\label{fig:1}}
 \begin{center}
@@ -834,6 +836,108 @@ other included in the package.
 \caption{\label{fig:48}}
 \begin{center}
 \includegraphics[width=0.95\linewidth]{damqt_QS_fig48.png}
+\end{center}
+\end{figure} 
+\end{minipage}
+
+\begin{minipage}{.5\linewidth}
+\begin{figure}[H]
+\caption{\label{fig:49}}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{damqt_QS_fig49_b.png}
+\end{center}
+\end{figure} 
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\begin{figure}[H]
+\caption{\label{fig:50}}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{damqt_QS_fig50_b.png}
+\end{center}
+\end{figure} 
+\end{minipage}
+
+\begin{minipage}{.5\linewidth}
+\begin{figure}[H]
+\caption{\label{fig:51}}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{damqt_QS_fig51_b.png}
+\end{center}
+\end{figure} 
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\begin{figure}[H]
+\caption{\label{fig:52}}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{damqt_QS_fig52.png}
+\end{center}
+\end{figure} 
+\end{minipage}
+
+\begin{minipage}{.5\linewidth}
+\begin{figure}[H]
+\caption{\label{fig:53}}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{damqt_QS_fig53_b.png}
+\end{center}
+\end{figure} 
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\begin{figure}[H]
+\caption{\label{fig:54}}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{damqt_QS_fig54_b.png}
+\end{center}
+\end{figure} 
+\end{minipage}
+
+\begin{minipage}{.5\linewidth}
+\begin{figure}[H]
+\caption{\label{fig:55}}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{damqt_QS_fig55_b.png}
+\end{center}
+\end{figure} 
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\begin{figure}[H]
+\caption{\label{fig:56}}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{damqt_QS_fig56_b.png}
+\end{center}
+\end{figure} 
+\end{minipage}
+
+\begin{minipage}{.5\linewidth}
+\begin{figure}[H]
+\caption{\label{fig:57}}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{damqt_QS_fig57_b.png}
+\end{center}
+\end{figure} 
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\begin{figure}[H]
+\caption{\label{fig:58}}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{damqt_QS_fig58_b.png}
+\end{center}
+\end{figure} 
+\end{minipage}
+
+\begin{minipage}{.5\linewidth}
+\begin{figure}[H]
+\caption{\label{fig:59}}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{damqt_QS_fig59_b.png}
+\end{center}
+\end{figure} 
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\begin{figure}[H]
+\caption{\label{fig:60}}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{damqt_QS_fig60_b.png}
 \end{center}
 \end{figure} 
 \end{minipage}

@@ -1,6 +1,6 @@
 # Project details
 # ---------------
-project(DAM2016_utils)
+project(DAM320_utils)
 
 set (PACKAGE_GENERATING_SHELLS "prepare_tarball.sh" "prepare_tarball_without_figures.sh" )
 

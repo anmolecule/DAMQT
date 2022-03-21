@@ -6,6 +6,7 @@
 #define MyAppExeName "DAMQT320.exe"
 #define MyShortAppName "DAMQT320"
 #define MyLongAppName "DAMQT320"
+;#define INI_OpenBabelDirKey "OpenBabelDirectory"
 #define INI_DataDirKey "DataDirectory"
 
 ; IMPORTANT !!! Check that the following variables are pointing to the right addresses (See sources below for details)
@@ -20,7 +21,10 @@
 #define MANUAL_DIR "D:\rafa\DAMQT_3.2.0\doc\manual"
 #define MINGW_DLL_DIR "C:\msys64\mingw64\bin"
 #define MINGW_LIB_DIR "C:\msys64\mingw64\lib"
-#define OPENBABEL_DIR "C:\Program Files\OpenBabel-3.1.1"
+;#define OPENBABEL_DIR "C:\Program Files\OpenBabel-3.1.1"
+;#define OPENBABEL_DATA_DIR "C:\Users\rafa\AppData\Roaming\OpenBabel-3.1.1\data"
+;#define OPENBABEL_DOC_DIR "C:\Users\rafa\AppData\Roaming\OpenBabel-3.1.1\doc"
+;#define OPENBABEL_EXAMPLES_DIR "C:\Users\rafa\AppData\Roaming\OpenBabel-3.1.1\examples"
 ;#define MSYS64_DLL_DIR "C:\msys64\usr\bin"
 ;#define PYTHON_DIR "C:\msys64\usr\bin"
 ;#define PYTHON_LIB_DIR "C:\msys64\mingw64\bin\"
@@ -39,7 +43,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId= {{610542D0-3E03-4689-8B27-8DECD7185A46}
+AppId= {{A8FCC082-8A5B-48E6-B046-B433D697149C}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -83,6 +87,7 @@ Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Dirs]
+;Name: {code:GetOpenBabelDir}; Check: not OpenBabelDirExists; Flags:uninsneveruninstall; Permissions: users-modify
 Name: {code:GetDataDir}; Check: not DataDirExists; Flags:uninsneveruninstall; Permissions: users-modify
 
 [Files]
@@ -140,12 +145,16 @@ Source: "{#MANUAL_DIR}\DAMQT_3.2.0_manual.pdf"; DestDir: "{app}"; Flags: ignorev
 
 ; Dynamic libraries for MINGW
 Source: "{#MINGW_DLL_DIR}\libbz2-1.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libdouble-conversion.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libfreetype-6.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libgcc_s_seh-1.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#LIB_FORTRAN_DIR}\libgfortran-4.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#LIB_FORTRAN_DIR}\libgfortran-4.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libgfortran-5.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libglib-2.0-0.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libgraphite2.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libharfbuzz-0.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libbrotlicommon.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libbrotlidec.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libiconv-2.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libicudt68.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libicuin68.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -153,10 +162,13 @@ Source: "{#MINGW_DLL_DIR}\libicuuc68.dll"; DestDir: "{app}"; Flags: ignoreversio
 Source: "{#MINGW_DLL_DIR}\libintl-8.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libpcre-1.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libpcre16-0.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libpcre2-16-0.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libpng16-16.dll"; DestDir: "{app}"; Flags: ignoreversion
+
 Source: "{#MINGW_DLL_DIR}\libquadmath-0.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libstdc++-6.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libwinpthread-1.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libzstd.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "{#MINGW_DLL_DIR}\opengl32.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#OPENGL32_DIR}\OPENGL32.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\zlib1.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -186,62 +198,15 @@ Source: "{#QT_PLATFORMS_DIR}\qwindows.dll"; DestDir: "{app}\platforms"; Flags: i
 
 
 ; OpenBabel
-Source: "{#OPENBABEL_DIR}\bz2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\cairo.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\expat.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\fontconfig.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\formats_cairo.obf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\formats_common.obf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\formats_compchem.obf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\formats_json.obf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\formats_misc.obf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\formats_utility.obf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\formats_xml.obf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\freetype.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\jsoncpp.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\libcharset.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\libiconv.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\libinchi.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\libpng16.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\libxml2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obabel.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obconformer.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obdepict.bat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obdistgen.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\OBDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obenergy.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obfit.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obfitall.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obgen.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obgrep.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obminimize.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obmm.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obprobe.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obprop.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obrms.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obrotamer.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obrotate.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obspectrophore.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obsym.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obtautomer.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\obthermo.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\openbabel.jar"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\openbabel_csharp.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\openbabel_java.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\openbabel-3.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\plugin_charges.obf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\plugin_descriptors.obf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\plugin_fingerprints.obf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\plugin_forcefields.obf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\plugin_ops.obf"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\sdf.bat"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\vc_redist.x64.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\xdr.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#OPENBABEL_DIR}\zlib1.dll"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "{#OPENBABEL_DIR}\*"; Check: InstallOpenBabel; DestDir: "{code:GetOpenBabelDir}";  Flags: onlyifdoesntexist recursesubdirs uninsneveruninstall
+;Source: "{#OPENBABEL_DOC_DIR}\*"; Check: InstallOpenBabel; DestDir: "{userappdata}\OpenBabel-3.1.1\doc";  Flags: onlyifdoesntexist recursesubdirs uninsneveruninstall
+;Source: "{#OPENBABEL_EXAMPLES_DIR}\*"; Check: InstallOpenBabel; DestDir: "{userappdata}\OpenBabel-3.1.1\examples";  Flags: onlyifdoesntexist recursesubdirs uninsneveruninstall
+
 
 
 ; Samples 
-Source: "{#SAMPLES_DIR}\*"; Check: InstallSampleData; DestDir: "{code:GetDataDir}";  Flags: confirmoverwrite recursesubdirs uninsneveruninstall
+;Source: "{#SAMPLES_DIR}\*"; Check: InstallSampleData; DestDir: "{code:GetDataDir}";  Flags: confirmoverwrite recursesubdirs uninsneveruninstall
+Source: "{#SAMPLES_DIR}\*"; Check: InstallSampleData; DestDir: "{code:GetDataDir}";  Flags: onlyifdoesntexist recursesubdirs uninsneveruninstall
 
 ; Images
 Source: "{#IMAGES_DIR}\damqt.ico"; DestDir: "{app}";
@@ -255,14 +220,36 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 
 [INI]
+;Filename: "{app}\{#MyShortAppName}.ini"; Section: "{#MyShortAppName}"; Key: "OpenBabelDirectory"; String: "{code:GetOpenBabelDir}"; Flags: createkeyifdoesntexist
 Filename: "{app}\{#MyShortAppName}.ini"; Section: "{#MyShortAppName}"; Key: "DataDirectory"; String: "{code:GetDataDir}"; Flags: createkeyifdoesntexist
+
+[Registry]                          
+;Root: HKCU; Subkey: "Environment"; \
+;    ValueType: expandsz; ValueName: "BABEL_DATADIR"; ValueData: "{olddata};{userappdata}\OpenBabel-3.1.1\data"; \
+;    Check: NeedsAddBabelDatadir('{userappdata}\OpenBabel-3.1.1\data')
 
 [Code]
 // global vars
 var
+//  OpenBabelDirPage: TInputDirWizardPage;
+//  OpenBabelDataPage: TInputOptionWizardPage;
   DataDirPage: TInputDirWizardPage;
   SampleDataPage: TInputOptionWizardPage;
   DataDirVal: String;
+//  OpenBabelDirVal: String;
+//  RemoveOpenBabel: Boolean;
+
+ 
+//function GetOpenBabelDir(Param: String): String;
+//begin
+//  { Return the selected OpenBabelDir }
+//  Result := OpenBabelDirPage.Values[0];
+//end;
+ 
+//function GetDefaultOpenBabelDirectory() : String;
+//begin
+//  Result := ExpandConstant('{#OPENBABEL_DIR}');
+//end;
  
 function GetDataDir(Param: String): String;
 begin
@@ -280,23 +267,44 @@ begin
     Result :=  WizardDirValue() + '\{#MyShortAppName}.ini';
 end;
  
-  // custom wizard page setup, for data dir.
+  // custom wizard page setup, for OpenBabel and data dir.
 procedure InitializeWizard;
 var
   myLocalAppData: String;
 begin
+//  OpenBabelDirPage := CreateInputDirPage(
+//    wpSelectDir,
+//    '{#MyLongAppName} OpenBabel 3.1.1 Directory',
+//    '',
+//    'Please select a directory to install {#MyShortAppName} OpenBabel 3.1.1.',
+//    False,
+//    '{#MyShortAppName}'
+//  );
+//  OpenBabelDirPage.Add('');
+ 
+//  OpenBabelDirPage.Values[0] := GetIniString('{#MyShortAppName}', '{#INI_OpenBabelDirKey}', GetDefaultOpenBabelDirectory(), GetIniFilename());
+    
+//  OpenBabelDataPage := CreateInputOptionPage(OpenBabelDirPage.ID,
+//    'Install OpenBabel-3.1.1', 'OpenBabel for cluster optimization.',
+//    'Should OpenBabel be installed? (May be necessary for cluster optimization)',
+//    True, False);
+//  OpenBabelDataPage.Add('Install');
+//  OpenBabelDataPage.Add('Do not install');
+
+//  OpenBabelDataPage.Values[1] := True;
+
   DataDirPage := CreateInputDirPage(
     wpSelectDir,
     '{#MyLongAppName} Samples Directory',
     '',
-    'Please select a directory to install {#MyShortAppName} samples to.',
+    'Please select a directory to install {#MyShortAppName} samples.',
     False,
     '{#MyShortAppName}'
   );
   DataDirPage.Add('');
  
   DataDirPage.Values[0] := GetIniString('{#MyShortAppName}', '{#INI_DataDirKey}', GetDefaultDataDirectory(), GetIniFilename());
-  
+
   SampleDataPage := CreateInputOptionPage(DataDirPage.ID,
     'Install Sample Data', 'The sample data enable to check the application.',
     'Should the sample data be installed?( Recommended for new users )',
@@ -304,9 +312,16 @@ begin
   SampleDataPage.Add('Install');
   SampleDataPage.Add('Do not install');
 
-  SampleDataPage.Values[0] := True;
+  SampleDataPage.Values[1] := True;
   
 end;
+
+ 
+//function OpenBabelDirExists(): Boolean;
+//begin
+//  { Find out if Open Babel dir already exists }
+//  Result := DirExists(GetOpenBabelDir('{#OPENBABEL_DIR}'));
+//end;
  
 function DataDirExists(): Boolean;
 begin
@@ -314,12 +329,37 @@ begin
   Result := DirExists(GetDataDir(''));
 end;
 
+//function InstallOpenBabel(): Boolean;
+//begin
+//  { Return the value of the 'install' radiobutton }
+//  //MsgBox('InstallOpenBabel.', mbError, MB_OK);
+//  Result := OpenBabelDataPage.Values[0];
+//end;
+
 function InstallSampleData(): Boolean;
 begin
   { Return the value of the 'install' radiobutton }
   //MsgBox('InstallSampleData.', mbError, MB_OK);
   Result := SampleDataPage.Values[0];
 end;
+
+// Function for checking whether BABEL_DATADIR is added to user variables or not
+//function NeedsAddBabelDatadir(Param: string): boolean;
+//var
+//  OrigVar: string;
+//begin
+//  if not RegQueryStringValue(HKEY_CURRENT_USER,
+//    'Environment',
+//    'BABEL_DATADIR', OrigVar)
+//  then begin
+//    Result := True;
+//    exit;
+//  end;
+//  { look for the path with leading and trailing semicolon }
+//  { Pos() returns 0 if not found }
+//  Result := Pos(';' + Param + ';', ';' + OrigVar + ';') = 0;
+//end;
+
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent

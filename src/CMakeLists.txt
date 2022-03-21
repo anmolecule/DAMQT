@@ -1,5 +1,8 @@
 # Project details
 # ---------------
+
+cmake_minimum_required(VERSION 3.1.0)
+
 project(src)
 
 enable_language (Fortran)	# This is necessary to seek MPI FORTRAN
@@ -12,6 +15,9 @@ add_subdirectory(DAMZernike320)
 add_subdirectory(DAMGUI320)
 add_subdirectory(interfaces_320)
 find_package(MPI)
+if(POLICY CMP0012)
+  cmake_policy(SET CMP0012 NEW)
+endif()
 
 # Checks whether MPI exists to create mpi executables
 # ===================================================
@@ -28,6 +34,6 @@ if (${MPI_FORTRAN_FOUND})
     add_subdirectory(DAM320_mpi)
     add_subdirectory(TDAM320_mpi)
     add_subdirectory(DAMZernike320_mpi)
-else(${MPI_FORTRAN_FOUND})
+else(NOT ${MPI_FORTRAN_FOUND})
 	message ("WARNING: MPI not available. Skips parallel programs compilation.")
 endif (${MPI_FORTRAN_FOUND})

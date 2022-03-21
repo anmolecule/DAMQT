@@ -1,4 +1,4 @@
-//  Copyright 2008-2019, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+//  Copyright 2008-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 //  Guillermo Ramirez, David Zorrilla, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
 // 
 //  This file is part of DAMQT.
@@ -4641,6 +4641,18 @@ bool Viewer2D::readbasinsfile(QString filename)
         }
     }
     file.close();
+    if (basinsxyz.isEmpty()){
+        QMessageBox msgBox;
+        msgBox.setText(tr("Plotter"));
+        msgBox.setInformativeText(tr("No basin borders found.\n")
+            +tr("If you think they must appear, increase basins tolerance\n")
+            +tr("in electric field calculation and compute again."));
+        msgBox.setIcon(QMessageBox::Warning);
+        msgBox.exec();
+        emit moveToTop(viewernumber);
+        QApplication::restoreOverrideCursor();
+        return false;
+    }
     return true;
 }
 

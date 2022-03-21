@@ -1,4 +1,4 @@
-!  Copyright 2013-2019, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
+!  Copyright 2013-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 !  Guillermo Ramirez, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
 ! 
 !  This file is part of DAM320.
@@ -46,7 +46,7 @@
     iatomsel(2:mxsel) = 0   ! but without assignment of "iatomsel".
     umbrlargo = 1.d-8       ! Long-range threshold
     iswindows = .false.     ! .true. if running on a MS-windows system
-    filename = ""           ! root file name for .fre, .fri, .frt, .fcf, .fnc files
+    filename = ""           ! root file name
 !    End of namelist defaults
 
     tiempo = dtime(tarray)
