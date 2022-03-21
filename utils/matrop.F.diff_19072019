@@ -1,0 +1,29 @@
+--- scf/matrop.f	2010-06-20 18:13:25.000000000 +0200
++++ scf/matrop.f	2019-07-18 12:23:55.000000000 +0200
+@@ -729,7 +729,7 @@
+           ij=iad+ntqs(isym,is)-nb
+           do i=1,nt(is)
+             write(iout,5030) (q(ij+nb*j),j=1,n)
+- 5030       format(1x,10f13.8)
++ 5030       format(1x,80e23.15)
+             ij=ij+1
+           end do
+         end if
+@@ -1064,7 +1064,7 @@
+  8080     format(/' SYMMETRY BLOCK',i2)
+           ioff=iad1+nts(isym)-1
+           write(iout,8090) (q(ioff+i),i=1,nt(isym))
+- 8090     format(1x,10f13.8)
++ 8090     format(1x,80e23.15)
+         end do
+       end if
+       if(ipri.gt.1) call druckm(q(iadr),1,0,'Eigenvectors',0)
+@@ -1092,7 +1092,7 @@
+           ii=ii+ntb(isym)+1
+         end do
+         write(iout,9090) (q(jj+i),i=1,nt(isym))
+- 9090   format(1x,10f13.8)
++ 9090   format(1x,80e23.15)
+       end do
+       call corlsr(ivec)
+       goto 20

@@ -1,0 +1,190 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n}
+
+\usepackage{amsmath,amsfonts,mathrsfs,color,colordvi}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{fancyvrb} % Para poner cajas en el texto verbatim 
+% \usepackage{natbib}
+\usepackage{calligra}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks = true,
+    linkbordercolor = {white},  % Set to white to suppress the box around the link
+    linkcolor = black
+}
+\usepackage{showlabels,color}
+
+\usepackage{BOONDOX-cal}
+
+\textwidth 16cm
+\textheight 23cm
+\topmargin -1.cm
+\oddsidemargin 0cm
+\evensidemargin 0cm
+% \pagestyle{empty}
+\begin{document}
+
+
+\newcommand{\azul}[1]{{\color{blue}{#1}}}
+\newcommand{\rojo}[1]{{\color{red}{#1}}}
+\newcommand{\naranja}[1]{{\color{orange}{#1}}}
+\newcommand{\negro}[1]{{\color{black}{#1}}}
+\newcommand{\rojoneg}[1]{{\bf \color{red}{#1}}}
+\newcommand{\verde}[1]{{\color{green}{#1}}}
+\definecolor{verdeoliva}{rgb}{.01,.5,0}
+\newcommand{\verdeoscuro}[1]{{\color{verdeoliva}{#1}}}
+\definecolor{gris}{rgb}{0.2,0.2,0.2}
+\newcommand{\gray}[1]{{\color{gris}{#1}}}
+
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\baa}{\begin{eqnarray}}
+\newcommand{\eaa}{\end{eqnarray}}
+\newcommand{\drvd}[1]{\frac{d}{d #1}}
+\newcommand{\drvdd}[2]{\frac{d #1}{d #2}}
+\newcommand{\prtd}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\prtdd}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\atm}{\mbox{atm}}
+\newcommand{\atmL}{\mbox{atm L}}
+\newcommand{\bv}{{\, | \,}}
+\newcommand{\caloria }{\mbox{cal}}
+\newcommand{\chibar}{\overline{\chi}}
+\newcommand{\chine}{\boldsymbol{\chi}}
+\newcommand{\cne}{\mathbf{c}}
+\newcommand{\fcal}{\mathcal{f}}
+\newcommand{\fnecal}{\mathbcal{f}}
+\newcommand{\fem}{\mathscr{E}}
+\newcommand{\Fbar}{\tilde{\Fcal}}
+\newcommand{\Fcal}{\mathscr{F}}
+\newcommand{\Ine}{\mathbf{I}}
+\newcommand{\Jbar}{\tilde{J}}
+\newcommand{\la}{{\langle \, }}
+\newcommand{\Ncal}{{\cal{N}}}
+\newcommand{\Pcal}{\mathscr{P}}
+\newcommand{\qne}{\mathbf{q}}
+\newcommand{\ra}{{\, \rangle}}
+\newcommand{\Rcal}{\mathcal{R}}
+\newcommand{\Rbar}{\tilde{\Rcal}}
+\newcommand{\rne}{\mathbf{r}}
+\newcommand{\Rnecal}{\mathbcal{R}}
+\newcommand{\Rotcal}{\mathcal{D}}
+\newcommand{\Rotcalne}{{\mathbcal D}}
+\newcommand{\rstar}{{r^*}}
+\newcommand{\tne}{\mathbf{t}}
+\newcommand{\Zbar}{\tilde{Z}}
+\newcommand{\Zne}{\mathbf{Z}}
+\newcommand{\Zcal}{\mathcal{Z}}
+\newcommand{\Znecal}{\mathbfcal{Z}}
+
+\renewcommand{\baselinestretch}{1.25}
+
+\title{Mapping of a plane defined in $\mathbb{R}^3$ onto $\mathbb{R}^2$}
+
+
+\maketitle
+
+\section{General problem}
+
+The aim is to obtain a transformation $ \vec{r}(x,y,z) \in \mathbb{R}^3 \Rightarrow  \vec{w}(u,v) \in \mathbb{R}^2$,
+for $\vec{r}(x,y,z)$ lying on a given plane,
+which maintains the distances, i.e. $\| \vec{r}_2 - \vec{r}_1 \| = \|\vec{w}_2 - \vec{w}_1 \|$,
+where $\vec{r}_1$ and $\vec{r}_2$ stand for any two points lying in the plane.
+
+We are interested in planes containing the axes origin $(0,0,0)$, i.e. whose points $ \vec{r}(x,y,z)$ satisfy the equation:
+
+\be \label{eq:1}
+A \; x + B \; y + C \; z = 0
+\ee
+%
+or equivalently:
+
+\be \label{eq:2}
+\vec{R} \cdot \vec{r} = 0
+\hspace*{2cm} \vec{R} = (A, B, C)
+\ee
+%
+For this purpose, we will choose two orthogonal unit vectors, $\vec{w}_u$ and $\vec{w}_v$, which are also orthogonal $\vec{R}$:
+
+\be \label{eq:3}
+\vec{R} \cdot \vec{w}_u = \vec{R} \cdot \vec{w}_v = \vec{w}_u \cdot \vec{w}_v = 0
+\hspace*{5mm} \mbox{and} \hspace*{5mm} \vec{w}_u \cdot \vec{w}_u = \vec{w}_v \cdot \vec{w}_v = 1
+\ee
+%
+We start by choosing two unnormalized vectors with the orthogonality requirements. For instance:
+
+\be \label{eq:4}
+\vec{w}'_u = (-B,A,0)
+\ee
+%
+and
+
+\be \label{eq:5}
+\vec{w}'_v = 
+\begin{vmatrix}
+\vec{i} & \vec{j} & \vec{k} \\
+A & B & C \\
+-B & A & 0
+\end{vmatrix}
+= -A C \; \vec{i} - B C \; \vec{j} + (A^2+B^2) \; \vec{k}
+= (-AC, -BC, A^2+B^2)
+\ee
+%
+It is easy to prove that:
+\be \label{eq:6}
+\vec{w}'_u \cdot \vec{w}'_u = A^2 + B^2
+\hspace*{5mm} \mbox{and} \hspace*{5mm} 
+\vec{w}_v \cdot \vec{w}_v = (A^2 + B^2) \; (A^2 + B^2 + C^2)
+\ee
+%
+so that the unit vectors seeked are:
+
+\be \label{eq:7}
+\vec{w}_u = \frac{1}{(A^2 + B^2)^{1/2}} \; (-B,A,0)
+\ee
+%
+and
+
+\be \label{eq:8}
+\vec{w}_v = \frac{1}{[(A^2 + B^2) \; (A^2 + B^2 + C^2) ]^{1/2}} \; (-AC, -BC, A^2+B^2)
+\ee
+%
+
+The mapping is given by: $\vec{r} = u \, \vec{w}_u + v \, \vec{w}_v$, or equivalently
+$(u,v)$ are the coordinates of $\vec{r}$ in $\mathbb{R}^2$. Thus:
+
+\baa \label{eq:9}
+x & = & -\frac{B}{(A^2+B^2)^{1/2}} \; u - \frac{A C}{[(A^2 + B^2) \; (A^2 + B^2 + C^2) ]^{1/2}} \; v \nonumber \\
+y & = & \frac{A}{(A^2+B^2)^{1/2}} \; u - \frac{B C}{[(A^2 + B^2) \; (A^2 + B^2 + C^2) ]^{1/2}} \; v \nonumber \\
+z & = & 0 \; u + \left(\frac{A^2 + B^2}{A^2 + B^2 + C^2}\right)^{1/2} \; v 
+\eaa
+%
+It can be proved (see notebook \texttt{symmetry\_planes.nb}) that $x^2 + y^2 + z^2 = u^2 + v^2$ which is the
+condition imposed to the mapping.
+
+\section{Particular cases}
+
+The general solution proposed in the previous section can be impractical or even unfeasible for some particular cases,
+in which other solutions are more suitable, namely: \\
+
+{\it Case 1:} $A = 0$, $B = 0$, $C \ne 0$: \hspace*{1cm} $\vec{w}_u = (1,0,0)$, \hspace*{3mm} $\vec{w}_u = (0,1,0)$ \\
+
+{\it Case 2:} $A = 0$, $B \ne 0$, $C = 0$: \hspace*{1cm} $\vec{w}_u = (1,0,0)$, \hspace*{3mm} $\vec{w}_u = (0,0,1)$ \\
+
+{\it Case 3:} $A \ne 0$, $B = 0$, $C = 0$: \hspace*{1cm} $\vec{w}_u = (0,1,0)$, \hspace*{3mm} $\vec{w}_u = (0,0,1)$ \\
+
+In other cases, the general solution is valid but can be greatly simplified: \\
+
+{\it Case 4:} $A \ne 0$, $B \ne 0$, $C = 0$: \hspace*{1cm} $\vec{w}_u = (-\frac{B}{(A^2+B^2)^{1/2}},\frac{A}{(A^2+B^2)^{1/2}},0)$, 
+\hspace*{3mm} $\vec{w}_v = (0,0,1)$ \\
+
+{\it Case 5:} $A \ne 0$, $B = 0$, $C \ne 0$: \hspace*{1cm} $\vec{w}_u = (0,1,0)$, 
+\hspace*{3mm} $\vec{w}_v = (-\frac{C}{(A^2+C^2)^{1/2}},0,\frac{A}{(A^2+C^2)^{1/2}})$ \\
+
+{\it Case 6:} $A = 0$, $B \ne 0$, $C \ne 0$: \hspace*{1cm} $\vec{w}_u = (-1,0,0)$, 
+\hspace*{3mm} $\vec{w}_v = (0,-\frac{C}{(B^2+C^2)^{1/2}},\frac{B}{(A^2+C^2)^{1/2}})$
+
+
+\end{document}

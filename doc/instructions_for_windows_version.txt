@@ -1,0 +1,42 @@
+Instructions for generating the MS-windows version of DAMQT
+
+This is a new set of instructions that simplifies the process over the previous version.
+
+The old version can be still found in the file instructions_for_windows_version_old.txt
+also included in the directory $(DAMQT)/doc.
+
+February 2017
+Rafael Lopez
+rafael.lopez@uam.es
+==============================================================
+
+To create a windows version of DAMQT with MinGW:
+
+- Download and install:
+	Qt library for windows
+	MSYS|MinGW
+	freeglut
+	cmake for windows
+	Inno setup (for installer)
+	
+- Extract the content of the tarball corresponding to the DAMQT required version to a suitable folder (in what follows, $DAMQT).
+
+- Open cmake graphics user interface and therein:
+	Select the home directory for source codes ($DAMQT).
+	Select a suitable directory to build the binaries (for instance $(DAMQT)/release ).
+	Check the "Advanced" box to see the environment variables and check that all of them point to suitable places.	
+	Press "Configure" and check that it works. If anything fails, look at the messages and proceed to fix the errors 
+		(a hint can be provided by the enviroment variables). If there are variable marked as NOT FOUND, navigate 
+		to point to a suitable place.
+	Once configure succeeded, press "Generate".
+	
+- Open MSYS and navigate to the folder where the binaries were created:
+	Run mingw32-make therein and check that the programs are compiled and linked
+             
+- To create an installer:
+      Exec Inno setup
+      Open file damqtXXX.iss
+      Modify damqtXXX.iss to adapt it to your installation. In particular, set suitable values to the variables 
+		with the names of appropriate directories. 
+      Choose "Build->Compile" in the toolbar
+      An installer named DAMQTXXX_setup.exe will be created
