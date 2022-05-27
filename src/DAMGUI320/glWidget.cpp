@@ -52,6 +52,7 @@ glWidget::glWidget(QString *name, QWidget *parent) : QWidget(parent)
     angstrom = false;
     ballradius = 0.2;
     bkgcolor = QColor(0, 0, 0, 255);
+    chargescanvas = new QVector < QVector <double> *> ();
     cluster_exists = false;
     clustername = "cluster";
     cylradius = 0.05;
@@ -81,6 +82,8 @@ glWidget::glWidget(QString *name, QWidget *parent) : QWidget(parent)
     molname = QString("");
     molpath = QString("");
     ninterpol = NINTERPOL;
+    obabelcharges = false;
+    obabelindex = 0;
     optimvisible = false;
     onlyselcp = false;
     position = QPoint(0,0);
@@ -172,7 +175,8 @@ glWidget::~glWidget(){
 
 
     for (int i = 0 ; i < connections.size() ; i++){
-        QObject::disconnect(connections.at(i));
+        if (connections.at(i))
+            QObject::disconnect(connections.at(i));
     }
     connections.clear();
     if (molecules){
@@ -218,7 +222,7 @@ void glWidget::closeEvent(QCloseEvent *event){
 
 void glWidget::createWindowDialog(QDockWidget *gdock){
     gdock->resize(QSize(500, this->height()));
-    QDLwindow = new moleculeDialog(this);
+    QDLwindow = new moleculeDialog(molecules, this);
     QDLwindow->setWindowTitle(getWindowName()+QString(tr(" Main Menu")));
     QDLwindow->setMinimumWidth(410);
     QDLwindow->resize(410,50);
@@ -360,6 +364,35 @@ void glWidget::create_molecules_menu_and_layouts(){
     connections << connect (showsignalMapper, SIGNAL(mapped(int)), this, SLOT(showmolecule(int)), Qt::UniqueConnection) ;
 }
 
+
+//  Function deletecluster: removes cluster from molecules list
+//
+void glWidget::deletecluster(){
+    delete molecules->at(molecules->length()-1);
+    molecules->removeLast();
+    molecule_names.removeLast();
+    window->resetmeasures();
+    window->setdisplayEPIC(false);
+    for (int i = 0 ; i < molecules->length() ; i++) {
+        molecules->at(i)->setvisible(true);
+        BTNshowlist.at(i)->setText("Hide");
+    }
+    if (msrs){
+        msrs->reset_all();
+        msrs->set_molecules(molecule_names);
+    }
+    if (molecules->isEmpty()){
+        QDLwindow->rotationsdialog->reset_rotation();
+        QDLwindow->translationsdialog->reset_translation();
+    }
+    if (window && window->isVisible()){
+        updatedisplay();
+    }
+}
+//  End of function deletecluster
+//  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 void glWidget::deletemolecule(int i){
     QMessageBox msgBox;
     msgBox.setInformativeText(tr("Do you want to remove ")+molecules->at(i)->getname()+"?");
@@ -371,7 +404,9 @@ void glWidget::deletemolecule(int i){
     int ret = msgBox.exec();
     if (ret == QMessageBox::No)
         return;
+    bool iscluster = molecules->at(i)->getiscluster();
     delete molecules->at(i);
+    chargescanvas->removeAt(i);
     molecules->removeAt(i);
     molecule_names.removeAt(i);
     window->resetmeasures();
@@ -391,6 +426,13 @@ void glWidget::deletemolecule(int i){
     if (molecules->isEmpty()){
         QDLwindow->rotationsdialog->reset_rotation();
         QDLwindow->translationsdialog->reset_translation();
+    }
+    if (iscluster){
+        window->setdisplayEPIC(false);
+        for (int j = 0 ; j < molecules->length() ; j++){
+            molecules->at(j)->setvisible(true);
+            BTNshowlist.at(j)->setText("Hide");
+        }
     }
     if (window && window->isVisible()){
         updatedisplay();
@@ -538,13 +580,11 @@ void glWidget::create_viewport_menu(){
 
 void glWidget::create_optimize_cluster_menu(){
 
-    FRMoptimizeCluster = QDLwindow->mespimizerdialog->getFRMoptimizeCluster();
-
-
-    QDLwindow->mespimizerdialog->setmolecules(molecules);
+//    QDLwindow->mespimizerdialog->setmolecules(molecules);
     QDLwindow->mespimizerdialog->setTXTframesfile(mespimizerfile);
+    QDLwindow->mespimizerdialog->setmespimizerpath(mespimizerpath);
     QDLwindow->mespimizerdialog->setrecordfile(mespimirecordfilename);
-    QDLwindow->mespimizerdialog->setguessfromcanvas(guestfromcanvas);
+    QDLwindow->mespimizerdialog->setguestfromcanvas(guestfromcanvas);
     QDLwindow->mespimizerdialog->setclustername(clustername);
     QDLwindow->mespimizerdialog->setframesfile(framesfile);
     QDLwindow->mespimizerdialog->setspeed(speed);
@@ -558,6 +598,11 @@ void glWidget::create_optimize_cluster_menu(){
     QDLwindow->mespimizerdialog->setenergyfont(energyfont);
     QDLwindow->mespimizerdialog->setenergycolor(energycolor);
     QDLwindow->mespimizerdialog->sethartree(hartree);
+    QDLwindow->mespimizerdialog->setobabelindex(obabelindex);
+    QDLwindow->mespimizerdialog->setobabelcharges(obabelcharges);
+    QDLwindow->mespimizerdialog->setchargescanvas(chargescanvas);
+
+    FRMoptimizeCluster = QDLwindow->mespimizerdialog->getFRMoptimizeCluster();
 
     BTNoptimizeCluster = new QPushButton();
     BTNoptimizeCluster->setText(tr("Optimize cluster"));
@@ -584,6 +629,8 @@ void glWidget::create_optimize_cluster_menu(){
     connections << connect(QDLwindow->mespimizerdialog, SIGNAL(font_clicked(QFont)), this, SLOT(setenergyfont(QFont)));
     connections << connect(QDLwindow->mespimizerdialog, SIGNAL(fontcolor_clicked(QColor)), this, SLOT(setenergycolor(QColor)));
     connections << connect(QDLwindow->mespimizerdialog, SIGNAL(hartree_units(bool)), this, SLOT(sethartree(bool)));
+    connections << connect(QDLwindow->mespimizerdialog, SIGNAL(obabelcharges_changed(bool)), this, SLOT(obabelcharges_changed(bool)));
+    connections << connect(QDLwindow->mespimizerdialog, SIGNAL(obabelindex_changed(int)), this, SLOT(obabelindex_changed(int)));
 
     if (optimvisible)
         BTNoptimizeCluster_clicked();
@@ -1498,7 +1545,6 @@ void glWidget::BTNoptimizeCluster_clicked(){
         BTNoptimizeCluster->setText(tr("Optimize cluster"));
         optimvisible = false;
     }
-//    QDLwindow->mespimizerdialog->setguessfromcanvas(guestfromcanvas);
     QDLwindow->update();
     QDLwindow->adjustSize();
     QDLwindow->renewwidth(gdock->size());
@@ -1514,29 +1560,6 @@ void glWidget::clusterfile_changed(QString a){
 //  End of function clusterfile_changed
 //  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-//  Function deletecluster: removes cluster from molecules list
-//
-void glWidget::deletecluster(){
-    delete molecules->at(molecules->length()-1);
-    molecules->removeLast();
-    molecule_names.removeLast();
-    window->resetmeasures();
-    window->setdisplayEPIC(false);
-    if (msrs){
-        msrs->reset_all();
-        msrs->set_molecules(molecule_names);
-    }
-    if (molecules->isEmpty()){
-        QDLwindow->rotationsdialog->reset_rotation();
-        QDLwindow->translationsdialog->reset_translation();
-    }
-    if (window && window->isVisible()){
-        updatedisplay();
-    }
-}
-//  End of function deletecluster
-//  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //  Function displayClusterGeometry: displays frame in animation
 //
@@ -1693,6 +1716,22 @@ bool glWidget::loadclustergeometry(QString filename){
 //  End of function loadclustergeometry
 //  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+//  Function obabelcharges_changed: sets obabelcharges
+//
+void glWidget::obabelcharges_changed(bool a){
+    obabelcharges = a;
+}
+//  End of function obabelcharges_changed
+//  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//  Function obabelindex_changed: sets obabelindex
+//
+void glWidget::obabelindex_changed(int i){
+    obabelindex = i;
+}
+//  End of function obabelindex_changed
+//
+
 //  Function optimizecanvas_changed: sets guestfromcanvas
 //
 void glWidget::optimizecanvas_changed(bool a){
@@ -1701,7 +1740,7 @@ void glWidget::optimizecanvas_changed(bool a){
 //  End of function optimizecanvas_changed
 //  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//  Function optimizecanvas_changed: sets guestfromcanvas
+//  Function optimizeselect_changed: sets onlyselcp
 //
 void glWidget::optimizeselect_changed(bool a){
     onlyselcp = a;
@@ -1774,7 +1813,41 @@ void glWidget::processOutput(int exitCode, QProcess::ExitStatus exitStatus)
                         .arg(iter).arg(molec));
         }
         else{
-            QMessageBox::information(this, tr("MESPIMIZER"),tr("Cluster optimization finished"));
+            if(QFileInfo(mespimizerpath+"/openbabel.err").exists()){
+                QFile file(mespimizerpath+"/openbabel.err");
+                QString msg = "";
+                if (file.open(QFile::ReadOnly | QFile::Text)) {
+                    QTextStream in(&file);
+                    QString line;
+                    while (!in.atEnd()){
+                        line = in.readLine();
+                        msg.append("\n"+line);
+//                        qDebug() << "line = " << line;
+                    }
+                }
+//                qDebug() << "msg = " << msg;
+                QMessageBox::information(this, tr("MESPIMIZER"),
+                        tr("Open Babel failed in cluster optimization"),msg);
+            }
+            else if(QFileInfo(mespimizerpath+"/mespimizer.err").exists()){
+                QFile file(mespimizerpath+"/mespimizer.err");
+                QString msg = "";
+                if (file.open(QFile::ReadOnly | QFile::Text)) {
+                    QTextStream in(&file);
+                    QString line;
+                    while (!in.atEnd()){
+                        line = in.readLine();
+                        msg.append("\n"+line);
+//                        qDebug() << "line = " << line;
+                    }
+                }
+//                qDebug() << "msg = " << msg;
+                QMessageBox::information(this, tr("MESPIMIZER"),
+                        tr("Cluster optimization failed"),msg);
+            }
+            else{
+                QMessageBox::information(this, tr("MESPIMIZER"),tr("Cluster optimization finished"));
+            }
         }
 
     }else if (exitStatus==QProcess::CrashExit){
@@ -1856,6 +1929,7 @@ void glWidget::quaterninterpolation(){
         if (vi.lengthSquared() < 1.e-10){   // Geometry of molecule does not change at all
             transformation << 0;
             qtotv << q1;
+//            qDebug() << "Geometry of molecule " << kmol << " does not change at all";
         }
         else{
             QVector3D vj = QVector3D(0,0,0);
@@ -1892,14 +1966,14 @@ void glWidget::quaterninterpolation(){
             else{
 //                qDebug() << "hay rotacion: (vi-vip).lengthSquared() = " << (vi-vip).lengthSquared()
 //                         << "  (vj-vjp).lengthSquared() = " << (vj-vjp).lengthSquared();
-                QVector3D vk = QVector3D::crossProduct(vi,vj);
-                QVector3D vkp = QVector3D::crossProduct(vip,vjp);
+                QVector3D vk = QVector3D::crossProduct(vi,vj).normalized();
+                QVector3D vkp = QVector3D::crossProduct(vip,vjp).normalized();
                 if ((vk-vkp).lengthSquared() < 1.e-10){     // Z and Z' axes aligned
                     transformation << 2;
 //                    qDebug() << "rotation Z and Zp aligned";
                     float alfa;
                     float cosalfa = QVector3D::dotProduct(vi,vip);
-                    float sinalfa = QVector3D::dotProduct(QVector3D::crossProduct(vi,vip),vk);
+                    float sinalfa = QVector3D::dotProduct(QVector3D::crossProduct(vi,vip).normalized(),vk);
                     if (sinalfa >= 0){
                         alfa = acos(cosalfa);
                     }
@@ -1914,7 +1988,7 @@ void glWidget::quaterninterpolation(){
 //                    qDebug() << "rotation Z and Zp opposed";
                     float alfa;
                     float cosalfa = QVector3D::dotProduct(vj,vjp);
-                    float sinalfa = QVector3D::dotProduct(QVector3D::crossProduct(vj,vjp),vk);
+                    float sinalfa = QVector3D::dotProduct(QVector3D::crossProduct(vj,vjp).normalized(),vk);
                     if (sinalfa >= 0){
                         alfa = acos(cosalfa);
                     }
@@ -1928,13 +2002,13 @@ void glWidget::quaterninterpolation(){
                 }
                 else{
                     transformation << 4;
-                    QVector3D un = QVector3D::crossProduct(vk,vkp);
-//                    qDebug() << "general rotation";
+                    QVector3D un = QVector3D::crossProduct(vk,vkp).normalized();
+//                    qDebug() << "general rotation un = " << un;
         //            un.normalize();
-                    un /= un.length();
+//                    un /= un.length();
                     float alfa;
                     float cosalfa = QVector3D::dotProduct(vj,un);
-                    float sinalfa = QVector3D::dotProduct(QVector3D::crossProduct(vj,un),vk);
+                    float sinalfa = QVector3D::dotProduct(QVector3D::crossProduct(vj,un).normalized(),vk);
                     if (sinalfa >= 0){
                         alfa = acos(cosalfa) * 180. / M_PI;
                     }
@@ -1944,7 +2018,7 @@ void glWidget::quaterninterpolation(){
                     float beta = acos(QVector3D::dotProduct(vk,vkp)) * 180. / M_PI;
                     float gamma;
                     float cosgam =  QVector3D::dotProduct(vjp,un);
-                    float singam = QVector3D::dotProduct(QVector3D::crossProduct(un,vjp),vkp);
+                    float singam = QVector3D::dotProduct(QVector3D::crossProduct(un,vjp).normalized(),vkp);
                     if (singam >= 0){
                         gamma = acos(cosgam) * 180. / M_PI;
                     }
@@ -2010,9 +2084,13 @@ void glWidget::quaterninterpolation(){
                     for (int j = indmols[kmol] ; j < indmols[kmol+1]; j++){
                         if ((xyz[j]-xyzant[j]).lengthSquared() < 1.e-10){
                             xyzi.append(xyz[j]);
+//                            qDebug() << "no cambia " << xyz[j];
                         }
                         else{
                             xyzi.append(qinterp.rotatedVector(xyzant[j]-cmantv[kmol])+cmantv[kmol]+trs);
+//                            qDebug() << "cambia " << qinterp.rotatedVector(xyzant[j]-cmantv[kmol])+cmantv[kmol]+trs
+//                                     << " qinterp = " << qinterp << " cmantv[kmol] = " << cmantv[kmol]
+//                                    << " q1 = " << q1 << " qtotv[kmol] " << qtotv[kmol] ;
                         }
                     }
                     break;
@@ -2245,6 +2323,7 @@ void glWidget::replay_mespimization(QString filename){
 //                }
                 quaterninterpolation();     // Forced to use quaternions interpolation
                 xyz.clear();
+                znuc.clear();
                 line = in.readLine();       // skips lines other than coordinates
                 Ener0 = Ener1;
                 line = in.readLine();
@@ -3003,7 +3082,6 @@ void glWidget::setbkgcolor(QColor a){
     bkgcolor = a;
 }
 
-
 void glWidget::set_ProjectFolder(QString name){
     ProjectFolder = name;
     CaptureFolder = ProjectFolder;
@@ -3345,12 +3423,12 @@ void glWidget::retrievemolecule(){
 //
 //-------------------------------------------------------------------------------------------------
 
-moleculeDialog::moleculeDialog(QWidget *parent) : QDialog()
+moleculeDialog::moleculeDialog(QList<molecule*> *mols, QWidget *parent) : QDialog()
 {
     axesdialog = new axes(this);
     ballsandcylsdialog = new ballscyls(this);
     lightsdialog = new lights(this);
-    mespimizerdialog = new mespimizer(this);
+    mespimizerdialog = new mespimizer(mols,this);
     rotationsdialog = new rotations(this);
     scrshotdialog = new screenshot(this);
     translationsdialog = new translations(this);

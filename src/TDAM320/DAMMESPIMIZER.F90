@@ -30,7 +30,7 @@
     implicit none
     integer(kint)::iden,ierr,i,j,k,iw,jw,dum,nbatms,nb,flag
     real :: tarray(2), tiempo, dtime
-    integer:: nmols,splt,rssize,tn,tmaxcharg
+    integer:: nmols,splt,rssize,tn,tmaxcharg, stat
     real(kreal) :: Enj,tssize
     real(kreal) :: shiftx,shifty,shiftz,tcox,tcoy,tcoz,chosenx,choseny,chosenz
     character(2),allocatable::pisym(:),ts(:)
@@ -40,7 +40,7 @@
     character(256)::mstring
     character(256):: preprocfile,templatefile,insertlocfile,qmsoftware,qmkeywords
     character(256):: mespimizerinit,mespimizervis,mespimizerfinal,basename,mespimizerbase
-    character(256):: clustername, path
+    character(256):: chargemodel, clustername, mespimizererror, openbabelerror, path
     character(256):: mespimizerauxframes, mespimizerkntfrms, mespimizerframes, mespimizercurrframe
     character(10)::d1,d2,d3,d4,extn
     integer::icmdout
@@ -49,7 +49,7 @@
     namelist / options / lgradient, lderiv2, largo, lexact, &
             & lmaxi,filename,preprocfile,templatefile,insertlocfile,&
             & iswindows,tssize,rssize,nocharge,qmsoftware,qmkeywords, &
-            & clustername, path, lwriteqm, maxiter
+            & clustername, path, lwriteqm, maxiter, chargemodel
 
     tiempo = dtime(tarray)
     lgradient    = .true.
@@ -58,6 +58,7 @@
     lexact       = .false.        ! IF .TRUE. "EXACT" POTENTIAL IS TABULATED
     iswindows    = .false.
     lmaxi        = 15
+    chargemodel  = "qtpie"
     path         = ""
     clustername  = "cluster"
     filename     = ""
@@ -74,6 +75,10 @@
 
     read(5,options)     ! Read from standard input
     read(5,*) projectname
+
+    if (nocharge) then
+        write(6,"('No charges read from the input files')")
+    endif
 
     ! Decides if the user has provided projectname with full path.
     if (iswindows) then
@@ -162,6 +167,8 @@
     mespimizerframes = trim(adjustl(path))//trim(clustername)//".xyz_frames"
     mespimizercurrframe  = trim(adjustl(path))//trim(clustername)//".xyz_curr_frame"
     mespimizerkntfrms = trim(adjustl(path))//trim(clustername)//".kntframes"
+    mespimizererror = trim(adjustl(path))//"mespimizer.err"
+    openbabelerror = trim(adjustl(path))//"openbabel.err"
 
     write(6,*) 'preprocfile         = ', trim(preprocfile)
     write(6,*) 'templatefile        = ', trim(templatefile)
@@ -174,6 +181,8 @@
     write(6,*) 'mespimizerframes    = ', trim(mespimizerframes)
     write(6,*) 'mespimizercurrframe = ', trim(mespimizercurrframe)
     write(6,*) 'mespimizerkntfrms   = ', trim(mespimizerkntfrms)
+    write(6,*) 'mespimizererror     = ', trim(mespimizererror)
+    write(6,*) 'openbabelerror      = ', trim(openbabelerror)
 
     call predampot
 
@@ -182,6 +191,7 @@
 
     if (len(trim(templatefile))/=0 .and. len(trim(preprocfile))==0) preprocfile =templatefile
 
+    open(unit=5678, iostat=stat, file=mespimizererror, status='new')
 
     preprocfile=trim(adjustl(preprocfile))
     splt = index(preprocfile,'.',back=.True.)
@@ -189,22 +199,26 @@
     extn=preprocfile(splt:)
     ! If xyz file does not contain partial charges, obabel is used to get initial charges.
     if (nocharge) then
+        acmdout = ""
+        open(unit=1234, iostat=stat, file=openbabelerror, status='new')
         if (iswindows) then
 !            exec = '"c:' // dirsep // "Program Files" // dirsep // "OpenBabel-3.1.1" // dirsep // &
             exec = &
             & '"obabel.exe" -ixyz '//trim(adjustl(basename))//trim(adjustl(extn)) &
-            & //" --partialcharge qtpie -omol2 -O " &
-            & //trim(adjustl(basename))//".mol2"
+            & //" --partialcharge "//trim(chargemodel)//" -omol2 -O " &
+            & //trim(adjustl(basename))//".mol2 2> "//trim(openbabelerror)
             print*,exec
             call system(exec, icmdout)
             !write(6,*) 'llama a execute_command_line'
             !call execute_command_line(exec,cmdstat=icmdout,cmdmsg=acmdout)
         else
             exec = "obabel -ixyz "//trim(adjustl(basename))//trim(adjustl(extn)) &
-            & //" --partialcharge qtpie -omol2 -O " &
-            & //trim(adjustl(basename))//".mol2"
+            & //" --partialcharge "//trim(chargemodel)//" -omol2 -O " &
+            & //trim(adjustl(basename))//".mol2 2> "//trim(openbabelerror)
             print*,exec
             call execute_command_line(exec,cmdstat=icmdout,cmdmsg=acmdout)
+            print*, 'cmdstat = ', icmdout
+            write(6,"('cmdmsg = ', 256(A))") trim(acmdout)
         endif
 
         if (icmdout/=0) then
@@ -224,20 +238,20 @@
             if (ierr.ne.0) call error(1,"error reading mol2 file created internally")
             nmols=0
             do
-                read(298,*,err=299,end=299) mstring
+                read(298,*,err=9299,end=299) mstring
                 if (len(trim(adjustl(mstring)))>=16 .and. index(mstring,"@<TRIPOS>MOLECULE")==1) then
                     nmols=nmols+1
-                    read(298,*,err=299,end=299) nb
-                    read(298,*,err=299,end=299)
-                    read(298,*,err=299,end=299)
-                    read(298,*,err=299,end=299)
-                    read(298,*,err=299,end=299)
+                    read(298,*,err=9299,end=299) nb
+                    read(298,*,err=9299,end=299)
+                    read(298,*,err=9299,end=299)
+                    read(298,*,err=9299,end=299)
+                    read(298,*,err=9299,end=299)
                 elseif (len(trim(adjustl(mstring)))>=12 .and. index(mstring,"@<TRIPOS>ATOM")==1) then
                     molecules(nmols)%natoms = nb
                     allocate (molecules(nmols)%bawt(nb),molecules(nmols)%bs(nb),molecules(nmols)%bx(nb),&
                     molecules(nmols)%by(nb),molecules(nmols)%bz(nb),molecules(nmols)%bq(nb),molecules(nmols)%bvdw(nb),stat=ierr)
                     do i = 1,nb
-                        read(298,*,err=299,end=299) d1,molecules(nmols)%bs(i),molecules(nmols)%bx(i),molecules(nmols)%by(i),&
+                        read(298,*,err=9299,end=299) d1,molecules(nmols)%bs(i),molecules(nmols)%bx(i),molecules(nmols)%by(i),&
                         molecules(nmols)%bz(i),d2,d3,d4,molecules(nmols)%bq(i)
                         molecules(nmols)%bx(i)=molecules(nmols)%bx(i)*angau
                         molecules(nmols)%by(i)=molecules(nmols)%by(i)*angau
@@ -245,7 +259,18 @@
                     end do
                 endif
             enddo
-299             close(298)
+299         close(298)
+        endif
+        if (nmols < 1) then
+            write(6,"(/'No molecule found in file ', 256(A))") trim(adjustl(basename))//".mol2"
+            call error(1,"Stop")
+        else
+            write(6,"(/'Close and delete file ', 256(A))") openbabelerror
+            if (iswindows) then
+                call system("rm -f " // openbabelerror)
+            else
+                call execute_command_line("rm -f " // openbabelerror)
+            endif
         endif
 
     else
@@ -254,21 +279,21 @@
         if (ierr.ne.0) call error(1,"error reading xyz file")
         nmols=0
         do
-            read(301,*,err=302,end=302) nb
+            read(301,*,err=9301,end=302) nb
             nmols=nmols+1
             molecules(nmols)%natoms = nb
-            read(301,*,err=302,end=302)
+            read(301,*,err=9301,end=302)     ! Skips comment line
             allocate (molecules(nmols)%bawt(nb),molecules(nmols)%bs(nb),molecules(nmols)%bx(nb),&
             molecules(nmols)%by(nb),molecules(nmols)%bz(nb),molecules(nmols)%bq(nb),molecules(nmols)%bvdw(nb),stat=ierr)
             do i = 1,nb
-                read(301,*,err=302,end=302) molecules(nmols)%bs(i),molecules(nmols)%bx(i),molecules(nmols)%by(i),&
+                read(301,*,err=9301,end=302) molecules(nmols)%bs(i),molecules(nmols)%bx(i),molecules(nmols)%by(i),&
                 molecules(nmols)%bz(i), molecules(nmols)%bq(i)
                 molecules(nmols)%bx(i)=molecules(nmols)%bx(i)*angau
                 molecules(nmols)%by(i)=molecules(nmols)%by(i)*angau
                 molecules(nmols)%bz(i)=molecules(nmols)%bz(i)*angau
             end do
         enddo
-302         close(301)
+302     close(301)
     endif
     ! Allocate an array for atomic mass and van der Waals radii of atoms.
     ! atmnms are atomic names defined in global module of size 103. If the sym of the
@@ -292,17 +317,17 @@
     if (trim(adjustl(preprocfile))==trim(adjustl(templatefile)) .and. len_trim(insertlocfile)/=0) then
         open(unit=304, file = trim(adjustl(insertlocfile)),iostat=ierr)
         if (ierr.ne.0) call error(1,"error reading xyz file")
-        read(304,*,err=305,end=305) nb
-        read(304,*,err=305,end=305)
+        read(304,*,err=9304,end=305) nb
+        read(304,*,err=9304,end=305)
         allocate (pisym(nb),pix(nb),piy(nb),piz(nb),stat=ierr)
         do i = 1,nb
-            read(304,*,err=305,end=305) pisym(i),pix(i),piy(i),piz(i)
+            read(304,*,err=9304,end=305) pisym(i),pix(i),piy(i),piz(i)
             call ncase(pisym(i))
             pix(i)=pix(i)*angau
             piy(i)=piy(i)*angau
             piz(i)=piz(i)*angau
         end do
-305         close(304)
+305     close(304)
         tn = molecules(1)%natoms
         allocate (ts(tn),tx(tn),ty(tn),tz(tn),tq(tn),tw(tn),tv(tn),stat=ierr)
         ts = molecules(1)%bs
@@ -420,7 +445,26 @@
     write(iout,*)""
     close(iden)
     close(iout)
+    close(5678)
+    if (iswindows) then
+        call system("rm -f " // mespimizererror)
+    else
+        call execute_command_line("rm -f " // mespimizererror)
+    endif
     stop
+
+9299 continue
+    write(5678,*) 'Error reading data from file '//trim(adjustl(basename))//".mol2"
+    close(5678)
+    call error(1,'Error reading data from file '//trim(adjustl(basename))//".mol2")
+9301 continue
+    write(5678,*) 'Error reading data from file '//trim(adjustl(preprocfile))
+    close(5678)
+    call error(1,'Error reading data from file '//trim(adjustl(preprocfile)))
+9304 continue
+    write(5678,*) 'Error reading data from file '//trim(adjustl(insertlocfile))
+    close(5678)
+    call error(1,'Error reading data from file '//trim(adjustl(insertlocfile)))
     end
 
 !!=================================

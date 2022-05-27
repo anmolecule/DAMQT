@@ -39,22 +39,57 @@
 #include <QPushButton>
 #include <QRadioButton>
 #include <QSpinBox>
+#include <QTextCodec>
 
 #include "GlobalInfo.h"
 
 #include "ColorButton.h"
 
 #include "molecule.h"
+#include "elements.h"
 #include "externals.h"
 
 #define INTERVAL_INI 100
 #define INTERVAL_SCALE 500
 
+
+class chargescanvasDialog : public QDialog
+{
+    Q_OBJECT
+
+    public:
+        chargescanvasDialog(QVector <double> *, molecule *, QWidget *parent = 0);
+        ~chargescanvasDialog();
+        int iatomsel;
+        int icpsel;
+        int icptypesel;
+        int imolsel;
+
+    private slots:
+        void BTNaccept_pressed();
+        void BTNcancel_pressed();
+        void charge_changed(QString);
+        void updatecharges(int);
+
+    private:
+
+        QList<QMetaObject::Connection> connections;
+
+        QString currentcharge;
+
+        QVector <double> charges;
+        QVector <double> *chargespntr;
+
+};
+
+
+
+
 class mespimizer : public QWidget
 {
     Q_OBJECT
 public:
-    explicit mespimizer(QWidget *parent = 0);
+    explicit mespimizer(QList<molecule*> *, QWidget *parent = 0);
     ~mespimizer();
 
     bool getdisplayenergy();
@@ -77,22 +112,26 @@ public:
 
     void enableBTNmespimize(bool);
     void endmakingmovie();
+    void replacechargescanvas(int, QVector <double> *);
     void setBTNreplay(bool);
     void setBTNreset(bool);
     void setCHKoptimizeselect(bool);
     void setCHKrecordoptim(bool);
+    void setchargescanvas(QVector < QVector <double> *> *);
     void setclustername(QString);
     void setdisplayEPIC(bool);
     void setenergycolor(QColor);
     void setenergyfont(QFont);
     void setenergyprecision(int);
     void setframesfile(QString);
-    void setguessfromcanvas(bool);
+    void setguestfromcanvas(bool);
     void sethartree(bool);
     void sethostname(QString);
     void setinterpolpoints(int);
     void setmespimizerpath(QString);
     void setmolecules(QList<molecule*> *);
+    void setobabelcharges(bool);
+    void setobabelindex(int);
     void setoptimizecanvas(bool);
     void setrecordfile(QString);
     void setspeed(int);
@@ -115,6 +154,8 @@ signals:
     void hartree_units(bool);
     void interpol_changed(int);
     void movetotop();
+    void obabelcharges_changed(bool);
+    void obabelindex_changed(int);
     void optimizecanvas_changed(bool);
     void optimizeselect_changed(bool);
     void qmrun(QString);
@@ -136,14 +177,21 @@ private slots:
     void CHKdisplayepic_changed();
     void CHKoptimizeselect_changed();
     void CHKrecordoptim_changed();
+    void CMBobcharges_changed(int);
     void create_optimize_cluster_layouts();
+    void editcharges(int);
+    void editchargestemplate();
     void external_package();
-    void mespath_dialog();
     void framefiles_dialog();
+    void importcharges(int);
+    void importchargestemplate();
+    void importchargesfromfile(QString,int);
+    void importmltmod(QString,int);
     void importRecordDir();
+    void mespath_dialog();
     void qmcomputing(QString);
+    void RBTcharges_changed();
     void RBThartree_changed();
-    void RBToptimizecanvas_changed();
     void RBToptimizetemplate_changed();
     void SLDspeed_changed();
     void SPBenergyprecision_changed();
@@ -154,12 +202,19 @@ private slots:
     void TXTframesfile_changed();
 
 private:
+    bool checkobabelinstall();
     bool create_insertlocfile();
     bool create_mespimizer_input();
     bool create_preprocfile();
     bool create_templatefile();
 
     bool guestfromcanvas;
+    bool obabelcharges;
+    bool openbabelinstalled;
+
+    int obabelindex;
+
+    Elements *elem;
 
     ColorButton *BTNfontcolor;
 
@@ -170,11 +225,16 @@ private:
 
     QColor energycolor;
 
+    QComboBox *CMBobcharges;
+
     QDoubleSpinBox *SPBtssize;
 
     QFont energyfont;
 
     QGroupBox *FRManimation;
+    QGroupBox *FRMcharges;
+    QGroupBox *FRMcanvascharges;
+    QGroupBox *FRMtemplatecharges;
     QGroupBox *FRMenergy;
     QGroupBox *FRMinterpol;
     QGroupBox *FRMoptimizeCluster;
@@ -182,11 +242,14 @@ private:
     QGroupBox *FRMrecord;
     QGroupBox *FRMtemplate;
 
+    QLabel *LBLcanvascharges;
+    QLabel *LBLdamchargestemplate;
     QLabel *LBLenergyprecision;
     QLabel *LBLhostindex;
     QLabel *LBLhostname;
     QLabel *LBLinterpol;
     QLabel *LBLmakingmovie;
+    QLabel *LBLobcharges;
     QLabel *LBLtemplateindex;
     QLabel *LBLtemplatename;
 
@@ -200,6 +263,8 @@ private:
     QList<QMetaObject::Connection> connections;
     QList<molecule*> *molecules;
 
+    QPushButton *BTNeditchargestemplate;
+    QPushButton *BTNimportchargestemplate;
     QPushButton *BTNfont;
     QPushButton *BTNmespimize;
     QPushButton *BTNqm;
@@ -212,6 +277,8 @@ private:
     QRadioButton *RBToptimizecanvas;
     QRadioButton *RBToptimizetemplate;
 //    QRadioButton *RBTquatinterpol;
+    QRadioButton *RBTobabelcharges;
+    QRadioButton *RBTusercharges;
 
     QSlider *SLDspeed;                    // Speed of animation
 
@@ -222,10 +289,20 @@ private:
     QSpinBox *SPBrssize;
     QSpinBox *SPBtemplate;
 
+    QStringList obcharges;
+
     QToolButton *BTNmespath;
     QToolButton *BTNframefile;
     QToolButton *BTNrecordir;
 
+//    QVector <double> chargestemplate;
+    QVector < QLabel *> LBLdamchargescanvas;
+    QVector < QPushButton *> BTNdamchargescanvas;
+    QVector < QPushButton *> BTNeditchargescanvas;
+
+    QVector < QVector <double> *> *chargescanvas;
+
 };
+
 
 #endif // MESPIMIZER_H

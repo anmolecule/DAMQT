@@ -334,7 +334,7 @@ void DialogSPB::setClose()
 //
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-DialogSPBinfo::DialogSPBinfo(QString *title, QString *info, QString *text, QWidget *parent) : QDialog(parent){
+DialogDisplayInfo::DialogDisplayInfo(QString *title, QString *info, QString *text, QWidget *parent) : QDialog(parent){
 	FRMtitle = new QGroupBox();
 	FRMtext = new QGroupBox();
 	LBLtitle = new QLabel(*title);
@@ -390,18 +390,18 @@ DialogSPBinfo::DialogSPBinfo(QString *title, QString *info, QString *text, QWidg
 }
 
 //	Destructor
-DialogSPBinfo::~DialogSPBinfo(){
+DialogDisplayInfo::~DialogDisplayInfo(){
     while(QApplication::overrideCursor() != 0)
             QApplication::restoreOverrideCursor();   
 }
 //	Closing
-void DialogSPBinfo::setClose()
+void DialogDisplayInfo::setClose()
 {
 	this->close();
 }
 
 //	Set info section
-void DialogSPBinfo::setinfo(QString *info)
+void DialogDisplayInfo::setinfo(QString *info)
 {
 	LBLinfo->setText(*info);
 	if (LBLinfo->text().isEmpty()){ 
@@ -413,7 +413,7 @@ void DialogSPBinfo::setinfo(QString *info)
 }
 
 //	Set text section
-void DialogSPBinfo::settext(QString *text)
+void DialogDisplayInfo::settext(QString *text)
 {
 	LBLtext->setText(*text);
 	if (LBLtext->text().isEmpty()){ 
@@ -425,7 +425,7 @@ void DialogSPBinfo::settext(QString *text)
 }
 
 //	Set title section
-void DialogSPBinfo::settitle(QString *title)
+void DialogDisplayInfo::settitle(QString *title)
 {
 	LBLtitle->setText(*title);
 	if (LBLtitle->text().isEmpty()){ 
