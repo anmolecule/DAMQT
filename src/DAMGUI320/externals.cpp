@@ -1329,7 +1329,7 @@ void Externals::make_Psi4_input(){
         buff.append(QString("set_num_threads(%1)\n").arg(SPBextproc->value()));
     }
     if (!TXTextmem->text().isEmpty()){
-        buff.append(QString("memory %1\n").arg(TXTextmem->text().trimmed()));
+        buff.append(QString("set_memory('%1')\n").arg(TXTextmem->text().trimmed()));
     }
 
     if (CMBlevel->currentIndex() < CMBlevel->count()-2){
