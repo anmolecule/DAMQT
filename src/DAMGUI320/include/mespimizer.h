@@ -174,6 +174,7 @@ private slots:
     void BTNmespimize_clicked();
     void BTNreplay_clicked();
     void BTNreset_clicked();
+    void canvaschargesvisible(bool);
     void CHKdisplayepic_changed();
     void CHKoptimizeselect_changed();
     void CHKrecordoptim_changed();
@@ -233,7 +234,6 @@ private:
 
     QGroupBox *FRManimation;
     QGroupBox *FRMcharges;
-    QGroupBox *FRMcanvascharges;
     QGroupBox *FRMtemplatecharges;
     QGroupBox *FRMenergy;
     QGroupBox *FRMinterpol;
@@ -297,7 +297,7 @@ private:
 
 //    QVector <double> chargestemplate;
     QVector < QLabel *> LBLdamchargescanvas;
-    QVector < QPushButton *> BTNdamchargescanvas;
+    QVector < QPushButton *> BTNimportchargescanvas;
     QVector < QPushButton *> BTNeditchargescanvas;
 
     QVector < QVector <double> *> *chargescanvas;

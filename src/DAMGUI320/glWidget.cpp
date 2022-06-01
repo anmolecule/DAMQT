@@ -3152,6 +3152,11 @@ bool glWidget::addmolecule(){
         molecules->last()->initatomactive(false);
         molecules->last()->set_ProjectFolder(ProjectFolder);
         molecules->last()->set_ProjectName(ProjectName);
+        QVector <double> *charges = new QVector <double>();
+        for (int i = 0 ; i < molecules->last()->getnumatoms() ; i++){
+            charges->append(0.);
+        }
+        chargescanvas->append(charges);
         if (window)
             window->resetlabaxes();
         connections << connect(molecules->last(), SIGNAL(updatedisplay()), this, SLOT(updatedisplay()));

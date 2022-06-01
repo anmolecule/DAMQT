@@ -124,16 +124,14 @@ mespimizer::mespimizer(QList<molecule*> *mols, QWidget *parent) : QWidget()
     connections << connect(SLDspeed,SIGNAL(sliderReleased()),this,SLOT(SLDspeed_changed()));
 
     FRMcharges = new QGroupBox(tr("Atom charges for guest"));
+    FRMcharges->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     LBLcanvascharges = new QLabel(tr("Edit/import atom charges:"));
-
-    FRMcanvascharges = new QGroupBox();  // A group box without border
-    FRMcanvascharges->setStyleSheet("QGroupBox { border: 0px} ");
     LBLcanvascharges->setVisible(false);
-    FRMcanvascharges->setVisible(false);
+
 
     LBLdamchargescanvas.clear();
-    BTNdamchargescanvas.clear();
+    BTNimportchargescanvas.clear();
     BTNeditchargescanvas.clear();
 
     QSignalMapper* chargescanvassignalMapper = new QSignalMapper (this) ;
@@ -148,14 +146,14 @@ mespimizer::mespimizer(QList<molecule*> *mols, QWidget *parent) : QWidget()
         connections << connect(BTNedit, SIGNAL(clicked()), editchargescanvassignalMapper,
                 SLOT(map()), Qt::UniqueConnection);
         editchargescanvassignalMapper -> setMapping(BTNedit,i);
-        QPushButton *BTNimportchargescanvas = new QPushButton();
-        BTNimportchargescanvas->setText(tr("Import"));
-        BTNimportchargescanvas->setToolTip(tr("Import charges form file"));
-        connections << connect(BTNimportchargescanvas, SIGNAL(clicked()), chargescanvassignalMapper,
+        QPushButton *BTNimport = new QPushButton();
+        BTNimport->setText(tr("Import"));
+        BTNimport->setToolTip(tr("Import charges form file"));
+        connections << connect(BTNimport, SIGNAL(clicked()), chargescanvassignalMapper,
                 SLOT(map()), Qt::UniqueConnection);
-        chargescanvassignalMapper -> setMapping(BTNimportchargescanvas,i);
+        chargescanvassignalMapper -> setMapping(BTNimport,i);
         LBLdamchargescanvas << LBLchargescanvas;
-        BTNdamchargescanvas << BTNimportchargescanvas;
+        BTNimportchargescanvas << BTNimport;
         BTNeditchargescanvas << BTNedit;
     }
     connections << connect (chargescanvassignalMapper, SIGNAL(mapped(int)), this,
@@ -324,18 +322,18 @@ mespimizer::mespimizer(QList<molecule*> *mols, QWidget *parent) : QWidget()
     RBTkcalmol->setChecked(true);
     connections << connect(RBTkcalmol,SIGNAL(toggled(bool)),this,SLOT(RBThartree_changed()));
 
-    emit hartree_units(false);
+//    emit hartree_units(false);
 
-    emit energyprecision_changed(SPBenergyprecision->value());
+//    emit energyprecision_changed(SPBenergyprecision->value());
 
-    emit displayepic_changed(CHKdisplayepic->isChecked());
+//    emit displayepic_changed(CHKdisplayepic->isChecked());
 
     BTNqm = new QPushButton(tr("Quantum mechanics"));
     BTNqm->setToolTip(tr("Open template for quantum mechanics calculation"));
     connections << connect(BTNqm, SIGNAL(clicked()), this, SLOT(external_package()));
 
     create_optimize_cluster_layouts();  // Optimize cluster layouts
-    adjustSize();
+//    adjustSize();
 }
 
 mespimizer::~mespimizer()
@@ -349,7 +347,7 @@ mespimizer::~mespimizer()
 
 bool mespimizer::checkobabelinstall(){
     if (RBTobabelcharges->isChecked() && !openbabelinstalled){
-        int result = system("obabel --v");
+        int result = system("obabel -V");
         if (result != 0){
             QMessageBox::warning(this, tr("MESPIMIZER"),tr("To use this option, Open Babel must be available."
                     "\nCheck that it is installed in your system,"
@@ -887,27 +885,31 @@ void mespimizer::create_optimize_cluster_layouts(){
     layout50->addWidget(BTNeditchargestemplate);
     layout50->addWidget(BTNimportchargestemplate);
 
-    QGridLayout *layout51 = new QGridLayout(FRMcanvascharges);
-    for (int i = 0 ; i < BTNdamchargescanvas.length() ; i++){
+    QGridLayout *layout51 = new QGridLayout();
+    for (int i = 0 ; i < BTNimportchargescanvas.length() ; i++){
         layout51->addWidget(LBLdamchargescanvas.at(i),i,0,Qt::AlignLeft);
         layout51->addWidget(BTNeditchargescanvas.at(i),i,1,Qt::AlignRight);
-        layout51->addWidget(BTNdamchargescanvas.at(i),i,2,Qt::AlignRight);
+        layout51->addWidget(BTNimportchargescanvas.at(i),i,2,Qt::AlignRight);
     }
 
-    QVBoxLayout *layout52 = new QVBoxLayout();
-    layout52->addWidget(LBLcanvascharges);
-    layout52->addWidget(FRMcanvascharges);
+    QHBoxLayout *layout52 = new QHBoxLayout();
+    layout52->addLayout(layout51);
+    layout52->addStretch();
 
-    QHBoxLayout *layout53 = new QHBoxLayout();
-    layout53->addWidget(LBLobcharges);
-    layout53->addWidget(CMBobcharges);
+    QVBoxLayout *layout53 = new QVBoxLayout();
+    layout53->addWidget(LBLcanvascharges);
+    layout53->addLayout(layout52);
+
+    QHBoxLayout *layout54 = new QHBoxLayout();
+    layout54->addWidget(LBLobcharges);
+    layout54->addWidget(CMBobcharges);
 
     QVBoxLayout *layout55 = new QVBoxLayout(FRMcharges);
     layout55->addWidget(RBTusercharges);
     layout55->addWidget(FRMtemplatecharges);
-    layout55->addLayout(layout52);
-    layout55->addWidget(RBTobabelcharges);
     layout55->addLayout(layout53);
+    layout55->addWidget(RBTobabelcharges);
+    layout55->addLayout(layout54);
 
     QLabel *LBLtssize = new QLabel(tr("Translation stride (bohr): "));
     QHBoxLayout *layout4a = new QHBoxLayout();
@@ -1121,7 +1123,7 @@ void mespimizer::importcharges(int indmol){
     QString fileName = filedialog.getOpenFileName(this,tr("Open file ..."),TXTmespimizerpath->text(),
             tr("DAM charges files")+" (*.mltmod );;"+tr("All files")+" (*)");
     if (fileName.length()==0) return;
-    qDebug() << "QFileInfo(fileName).suffix().trimmed() = " << QFileInfo(fileName).suffix().trimmed();
+//    qDebug() << "QFileInfo(fileName).suffix().trimmed() = " << QFileInfo(fileName).suffix().trimmed();
     if (QFileInfo(fileName).suffix().trimmed() == "mltmod"){
         importmltmod(fileName,indmol);
     }
@@ -1159,12 +1161,12 @@ void mespimizer::importchargesfromfile(QString fileName,int indmol){
             return;
         }
         else if (fields[0] != elem->getSymbol(znuc[i]) ){
-            delete elem;
-            delete charges;
             QMessageBox::warning(this, tr("MESPIMIZER"),QString(tr("File %1\n"
                 "does not contain suitable charges for guest template.\n"
-                "Symbol for atom #%2: in molecule: %3, in file %4"))
+                "Symbol for atom #%2: in molecule: %3, in file: %4"))
                 .arg(fileName).arg(i).arg(fields[0]).arg(elem->getSymbol(znuc[i])));
+            delete elem;
+            delete charges;
             return;
         }
         else{
@@ -1206,12 +1208,12 @@ void mespimizer::importmltmod(QString fileName,int indmol){
             return;
         }
         else if (fields[0] != elem->getSymbol(znuc[i]) ){
-            delete elem;
-            delete charges;
             QMessageBox::warning(this, tr("MESPIMIZER"),QString(tr("File %1\n"
                 "does not contain suitable charges for guest template.\n"
                 "Symbol for atom #%2: in molecule: %3, in file %4"))
                 .arg(fileName).arg(i).arg(fields[0]).arg(elem->getSymbol(znuc[i])));
+            delete elem;
+            delete charges;
             return;
         }
         else{
@@ -1301,6 +1303,14 @@ void mespimizer::RBThartree_changed(){
     emit hartree_units(RBThartree->isChecked());
 }
 
+void mespimizer::canvaschargesvisible(bool a){
+    LBLcanvascharges->setVisible(a);
+    for (int i = 0 ; i < BTNimportchargescanvas.length() ; i++){
+        LBLdamchargescanvas.at(i)->setVisible(a);
+        BTNeditchargescanvas.at(i)->setVisible(a);
+        BTNimportchargescanvas.at(i)->setVisible(a);
+    }
+}
 
 void mespimizer::RBToptimizetemplate_changed()
 {
@@ -1311,12 +1321,10 @@ void mespimizer::RBToptimizetemplate_changed()
         SPBtemplate->setVisible(false);
         FRMtemplate->setVisible(false);
         if (RBTusercharges->isChecked()){
-            LBLcanvascharges->setVisible(true);
-            FRMcanvascharges->setVisible(true);
+            canvaschargesvisible(true);
         }
         else{
-            LBLcanvascharges->setVisible(false);
-            FRMcanvascharges->setVisible(false);
+            canvaschargesvisible(false);
         }
         CHKoptimizeselect->setVisible(false);
         SPBhost->setValue(1);
@@ -1329,8 +1337,7 @@ void mespimizer::RBToptimizetemplate_changed()
         else{
             FRMtemplatecharges->setVisible(false);
         }
-        LBLcanvascharges->setVisible(false);
-        FRMcanvascharges->setVisible(false);
+        canvaschargesvisible(false);
         if (molecules->length() == 0){
             QMessageBox::warning(this, tr("MESPIMIZER"),tr("At least one molecule must be loaded"));
             return;
@@ -1357,13 +1364,11 @@ void mespimizer::RBTcharges_changed(){
     if (RBTusercharges->isChecked()){
         if (RBToptimizetemplate->isChecked()){
             FRMtemplatecharges->setVisible(true);
-            LBLcanvascharges->setVisible(false);
-            FRMcanvascharges->setVisible(false);
+            canvaschargesvisible(false);
         }
         else{
             FRMtemplatecharges->setVisible(false);
-            LBLcanvascharges->setVisible(true);
-            FRMcanvascharges->setVisible(true);
+            canvaschargesvisible(true);
         }
         CMBobcharges->setVisible(false);
         LBLobcharges->setVisible(false);
@@ -1377,8 +1382,7 @@ void mespimizer::RBTcharges_changed(){
             FRMtemplatecharges->setVisible(false);
             CMBobcharges->setVisible(true);
             LBLobcharges->setVisible(true);
-            LBLcanvascharges->setVisible(false);
-            FRMcanvascharges->setVisible(false);
+            canvaschargesvisible(false);
             obabelcharges = true;
         }
         else{
@@ -1430,6 +1434,7 @@ void mespimizer::setchargescanvas(QVector < QVector <double> *> *chrcv){
         }
         chargescanvas->append(charges);
     }
+    delete charges;
 }
 
 void mespimizer::setclustername(QString a){
