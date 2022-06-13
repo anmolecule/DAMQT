@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.8.31)  18 MAY 2022 15:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2020.8.31)  10 JUN 2022 14:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -498,504 +498,521 @@ Overfull \hbox (8.17018pt too wide) in paragraph at lines 314--321
 10 Show/hide distances in a window
  []
 
-[3] [4]
-<./figs/damqt_QS_fig1.png, id=206, 1066.26047pt x 599.841pt>
+[3] [4] [5]
+<./figs/damqt_QS_fig1.png, id=218, 1066.26047pt x 599.841pt>
 File: ./figs/damqt_QS_fig1.png Graphic file (type png)
 <use ./figs/damqt_QS_fig1.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig1.png  used on input line 439.
+Package pdftex.def Info: ./figs/damqt_QS_fig1.png  used on input line 462.
 (pdftex.def)             Requested size: 216.24023pt x 121.64104pt.
-<./figs/damqt_QS_fig2.png, id=207, 1067.37231pt x 599.841pt>
+<./figs/damqt_QS_fig2.png, id=219, 1067.37231pt x 599.841pt>
 File: ./figs/damqt_QS_fig2.png Graphic file (type png)
 <use ./figs/damqt_QS_fig2.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig2.png  used on input line 447.
+Package pdftex.def Info: ./figs/damqt_QS_fig2.png  used on input line 470.
 (pdftex.def)             Requested size: 216.24023pt x 121.52205pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 435--451
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 458--474
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig3.png, id=209, 1066.81639pt x 599.841pt>
+<./figs/damqt_QS_fig3.png, id=221, 1066.81639pt x 599.841pt>
 File: ./figs/damqt_QS_fig3.png Graphic file (type png)
 <use ./figs/damqt_QS_fig3.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig3.png  used on input line 456.
+Package pdftex.def Info: ./figs/damqt_QS_fig3.png  used on input line 479.
 (pdftex.def)             Requested size: 216.24023pt x 121.57697pt.
-<./figs/damqt_QS_fig4.png, id=210, 1068.48416pt x 599.841pt>
+<./figs/damqt_QS_fig4.png, id=222, 1068.48416pt x 599.841pt>
 File: ./figs/damqt_QS_fig4.png Graphic file (type png)
 <use ./figs/damqt_QS_fig4.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig4.png  used on input line 464.
+Package pdftex.def Info: ./figs/damqt_QS_fig4.png  used on input line 487.
 (pdftex.def)             Requested size: 216.24023pt x 121.3939pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 452--468
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 475--491
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig5.png, id=211, 1067.92824pt x 599.841pt>
+<./figs/damqt_QS_fig5.png, id=223, 1067.92824pt x 599.841pt>
 File: ./figs/damqt_QS_fig5.png Graphic file (type png)
 <use ./figs/damqt_QS_fig5.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig5.png  used on input line 473.
+Package pdftex.def Info: ./figs/damqt_QS_fig5.png  used on input line 496.
 (pdftex.def)             Requested size: 216.24023pt x 121.45798pt.
-<./figs/damqt_QS_fig6.png, id=212, 1067.92824pt x 599.841pt>
+<./figs/damqt_QS_fig6.png, id=224, 1067.92824pt x 599.841pt>
 File: ./figs/damqt_QS_fig6.png Graphic file (type png)
 <use ./figs/damqt_QS_fig6.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig6.png  used on input line 481.
+Package pdftex.def Info: ./figs/damqt_QS_fig6.png  used on input line 504.
 (pdftex.def)             Requested size: 216.24023pt x 121.45798pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 469--485
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 492--508
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig7.png, id=213, 1068.48416pt x 599.841pt>
+<./figs/damqt_QS_fig7.png, id=225, 1068.48416pt x 599.841pt>
 File: ./figs/damqt_QS_fig7.png Graphic file (type png)
 <use ./figs/damqt_QS_fig7.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig7.png  used on input line 490.
+Package pdftex.def Info: ./figs/damqt_QS_fig7.png  used on input line 513.
 (pdftex.def)             Requested size: 216.24023pt x 121.3939pt.
-<./figs/damqt_QS_fig8.png, id=214, 1066.26047pt x 599.841pt>
+<./figs/damqt_QS_fig8.png, id=226, 1066.26047pt x 599.841pt>
 File: ./figs/damqt_QS_fig8.png Graphic file (type png)
 <use ./figs/damqt_QS_fig8.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig8.png  used on input line 498.
+Package pdftex.def Info: ./figs/damqt_QS_fig8.png  used on input line 521.
 (pdftex.def)             Requested size: 216.24023pt x 121.64104pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 486--502
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 509--525
 []$[]$ $[]$ 
  []
 
-[5 <./figs/damqt_QS_fig1.png (PNG copy)> <./figs/damqt_QS_fig2.png> <./figs/dam
+[6 <./figs/damqt_QS_fig1.png (PNG copy)> <./figs/damqt_QS_fig2.png> <./figs/dam
 qt_QS_fig3.png> <./figs/damqt_QS_fig4.png (PNG copy)> <./figs/damqt_QS_fig5.png
  (PNG copy)> <./figs/damqt_QS_fig6.png>]
-<./figs/damqt_QS_fig9.png, id=222, 1067.37231pt x 599.28508pt>
+<./figs/damqt_QS_fig9.png, id=234, 1067.37231pt x 599.28508pt>
 File: ./figs/damqt_QS_fig9.png Graphic file (type png)
 <use ./figs/damqt_QS_fig9.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig9.png  used on input line 507.
+Package pdftex.def Info: ./figs/damqt_QS_fig9.png  used on input line 530.
 (pdftex.def)             Requested size: 216.24023pt x 121.40942pt.
-<./figs/damqt_QS_fig10.png, id=223, 1067.37231pt x 599.841pt>
+<./figs/damqt_QS_fig10.png, id=235, 1067.37231pt x 599.841pt>
 File: ./figs/damqt_QS_fig10.png Graphic file (type png)
 <use ./figs/damqt_QS_fig10.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig10.png  used on input line 515.
+Package pdftex.def Info: ./figs/damqt_QS_fig10.png  used on input line 538.
 (pdftex.def)             Requested size: 216.24023pt x 121.52205pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 503--519
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 526--542
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig11.png, id=224, 1067.92824pt x 599.841pt>
+<./figs/damqt_QS_fig11.png, id=236, 1067.92824pt x 599.841pt>
 File: ./figs/damqt_QS_fig11.png Graphic file (type png)
 <use ./figs/damqt_QS_fig11.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig11.png  used on input line 524.
+Package pdftex.def Info: ./figs/damqt_QS_fig11.png  used on input line 547.
 (pdftex.def)             Requested size: 216.24023pt x 121.45798pt.
-<./figs/damqt_QS_fig12.png, id=225, 1067.37231pt x 599.841pt>
+<./figs/damqt_QS_fig12.png, id=237, 1067.37231pt x 599.841pt>
 File: ./figs/damqt_QS_fig12.png Graphic file (type png)
 <use ./figs/damqt_QS_fig12.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig12.png  used on input line 532.
+Package pdftex.def Info: ./figs/damqt_QS_fig12.png  used on input line 555.
 (pdftex.def)             Requested size: 216.24023pt x 121.52205pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 520--536
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 543--559
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig13.png, id=226, 1067.37231pt x 599.841pt>
+<./figs/damqt_QS_fig13.png, id=238, 1067.37231pt x 599.841pt>
 File: ./figs/damqt_QS_fig13.png Graphic file (type png)
 <use ./figs/damqt_QS_fig13.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig13.png  used on input line 541.
+Package pdftex.def Info: ./figs/damqt_QS_fig13.png  used on input line 564.
 (pdftex.def)             Requested size: 216.24023pt x 121.52205pt.
-<./figs/damqt_QS_fig14.png, id=227, 1067.92824pt x 600.39693pt>
+<./figs/damqt_QS_fig14.png, id=239, 1067.92824pt x 600.39693pt>
 File: ./figs/damqt_QS_fig14.png Graphic file (type png)
 <use ./figs/damqt_QS_fig14.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig14.png  used on input line 549.
+Package pdftex.def Info: ./figs/damqt_QS_fig14.png  used on input line 572.
 (pdftex.def)             Requested size: 216.24023pt x 121.57054pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 537--553
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 560--576
 []$[]$ $[]$ 
  []
 
-[6 <./figs/damqt_QS_fig7.png> <./figs/damqt_QS_fig8.png (PNG copy)> <./figs/dam
+[7 <./figs/damqt_QS_fig7.png> <./figs/damqt_QS_fig8.png (PNG copy)> <./figs/dam
 qt_QS_fig9.png> <./figs/damqt_QS_fig10.png> <./figs/damqt_QS_fig11.png> <./figs
 /damqt_QS_fig12.png>]
-<./figs/damqt_QS_fig15.png, id=237, 1070.15192pt x 599.28508pt>
+<./figs/damqt_QS_fig15.png, id=250, 1070.15192pt x 599.28508pt>
 File: ./figs/damqt_QS_fig15.png Graphic file (type png)
 <use ./figs/damqt_QS_fig15.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig15.png  used on input line 558.
+Package pdftex.def Info: ./figs/damqt_QS_fig15.png  used on input line 581.
 (pdftex.def)             Requested size: 216.24023pt x 121.08937pt.
-<./figs/damqt_QS_fig16.png, id=238, 1066.81639pt x 599.841pt>
+<./figs/damqt_QS_fig16.png, id=251, 1066.81639pt x 599.841pt>
 File: ./figs/damqt_QS_fig16.png Graphic file (type png)
 <use ./figs/damqt_QS_fig16.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig16.png  used on input line 566.
+Package pdftex.def Info: ./figs/damqt_QS_fig16.png  used on input line 589.
 (pdftex.def)             Requested size: 216.24023pt x 121.57697pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 554--570
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 577--593
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig17.png, id=239, 1068.48416pt x 599.841pt>
+<./figs/damqt_QS_fig17.png, id=252, 1068.48416pt x 599.841pt>
 File: ./figs/damqt_QS_fig17.png Graphic file (type png)
 <use ./figs/damqt_QS_fig17.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig17.png  used on input line 575.
+Package pdftex.def Info: ./figs/damqt_QS_fig17.png  used on input line 598.
 (pdftex.def)             Requested size: 216.24023pt x 121.3939pt.
-<./figs/damqt_QS_fig18.png, id=240, 1067.37231pt x 599.841pt>
+<./figs/damqt_QS_fig18.png, id=253, 1067.37231pt x 599.841pt>
 File: ./figs/damqt_QS_fig18.png Graphic file (type png)
 <use ./figs/damqt_QS_fig18.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig18.png  used on input line 583.
+Package pdftex.def Info: ./figs/damqt_QS_fig18.png  used on input line 606.
 (pdftex.def)             Requested size: 216.24023pt x 121.52205pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 571--587
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 594--610
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig19.png, id=241, 1067.92824pt x 599.841pt>
+<./figs/damqt_QS_fig19.png, id=254, 1067.92824pt x 599.841pt>
 File: ./figs/damqt_QS_fig19.png Graphic file (type png)
 <use ./figs/damqt_QS_fig19.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig19.png  used on input line 592.
+Package pdftex.def Info: ./figs/damqt_QS_fig19.png  used on input line 615.
 (pdftex.def)             Requested size: 216.24023pt x 121.45798pt.
-<./figs/damqt_QS_fig20.png, id=242, 1065.14862pt x 599.841pt>
+<./figs/damqt_QS_fig20.png, id=255, 1065.14862pt x 599.841pt>
 File: ./figs/damqt_QS_fig20.png Graphic file (type png)
 <use ./figs/damqt_QS_fig20.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig20.png  used on input line 600.
+Package pdftex.def Info: ./figs/damqt_QS_fig20.png  used on input line 623.
 (pdftex.def)             Requested size: 216.24023pt x 121.76918pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 588--604
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 611--627
 []$[]$ $[]$ 
  []
 
-[7 <./figs/damqt_QS_fig13.png> <./figs/damqt_QS_fig14.png> <./figs/damqt_QS_fig
+[8 <./figs/damqt_QS_fig13.png> <./figs/damqt_QS_fig14.png> <./figs/damqt_QS_fig
 15.png (PNG copy)> <./figs/damqt_QS_fig16.png (PNG copy)> <./figs/damqt_QS_fig1
 7.png> <./figs/damqt_QS_fig18.png (PNG copy)>]
-<./figs/damqt_QS_fig21.png, id=251, 1069.596pt x 599.841pt>
+<./figs/damqt_QS_fig21.png, id=263, 1069.596pt x 599.841pt>
 File: ./figs/damqt_QS_fig21.png Graphic file (type png)
 <use ./figs/damqt_QS_fig21.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig21.png  used on input line 609.
+Package pdftex.def Info: ./figs/damqt_QS_fig21.png  used on input line 632.
 (pdftex.def)             Requested size: 216.24023pt x 121.26576pt.
-<./figs/damqt_QS_fig22.png, id=252, 1071.26376pt x 599.841pt>
+<./figs/damqt_QS_fig22.png, id=264, 1071.26376pt x 599.841pt>
 File: ./figs/damqt_QS_fig22.png Graphic file (type png)
 <use ./figs/damqt_QS_fig22.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig22.png  used on input line 617.
+Package pdftex.def Info: ./figs/damqt_QS_fig22.png  used on input line 640.
 (pdftex.def)             Requested size: 216.24023pt x 121.07356pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 605--621
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 628--644
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig23.png, id=253, 1066.81639pt x 599.841pt>
+<./figs/damqt_QS_fig23.png, id=265, 1066.81639pt x 599.841pt>
 File: ./figs/damqt_QS_fig23.png Graphic file (type png)
 <use ./figs/damqt_QS_fig23.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig23.png  used on input line 626.
+Package pdftex.def Info: ./figs/damqt_QS_fig23.png  used on input line 649.
 (pdftex.def)             Requested size: 216.24023pt x 121.57697pt.
-<./figs/damqt_QS_fig24.png, id=254, 1067.37231pt x 599.841pt>
+<./figs/damqt_QS_fig24.png, id=266, 1067.37231pt x 599.841pt>
 File: ./figs/damqt_QS_fig24.png Graphic file (type png)
 <use ./figs/damqt_QS_fig24.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig24.png  used on input line 634.
+Package pdftex.def Info: ./figs/damqt_QS_fig24.png  used on input line 657.
 (pdftex.def)             Requested size: 216.24023pt x 121.52205pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 622--638
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 645--661
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig25.png, id=255, 732.70662pt x 447.51808pt>
+<./figs/damqt_QS_fig25.png, id=267, 732.70662pt x 447.51808pt>
 File: ./figs/damqt_QS_fig25.png Graphic file (type png)
 <use ./figs/damqt_QS_fig25.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig25.png  used on input line 643.
+Package pdftex.def Info: ./figs/damqt_QS_fig25.png  used on input line 666.
 (pdftex.def)             Requested size: 216.24023pt x 132.0713pt.
-<./figs/damqt_QS_fig26.png, id=256, 1067.37231pt x 579.82777pt>
+<./figs/damqt_QS_fig26.png, id=268, 1067.37231pt x 579.82777pt>
 File: ./figs/damqt_QS_fig26.png Graphic file (type png)
 <use ./figs/damqt_QS_fig26.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig26.png  used on input line 651.
+Package pdftex.def Info: ./figs/damqt_QS_fig26.png  used on input line 674.
 (pdftex.def)             Requested size: 216.24023pt x 117.46756pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 639--655
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 662--678
 []$[]$ $[]$ 
  []
 
-[8 <./figs/damqt_QS_fig19.png> <./figs/damqt_QS_fig20.png> <./figs/damqt_QS_fig
+[9 <./figs/damqt_QS_fig19.png> <./figs/damqt_QS_fig20.png> <./figs/damqt_QS_fig
 21.png (PNG copy)> <./figs/damqt_QS_fig22.png> <./figs/damqt_QS_fig23.png (PNG 
 copy)> <./figs/damqt_QS_fig24.png (PNG copy)>]
-<./figs/damqt_QS_fig27.png, id=264, 1067.92824pt x 580.93962pt>
+<./figs/damqt_QS_fig27.png, id=276, 1067.92824pt x 580.93962pt>
 File: ./figs/damqt_QS_fig27.png Graphic file (type png)
 <use ./figs/damqt_QS_fig27.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig27.png  used on input line 660.
+Package pdftex.def Info: ./figs/damqt_QS_fig27.png  used on input line 683.
 (pdftex.def)             Requested size: 216.24023pt x 117.63075pt.
-<./figs/damqt_QS_fig28.png, id=265, 1065.70454pt x 579.27185pt>
+<./figs/damqt_QS_fig28.png, id=277, 1065.70454pt x 579.27185pt>
 File: ./figs/damqt_QS_fig28.png Graphic file (type png)
 <use ./figs/damqt_QS_fig28.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig28.png  used on input line 668.
+Package pdftex.def Info: ./figs/damqt_QS_fig28.png  used on input line 691.
 (pdftex.def)             Requested size: 216.24023pt x 117.54056pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 656--672
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 679--695
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig29.png, id=266, 732.1507pt x 449.18585pt>
+<./figs/damqt_QS_fig29.png, id=278, 732.1507pt x 449.18585pt>
 File: ./figs/damqt_QS_fig29.png Graphic file (type png)
 <use ./figs/damqt_QS_fig29.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig29.png  used on input line 677.
+Package pdftex.def Info: ./figs/damqt_QS_fig29.png  used on input line 700.
 (pdftex.def)             Requested size: 202.58347pt x 124.28386pt.
-<./figs/damqt_QS_fig30.png, id=267, 560.92639pt x 303.534pt>
+<./figs/damqt_QS_fig30.png, id=279, 560.92639pt x 303.534pt>
 File: ./figs/damqt_QS_fig30.png Graphic file (type png)
 <use ./figs/damqt_QS_fig30.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig30.png  used on input line 685.
+Package pdftex.def Info: ./figs/damqt_QS_fig30.png  used on input line 708.
 (pdftex.def)             Requested size: 227.62204pt x 123.17143pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 673--689
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 696--712
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig31.png, id=268, 562.03822pt x 302.97807pt>
+<./figs/damqt_QS_fig31.png, id=280, 562.03822pt x 302.97807pt>
 File: ./figs/damqt_QS_fig31.png Graphic file (type png)
 <use ./figs/damqt_QS_fig31.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig31.png  used on input line 694.
+Package pdftex.def Info: ./figs/damqt_QS_fig31.png  used on input line 717.
 (pdftex.def)             Requested size: 216.24023pt x 116.56601pt.
-<./figs/damqt_QS_fig32.png, id=269, 562.03822pt x 302.97807pt>
+<./figs/damqt_QS_fig32.png, id=281, 562.03822pt x 302.97807pt>
 File: ./figs/damqt_QS_fig32.png Graphic file (type png)
 <use ./figs/damqt_QS_fig32.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig32.png  used on input line 702.
+Package pdftex.def Info: ./figs/damqt_QS_fig32.png  used on input line 725.
 (pdftex.def)             Requested size: 216.24023pt x 116.56601pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 690--706
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 713--729
 []$[]$ $[]$ 
  []
 
-[9 <./figs/damqt_QS_fig25.png (PNG copy)> <./figs/damqt_QS_fig26.png (PNG copy)
-> <./figs/damqt_QS_fig27.png (PNG copy)> <./figs/damqt_QS_fig28.png (PNG copy)>
- <./figs/damqt_QS_fig29.png (PNG copy)> <./figs/damqt_QS_fig30.png (PNG copy)>]
-<./figs/damqt_QS_fig33.png, id=274, 562.03822pt x 302.42215pt>
+[10 <./figs/damqt_QS_fig25.png (PNG copy)> <./figs/damqt_QS_fig26.png (PNG copy
+)> <./figs/damqt_QS_fig27.png (PNG copy)> <./figs/damqt_QS_fig28.png (PNG copy)
+> <./figs/damqt_QS_fig29.png (PNG copy)> <./figs/damqt_QS_fig30.png (PNG copy)>
+]
+<./figs/damqt_QS_fig33.png, id=286, 562.03822pt x 302.42215pt>
 File: ./figs/damqt_QS_fig33.png Graphic file (type png)
 <use ./figs/damqt_QS_fig33.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig33.png  used on input line 711.
+Package pdftex.def Info: ./figs/damqt_QS_fig33.png  used on input line 734.
 (pdftex.def)             Requested size: 216.24023pt x 116.35213pt.
-<./figs/damqt_QS_fig34.png, id=275, 563.15007pt x 304.64584pt>
+<./figs/damqt_QS_fig34.png, id=287, 563.15007pt x 304.64584pt>
 File: ./figs/damqt_QS_fig34.png Graphic file (type png)
 <use ./figs/damqt_QS_fig34.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig34.png  used on input line 719.
+Package pdftex.def Info: ./figs/damqt_QS_fig34.png  used on input line 742.
 (pdftex.def)             Requested size: 216.24023pt x 116.97987pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 707--723
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 730--746
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig35.png, id=276, 732.1507pt x 449.74178pt>
+<./figs/damqt_QS_fig35.png, id=288, 732.1507pt x 449.74178pt>
 File: ./figs/damqt_QS_fig35.png Graphic file (type png)
 <use ./figs/damqt_QS_fig35.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig35.png  used on input line 728.
+Package pdftex.def Info: ./figs/damqt_QS_fig35.png  used on input line 751.
 (pdftex.def)             Requested size: 216.24023pt x 132.8305pt.
-<./figs/damqt_QS_fig36.png, id=277, 732.1507pt x 449.74178pt>
+<./figs/damqt_QS_fig36.png, id=289, 732.1507pt x 449.74178pt>
 File: ./figs/damqt_QS_fig36.png Graphic file (type png)
 <use ./figs/damqt_QS_fig36.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig36.png  used on input line 736.
+Package pdftex.def Info: ./figs/damqt_QS_fig36.png  used on input line 759.
 (pdftex.def)             Requested size: 216.24023pt x 132.8305pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 724--740
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 747--763
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig37.png, id=278, 1083.4854pt x 578.16pt>
+<./figs/damqt_QS_fig37.png, id=290, 1083.4854pt x 578.16pt>
 File: ./figs/damqt_QS_fig37.png Graphic file (type png)
 <use ./figs/damqt_QS_fig37.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig37.png  used on input line 745.
+Package pdftex.def Info: ./figs/damqt_QS_fig37.png  used on input line 768.
 (pdftex.def)             Requested size: 216.24023pt x 115.38293pt.
-<./figs/damqt_QS_fig38.png, id=279, 1082.35617pt x 577.60408pt>
+<./figs/damqt_QS_fig38.png, id=291, 1082.35617pt x 577.60408pt>
 File: ./figs/damqt_QS_fig38.png Graphic file (type png)
 <use ./figs/damqt_QS_fig38.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig38.png  used on input line 753.
+Package pdftex.def Info: ./figs/damqt_QS_fig38.png  used on input line 776.
 (pdftex.def)             Requested size: 216.24023pt x 115.39537pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 741--757
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 764--780
 []$[]$ $[]$ 
  []
 
-[10 <./figs/damqt_QS_fig31.png (PNG copy)> <./figs/damqt_QS_fig32.png (PNG copy
+[11 <./figs/damqt_QS_fig31.png (PNG copy)> <./figs/damqt_QS_fig32.png (PNG copy
 )> <./figs/damqt_QS_fig33.png (PNG copy)> <./figs/damqt_QS_fig34.png (PNG copy)
 > <./figs/damqt_QS_fig35.png (PNG copy)> <./figs/damqt_QS_fig36.png (PNG copy)>
 ]
-<./figs/damqt_QS_fig39.png, id=284, 593.96906pt x 327.99461pt>
+<./figs/damqt_QS_fig39.png, id=296, 593.96906pt x 327.99461pt>
 File: ./figs/damqt_QS_fig39.png Graphic file (type png)
 <use ./figs/damqt_QS_fig39.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig39.png  used on input line 762.
+Package pdftex.def Info: ./figs/damqt_QS_fig39.png  used on input line 785.
 (pdftex.def)             Requested size: 216.24023pt x 119.40924pt.
-<./figs/damqt_QS_fig40.png, id=285, 826.58812pt x 512.56108pt>
+<./figs/damqt_QS_fig40.png, id=297, 826.58812pt x 512.56108pt>
 File: ./figs/damqt_QS_fig40.png Graphic file (type png)
 <use ./figs/damqt_QS_fig40.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig40.png  used on input line 770.
+Package pdftex.def Info: ./figs/damqt_QS_fig40.png  used on input line 793.
 (pdftex.def)             Requested size: 216.24023pt x 134.08394pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 758--774
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 781--797
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig41.png, id=286, 1066.26047pt x 579.82777pt>
+<./figs/damqt_QS_fig41.png, id=298, 1066.26047pt x 579.82777pt>
 File: ./figs/damqt_QS_fig41.png Graphic file (type png)
 <use ./figs/damqt_QS_fig41.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig41.png  used on input line 779.
+Package pdftex.def Info: ./figs/damqt_QS_fig41.png  used on input line 802.
 (pdftex.def)             Requested size: 216.24023pt x 117.58258pt.
-<./figs/damqt_QS_fig42.png, id=287, 1067.37231pt x 580.93962pt>
+<./figs/damqt_QS_fig42.png, id=299, 1067.37231pt x 580.93962pt>
 File: ./figs/damqt_QS_fig42.png Graphic file (type png)
 <use ./figs/damqt_QS_fig42.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig42.png  used on input line 787.
+Package pdftex.def Info: ./figs/damqt_QS_fig42.png  used on input line 810.
 (pdftex.def)             Requested size: 216.24023pt x 117.69281pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 775--791
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 798--814
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig43.png, id=288, 1066.26047pt x 581.49554pt>
+<./figs/damqt_QS_fig43.png, id=300, 1066.26047pt x 581.49554pt>
 File: ./figs/damqt_QS_fig43.png Graphic file (type png)
 <use ./figs/damqt_QS_fig43.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig43.png  used on input line 796.
+Package pdftex.def Info: ./figs/damqt_QS_fig43.png  used on input line 819.
 (pdftex.def)             Requested size: 216.24023pt x 117.92078pt.
-<./figs/damqt_QS_fig44.png, id=289, 1067.92824pt x 579.82777pt>
+<./figs/damqt_QS_fig44.png, id=301, 1067.92824pt x 579.82777pt>
 File: ./figs/damqt_QS_fig44.png Graphic file (type png)
 <use ./figs/damqt_QS_fig44.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig44.png  used on input line 804.
+Package pdftex.def Info: ./figs/damqt_QS_fig44.png  used on input line 827.
 (pdftex.def)             Requested size: 216.24023pt x 117.40562pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 792--808
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 815--831
 []$[]$ $[]$ 
  []
 
-[11 <./figs/damqt_QS_fig37.png (PNG copy)> <./figs/damqt_QS_fig38.png (PNG copy
+[12 <./figs/damqt_QS_fig37.png (PNG copy)> <./figs/damqt_QS_fig38.png (PNG copy
 )> <./figs/damqt_QS_fig39.png (PNG copy)> <./figs/damqt_QS_fig40.png (PNG copy)
 > <./figs/damqt_QS_fig41.png (PNG copy)> <./figs/damqt_QS_fig42.png (PNG copy)>
 ]
-<./figs/damqt_QS_fig45.png, id=294, 1084.05pt x 579.82777pt>
+<./figs/damqt_QS_fig45.png, id=307, 1084.05pt x 579.82777pt>
 File: ./figs/damqt_QS_fig45.png Graphic file (type png)
 <use ./figs/damqt_QS_fig45.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig45.png  used on input line 813.
+Package pdftex.def Info: ./figs/damqt_QS_fig45.png  used on input line 836.
 (pdftex.def)             Requested size: 216.24023pt x 115.65384pt.
-<./figs/damqt_QS_fig46.png, id=295, 1082.92078pt x 578.16pt>
+<./figs/damqt_QS_fig46.png, id=308, 1082.92078pt x 578.16pt>
 File: ./figs/damqt_QS_fig46.png Graphic file (type png)
 <use ./figs/damqt_QS_fig46.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig46.png  used on input line 821.
+Package pdftex.def Info: ./figs/damqt_QS_fig46.png  used on input line 844.
 (pdftex.def)             Requested size: 216.24023pt x 115.44469pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 809--825
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 832--848
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig47.png, id=296, 1083.4854pt x 579.82777pt>
+<./figs/damqt_QS_fig47.png, id=309, 1083.4854pt x 579.82777pt>
 File: ./figs/damqt_QS_fig47.png Graphic file (type png)
 <use ./figs/damqt_QS_fig47.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig47.png  used on input line 830.
+Package pdftex.def Info: ./figs/damqt_QS_fig47.png  used on input line 853.
 (pdftex.def)             Requested size: 216.24023pt x 115.71576pt.
-<./figs/damqt_QS_fig48.png, id=297, 1082.35617pt x 578.71593pt>
+<./figs/damqt_QS_fig48.png, id=310, 1082.35617pt x 578.71593pt>
 File: ./figs/damqt_QS_fig48.png Graphic file (type png)
 <use ./figs/damqt_QS_fig48.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig48.png  used on input line 838.
+Package pdftex.def Info: ./figs/damqt_QS_fig48.png  used on input line 861.
 (pdftex.def)             Requested size: 216.24023pt x 115.61751pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 826--842
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 849--865
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig49_b.png, id=298, 826.02351pt x 510.33739pt>
+<./figs/damqt_QS_fig49_b.png, id=311, 826.02351pt x 510.33739pt>
 File: ./figs/damqt_QS_fig49_b.png Graphic file (type png)
 <use ./figs/damqt_QS_fig49_b.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig49_b.png  used on input line 847.
+Package pdftex.def Info: ./figs/damqt_QS_fig49_b.png  used on input line 870.
 (pdftex.def)             Requested size: 216.24023pt x 133.59567pt.
-<./figs/damqt_QS_fig50_b.png, id=299, 825.45891pt x 512.00516pt>
+<./figs/damqt_QS_fig50_b.png, id=312, 825.45891pt x 512.00516pt>
 File: ./figs/damqt_QS_fig50_b.png Graphic file (type png)
 <use ./figs/damqt_QS_fig50_b.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig50_b.png  used on input line 855.
+Package pdftex.def Info: ./figs/damqt_QS_fig50_b.png  used on input line 878.
 (pdftex.def)             Requested size: 216.24023pt x 134.126pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 843--859
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 866--882
 []$[]$ $[]$ 
  []
 
-[12 <./figs/damqt_QS_fig43.png (PNG copy)> <./figs/damqt_QS_fig44.png (PNG copy
+[13 <./figs/damqt_QS_fig43.png (PNG copy)> <./figs/damqt_QS_fig44.png (PNG copy
 )> <./figs/damqt_QS_fig45.png (PNG copy)> <./figs/damqt_QS_fig46.png (PNG copy)
 > <./figs/damqt_QS_fig47.png (PNG copy)> <./figs/damqt_QS_fig48.png (PNG copy)>
 ]
-<./figs/damqt_QS_fig51_b.png, id=305, 1083.4854pt x 579.82777pt>
+<./figs/damqt_QS_fig51_b.png, id=318, 1083.4854pt x 579.27185pt>
 File: ./figs/damqt_QS_fig51_b.png Graphic file (type png)
 <use ./figs/damqt_QS_fig51_b.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig51_b.png  used on input line 864.
-(pdftex.def)             Requested size: 216.24023pt x 115.71576pt.
-<./figs/damqt_QS_fig52.png, id=306, 1082.92078pt x 578.16pt>
-File: ./figs/damqt_QS_fig52.png Graphic file (type png)
-<use ./figs/damqt_QS_fig52.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig52.png  used on input line 872.
-(pdftex.def)             Requested size: 216.24023pt x 115.44469pt.
+Package pdftex.def Info: ./figs/damqt_QS_fig51_b.png  used on input line 887.
+(pdftex.def)             Requested size: 216.24023pt x 115.60481pt.
+<./figs/damqt_QS_fig52_b.png, id=319, 1084.05pt x 579.27185pt>
+File: ./figs/damqt_QS_fig52_b.png Graphic file (type png)
+<use ./figs/damqt_QS_fig52_b.png>
+Package pdftex.def Info: ./figs/damqt_QS_fig52_b.png  used on input line 895.
+(pdftex.def)             Requested size: 216.24023pt x 115.54295pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 860--876
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 883--899
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig53_b.png, id=307, 1082.92078pt x 578.71593pt>
+<./figs/damqt_QS_fig53_b.png, id=320, 1084.05pt x 579.82777pt>
 File: ./figs/damqt_QS_fig53_b.png Graphic file (type png)
 <use ./figs/damqt_QS_fig53_b.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig53_b.png  used on input line 881.
-(pdftex.def)             Requested size: 216.24023pt x 115.5557pt.
-<./figs/damqt_QS_fig54_b.png, id=308, 1083.4854pt x 579.82777pt>
-File: ./figs/damqt_QS_fig54_b.png Graphic file (type png)
-<use ./figs/damqt_QS_fig54_b.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig54_b.png  used on input line 889.
-(pdftex.def)             Requested size: 216.24023pt x 115.71576pt.
+Package pdftex.def Info: ./figs/damqt_QS_fig53_b.png  used on input line 904.
+(pdftex.def)             Requested size: 216.24023pt x 115.65384pt.
+<./figs/damqt_QS_fig54.png, id=321, 1085.17921pt x 579.82777pt>
+File: ./figs/damqt_QS_fig54.png Graphic file (type png)
+<use ./figs/damqt_QS_fig54.png>
+Package pdftex.def Info: ./figs/damqt_QS_fig54.png  used on input line 912.
+(pdftex.def)             Requested size: 216.24023pt x 115.53882pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 877--893
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 900--916
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig55_b.png, id=309, 1083.4854pt x 578.71593pt>
+<./figs/damqt_QS_fig55_b.png, id=322, 1084.05pt x 579.82777pt>
 File: ./figs/damqt_QS_fig55_b.png Graphic file (type png)
 <use ./figs/damqt_QS_fig55_b.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig55_b.png  used on input line 898.
-(pdftex.def)             Requested size: 216.24023pt x 115.49388pt.
-<./figs/damqt_QS_fig56_b.png, id=310, 1083.4854pt x 579.27185pt>
+Package pdftex.def Info: ./figs/damqt_QS_fig55_b.png  used on input line 921.
+(pdftex.def)             Requested size: 216.24023pt x 115.65384pt.
+<./figs/damqt_QS_fig56_b.png, id=323, 1085.17921pt x 580.3837pt>
 File: ./figs/damqt_QS_fig56_b.png Graphic file (type png)
 <use ./figs/damqt_QS_fig56_b.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig56_b.png  used on input line 906.
-(pdftex.def)             Requested size: 216.24023pt x 115.60481pt.
+Package pdftex.def Info: ./figs/damqt_QS_fig56_b.png  used on input line 929.
+(pdftex.def)             Requested size: 216.24023pt x 115.64958pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 894--910
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 917--933
 []$[]$ $[]$ 
  []
 
-[13 <./figs/damqt_QS_fig49_b.png> <./figs/damqt_QS_fig50_b.png> <./figs/damqt_Q
-S_fig51_b.png> <./figs/damqt_QS_fig52.png (PNG copy)> <./figs/damqt_QS_fig53_b.
-png> <./figs/damqt_QS_fig54_b.png>]
-<./figs/damqt_QS_fig57_b.png, id=318, 1082.35617pt x 580.3837pt>
+[14 <./figs/damqt_QS_fig49_b.png> <./figs/damqt_QS_fig50_b.png> <./figs/damqt_Q
+S_fig51_b.png> <./figs/damqt_QS_fig52_b.png> <./figs/damqt_QS_fig53_b.png> <./f
+igs/damqt_QS_fig54.png (PNG copy)>]
+<./figs/damqt_QS_fig57_b.png, id=331, 1084.05pt x 579.27185pt>
 File: ./figs/damqt_QS_fig57_b.png Graphic file (type png)
 <use ./figs/damqt_QS_fig57_b.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig57_b.png  used on input line 915.
-(pdftex.def)             Requested size: 216.24023pt x 115.95068pt.
-<./figs/damqt_QS_fig58_b.png, id=319, 1084.05pt x 579.82777pt>
+Package pdftex.def Info: ./figs/damqt_QS_fig57_b.png  used on input line 938.
+(pdftex.def)             Requested size: 216.24023pt x 115.54295pt.
+<./figs/damqt_QS_fig58_b.png, id=332, 1082.92078pt x 579.82777pt>
 File: ./figs/damqt_QS_fig58_b.png Graphic file (type png)
 <use ./figs/damqt_QS_fig58_b.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig58_b.png  used on input line 923.
-(pdftex.def)             Requested size: 216.24023pt x 115.65384pt.
+Package pdftex.def Info: ./figs/damqt_QS_fig58_b.png  used on input line 946.
+(pdftex.def)             Requested size: 216.24023pt x 115.7777pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 911--927
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 934--950
 []$[]$ $[]$ 
  []
 
-<./figs/damqt_QS_fig59_b.png, id=320, 1083.4854pt x 580.3837pt>
+<./figs/damqt_QS_fig59_b.png, id=333, 1084.61461pt x 579.82777pt>
 File: ./figs/damqt_QS_fig59_b.png Graphic file (type png)
 <use ./figs/damqt_QS_fig59_b.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig59_b.png  used on input line 932.
-(pdftex.def)             Requested size: 216.24023pt x 115.8267pt.
-<./figs/damqt_QS_fig60_b.png, id=321, 1083.4854pt x 578.16pt>
+Package pdftex.def Info: ./figs/damqt_QS_fig59_b.png  used on input line 955.
+(pdftex.def)             Requested size: 216.24023pt x 115.60075pt.
+<./figs/damqt_QS_fig60_b.png, id=334, 1083.4854pt x 579.27185pt>
 File: ./figs/damqt_QS_fig60_b.png Graphic file (type png)
 <use ./figs/damqt_QS_fig60_b.png>
-Package pdftex.def Info: ./figs/damqt_QS_fig60_b.png  used on input line 940.
-(pdftex.def)             Requested size: 216.24023pt x 115.38293pt.
+Package pdftex.def Info: ./figs/damqt_QS_fig60_b.png  used on input line 963.
+(pdftex.def)             Requested size: 216.24023pt x 115.60481pt.
 
-Overfull \hbox (17.22221pt too wide) in paragraph at lines 928--944
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 951--967
 []$[]$ $[]$ 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 954.
-[14 <./figs/damqt_QS_fig55_b.png> <./figs/damqt_QS_fig56_b.png> <./figs/damqt_Q
+<./figs/damqt_QS_fig61_b.png, id=335, 1082.92078pt x 579.27185pt>
+File: ./figs/damqt_QS_fig61_b.png Graphic file (type png)
+<use ./figs/damqt_QS_fig61_b.png>
+Package pdftex.def Info: ./figs/damqt_QS_fig61_b.png  used on input line 972.
+(pdftex.def)             Requested size: 216.24023pt x 115.66669pt.
+<./figs/damqt_QS_fig62_b.png, id=336, 1082.92078pt x 579.27185pt>
+File: ./figs/damqt_QS_fig62_b.png Graphic file (type png)
+<use ./figs/damqt_QS_fig62_b.png>
+Package pdftex.def Info: ./figs/damqt_QS_fig62_b.png  used on input line 980.
+(pdftex.def)             Requested size: 216.24023pt x 115.66669pt.
+
+Overfull \hbox (17.22221pt too wide) in paragraph at lines 968--984
+[]$[]$ $[]$ 
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 994.
+[15 <./figs/damqt_QS_fig55_b.png> <./figs/damqt_QS_fig56_b.png> <./figs/damqt_Q
 S_fig57_b.png> <./figs/damqt_QS_fig58_b.png> <./figs/damqt_QS_fig59_b.png> <./f
-igs/damqt_QS_fig60_b.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 954.
+igs/damqt_QS_fig60_b.png>] [16 <./figs/damqt_QS_fig61_b.png> <./figs/damqt_QS_f
+ig62_b.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 994.
  (./quick_start.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 954.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 954.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 994.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 994.
 Package rerunfilecheck Info: File `quick_start.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 954.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 994.
  ) 
 Here is how much of TeX's memory you used:
- 7130 strings out of 492982
- 111851 string characters out of 6134896
- 202678 words of memory out of 5000000
- 10469 multiletter control sequences out of 15000+600000
+ 7149 strings out of 492982
+ 112230 string characters out of 6134896
+ 202752 words of memory out of 5000000
+ 10479 multiletter control sequences out of 15000+600000
  4759 words of font info for 18 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  36i,8n,39p,241b,421s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1006,10 +1023,10 @@ ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmtt10.pfb>
-Output written on quick_start.pdf (14 pages, 11930415 bytes).
+Output written on quick_start.pdf (16 pages, 12278683 bytes).
 PDF statistics:
- 384 PDF objects out of 1000 (max. 8388607)
- 274 compressed objects within 3 object streams
- 130 named destinations out of 1000 (max. 500000)
- 311 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 406 PDF objects out of 1000 (max. 8388607)
+ 289 compressed objects within 3 object streams
+ 137 named destinations out of 1000 (max. 500000)
+ 321 words of extra memory for PDF output out of 10000 (max. 10000000)
 

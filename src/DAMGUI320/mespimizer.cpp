@@ -56,10 +56,10 @@ mespimizer::mespimizer(QList<molecule*> *mols, QWidget *parent) : QWidget()
 
     SPBtemplate = new QSpinBox();
     SPBtemplate->setMinimum(1);
-    SPBtemplate->setMaximum(1);
+    SPBtemplate->setMaximum(mols->length());
     SPBtemplate->setMaximumWidth(50);
     SPBtemplate->setSingleStep(1);
-    SPBtemplate->setValue(1);
+    SPBtemplate->setValue(mols->length());
     SPBtemplate->setVisible(false);
     connections << connect(SPBtemplate,SIGNAL(valueChanged(int)),this,SLOT(SPBtemplate_changed()));
 

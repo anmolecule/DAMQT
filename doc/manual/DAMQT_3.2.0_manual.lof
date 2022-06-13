@@ -68,62 +68,64 @@
 \contentsline {figure}{\numberline {68}{\ignorespaces 3D surface slices \relax }}{35}{figure.caption.73}
 \contentsline {figure}{\numberline {69}{\ignorespaces Cluster building: first way\relax }}{36}{figure.caption.74}
 \contentsline {figure}{\numberline {70}{\ignorespaces Cluster building: second way\relax }}{36}{figure.caption.75}
-\contentsline {figure}{\numberline {71}{\ignorespaces Record animation\relax }}{36}{figure.caption.76}
-\contentsline {figure}{\numberline {72}{\ignorespaces Save/retrieve \relax }}{37}{figure.caption.77}
-\contentsline {figure}{\numberline {73}{\ignorespaces Delete molecule confirmation \relax }}{37}{figure.caption.78}
-\contentsline {figure}{\numberline {74}{\ignorespaces {Molecule editor}\relax }}{38}{figure.caption.79}
-\contentsline {figure}{\numberline {75}{\ignorespaces Molecular skeleton \relax }}{38}{figure.caption.80}
-\contentsline {figure}{\numberline {76}{\ignorespaces Atom labels \relax }}{38}{figure.caption.81}
-\contentsline {figure}{\numberline {77}{\ignorespaces Select atoms \relax }}{38}{figure.caption.82}
-\contentsline {figure}{\numberline {78}{\ignorespaces Selection menu \relax }}{38}{figure.caption.83}
-\contentsline {figure}{\numberline {79}{\ignorespaces Rotations menu \relax }}{39}{figure.caption.84}
-\contentsline {figure}{\numberline {80}{\ignorespaces Translations menu \relax }}{39}{figure.caption.85}
-\contentsline {figure}{\numberline {81}{\ignorespaces Molecular axes menu \relax }}{40}{figure.caption.86}
-\contentsline {figure}{\numberline {82}{\ignorespaces HF forces menu \relax }}{40}{figure.caption.87}
-\contentsline {figure}{\numberline {83}{\ignorespaces HF forces and molecular axes \relax }}{40}{figure.caption.88}
-\contentsline {figure}{\numberline {84}{\ignorespaces Field lines menu \relax }}{40}{figure.caption.89}
-\contentsline {figure}{\numberline {85}{\ignorespaces Field lines display \relax }}{40}{figure.caption.90}
-\contentsline {figure}{\numberline {86}{\ignorespaces Critical points menu \relax }}{41}{figure.caption.91}
-\contentsline {figure}{\numberline {87}{\ignorespaces Hessian eigenvectors at critical points \relax }}{41}{figure.caption.92}
-\contentsline {figure}{\numberline {88}{\ignorespaces Critical points and field lines \relax }}{41}{figure.caption.93}
-\contentsline {figure}{\numberline {89}{\ignorespaces Surfaces menu \relax }}{42}{figure.caption.94}
-\contentsline {figure}{\numberline {90}{\ignorespaces Basins options \relax }}{42}{figure.caption.95}
-\contentsline {figure}{\numberline {91}{\ignorespaces Sigma hole options \relax }}{42}{figure.caption.96}
-\contentsline {figure}{\numberline {92}{\ignorespaces Basins borders \relax }}{42}{figure.caption.97}
-\contentsline {figure}{\numberline {93}{\ignorespaces Sigma hole surface \relax }}{42}{figure.caption.98}
-\contentsline {figure}{\numberline {94}{\ignorespaces Grids for isosurfaces \relax }}{43}{figure.caption.99}
-\contentsline {figure}{\numberline {95}{\ignorespaces Isosurface menu \relax }}{43}{figure.caption.100}
-\contentsline {figure}{\numberline {96}{\ignorespaces Surface display modes}}{43}{figure.caption.101}
-\contentsline {figure}{\numberline {97}{\ignorespaces Atom selection \relax }}{45}{figure.caption.102}
-\contentsline {figure}{\numberline {98}{\ignorespaces CP selection \relax }}{45}{figure.caption.103}
-\contentsline {figure}{\numberline {99}{\ignorespaces Electron density of CH$_3$Cl}}{49}{figure.caption.104}
-\contentsline {figure}{\numberline {100}{\ignorespaces Density deformations of CH$_3$Cl}}{49}{figure.caption.105}
-\contentsline {figure}{\numberline {101}{\ignorespaces Electron density of C$_6$H$_6$}}{50}{figure.caption.106}
-\contentsline {figure}{\numberline {102}{\ignorespaces Density deformations of C$_6$H$_6$}}{50}{figure.caption.107}
-\contentsline {figure}{\numberline {103}{\ignorespaces Atomic density of Cl in CH$_3$Cl}}{51}{figure.caption.108}
-\contentsline {figure}{\numberline {104}{\ignorespaces Atomic density of C in CH$_3$Cl}}{51}{figure.caption.109}
-\contentsline {figure}{\numberline {105}{\ignorespaces Positive density deformations (charge accumulation)}}{51}{figure.caption.110}
-\contentsline {figure}{\numberline {106}{\ignorespaces Charge accumulation in CO}}{52}{figure.caption.111}
-\contentsline {figure}{\numberline {107}{\ignorespaces Charge accumulation in C$_6$H$_6$}}{52}{figure.caption.112}
-\contentsline {figure}{\numberline {108}{\ignorespaces Electrostatic potential of H$_2$O}}{53}{figure.caption.113}
-\contentsline {figure}{\numberline {109}{\ignorespaces Electrostatic potential of CH$_3$Cl}}{53}{figure.caption.114}
-\contentsline {figure}{\numberline {110}{\ignorespaces MESP critical points of H$_2$O and NH$_3$}}{54}{figure.caption.115}
-\contentsline {figure}{\numberline {111}{\ignorespaces MESP topographs of H$_2$O and NH$_3$}}{54}{figure.caption.116}
-\contentsline {figure}{\numberline {112}{\ignorespaces MESP atomic basins of H$_2$O and NH$_3$}}{55}{figure.caption.117}
-\contentsline {figure}{\numberline {113}{\ignorespaces MESP extrema on sigma hole}}{55}{figure.caption.118}
-\contentsline {figure}{\numberline {114}{\ignorespaces Electric field lines in H$_2$O \relax }}{55}{figure.caption.119}
-\contentsline {figure}{\numberline {115}{\ignorespaces MESP CPs and electric field of CH$_3$Cl}}{56}{figure.caption.120}
-\contentsline {figure}{\numberline {116}{\ignorespaces Hellmann-Feynman forces in 4-amine pyridine}}{56}{figure.caption.121}
-\contentsline {figure}{\numberline {117}{\ignorespaces 2D MED Zernike-Canterakis expansions of biphenyl}}{57}{figure.caption.122}
-\contentsline {figure}{\numberline {118}{\ignorespaces 3D MED Zernike-Canterakis expansions of biphenyl}}{57}{figure.caption.123}
-\contentsline {figure}{\numberline {119}{\ignorespaces {{\it .ggbs}{ } file structure}\relax }}{58}{figure.caption.124}
-\contentsline {figure}{\numberline {120}{\ignorespaces {Loading molecules for cluster} \relax }}{61}{figure.caption.125}
-\contentsline {figure}{\numberline {121}{\ignorespaces {Cluster optimization from canvas}\relax }}{61}{figure.caption.126}
-\contentsline {figure}{\numberline {122}{\ignorespaces {Optimization in progress} \relax }}{62}{figure.caption.127}
-\contentsline {figure}{\numberline {123}{\ignorespaces {End of optimization}\relax }}{62}{figure.caption.128}
-\contentsline {figure}{\numberline {124}{\ignorespaces {Setting file for animation} \relax }}{62}{figure.caption.129}
-\contentsline {figure}{\numberline {125}{\ignorespaces {Starting animation}\relax }}{62}{figure.caption.130}
-\contentsline {figure}{\numberline {126}{\ignorespaces {Recording animation} \relax }}{63}{figure.caption.131}
-\contentsline {figure}{\numberline {127}{\ignorespaces {Cluster from MESP CPs}\relax }}{63}{figure.caption.132}
-\contentsline {figure}{\numberline {128}{\ignorespaces {Working with selected MESP CPs} \relax }}{63}{figure.caption.133}
-\contentsline {figure}{\numberline {129}{\ignorespaces {Translations and rotations during animation}\relax }}{63}{figure.caption.134}
+\contentsline {figure}{\numberline {71}{\ignorespaces EPIC guest charges\relax }}{36}{figure.caption.76}
+\contentsline {figure}{\numberline {72}{\ignorespaces Open Babel charges \relax }}{37}{figure.caption.77}
+\contentsline {figure}{\numberline {73}{\ignorespaces Record animation\relax }}{37}{figure.caption.78}
+\contentsline {figure}{\numberline {74}{\ignorespaces Save/retrieve \relax }}{38}{figure.caption.79}
+\contentsline {figure}{\numberline {75}{\ignorespaces Delete molecule confirmation \relax }}{38}{figure.caption.80}
+\contentsline {figure}{\numberline {76}{\ignorespaces {Molecule editor}\relax }}{39}{figure.caption.81}
+\contentsline {figure}{\numberline {77}{\ignorespaces Molecular skeleton \relax }}{39}{figure.caption.82}
+\contentsline {figure}{\numberline {78}{\ignorespaces Atom labels \relax }}{39}{figure.caption.83}
+\contentsline {figure}{\numberline {79}{\ignorespaces Select atoms \relax }}{39}{figure.caption.84}
+\contentsline {figure}{\numberline {80}{\ignorespaces Selection menu \relax }}{39}{figure.caption.85}
+\contentsline {figure}{\numberline {81}{\ignorespaces Rotations menu \relax }}{40}{figure.caption.86}
+\contentsline {figure}{\numberline {82}{\ignorespaces Translations menu \relax }}{40}{figure.caption.87}
+\contentsline {figure}{\numberline {83}{\ignorespaces Molecular axes menu \relax }}{41}{figure.caption.88}
+\contentsline {figure}{\numberline {84}{\ignorespaces HF forces menu \relax }}{41}{figure.caption.89}
+\contentsline {figure}{\numberline {85}{\ignorespaces HF forces and molecular axes \relax }}{41}{figure.caption.90}
+\contentsline {figure}{\numberline {86}{\ignorespaces Field lines menu \relax }}{41}{figure.caption.91}
+\contentsline {figure}{\numberline {87}{\ignorespaces Field lines display \relax }}{41}{figure.caption.92}
+\contentsline {figure}{\numberline {88}{\ignorespaces Critical points menu \relax }}{42}{figure.caption.93}
+\contentsline {figure}{\numberline {89}{\ignorespaces Hessian eigenvectors at critical points \relax }}{42}{figure.caption.94}
+\contentsline {figure}{\numberline {90}{\ignorespaces Critical points and field lines \relax }}{42}{figure.caption.95}
+\contentsline {figure}{\numberline {91}{\ignorespaces Surfaces menu \relax }}{43}{figure.caption.96}
+\contentsline {figure}{\numberline {92}{\ignorespaces Basins options \relax }}{43}{figure.caption.97}
+\contentsline {figure}{\numberline {93}{\ignorespaces Sigma hole options \relax }}{43}{figure.caption.98}
+\contentsline {figure}{\numberline {94}{\ignorespaces Basins borders \relax }}{43}{figure.caption.99}
+\contentsline {figure}{\numberline {95}{\ignorespaces Sigma hole surface \relax }}{43}{figure.caption.100}
+\contentsline {figure}{\numberline {96}{\ignorespaces Grids for isosurfaces \relax }}{44}{figure.caption.101}
+\contentsline {figure}{\numberline {97}{\ignorespaces Isosurface menu \relax }}{44}{figure.caption.102}
+\contentsline {figure}{\numberline {98}{\ignorespaces Surface display modes}}{44}{figure.caption.103}
+\contentsline {figure}{\numberline {99}{\ignorespaces Atom selection \relax }}{46}{figure.caption.104}
+\contentsline {figure}{\numberline {100}{\ignorespaces CP selection \relax }}{46}{figure.caption.105}
+\contentsline {figure}{\numberline {101}{\ignorespaces Electron density of CH$_3$Cl}}{50}{figure.caption.106}
+\contentsline {figure}{\numberline {102}{\ignorespaces Density deformations of CH$_3$Cl}}{50}{figure.caption.107}
+\contentsline {figure}{\numberline {103}{\ignorespaces Electron density of C$_6$H$_6$}}{51}{figure.caption.108}
+\contentsline {figure}{\numberline {104}{\ignorespaces Density deformations of C$_6$H$_6$}}{51}{figure.caption.109}
+\contentsline {figure}{\numberline {105}{\ignorespaces Atomic density of Cl in CH$_3$Cl}}{52}{figure.caption.110}
+\contentsline {figure}{\numberline {106}{\ignorespaces Atomic density of C in CH$_3$Cl}}{52}{figure.caption.111}
+\contentsline {figure}{\numberline {107}{\ignorespaces Positive density deformations (charge accumulation)}}{52}{figure.caption.112}
+\contentsline {figure}{\numberline {108}{\ignorespaces Charge accumulation in CO}}{53}{figure.caption.113}
+\contentsline {figure}{\numberline {109}{\ignorespaces Charge accumulation in C$_6$H$_6$}}{53}{figure.caption.114}
+\contentsline {figure}{\numberline {110}{\ignorespaces Electrostatic potential of H$_2$O}}{54}{figure.caption.115}
+\contentsline {figure}{\numberline {111}{\ignorespaces Electrostatic potential of CH$_3$Cl}}{54}{figure.caption.116}
+\contentsline {figure}{\numberline {112}{\ignorespaces MESP critical points of H$_2$O and NH$_3$}}{55}{figure.caption.117}
+\contentsline {figure}{\numberline {113}{\ignorespaces MESP topographs of H$_2$O and NH$_3$}}{55}{figure.caption.118}
+\contentsline {figure}{\numberline {114}{\ignorespaces MESP atomic basins of H$_2$O and NH$_3$}}{56}{figure.caption.119}
+\contentsline {figure}{\numberline {115}{\ignorespaces MESP extrema on sigma hole}}{56}{figure.caption.120}
+\contentsline {figure}{\numberline {116}{\ignorespaces Electric field lines in H$_2$O \relax }}{56}{figure.caption.121}
+\contentsline {figure}{\numberline {117}{\ignorespaces MESP CPs and electric field of CH$_3$Cl}}{57}{figure.caption.122}
+\contentsline {figure}{\numberline {118}{\ignorespaces Hellmann-Feynman forces in 4-amine pyridine}}{57}{figure.caption.123}
+\contentsline {figure}{\numberline {119}{\ignorespaces 2D MED Zernike-Canterakis expansions of biphenyl}}{58}{figure.caption.124}
+\contentsline {figure}{\numberline {120}{\ignorespaces 3D MED Zernike-Canterakis expansions of biphenyl}}{58}{figure.caption.125}
+\contentsline {figure}{\numberline {121}{\ignorespaces {{\it .ggbs}{ } file structure}\relax }}{59}{figure.caption.126}
+\contentsline {figure}{\numberline {122}{\ignorespaces {Loading molecules for cluster} \relax }}{62}{figure.caption.127}
+\contentsline {figure}{\numberline {123}{\ignorespaces {Cluster optimization from canvas}\relax }}{62}{figure.caption.128}
+\contentsline {figure}{\numberline {124}{\ignorespaces {Optimization in progress} \relax }}{63}{figure.caption.129}
+\contentsline {figure}{\numberline {125}{\ignorespaces {End of optimization}\relax }}{63}{figure.caption.130}
+\contentsline {figure}{\numberline {126}{\ignorespaces {Setting file for animation} \relax }}{63}{figure.caption.131}
+\contentsline {figure}{\numberline {127}{\ignorespaces {Starting animation}\relax }}{63}{figure.caption.132}
+\contentsline {figure}{\numberline {128}{\ignorespaces {Recording animation} \relax }}{64}{figure.caption.133}
+\contentsline {figure}{\numberline {129}{\ignorespaces {Cluster from MESP CPs}\relax }}{64}{figure.caption.134}
+\contentsline {figure}{\numberline {130}{\ignorespaces {Working with selected MESP CPs} \relax }}{64}{figure.caption.135}
+\contentsline {figure}{\numberline {131}{\ignorespaces {Translations and rotations during animation}\relax }}{64}{figure.caption.136}
