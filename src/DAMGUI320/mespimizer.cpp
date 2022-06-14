@@ -911,28 +911,10 @@ void mespimizer::create_optimize_cluster_layouts(){
     layout55->addWidget(RBTobabelcharges);
     layout55->addLayout(layout54);
 
-    QLabel *LBLtssize = new QLabel(tr("Translation stride (bohr): "));
-    QHBoxLayout *layout4a = new QHBoxLayout();
-    layout4a->addWidget(LBLtssize);
-    layout4a->addWidget(SPBtssize);
-
-    QLabel *LBLrssize = new QLabel(tr("Rotation stride (degrees): "));
-    QHBoxLayout *layout4b = new QHBoxLayout();
-    layout4b->addWidget(LBLrssize);
-    layout4b->addWidget(SPBrssize);
-
-    QLabel *LBLiterations = new QLabel(tr("Number of iterations: "));
-    QHBoxLayout *layout4c = new QHBoxLayout();
-    layout4c->addWidget(LBLiterations);
-    layout4c->addWidget(SPBiterations);
-
     QVBoxLayout *layout5 = new QVBoxLayout(FRMoptimizeopt);
     layout5->addLayout(layout3);
     layout5->addWidget(RBToptimizecanvas);
     layout5->addWidget(RBToptimizetemplate);
-    layout5->addLayout(layout4a);
-    layout5->addLayout(layout4b);
-    layout5->addLayout(layout4c);
 
     QGridLayout *layout6 = new QGridLayout(FRMtemplate);
     layout6->addWidget(CHKoptimizeselect,0,0,1,3,Qt::AlignLeft);
@@ -940,23 +922,43 @@ void mespimizer::create_optimize_cluster_layouts(){
     layout6->addWidget(LBLtemplatename,1,1,Qt::AlignRight);
     layout6->addWidget(SPBtemplate,1,2,Qt::AlignRight);
 
-    QHBoxLayout *layout7 = new QHBoxLayout();
-    layout7->addStretch();
-    layout7->addWidget(BTNmespimize,Qt::AlignCenter);
-    layout7->addStretch();
+    QHBoxLayout *layout8 = new QHBoxLayout();
+    layout8->addStretch();
+    layout8->addWidget(BTNmespimize,Qt::AlignCenter);
+    layout8->addStretch();
+
+    QLabel *LBLtssize = new QLabel(tr("Translation stride (bohr): "));
+    QHBoxLayout *layout7a = new QHBoxLayout();
+    layout7a->addWidget(LBLtssize);
+    layout7a->addWidget(SPBtssize);
+
+    QLabel *LBLrssize = new QLabel(tr("Rotation stride (degrees): "));
+    QHBoxLayout *layout7b = new QHBoxLayout();
+    layout7b->addWidget(LBLrssize);
+    layout7b->addWidget(SPBrssize);
+
+    QLabel *LBLiterations = new QLabel(tr("Number of iterations: "));
+    QHBoxLayout *layout7c = new QHBoxLayout();
+    layout7c->addWidget(LBLiterations);
+    layout7c->addWidget(SPBiterations);
+
+    QVBoxLayout *layout7 = new QVBoxLayout();
+    layout7->addLayout(layout7a);
+    layout7->addLayout(layout7b);
+    layout7->addLayout(layout7c);
 
     QLabel *LBLframefile = new QLabel(tr("File: "));
-    QHBoxLayout *layout8 = new QHBoxLayout();
-    layout8->addWidget(LBLframefile);
-    layout8->addWidget(TXTframesfile);
-    layout8->addWidget(BTNframefile);
+    QHBoxLayout *layout9 = new QHBoxLayout();
+    layout9->addWidget(LBLframefile);
+    layout9->addWidget(TXTframesfile);
+    layout9->addWidget(BTNframefile);
 
     QLabel *LBLfast = new QLabel(tr("Fast"));
     QLabel *LBLslow = new QLabel(tr("Slow"));
-    QHBoxLayout *layout9 = new QHBoxLayout();
-    layout9->addWidget(LBLslow);
-    layout9->addWidget(SLDspeed);
-    layout9->addWidget(LBLfast);
+    QHBoxLayout *layout10 = new QHBoxLayout();
+    layout10->addWidget(LBLslow);
+    layout10->addWidget(SLDspeed);
+    layout10->addWidget(LBLfast);
 
     QHBoxLayout *layout11 = new QHBoxLayout();
     layout11->addWidget(LBLinterpol);
@@ -1004,8 +1006,8 @@ void mespimizer::create_optimize_cluster_layouts(){
     layout19->addLayout(layout18);
 
     QVBoxLayout *layout20 = new QVBoxLayout(FRManimation);
-    layout20->addLayout(layout8);
     layout20->addLayout(layout9);
+    layout20->addLayout(layout10);
     layout20->addLayout(layout11);
     layout20->addLayout(layout13);
     layout20->addWidget(FRMrecord);
@@ -1047,6 +1049,7 @@ void mespimizer::create_optimize_cluster_layouts(){
     layout->addWidget(FRMtemplate);
     layout->addWidget(FRMcharges);
     layout->addLayout(layout7);
+    layout->addLayout(layout8);
     layout->addWidget(FRManimation);
     layout->addLayout(layout21);
     layout->addWidget(FRMenergy);
@@ -1340,6 +1343,7 @@ void mespimizer::RBToptimizetemplate_changed()
         canvaschargesvisible(false);
         if (molecules->length() == 0){
             QMessageBox::warning(this, tr("MESPIMIZER"),tr("At least one molecule must be loaded"));
+            RBToptimizecanvas->setChecked(true);
             return;
         }
         LBLtemplateindex->setVisible(true);

@@ -900,7 +900,7 @@
                     enddo
                     rmultipmod(l) = sqrt(aux)
                 enddo
-                    write(19,"(a, 2x, i5, 2x, 6(e22.15,1x))") atmnam(ia), ia, rmultipmod(0:lmultmx)
+                    write(19,"(a, 2x, i5, 2x, 25(e22.15,1x))") atmnam(ia), ia, rmultipmod(0:lmultmx)
             endif
         endif
 

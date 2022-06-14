@@ -136,7 +136,7 @@
             ioptaj = 2
         endif
 
-        leninamelist = 3
+        leninamelist = 4
         lenrnamelist = 4
         icfaux(1) = leninamelist
         icfaux(2) = lenrnamelist
@@ -216,7 +216,7 @@
     if (myrank .eq. 0 .and. longoutput) write(6,"('Size of rnamelist   = ', i15, ' bytes')") size(rnamelist)
 
     if (myrank .eq. 0)    then
-        inamelist(:) = (/ lmaxexp, ioptaj, ipmax /)
+        inamelist(:) = (/ lmaxexp, ioptaj, ipmax, lmultmx /)
         rnamelist(:) = (/ umbral, thresoverlap, wthreshold, umbralres /)
     endif
     CALL MPI_BCAST(inamelist,leninamelist,MPI_INTEGER,0,MPI_COMM_WORLD,ierr)
@@ -227,7 +227,7 @@
         lsgbs = lnamelist(1); lden = lnamelist(2); lsgbsden = lnamelist(3)
         leg35 = lnamelist(4); longoutput = lnamelist(5); iswindows = lnamelist(6); ; ltimeprocs = lnamelist(7)
         lvalence = lnamelist(8); lzdo = lnamelist(9); lm2c = lnamelist(10)
-        lmaxexp = inamelist(1); ioptaj = inamelist(2); ipmax = inamelist(3)
+        lmaxexp = inamelist(1); ioptaj = inamelist(2); ipmax = inamelist(3); lmultmx = inamelist(4)
         umbral = rnamelist(1); thresoverlap = rnamelist(2); wthreshold = rnamelist(3)
         umbralres = rnamelist(4)
     endif
@@ -1765,7 +1765,7 @@
                     enddo
                     rmultipmod(l) = sqrt(aux)
                 enddo
-                write(19,"(a, 2x, i5, 2x, 6(e22.15,1x))") atmnam(ia), ia, rmultipmod(0:lmultmx)
+                write(19,"(a, 2x, i5, 2x, 25(e22.15,1x))") atmnam(ia), ia, rmultipmod(0:lmultmx)
             endif
         endif
 !
