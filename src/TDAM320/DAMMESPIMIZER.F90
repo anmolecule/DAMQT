@@ -77,7 +77,7 @@
     read(5,*) projectname
 
     if (nocharge) then
-        write(6,"('No charges read from the input files')")
+        write(iout,"('No charges read from the input files')")
     endif
 
     ! Decides if the user has provided projectname with full path.
@@ -119,14 +119,14 @@
     ! Figure out what files are provided
     if (len_trim(templatefile)==0 .and. len_trim(insertlocfile)==0 &
         .and. len_trim(preprocfile)==0) then
-        write(6,*) "Provide preprocfile or templatefile with &
+        write(iout,*) "Provide preprocfile or templatefile with &
                     & insertlocfile"
         stop
     endif
     if (len(trim(preprocfile))/=0) then
-        write(6,*) "Preprocfile is provided. Templatefile &
+        write(iout,*) "Preprocfile is provided. Templatefile &
                     & and insertlocfile will be ignored"
-        write(6,*) "Note: Preprocfile should not contain &
+        write(iout,*) "Note: Preprocfile should not contain &
                     & parent molecule. "
         i = index(preprocfile,dirsep)
         if (i == 0) preprocfile = trim(path)//trim(preprocfile)
@@ -136,11 +136,11 @@
 
     else
         if (len_trim(templatefile)/=0 .and. len_trim(insertlocfile)==0) then
-            write(6,*) "Templatefile requires insertlocfile to &
+            write(iout,*) "Templatefile requires insertlocfile to &
                     &place the  template molecule. Exiting code."
             stop
         elseif (len_trim(templatefile)==0 .and. len_trim(insertlocfile)/=0) then
-            write(6,*) "Insertlocfile requires templatefile. &
+            write(iout,*) "Insertlocfile requires templatefile. &
                       & Exiting code."
             stop
         elseif (len_trim(templatefile)/=0 .and. len_trim(insertlocfile)/=0) then
@@ -170,19 +170,19 @@
     mespimizererror = trim(adjustl(path))//"mespimizer.err"
     openbabelerror = trim(adjustl(path))//"openbabel.err"
 
-    write(6,*) 'preprocfile         = ', trim(preprocfile)
-    write(6,*) 'templatefile        = ', trim(templatefile)
-    write(6,*) 'insertlocfile       = ', trim(insertlocfile)
-    write(6,*) 'mespimizerinit      = ', trim(mespimizerinit)
-    write(6,*) 'mespimizervis       = ', trim(mespimizervis)
-    write(6,*) 'mespimizerfinal     = ', trim(mespimizerfinal)
-    write(6,*) 'mespimizerbase      = ', trim(mespimizerbase)
-    write(6,*) 'mespimizerauxframes = ', trim(mespimizerauxframes)
-    write(6,*) 'mespimizerframes    = ', trim(mespimizerframes)
-    write(6,*) 'mespimizercurrframe = ', trim(mespimizercurrframe)
-    write(6,*) 'mespimizerkntfrms   = ', trim(mespimizerkntfrms)
-    write(6,*) 'mespimizererror     = ', trim(mespimizererror)
-    write(6,*) 'openbabelerror      = ', trim(openbabelerror)
+    write(iout,*) 'preprocfile         = ', trim(preprocfile)
+    write(iout,*) 'templatefile        = ', trim(templatefile)
+    write(iout,*) 'insertlocfile       = ', trim(insertlocfile)
+    write(iout,*) 'mespimizerinit      = ', trim(mespimizerinit)
+    write(iout,*) 'mespimizervis       = ', trim(mespimizervis)
+    write(iout,*) 'mespimizerfinal     = ', trim(mespimizerfinal)
+    write(iout,*) 'mespimizerbase      = ', trim(mespimizerbase)
+    write(iout,*) 'mespimizerauxframes = ', trim(mespimizerauxframes)
+    write(iout,*) 'mespimizerframes    = ', trim(mespimizerframes)
+    write(iout,*) 'mespimizercurrframe = ', trim(mespimizercurrframe)
+    write(iout,*) 'mespimizerkntfrms   = ', trim(mespimizerkntfrms)
+    write(iout,*) 'mespimizererror     = ', trim(mespimizererror)
+    write(iout,*) 'openbabelerror      = ', trim(openbabelerror)
 
     call predampot
 
@@ -200,42 +200,45 @@
     ! If xyz file does not contain partial charges, obabel is used to get initial charges.
     if (nocharge) then
         acmdout = ""
-        open(unit=1234, iostat=stat, file=openbabelerror, status='new')
+        open(unit=1234, iostat=stat,access='sequential', file=openbabelerror, status='new')
         if (iswindows) then
-!            exec = '"c:' // dirsep // "Program Files" // dirsep // "OpenBabel-3.1.1" // dirsep // &
             exec = &
             & '"obabel.exe" -ixyz '//trim(adjustl(basename))//trim(adjustl(extn)) &
             & //" --partialcharge "//trim(chargemodel)//" -omol2 -O " &
             & //trim(adjustl(basename))//".mol2 2> "//trim(openbabelerror)
-            print*,exec
-            call system(exec, icmdout)
-            !write(6,*) 'llama a execute_command_line'
-            !call execute_command_line(exec,cmdstat=icmdout,cmdmsg=acmdout)
+            write(iout,*) exec
+            call execute_command_line(exec,cmdstat=icmdout,cmdmsg=acmdout)
         else
             exec = "obabel -ixyz "//trim(adjustl(basename))//trim(adjustl(extn)) &
             & //" --partialcharge "//trim(chargemodel)//" -omol2 -O " &
             & //trim(adjustl(basename))//".mol2 2> "//trim(openbabelerror)
-            print*,exec
+            write(iout,*) exec
             call execute_command_line(exec,cmdstat=icmdout,cmdmsg=acmdout)
-            print*, 'cmdstat = ', icmdout
-            write(6,"('cmdmsg = ', 256(A))") trim(acmdout)
         endif
+        write(iout,*) "Running obabel: Exiting Code: ", icmdout, ' Exiting message: ', trim(acmdout)
 
         if (icmdout/=0) then
-            print *,"Exiting Code: ", icmdout
-            if (iswindows) then
-                print *,"Exiting Code: ", icmdout
-            else
-                print *,"Exiting Code: ", icmdout, ' Exiting message: ', acmdout
-            endif
-            print*, "Maybe input xyz file does not contain charge &
-                &and openbabel is not installed on your computer."
-            print *,"If you believe you have charges in input xyz file, insert nocharge = .false. in options and rerun."
-            stop
+            write(iout,"('Error', i5,' when running Open Babel. Maybe Open Babel is not installed or not accessible.')") icmdout
+            write(iout,"('Look up file: ', 256(A))") trim(openbabelerror)
+            write(5678,"('Error', i5,' when running Open Babel. Maybe Open Babel is not installed or not accessible.')") icmdout
+            write(5678,"('Look up file: ', 256(A))") trim(openbabelerror)
+            close(1234)
+            close(5678)
+            call error(icmdout,"Stop.")
         else
             !Read mol2 file
             open(unit=298, file=trim(adjustl(basename))//".mol2",iostat=ierr)
-            if (ierr.ne.0) call error(1,"error reading mol2 file created internally")
+            if (ierr.ne.0) then
+                write(5678,"('Error', i5, ' when running Open Babel.')") ierr
+                write(5678,"('Failed opening mol2 file created internally.')")
+                write(5678,"('Maybe openbabel is not installed or not accessible.')")
+                close(1234)
+                close(5678)
+                write(iout,"('Error', i5, ' when running Open Babel.')") ierr
+                write(iout,"('Failed opening mol2 file created internally.')")
+                write(iout,"('Maybe openbabel is not installed or not accessible.')")
+                call error(ierr,"Stop.")
+            endif
             nmols=0
             do
                 read(298,*,err=9299,end=299) mstring
@@ -262,13 +265,20 @@
 299         close(298)
         endif
         if (nmols < 1) then
-            write(6,"(/'No molecule found in file ', 256(A))") trim(adjustl(basename))//".mol2"
-            call error(1,"Stop")
+            write(5678,"(/'No molecule found in file ', 256(A))") trim(adjustl(basename))//".mol2"
+            close(1234)
+            close(5678)
+            call error(5678,"No molecule found in file"// trim(adjustl(basename))//".mol2")
         else
-            write(6,"(/'Close and delete file ', 256(A))") openbabelerror
+            write(iout,"(/'Close and delete file ', 256(A))") openbabelerror
             if (iswindows) then
-                call system("rm -f " // openbabelerror)
+                close(1234,status='delete', iostat=stat)
+                ! The previous sentence doesn't remove the openbabel.err when everything was OK
+                ! Here follows a dirty trick that renoves the openbabel.err file in this case
+                open(unit=1234, iostat=stat, access='sequential', file=openbabelerror, status='old')
+                close(1234,status='delete', iostat=stat)
             else
+                close(1234)
                 call execute_command_line("rm -f " // openbabelerror)
             endif
         endif
@@ -276,7 +286,7 @@
     else
         !Read xyz file as it contains charges
         open(unit=301, file = trim(adjustl(preprocfile)),iostat=ierr)
-        if (ierr.ne.0) call error(1,"error reading xyz file")
+        if (ierr.ne.0) call error(ierr,"error reading xyz file")
         nmols=0
         do
             read(301,*,err=9301,end=302) nb
@@ -316,7 +326,7 @@
     ! If insertlocfile is given, the center of mass of first molecule of template file is replicated at mentioned locations.
     if (trim(adjustl(preprocfile))==trim(adjustl(templatefile)) .and. len_trim(insertlocfile)/=0) then
         open(unit=304, file = trim(adjustl(insertlocfile)),iostat=ierr)
-        if (ierr.ne.0) call error(1,"error reading xyz file")
+        if (ierr.ne.0) call error(ierr,"error reading xyz file")
         read(304,*,err=9304,end=305) nb
         read(304,*,err=9304,end=305)
         allocate (pisym(nb),pix(nb),piy(nb),piz(nb),stat=ierr)
@@ -374,7 +384,7 @@
     !COM for host molecule is evaluated here.
     call comass(ncen,rcen(1,:),rcen(2,:),rcen(3,:),atwt,hcox,hcoy,hcoz)
 
-    print *,"Number of guest molecules in input file ",nmols
+    write(iout,*) "Number of guest molecules in input file ",nmols
 
     call removeclash(nmols)
 
@@ -389,13 +399,13 @@
     endif
 
     open(unit=88, file = trim(adjustl(mespimizerauxframes)),iostat=ierr)
-    if (ierr .ne. 0) call error(1,"Error in creating new file for &
+    if (ierr .ne. 0) call error(ierr,"Error in creating new file for &
     geometry frames.")
     open(unit=89, file = trim(adjustl(mespimizercurrframe)),iostat=ierr)
-    if (ierr .ne. 0) call error(1,"Error in creating new file for &
+    if (ierr .ne. 0) call error(ierr,"Error in creating new file for &
     geometry of current frame.")
     open(unit=90, file = trim(adjustl(mespimizerkntfrms)),iostat=ierr)
-    if (ierr .ne. 0) call error(1,"Error in creating new file for &
+    if (ierr .ne. 0) call error(ierr,"Error in creating new file for &
     frames counter.")
 
 
@@ -413,20 +423,20 @@
     write(90,*) kntframes
     if (iswindows) then
         open(unit=91, file = trim(adjustl(mespimizerframes)),iostat=ierr)
-        if (ierr .ne. 0) call error(1,"Error in creating new file for &
-            final geometry frames.")
+        if (ierr .ne. 0) call error(ierr,"Error in creating new file for &
+                &final geometry frames.")
         close(88)
         open(unit=88, file = trim(adjustl(mespimizerauxframes)),iostat=ierr)
-        if (ierr .ne. 0) call error(1,"Error in creating new file for &
-        geometry frames.")
+        if (ierr .ne. 0) call error(ierr,"Error in creating new file for &
+                &geometry frames.")
         write(91,*) kntframes
         do while (1 .eq. 1)
             read(88,"(A80)",end=600,err=500) mstring
             write(91,*) trim(mstring)
-            write(6,*) 'mstring = ', trim(mstring)
+            write(iout,*) 'mstring = ', trim(mstring)
         end do
 500     continue
-        call error(1,"Error in writing file with final geometry frames.")
+        call error(88,"Error in writing file with final geometry frames.")
 600     continue
         close(91)
     else
@@ -444,27 +454,28 @@
           &tarray(1), tarray(2), tarray(1)+tarray(2)
     write(iout,*)""
     close(iden)
-    close(iout)
-    close(5678)
+!   close(5678)
     if (iswindows) then
-        call system("rm -f " // mespimizererror)
+        close(5678,status='delete')
     else
+        close(5678)
         call execute_command_line("rm -f " // mespimizererror)
     endif
+    close(iout)
     stop
 
 9299 continue
     write(5678,*) 'Error reading data from file '//trim(adjustl(basename))//".mol2"
     close(5678)
-    call error(1,'Error reading data from file '//trim(adjustl(basename))//".mol2")
+    call error(9299,'Error reading data from file '//trim(adjustl(basename))//".mol2")
 9301 continue
     write(5678,*) 'Error reading data from file '//trim(adjustl(preprocfile))
     close(5678)
-    call error(1,'Error reading data from file '//trim(adjustl(preprocfile)))
+    call error(9301,'Error reading data from file '//trim(adjustl(preprocfile)))
 9304 continue
     write(5678,*) 'Error reading data from file '//trim(adjustl(insertlocfile))
     close(5678)
-    call error(1,'Error reading data from file '//trim(adjustl(insertlocfile)))
+    call error(9304,'Error reading data from file '//trim(adjustl(insertlocfile)))
     end
 
 !!=================================
@@ -527,11 +538,15 @@
             if (numiter .gt. maxiter) then
                 errname = "mespimizer.err"
                 open(12,file=trim(adjustl(path))//trim(adjustl(errname)))
-                write(6,"('Highest number of iterations:', i6,' reached in molecule ', i6,&
+                write(iout,"('Highest number of iterations:', i6,' reached in molecule ', i6,&
+                    /,'Abort optimization')") maxiter, i
+                write(5678,"('Highest number of iterations:', i6,' reached in molecule ', i6,&
                     /,'Abort optimization')") maxiter, i
                 write(12,"(i6,2x,i6)") maxiter, i
                 close(12)
-                exit mainloop
+                close(5678)
+                call error(12,'Stop')
+!                exit mainloop
             endif
             do j=1,nbatms
                 bsl(j)=molecules(i)%bs(j)
@@ -638,6 +653,7 @@
         end function 
 
         SUBROUTINE ROTATION(icurr,nbatms,bsl,bxl,byl,bzl,bql,batwtl,batvdwl,flag,as,enj)
+        USE DAMINITIAL_T, ONLY: iout
         USE DAMBUILD_T
         IMPLICIT NONE 
         INTEGER::nbatms,flag,icurr
@@ -726,8 +742,8 @@
         eval=minval(enjr)
         if (eval<enj .and. (enj-eval).gt.1e-6) then
             enj=eval
-!           write(6,*)ex(1),ex(2),ex(3)
-            write(6,"(A,E12.5)") "Best energy of all rotations    = ",eval
+!           write(iout,*)ex(1),ex(2),ex(3)
+            write(iout,"(A,E12.5)") "Best energy of all rotations    = ",eval
             call flush(6)       ! Forces writing that is necessary to carry out amimation in the 3D viewer
             i= (ex(1)-1)*as
             theta = real(i)*p_i/180.0d0
@@ -790,12 +806,12 @@
         norm=max(abs(totdrvx),abs(totdrvy),abs(totdrvz))
         totdrvx = totdrvx/norm; totdrvy = totdrvy/norm; totdrvz = totdrvz/norm
 
-!#        print*,"tssize"
-!#        print*,tssize
-!#        print*,"totdrvx,totdrvy,totdrvz,totdrv"
-!#        print*,totdrvx,totdrvy,totdrvz,sqrt(totdrvx**2+totdrvy**2+totdrvz**2)
-!#        print*,"tssize*totdrvx,tssize*totdrvy,tssize*totdrvz"
-!#        print*,tssize*totdrvx,tssize*totdrvy,tssize*totdrvz
+!#        write(iout,*) "tssize"
+!#        write(iout,*) tssize
+!#        write(iout,*) "totdrvx,totdrvy,totdrvz,totdrv"
+!#        write(iout,*) totdrvx,totdrvy,totdrvz,sqrt(totdrvx**2+totdrvy**2+totdrvz**2)
+!#        write(iout,*) "tssize*totdrvx,tssize*totdrvy,tssize*totdrvz"
+!#        write(iout,*) tssize*totdrvx,tssize*totdrvy,tssize*totdrvz
         
         ! Move coordinates in the direction of gradient. 
         do l = 1,nbatms
@@ -847,8 +863,8 @@
         elseif ((enj-min(enjtn,enjtp)).le.1e-6) then
             flag=-1
         end if
-        !print*,"enj,enjtp,enjtn"
-        !print*,enj,enjtp,enjtn
+        !write(iout,*) "enj,enjtp,enjtn"
+        !write(iout,*) enj,enjtp,enjtn
         return 
         end subroutine
 
@@ -871,7 +887,7 @@
        !             do l=1,nbatms
        !                 CALL DAMPOT(vtot,drvx,drvy,drvz,dxxtot,dxytot,dxztot, &
        !                 & dyytot,dyztot,dzztot,btx(l),bty(l),btz(l))
-       !               ! print*,drvx,drvy,drvz
+       !               ! write(iout,*) drvx,drvy,drvz
        !                 enjt(i+2,j+2,k+2)=enjt(i+2,j+2,k+2)+vtot*bql(l)
        !             end do
        !         end do   
@@ -882,21 +898,21 @@
        ! ex=minloc(enjt)
        ! eval=minval(enjt)
        ! if (eval<enj .and. (enj-eval).gt.1e-6) then
-       !     ! print*, "Ok in translation"
+       !     ! write(iout,*)  "Ok in translation"
        !     Enj=eval
-       !     write(6,"(A,E12.5)") "Best energy of all translations = ",eval
+       !     write(iout,"(A,E12.5)") "Best energy of all translations = ",eval
        !     i=ex(1)-2
        !     j=ex(2)-2
        !     k=ex(3)-2
  
-       !     print*,""
-       !     print*,"Finalized coordinate"
-       !     print*,""
+       !     write(iout,*) ""
+       !     write(iout,*) "Finalized coordinate"
+       !     write(iout,*) ""
        !     do l = 1,nbatms
        !         bxl(l)= bxl(l)+i*tssize
        !         byl(l)= byl(l)+j*tssize
        !         bzl(l)= bzl(l)+k*tssize
-       !         print*,bxl(l),byl(l),bzl(l)
+       !         write(iout,*) bxl(l),byl(l),bzl(l)
        !     end do
        ! elseif ((enj-eval).le.1e-6) then
        !     flag=-1
@@ -916,10 +932,10 @@
         REAL(KREAL), DIMENSION(ncatms):: cx,cy,cz,catwt
        
         coxl=0.0d0; coyl=0.0d0; cozl=0.0d0; tmass=0.0d0
-!write(6,*) 'template coordinates'
+!write(iout,*) 'template coordinates'
         do i=1,ncatms
             tmass=tmass+catwt(i)
-!write(6,*) cx(i), cy(i), cz(i)
+!write(iout,*) cx(i), cy(i), cz(i)
             coxl=coxl+catwt(i)*cx(i)
             coyl=coyl+catwt(i)*cy(i)
             cozl=cozl+catwt(i)*cz(i)
@@ -966,13 +982,13 @@
                 dist(ju) = sqrt((rcen(1,ju)-bxl(ku))**2+(rcen(2,ju)-byl(ku))**2+(rcen(3,ju)-bzl(ku))**2)
                 if ((atvdw(ju)*0.7d0+bvdwl(ku)).gt.dist(ju)) then  ! The van der waals radius of host atoms was not scaled yet. Scaled by 0.8
                     accept=.false.
-                    !print*, "Minimum distance"
-                    !print*, minval(dist)
+                    !write(iout,*)  "Minimum distance"
+                    !write(iout,*)  minval(dist)
                     !if(abs(minval(dist)-1.0)<0.0001) then
-                    !    print*,rcen(1,ju),bxl(ku),rcen(2,ju),byl(ku),rcen(3,ju),bzl(ku)
+                    !    write(iout,*) rcen(1,ju),bxl(ku),rcen(2,ju),byl(ku),rcen(3,ju),bzl(ku)
                     !endif
-                    !print*, ju,atvdw(ju),ku,bvdwl(ku) !minloc(dist,dim=1)
-                    !print*, ""
+                    !write(iout,*)  ju,atvdw(ju),ku,bvdwl(ku) !minloc(dist,dim=1)
+                    !write(iout,*)  ""
                     goto 98 
                 end if   
             end do
@@ -1006,7 +1022,7 @@
 
         open(unit=8, file = trim(adjustl(dfilename)),iostat=ierr)
 
-        if (ierr.ne.0) call error(1,"Error in creating new file with &
+        if (ierr.ne.0) call error(ierr,"Error in creating new file with &
         initial geometry of the cluster.")
         totalatoms=0
         do i =1,nmols
@@ -1033,6 +1049,7 @@
 !!     Write input for QM calculations
 !!==================================================================
         subroutine writeqminput(software,keywords,ifilebase,nmols)
+        USE DAMINITIAL_T, ONLY: iout
         implicit none
         integer:: nmols,ierr
         integer,parameter:: funit=8
@@ -1052,7 +1069,7 @@
 
         if (software=="gaussian") open(unit=funit, file = trim(adjustl(ifilebase))//".com",iostat=ierr)
         if (ierr .ne. 0) then
-            write(6,*) "error opening QM file: ", trim(adjustl(ifilebase))//".com"
+            write(iout,*) "error opening QM file: ", trim(adjustl(ifilebase))//".com"
             return
         endif
         call top(funit,software,ifilebase,nproc,mem,lot,basis,charge,multi)
@@ -1182,11 +1199,11 @@
         write(88,*) "Energy= ",ener
         write(89,*) totalatoms
         write(89,*) "Energy= ",ener
-        write(6,*) "Energy= ",ener
+        write(iout,*) "Energy= ",ener
         do i = 1,ncen
             write(88,"(a2,3f15.10)") atmnms( int(zn(i))), (rcen(j,i)*0.529177249d0,j=1,3)
             write(89,"(a2,3f15.10)") atmnms( int(zn(i))), (rcen(j,i)*0.529177249d0,j=1,3)
-            write(6,"(a2,3f15.10)") atmnms( int(zn(i))), (rcen(j,i)*0.529177249d0,j=1,3)
+            write(iout,"(a2,3f15.10)") atmnms( int(zn(i))), (rcen(j,i)*0.529177249d0,j=1,3)
         end do
         do i=1,nmols
             do j = 1,molecules(i)%natoms
@@ -1194,7 +1211,7 @@
                 molecules(i)%by(j)*auang,molecules(i)%bz(j)*auang
                 write(89,"(a2,3f15.10)") molecules(i)%bs(j),molecules(i)%bx(j)*auang,&
                 molecules(i)%by(j)*auang,molecules(i)%bz(j)*auang
-                write(6,"(a2,3f15.10)") molecules(i)%bs(j),molecules(i)%bx(j)*auang,&
+                write(iout,"(a2,3f15.10)") molecules(i)%bs(j),molecules(i)%bx(j)*auang,&
                 molecules(i)%by(j)*auang,molecules(i)%bz(j)*auang
             enddo
         enddo
@@ -1244,11 +1261,11 @@
             dary=maxloc(dist)
             dval=maxval(dist)
             if (dval>0.001) then
-                !print *,"===Begin======="    
-                !print *,"size(shape(dist))=",dmdist
-                !print *,"max location(dist)=",dary
-                !print *,"Value at maxloc(dist)=",dval 
-                !print *, dist
+                !write(iout,*) "===Begin======="
+                !write(iout,*) "size(shape(dist))=",dmdist
+                !write(iout,*) "max location(dist)=",dary
+                !write(iout,*) "Value at maxloc(dist)=",dval
+                !write(iout,*)  dist
                 tn = molecules(iu)%natoms
                 allocate (tx(tn),ty(tn),tz(tn),tw(tn),stat=ierr)
                 tx = molecules(iu)%bx ; ty = molecules(iu)%by ; tz = molecules(iu)%bz
@@ -1259,8 +1276,8 @@
                 shiftz = tcoz-hcoz
                 norm=max(abs(shiftx),abs(shifty),abs(shiftz))
                 shiftx=shiftx/norm;shifty=shifty/norm;shiftz=shiftz/norm
-                print*,"shiftx,shifty,shiftz"
-                print*,shiftx,shifty,shiftz
+                write(iout,*) "shiftx,shifty,shiftz"
+                write(iout,*) shiftx,shifty,shiftz
                 ! adding distance slightly larger than overlap
                 scldval=dval*1.2 
                 do ku=1,molecules(iu)%natoms
@@ -1268,7 +1285,7 @@
                     molecules(iu)%by(ku)=molecules(iu)%by(ku)+shifty*scldval
                     molecules(iu)%bz(ku)=molecules(iu)%bz(ku)+shiftz*scldval
                 enddo
-                !print *,"===End======="    
+                !write(iout,*) "===End======="
             endif
             deallocate(dist)
         end do       

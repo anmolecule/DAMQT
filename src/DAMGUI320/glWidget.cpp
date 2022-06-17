@@ -1795,22 +1795,53 @@ void glWidget::processOutput(int exitCode, QProcess::ExitStatus exitStatus)
         if(QFileInfo(mespimizerpath+"/mespimizer.err").exists()){
             QFile file(mespimizerpath+"/mespimizer.err");
             if (!file.open(QFile::ReadOnly | QFile::Text)) {
-                return;
+                QMessageBox::information(this, tr("MESPIMIZER"),
+                    QString(tr("Cluster optimization failed.\nCannot open file: %1"))
+                            .arg(mespimizerpath+"/mespimizer.err"));
             }
-            QTextStream in(&file);
-            QString line = in.readLine();
-#if QT_VERSION < 0x050E00
-            QStringList fields = line.split(' ',QString::SkipEmptyParts);
-#else
-            QStringList fields = line.split(' ',Qt::SkipEmptyParts);
-#endif
-            if (fields.count() < 2)
-                return;
-            int iter = fields.takeFirst().toInt();
-            int molec = fields.takeFirst().toInt();
-            QMessageBox::information(this, tr("MESPIMIZER"),
-                QString(tr("Cluster optimization aborted, highest number of iterations: %1\nreached in molecule %2"))
-                        .arg(iter).arg(molec));
+            else{
+                QString msg = "";
+                QTextStream in(&file);
+                QString line;
+                while (!in.atEnd()){
+                    line = in.readLine();
+                    msg.append(line+"\n");
+//                        qDebug() << "line = " << line;
+                }
+                file.close();
+                if(QFileInfo(mespimizerpath+"/openbabel.err").exists()){
+                    QFile file(mespimizerpath+"/openbabel.err");
+                    if (file.open(QFile::ReadOnly | QFile::Text)) {
+                        QTextStream in(&file);
+                        QString line;
+                        msg.append("\nError in Open Babel:");
+                        while (!in.atEnd()){
+                            line = in.readLine();
+                            msg.append("\n"+line);
+    //                        qDebug() << "line = " << line;
+                        }
+                    }
+                }
+//                qDebug() << "msg = " << msg;
+                QMessageBox::information(this, tr("MESPIMIZER"),
+                        tr("Cluster optimization failed"),msg);
+//#if QT_VERSION < 0x050E00
+//                QStringList fields = line.split(' ',QString::SkipEmptyParts);
+//#else
+//                QStringList fields = line.split(' ',Qt::SkipEmptyParts);
+//#endif
+//                if (fields.count() < 2)
+//                    QMessageBox::information(this, tr("MESPIMIZER"),
+//                        QString(tr("Cluster optimization failed.\nContent of mespimizer error file: %1\n %2"))
+//                                 .arg(mespimizerpath+"/mespimizer.err").arg(line));
+//                else{
+//                    int iter = fields.takeFirst().toInt();
+//                    int molec = fields.takeFirst().toInt();
+//                    QMessageBox::information(this, tr("MESPIMIZER"),
+//                        QString(tr("Cluster optimization aborted, highest number of iterations: %1\nreached in molecule %2"))
+//                                .arg(iter).arg(molec));
+//                }
+            }
         }
         else{
             if(QFileInfo(mespimizerpath+"/openbabel.err").exists()){
@@ -1829,23 +1860,24 @@ void glWidget::processOutput(int exitCode, QProcess::ExitStatus exitStatus)
                 QMessageBox::information(this, tr("MESPIMIZER"),
                         tr("Open Babel failed in cluster optimization"),msg);
             }
-            else if(QFileInfo(mespimizerpath+"/mespimizer.err").exists()){
-                QFile file(mespimizerpath+"/mespimizer.err");
-                QString msg = "";
-                if (file.open(QFile::ReadOnly | QFile::Text)) {
-                    QTextStream in(&file);
-                    QString line;
-                    while (!in.atEnd()){
-                        line = in.readLine();
-                        msg.append("\n"+line);
-//                        qDebug() << "line = " << line;
-                    }
-                }
+//            else if(QFileInfo(mespimizerpath+"/mespimizer.err").exists()){
+//                QFile file(mespimizerpath+"/mespimizer.err");
+//                QString msg = "";
+//                if (file.open(QFile::ReadOnly | QFile::Text)) {
+//                    QTextStream in(&file);
+//                    QString line;
+//                    while (!in.atEnd()){
+//                        line = in.readLine();
+//                        msg.append("\n"+line);
+////                        qDebug() << "line = " << line;
+//                    }
+//                }
 //                qDebug() << "msg = " << msg;
-                QMessageBox::information(this, tr("MESPIMIZER"),
-                        tr("Cluster optimization failed"),msg);
-            }
+//                QMessageBox::information(this, tr("MESPIMIZER"),
+//                        tr("Cluster optimization failed"),msg);
+//            }
             else{
+//                qDebug() << "Cluster optimization finished";
                 QMessageBox::information(this, tr("MESPIMIZER"),tr("Cluster optimization finished"));
             }
         }
@@ -2095,7 +2127,9 @@ void glWidget::quaterninterpolation(){
                     }
                     break;
                 default:
-                    qDebug() << "Case not expected: " << transformation[kmol];
+                    QMessageBox::information(this, tr("MESPIMIZER"),tr("Case not expected in quaternion interpolation: %1")
+                                             .arg(transformation[kmol]));
+                    qDebug() << "Case not expected in quaternion interpolation: " << transformation[kmol];
             }
         }
         molecules->last()->loadxyz(xyzi);

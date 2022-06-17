@@ -40,6 +40,7 @@
 #include <QRadioButton>
 #include <QSpinBox>
 #include <QTextCodec>
+#include <QtGlobal>
 
 #include "GlobalInfo.h"
 

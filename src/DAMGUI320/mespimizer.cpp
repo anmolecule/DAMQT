@@ -32,6 +32,7 @@
 #include <QCloseEvent>
 #include <QColorDialog>
 #include <QSignalMapper>
+#include <QtGlobal>
 
 #include "mespimizer.h"
 
@@ -356,19 +357,26 @@ bool mespimizer::checkobabelinstall(){
         }
         else{
             QProcess process;
+#if defined(Q_OS_WIN)
+            process.start("obabel -L charges");
+#else
             process.start("sh");
             process.write("obabel -L charges");
+#endif
             process.closeWriteChannel();
             process.waitForFinished(-1); // will wait forever until finished
             QByteArray outprocess = process.readAll();
             process.close();
+//            qDebug() << "outprocess " << outprocess;
             QTextCodec *codec = QTextCodec::codecForName("UTF-8");
             QString string = codec->toUnicode(outprocess);
+//            qDebug() << "string " << string;
 #if QT_VERSION < 0x050E00
             QStringList fields = string.split('\n',QString::SkipEmptyParts);
 #else
             QStringList fields = string.split('\n',Qt::SkipEmptyParts);
 #endif
+//            qDebug() << "fields " << fields;
             for (int i = 0 ; i < fields.length() ; i++){
 #if QT_VERSION < 0x050E00
                 QStringList fields2 = fields.at(i).split(' ',QString::SkipEmptyParts);
