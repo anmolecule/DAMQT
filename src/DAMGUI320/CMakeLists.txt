@@ -109,10 +109,9 @@ set( DAMGUI320_RCS
 # enable warnings
   add_definitions( -Wall )
 
-# This GUI requires OpenGL and GLUT libraries available
-# =====================================================
+# This GUI requires OpenGL library available
+# ==========================================
 find_package(OpenGL REQUIRED)
-find_package(GLUT REQUIRED)
 
 # This GUI requires Qt5
 # =====================
@@ -131,7 +130,7 @@ if (Qt5Widgets_FOUND)
     find_package(Qt5OpenGL)
     find_package(Qt5PrintSupport)
 
-    include_directories( ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIR} )
+    include_directories( ${OPENGL_INCLUDE_DIRS} )
 
     QT5_ADD_RESOURCES( DAMGUI320_RC_SRCS ${DAMGUI320_RCS} )
     QT5_WRAP_CPP( DAMGUI320_MOC_SRCS ${DAMGUI320_MOC_HDRS} )
@@ -141,7 +140,7 @@ if (Qt5Widgets_FOUND)
         set (DAMGUI320_EXECUTABLE "DAMQT320" )
     endif (UNIX)
     add_executable(${DAMGUI320_EXECUTABLE} ${DAMGUI320_SRCS} ${DAMGUI320_MOC_SRCS} ${DAMGUI320_RC_SRCS})
-    target_link_libraries(${DAMGUI320_EXECUTABLE} ${QT_LIBRARIES} ${OPENGL_LIBRARIES} ${GLUT_LIBRARY}
+    target_link_libraries(${DAMGUI320_EXECUTABLE} ${QT_LIBRARIES} ${OPENGL_LIBRARIES}
             Qt5::Widgets Qt5::OpenGL Qt5::PrintSupport )
 else (Qt5Widgets_FOUND) # If Qt5 not found
         message (FATAL_ERROR "Qt5 not available")

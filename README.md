@@ -120,7 +120,7 @@ glxinfo | grep "OpenGL version"
 4. If you get an error in above command stating glxinfo not installed, please install mesa-utils
 
 ```
-sudo apt-get install pkg-config mesa-utils libglu1-mesa-dev freeglut3-dev mesa-common-dev 
+sudo apt-get install pkg-config mesa-utils libglu1-mesa-dev mesa-common-dev 
 sudo apt-get install libglew-dev libglfw3-dev libglm-dev
 sudo apt-get install libao-dev libmpg123-dev
 ```

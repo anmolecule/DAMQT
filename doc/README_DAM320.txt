@@ -19,9 +19,9 @@
 
 ##  A QUICK GUIDE TO DAM320 PACKAGE
 
---------------------------------
+-----------------------------------
                    
-Authors: R. López(1), I. Ema(1), G. Ramírez(1), D. Zorrilla(2), 
+Authors: R. López(1), I. Ema(1), G. Ramírez(1), Frank Martínez(1), D. Zorrilla(2), 
 A. Kumar(3), S. Yeole(4) and S. Gadre(5)
 
 (1) Departamento de Química Física Aplicada,
@@ -39,13 +39,13 @@ P. O. Nahata Commerce College, Bhusawal, India
 
 (5) Savitribai Phule Pune University, India.
 
-Feb 2022
+June 2022
 
 Contact: rafael.lopez@uam.es
 
 ## Introduction
 
-------------
+---------------
 
 The DAM320 package consists of a set of programs designed for the partition
 and representation of the molecular electron density into atomic
@@ -75,7 +75,7 @@ BIBLIOGRAPHY quoted at the end of this file.
 
 
 ## DAM320 package contents
-------------------------
+--------------------------
 
 The package contains the source files and a sample deck of input and output files. 
 
@@ -99,10 +99,13 @@ The parallel versions have been prepared using MPI and tested with openmpi and m
 sudo apt-get install build-essential
 
 
-2. If your computer does not have Qt5, install 
-
+2. If your computer does not have Qt5, install it. The procedure may vary depending on the OS version. For instance, in case of Ubuntu, try:
 
 sudo apt-get install qt5-default
+
+if that does not work, try:
+
+sudo apt-get install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
 
 
 3. Check OpenGL version in your computer
@@ -119,13 +122,8 @@ sudo apt-get install mesa-utils
 
 Check step 3 again to verify the version of OpenGL. OpenGL 3.3 or higher is required and most machines with a dedicated GPU from AMD or NVIDIA support OpenGL 3.3 and above as long as this GPU was released within the last 4-5 years. If the GPU is 5 or more years old, there is a possibility that it does not support OpenGL 3.3. In this case you will need to check the specifications for your GPU model on the manufacturer’s website. If you are limited by the version of OpenGL, DAMQT 3D viewer may not work properly. You can still make use of other functionalities.
 
-5. Install freeglut
 
-
-sudo apt-get install freeglut3 freeglut3-dev libglew-dev
-
-
-6. If you want to use parallel version of package
+5. If you want to use parallel version of package
 
 
 sudo apt-get install openmpi-bin libopenmpi-dev
@@ -143,23 +141,23 @@ If you changed your .bashrc file, the changes will be in effect if you source it
 source ~/.bashrc
 
 
-7. For compilation of code you will require cmake or cmake-gui
+6. For compilation of code you will require cmake or cmake-gui
 
 
 sudo apt-get install cmake cmake-qt-gui
 
 
-8. You may configure the package using cmake as:
+7. You may configure the package using cmake as:
 
 
 mkdir bin
 cmake -S src/ -DCMAKE_INSTALL_PREFIX=/usr/local/bin -B bin
 
 
-9. If you use cmake-gui, follow the instructions there and make use of native gnu compilers. This should end with successful "configuration done" and "generation done".
+8. If you use cmake-gui, follow the instructions there and make use of native gnu compilers. This should end with successful "configuration done" and "generation done".
    If configuration or generation was not successful, you need to specify the paths to libraries explicity during cmake and run cmake again till all libraries path are found.
 
-10. After successful configuration...
+9. After successful configuration...
 
 
 cd bin
@@ -167,13 +165,13 @@ make -j4
 sudo make install
 
 
-11. Run the DAMQT GUI using
+10. Run the DAMQT GUI using
 
 
 DAMQT320.exe
 
 
-12. Various exectuables available in DAMQT can also be run from commandline by providing appropriate input file. Refer to manual for more details.
+10. Various exectuables available in DAMQT can also be run from commandline by providing appropriate input file. Refer to manual for more details.
 
 ### Uninstall
 
@@ -190,7 +188,7 @@ sudo make clean
 
 
 ## Samples deck
-------------
+---------------
 
 A set of files is included to test the installation. The set includes input samples and the 
 corresponding output for the several programs in the package.
@@ -200,7 +198,7 @@ in the package to test that everything works.
 
 
 ## USER's GUIDE
-------------
+---------------
 
 In all the programs, the input file consists of two parts: the first one
 must always contain a NAMELIST named OPTIONS (although with different
@@ -936,7 +934,7 @@ An example is included within the samples.
 
 
 DAMFORCES320.F90
-==================
+================
 
 Computes Hellmann-Feynman forces on nuclei from DAM patition/expansion.
 
@@ -990,7 +988,7 @@ non-conformational forces (spurious forces)
 
 
 DAMFRAD320.F90
-================
+==============
 
 Tabulates radial factors of DAM patition/expansion.
 
@@ -1043,7 +1041,7 @@ and its first and second derivatives.
 It also writes a file ".frad" with the tabulation data.
 
 DAMMULTROT320.F90
-===================
+=================
 
 Computes oriented multipolar moments of atomic fragments from DAM patition/expansion.
 
@@ -1091,7 +1089,7 @@ of the three selected centers referred to normalized spherical harmonics in the 
 
     
 DAMZernike-Jacobi_STO.F90   (DAMZernike-Jacobi_STO_mpi.F90)
-=====================================================================
+===========================================================
 
 Computes Zernike 3D and Jacobi moments of a STO molecular density.
 
@@ -1149,7 +1147,7 @@ are quoted.
 It also writes a file ".zernike" (".jacobi") with the expansion of the density in Zernike (Jacobi) functions.
     
 DAMZernike-Jacobi_GTO.F90   (DAMZernike-Jacobi_GTO_mpi.F90)
-=====================================================================
+===========================================================
 
 Computes Zernike 3D and Jacobi moments of a GTO molecular density.
 
@@ -1292,7 +1290,7 @@ projectname-type-d-dz.pltd:     derivative of the density with respect to z
 where type can be "zernike" or "jacobi"
 
 readdamqt320.F90
-==================
+================
 
 Reads the content of an unformatted file "projectname.damqt" and dumps it as text to the standard output.
 
@@ -1320,7 +1318,7 @@ To run it, just type
 readcnt.exe
 
 readplt320.F90
-================
+==============
 
 Reads the content of a binary grid file "fname.plt" ("fname.pltd") and prints it to a text file named "fname.plt_txt"
 ("fname.pltd_txt")
@@ -1335,7 +1333,7 @@ press enter.
 Output goes to a file with the same name as the original ".plt" file appended with "txt"
 
 subtractplt320.F90
-====================
+==================
 
 Subtracts the content of two ".plt" files and generates another ".plt" file with the result. 
 It also gives some statistics of the comparison of the input files. 
@@ -1349,7 +1347,7 @@ Grids of two files must be equal. Otherwise, it will issue an error message.
 Output goes to standard output.
 
 compareplt320.F90
-===================
+=================
 
 Compares the content of two ".plt" files. Gives some statistics of the comparison. Intended for accuracy tests.
 
