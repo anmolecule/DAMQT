@@ -679,7 +679,7 @@ bool mespimizer::create_templatefile(){
                 .arg(chrg));
         if (noavailablecharges && qAbs(chrg) > 1.e-5) noavailablecharges = false;
     }
-    if (noavailablecharges){
+    if (noavailablecharges && !RBTobabelcharges->isChecked()){
         QMessageBox::warning(this, tr("MESPIMIZER"),
             tr("Making template file:\ncharges on atoms of template molecule # %1 are all zero").arg(temp-1));
         delete elem;
