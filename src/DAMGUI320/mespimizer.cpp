@@ -668,6 +668,7 @@ bool mespimizer::create_templatefile(){
     znuc =  molecules->at(temp-1)->getcharges();
     xyz = molecules->at(temp-1)->getxyz();
     double chrg;
+    bool noavailablecharges = true;
     for (int j = 0 ; j < molecules->at(temp-1)->getnumatoms() ; j++){
         QVector3D p = xyz[j];
         chrg = chargescanvas->at(temp-1)->at(j);
@@ -676,7 +677,13 @@ bool mespimizer::create_templatefile(){
                 .arg(p[1]*BOHR_TO_ANGSTROM,0,'E',8)
                 .arg(p[2]*BOHR_TO_ANGSTROM,0,'E',8)
                 .arg(chrg));
-//                .arg(chargestemplate.at(j)));
+        if (noavailablecharges && qAbs(chrg) > 1.e-5) noavailablecharges = false;
+    }
+    if (noavailablecharges){
+        QMessageBox::warning(this, tr("MESPIMIZER"),
+            tr("Making template file:\ncharges on atoms of template molecule # %1 are all zero").arg(temp-1));
+        delete elem;
+        return false;
     }
 #if QT_VERSION < 0x050E00
     outfile << buff << endl;
