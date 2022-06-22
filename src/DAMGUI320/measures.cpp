@@ -219,7 +219,11 @@ bool measures::create_QDLmeasures(){
     connections << connect(CHKdisttranspbkg, SIGNAL(stateChanged(int)), this, SLOT(CHKdisttranspbkg_changed()));
 
     LBLlastdistances = new QLabel();
-    LBLlastdistances->setVisible(false);
+//    LBLlastdistances->setVisible(false);
+    LBLlastdistances->setText(QString(tr("To select center: shift+doubleclick")));
+    LBLlastdistances->setStyleSheet("QLabel { color : blue; }");
+    LBLlastdistances->setVisible(true);
+
 
     distancestext = new QString("  ");
 
@@ -289,7 +293,9 @@ bool measures::create_QDLmeasures(){
     connections << connect(SPBarcradius,SIGNAL(valueChanged(int)),this,SLOT(SPBarcradius_changed(int)));
 
     LBLlastangles = new QLabel();
-    LBLlastangles->setVisible(false);
+    LBLlastangles->setText(QString(tr("To select center: shift+doubleclick")));
+    LBLlastangles->setStyleSheet("QLabel { color : blue; }");
+    LBLlastangles->setVisible(true);
 
     anglestext = new QString("  ");
 
@@ -350,7 +356,10 @@ bool measures::create_QDLmeasures(){
     connections << connect(SLDopacity, SIGNAL(sliderReleased()), this, SLOT(SLDopacity_released()));
 
     LBLlastdihedrals = new QLabel();
-    LBLlastdihedrals->setVisible(false);
+//    LBLlastdihedrals->setVisible(false);
+    LBLlastdihedrals->setText(QString(tr("To select center: shift+doubleclick")));
+    LBLlastdihedrals->setStyleSheet("QLabel { color : blue; }");
+    LBLlastdihedrals->setVisible(true);
 
     dihedralstext = new QString("  ");
 

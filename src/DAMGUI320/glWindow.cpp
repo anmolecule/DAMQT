@@ -1743,8 +1743,8 @@ void glWindow::drawdihedrals(QPainter *painter, QRect viewport){
         QVector3D wincrntD = worldTocanvas(mvp_list->at(dihedralcenters->at(i+3).molecule), viewport, dihedralcenters->at(i+3).xyz);
         QVector3D winstr = 0.25 * (wincrntA+wincrntB+wincrntC+wincrntD);
         QVector3D ABC = QVector3D::crossProduct((C3D-B3D),(A3D-B3D));
-        QVector3D ABD = QVector3D::crossProduct((D3D-B3D),(A3D-B3D));
-        double aux = QVector3D::dotProduct(ABC,ABD)/(ABC.length()*ABD.length());
+        QVector3D BCD = QVector3D::crossProduct((D3D-C3D),(B3D-C3D));
+        double aux = QVector3D::dotProduct(ABC,BCD)/(ABC.length()*BCD.length());
         double angle;
         if (qAbs(qAbs(aux)-1.) > 1.e-6)
             angle = 180. * std::acos(aux) / M_PI;
@@ -2078,17 +2078,11 @@ int glWindow::searchdihedral(int x,int y){
             || dihedralcenters->at(i+2).molecule >= molecules->length() || dihedralcenters->at(i+3).molecule >= molecules->length())
             continue;
         if (!molecules->at(dihedralcenters->at(i).molecule)->isvisible()) continue;
-        QVector3D A3D = QVector3D(v_list->at(dihedralcenters->at(i).molecule)*QVector4D(dihedralcenters->at(i).xyz,1));
-        QVector3D B3D = QVector3D(v_list->at(dihedralcenters->at(i+1).molecule)*QVector4D(dihedralcenters->at(i+1).xyz,1));
-        QVector3D C3D = QVector3D(v_list->at(dihedralcenters->at(i+2).molecule)*QVector4D(dihedralcenters->at(i+2).xyz,1));
-        QVector3D D3D = QVector3D(v_list->at(dihedralcenters->at(i+3).molecule)*QVector4D(dihedralcenters->at(i+3).xyz,1));
         QVector3D wincrntA = worldTocanvas(mvp_list->at(dihedralcenters->at(i).molecule), viewport, dihedralcenters->at(i).xyz);
         QVector3D wincrntB = worldTocanvas(mvp_list->at(dihedralcenters->at(i+1).molecule), viewport, dihedralcenters->at(i+1).xyz);
         QVector3D wincrntC = worldTocanvas(mvp_list->at(dihedralcenters->at(i+2).molecule), viewport, dihedralcenters->at(i+2).xyz);
         QVector3D wincrntD = worldTocanvas(mvp_list->at(dihedralcenters->at(i+3).molecule), viewport, dihedralcenters->at(i+3).xyz);
         QVector3D winstr = 0.25 * (wincrntA+wincrntB+wincrntC+wincrntD);
-        QVector3D ABC = QVector3D::crossProduct((C3D-B3D),(A3D-B3D));
-        QVector3D ABD = QVector3D::crossProduct((D3D-B3D),(A3D-B3D));
         QRect rect = QRect(winstr.x()-0.5f*fmsize.width(),
             viewport.height()-(winstr.y()+0.5f*fmsize.height()), fmsize.width(), fmsize.height());
         if (rect.contains(x,y)){
@@ -2736,22 +2730,23 @@ void glWindow::makedihedralplanes(){
         dihedralindices->append(indices+2);
         dihedralindices->append(indices+3);
         indices += 4;
-//        Plane ABD
-        v.normal = QVector3D::crossProduct(A3D-B3D,D3D-B3D);
-        v.position = A3D;
-        dihedralvertices->append(v);
+//        Plane BCD
+        v.normal = QVector3D::crossProduct(B3D-C3D,D3D-C3D);
         v.position = B3D;
+        dihedralvertices->append(v);
+        v.position = C3D;
         dihedralvertices->append(v);
         v.position = D3D;
         dihedralvertices->append(v);
-        v.position = A3D-B3D+D3D;
+        v.position = C3D-B3D+D3D;
         dihedralvertices->append(v);
-//        First triangle of plane ABC
+//        First triangle of plane BCD
         dihedralindices->append(indices);
         dihedralindices->append(indices+1);
         dihedralindices->append(indices+2);
-//        Second triangle of plane ABC
-        dihedralindices->append(indices);
+
+//        Second triangle of plane BCD
+        dihedralindices->append(indices+1);
         dihedralindices->append(indices+2);
         dihedralindices->append(indices+3);
         indices += 4;

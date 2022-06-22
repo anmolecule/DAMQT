@@ -32,11 +32,14 @@
 #include <QCloseEvent>
 #include <QColorDialog>
 #include <QSignalMapper>
+#include <QtGlobal>
 
 #include "mespimizer.h"
 
-mespimizer::mespimizer(QWidget *parent) : QWidget()
+mespimizer::mespimizer(QList<molecule*> *mols, QWidget *parent) : QWidget()
 {
+    molecules = mols;
+
     FRMoptimizeCluster = new QGroupBox(tr("Optimize cluster (EPIC)"));
     FRMoptimizeCluster->setVisible(false);
 
@@ -54,10 +57,10 @@ mespimizer::mespimizer(QWidget *parent) : QWidget()
 
     SPBtemplate = new QSpinBox();
     SPBtemplate->setMinimum(1);
-    SPBtemplate->setMaximum(1);
+    SPBtemplate->setMaximum(mols->length());
     SPBtemplate->setMaximumWidth(50);
     SPBtemplate->setSingleStep(1);
-    SPBtemplate->setValue(1);
+    SPBtemplate->setValue(mols->length());
     SPBtemplate->setVisible(false);
     connections << connect(SPBtemplate,SIGNAL(valueChanged(int)),this,SLOT(SPBtemplate_changed()));
 
@@ -69,11 +72,18 @@ mespimizer::mespimizer(QWidget *parent) : QWidget()
 
     FRMoptimizeopt = new QGroupBox();
 
+    LBLhostindex = new QLabel(tr("Host: "));
+    LBLhostname = new QLabel();
+    LBLinterpol = new QLabel(tr("Interpolation points: "));
+    LBLtemplateindex = new QLabel(tr("Template: "));
+    LBLtemplateindex->setVisible(false);
+    LBLtemplatename = new QLabel();
+
     guestfromcanvas = true;
     RBToptimizecanvas = new QRadioButton(tr("Choose guests from canvas"),FRMoptimizeopt);
     RBToptimizecanvas->setCheckable(true);
     RBToptimizecanvas->setChecked(guestfromcanvas);
-    connections << connect(RBToptimizecanvas,SIGNAL(toggled(bool)),this,SLOT(RBToptimizecanvas_changed()));
+    connections << connect(RBToptimizecanvas,SIGNAL(toggled(bool)),this,SLOT(RBToptimizetemplate_changed()));
 
     RBToptimizetemplate = new QRadioButton(tr("Use template for guests"),FRMoptimizeopt);
     RBToptimizetemplate->setChecked(!guestfromcanvas);
@@ -114,6 +124,86 @@ mespimizer::mespimizer(QWidget *parent) : QWidget()
     SLDspeed->setValue(INTERVAL_INI);
     connections << connect(SLDspeed,SIGNAL(sliderReleased()),this,SLOT(SLDspeed_changed()));
 
+    FRMcharges = new QGroupBox(tr("Atom charges for guest"));
+    FRMcharges->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    LBLcanvascharges = new QLabel(tr("Edit/import atom charges:"));
+    LBLcanvascharges->setVisible(false);
+
+
+    LBLdamchargescanvas.clear();
+    BTNimportchargescanvas.clear();
+    BTNeditchargescanvas.clear();
+
+    QSignalMapper* chargescanvassignalMapper = new QSignalMapper (this) ;
+    QSignalMapper* editchargescanvassignalMapper = new QSignalMapper (this) ;
+    for(int i = 1 ; i < molecules->length() ; i++){
+        if (molecules->at(i)->getiscluster())
+            continue;
+        QLabel *LBLchargescanvas =  new QLabel(QString(tr("guest # %1 (%2): "))
+                        .arg(i).arg(molecules->at(i)->getname()));
+        QPushButton *BTNedit = new QPushButton();
+        BTNedit->setText(tr("Edit"));
+        connections << connect(BTNedit, SIGNAL(clicked()), editchargescanvassignalMapper,
+                SLOT(map()), Qt::UniqueConnection);
+        editchargescanvassignalMapper -> setMapping(BTNedit,i);
+        QPushButton *BTNimport = new QPushButton();
+        BTNimport->setText(tr("Import"));
+        BTNimport->setToolTip(tr("Import charges form file"));
+        connections << connect(BTNimport, SIGNAL(clicked()), chargescanvassignalMapper,
+                SLOT(map()), Qt::UniqueConnection);
+        chargescanvassignalMapper -> setMapping(BTNimport,i);
+        LBLdamchargescanvas << LBLchargescanvas;
+        BTNimportchargescanvas << BTNimport;
+        BTNeditchargescanvas << BTNedit;
+    }
+    connections << connect (chargescanvassignalMapper, SIGNAL(mapped(int)), this,
+                    SLOT(importcharges(int)), Qt::UniqueConnection) ;
+    connections << connect (editchargescanvassignalMapper, SIGNAL(mapped(int)), this,
+                    SLOT(editcharges(int)), Qt::UniqueConnection) ;
+
+    FRMtemplatecharges = new QGroupBox();  // A group box without border
+    FRMtemplatecharges->setStyleSheet("QGroupBox{border:0;}");
+    FRMtemplatecharges->setVisible(false);
+
+
+    if (molecules->length() > 0){
+        int i = gettemplate()-1;
+        LBLdamchargestemplate = new QLabel(QString(tr("Template (%2): "))
+                        .arg(molecules->at(i)->getname()));
+    }
+    else{
+        LBLdamchargestemplate = new QLabel(tr("Template charges"));
+    }
+
+    BTNeditchargestemplate = new QPushButton();
+    BTNeditchargestemplate->setText(tr("Edit"));
+    connect(BTNeditchargestemplate, SIGNAL(clicked()), this, SLOT(editchargestemplate()));
+    BTNimportchargestemplate = new QPushButton();
+    BTNimportchargestemplate->setText(tr("Import"));
+    BTNimportchargestemplate->setToolTip(tr("Import charges form file"));
+    connect(BTNimportchargestemplate, SIGNAL(clicked()), this, SLOT(importchargestemplate()));
+
+
+    openbabelinstalled = false;
+    obabelcharges = false;
+    obabelindex = 0;
+    RBTusercharges = new QRadioButton(tr("User supplied"),FRMcharges);
+    RBTusercharges->setCheckable(true);
+    RBTusercharges->setChecked(!obabelcharges);
+    connections << connect(RBTusercharges,SIGNAL(toggled(bool)),this,SLOT(RBTcharges_changed()));
+
+    RBTobabelcharges = new QRadioButton(tr("Open Babel"),FRMcharges);
+    RBTobabelcharges->setCheckable(true);
+    RBTobabelcharges->setChecked(obabelcharges);
+    connections << connect(RBTobabelcharges,SIGNAL(toggled(bool)),this,SLOT(RBTcharges_changed()));
+
+    CMBobcharges = new QComboBox();
+    CMBobcharges->setVisible(false);
+    connections << connect(CMBobcharges,SIGNAL(currentIndexChanged(int)),this,SLOT(CMBobcharges_changed(int)));
+    LBLobcharges = new QLabel(tr("Model charges"));
+    LBLobcharges->setVisible(false);
+
     // Buttons for choosing interpolation type are maitained here for possible debugging,
     // but actually they are not displayed nor used
 //    FRMinterpol = new QGroupBox();
@@ -141,7 +231,7 @@ mespimizer::mespimizer(QWidget *parent) : QWidget()
     connections << connect(BTNmespath, SIGNAL(clicked()), this, SLOT(mespath_dialog()));
 
     TXTclusterfile = new QLineEdit("cluster");
-    connections << connect(TXTclusterfile, SIGNAL(textChanged(const QString &)), this, SLOT(TXTclusterfile_changed()));
+    connections << connect(TXTclusterfile,SIGNAL(textChanged(const QString &)),this,SLOT(TXTclusterfile_changed()));
 
 
     BTNmespimize = new QPushButton(QIcon(":/images/exec.png"), tr("Exec"));
@@ -151,7 +241,7 @@ mespimizer::mespimizer(QWidget *parent) : QWidget()
     FRManimation = new QGroupBox(tr("Animation"));
 
     TXTframesfile = new QLineEdit("");
-    connections << connect(TXTframesfile, SIGNAL(textChanged(const QString &)), this, SLOT(TXTframesfile_changed()));
+    connections << connect(TXTframesfile,SIGNAL(textChanged(const QString &)),this,SLOT(TXTframesfile_changed()));
 
     BTNframefile = new QToolButton();
     BTNframefile->setText(tr("..."));
@@ -233,18 +323,18 @@ mespimizer::mespimizer(QWidget *parent) : QWidget()
     RBTkcalmol->setChecked(true);
     connections << connect(RBTkcalmol,SIGNAL(toggled(bool)),this,SLOT(RBThartree_changed()));
 
-    emit hartree_units(false);
+//    emit hartree_units(false);
 
-    emit energyprecision_changed(SPBenergyprecision->value());
+//    emit energyprecision_changed(SPBenergyprecision->value());
 
-    emit displayepic_changed(CHKdisplayepic->isChecked());
+//    emit displayepic_changed(CHKdisplayepic->isChecked());
 
     BTNqm = new QPushButton(tr("Quantum mechanics"));
     BTNqm->setToolTip(tr("Open template for quantum mechanics calculation"));
     connections << connect(BTNqm, SIGNAL(clicked()), this, SLOT(external_package()));
 
     create_optimize_cluster_layouts();  // Optimize cluster layouts
-    adjustSize();
+//    adjustSize();
 }
 
 mespimizer::~mespimizer()
@@ -253,6 +343,70 @@ mespimizer::~mespimizer()
         QObject::disconnect(connections.at(i));
     }
     connections.clear();
+}
+
+
+bool mespimizer::checkobabelinstall(){
+    if (RBTobabelcharges->isChecked() && !openbabelinstalled){
+        int result = system("obabel -V");
+        if (result != 0){
+            QMessageBox::warning(this, tr("MESPIMIZER"),tr("To use this option, Open Babel must be available."
+                    "\nCheck that it is installed in your system,"
+                    "\nand modify the PATH if necessary to make it accesible "));
+            return false;
+        }
+        else{
+            QProcess process;
+#if defined(Q_OS_WIN)
+            process.start("obabel -L charges");
+#else
+            process.start("sh");
+            process.write("obabel -L charges");
+#endif
+            process.closeWriteChannel();
+            process.waitForFinished(-1); // will wait forever until finished
+            QByteArray outprocess = process.readAll();
+            process.close();
+//            qDebug() << "outprocess " << outprocess;
+            QTextCodec *codec = QTextCodec::codecForName("UTF-8");
+            QString string = codec->toUnicode(outprocess);
+//            qDebug() << "string " << string;
+#if QT_VERSION < 0x050E00
+            QStringList fields = string.split('\n',QString::SkipEmptyParts);
+#else
+            QStringList fields = string.split('\n',Qt::SkipEmptyParts);
+#endif
+//            qDebug() << "fields " << fields;
+            for (int i = 0 ; i < fields.length() ; i++){
+#if QT_VERSION < 0x050E00
+                QStringList fields2 = fields.at(i).split(' ',QString::SkipEmptyParts);
+#else
+                QStringList fields2 = fields.at(i).split(' ',Qt::SkipEmptyParts);
+#endif
+                if (fields2.at(0).contains("none"))
+                    continue;
+                obcharges << fields2.at(0);
+//                qDebug() << "cargas " << i << " = " << obcharges.last();
+            }
+            if (result != 0){
+                QMessageBox::warning(this, tr("MESPIMIZER"),tr("No charge model available in Open Babel."
+                        "\nRun obabel -L charges in a console to check it."));
+                return false;
+            }
+            else{
+                openbabelinstalled = true;
+                for (int i = 0 ; i < obcharges.length() ; i++){
+                    CMBobcharges->addItem(obcharges.at(i));
+                }
+                CMBobcharges->setVisible(true);
+                LBLobcharges->setVisible(true);
+                return true;
+            }
+
+
+        }
+    }
+    return openbabelinstalled;
 }
 
 //  Function create_mespimizer_input: creates input file for cluster optimization
@@ -286,7 +440,13 @@ bool mespimizer::create_mespimizer_input(){
         buff.append(QString("preprocfile=\"cluster_geometry.xyz\"\n").toLatin1());
     }
     buff.append(QString("clustername=\"%1\"\n").arg(TXTclusterfile->text().trimmed()).toLatin1());
-    buff.append(QString("nocharge=.true.\n").toLatin1());
+    if (RBTobabelcharges->isChecked()){
+        buff.append(QString("nocharge=.true.\n").toLatin1());
+        buff.append(QString("chargemodel=\"%1\"\n").arg(CMBobcharges->currentText()));
+    }
+    else{
+        buff.append(QString("nocharge=.false.\n").toLatin1());
+    }
     buff.append(QString("tssize=%1\n").arg(SPBtssize->value()).toLatin1());
     buff.append(QString("rssize=%1\n").arg(SPBrssize->value()).toLatin1());
     buff.append(QString("maxiter=%1\n").arg(SPBiterations->value()).toLatin1());
@@ -403,6 +563,7 @@ bool mespimizer::create_preprocfile(){
     QTextStream outfile(&fileout); // Buffer for writing to fileout
     QByteArray buff;
     Elements *elem = new Elements();
+    bool noavailablecharges = true;
 //  molecules[0] is host and it is not included in preprocfile
     for (int i = 1 ; i < molecules->length() ; i++){
         buff.append(QString("%1\n").arg(molecules->at(i)->getnumatoms()).toLatin1());
@@ -418,10 +579,32 @@ bool mespimizer::create_preprocfile(){
         m.translate(-molecules->at(0)->gettranslation());
         m.translate(molecules->at(i)->gettranslation());
         m.rotate(molecules->at(i)->getrotation());
-        for (int j = 0 ; j < molecules->at(i)->getnumatoms() ; j++){
-            QVector3D p = m*(xyz[j]-QVector3D(0.,0.,molecules->at(i)->getz_trans_ini()));
-            buff.append(QString("%1  %2  %3  %4\n").arg(elem->getSymbol(znuc[j])).arg(p[0]*BOHR_TO_ANGSTROM,2,'E',8)
-                    .arg(p[1]*BOHR_TO_ANGSTROM,0,'E',8).arg(p[2]*BOHR_TO_ANGSTROM,0,'E',8));
+        if (RBTobabelcharges->isChecked()){
+            for (int j = 0 ; j < molecules->at(i)->getnumatoms() ; j++){
+                QVector3D p = m*(xyz[j]-QVector3D(0.,0.,molecules->at(i)->getz_trans_ini()));
+                buff.append(QString("%1  %2  %3  %4\n").arg(elem->getSymbol(znuc[j])).arg(p[0]*BOHR_TO_ANGSTROM,2,'E',8)
+                        .arg(p[1]*BOHR_TO_ANGSTROM,0,'E',8).arg(p[2]*BOHR_TO_ANGSTROM,0,'E',8));
+            }
+            noavailablecharges = false;
+        }
+        else{
+            double chrg;
+            for (int j = 0 ; j < molecules->at(i)->getnumatoms() ; j++){
+                chrg = chargescanvas->at(i)->at(j);
+                QVector3D p = m*(xyz[j]-QVector3D(0.,0.,molecules->at(i)->getz_trans_ini()));
+                buff.append(QString("%1  %2  %3  %4 %5\n").arg(elem->getSymbol(znuc[j]))
+                        .arg(p[0]*BOHR_TO_ANGSTROM,2,'E',8)
+                        .arg(p[1]*BOHR_TO_ANGSTROM,0,'E',8)
+                        .arg(p[2]*BOHR_TO_ANGSTROM,0,'E',8)
+                        .arg(chrg));
+                if (noavailablecharges && qAbs(chrg) > 1.e-5) noavailablecharges = false;
+            }
+            if (noavailablecharges){
+                QMessageBox::warning(this, tr("MESPIMIZER"),
+                    tr("Making preproc file:\ncharges on atoms of guest molecule # %1 are all zero").arg(i));
+                delete elem;
+                return false;
+            }
         }
     }
 
@@ -440,6 +623,11 @@ bool mespimizer::create_preprocfile(){
 //
 
 bool mespimizer::create_templatefile(){
+    if (molecules->length() > 2){
+        QMessageBox::warning(this, tr("MESPIMIZER"),tr("To create a cluster from a template, two molecules must appear in the canvas at most\n"
+            "Remove extra molecules and try again."));
+        return false;
+    }
     if (gethost() == gettemplate()){
         QMessageBox msgBox;
         int host = gethost();
@@ -479,10 +667,23 @@ bool mespimizer::create_templatefile(){
     QVector <QVector3D> xyz;
     znuc =  molecules->at(temp-1)->getcharges();
     xyz = molecules->at(temp-1)->getxyz();
+    double chrg;
+    bool noavailablecharges = true;
     for (int j = 0 ; j < molecules->at(temp-1)->getnumatoms() ; j++){
         QVector3D p = xyz[j];
-        buff.append(QString("%1  %2  %3  %4\n").arg(elem->getSymbol(znuc[j])).arg(p[0]*BOHR_TO_ANGSTROM,2,'E',8)
-                .arg(p[1]*BOHR_TO_ANGSTROM,0,'E',8).arg(p[2]*BOHR_TO_ANGSTROM,0,'E',8).toLatin1());
+        chrg = chargescanvas->at(temp-1)->at(j);
+        buff.append(QString("%1  %2  %3  %4  %5\n").arg(elem->getSymbol(znuc[j]))
+                .arg(p[0]*BOHR_TO_ANGSTROM,2,'E',8)
+                .arg(p[1]*BOHR_TO_ANGSTROM,0,'E',8)
+                .arg(p[2]*BOHR_TO_ANGSTROM,0,'E',8)
+                .arg(chrg));
+        if (noavailablecharges && qAbs(chrg) > 1.e-5) noavailablecharges = false;
+    }
+    if (noavailablecharges && !RBTobabelcharges->isChecked()){
+        QMessageBox::warning(this, tr("MESPIMIZER"),
+            tr("Making template file:\ncharges on atoms of template molecule # %1 are all zero").arg(temp-1));
+        delete elem;
+        return false;
     }
 #if QT_VERSION < 0x050E00
     outfile << buff << endl;
@@ -578,8 +779,11 @@ void mespimizer::BTNfontcolor_clicked(){
 //
 
 void mespimizer::BTNmespimize_clicked(){
-    if (molecules->length() > 0 && molecules->last()->getiscluster())
-        emit deletecluster();
+    if (molecules->length() > 0 && molecules->last()->getiscluster()){
+        QMessageBox::warning(this, tr("MESPIMIZER"),
+                    tr("You must delete the existing cluster to make a new optimization"));
+        return;
+    }
     QString mespimizerpath =  TXTmespimizerpath->text();
     if (mespimizerpath.isEmpty()){
         mespimizerpath = molecules->at(SPBhost->value()-1)->getpath();
@@ -610,6 +814,8 @@ void mespimizer::BTNmespimize_clicked(){
         return;
     }
     BTNmespimize->setEnabled(false);
+    obabelindex = CMBobcharges->currentIndex();
+    emit obabelindex_changed(obabelindex);
     emit exec_mespimizer();
 }
 
@@ -622,6 +828,11 @@ void mespimizer::BTNreplay_clicked(){
 
 void mespimizer::BTNreset_clicked(){
     emit reset(TXTframesfile->text().trimmed());
+}
+
+void mespimizer::CMBobcharges_changed(int i){
+    obabelindex = i;
+    emit obabelindex_changed(obabelindex);
 }
 
 void mespimizer::CHKdisplayepic_changed(){
@@ -660,16 +871,11 @@ void mespimizer::CHKrecordoptim_changed(){
 
 void mespimizer::create_optimize_cluster_layouts(){
 
-    LBLhostindex = new QLabel(tr("Host: "));
-    LBLhostname = new QLabel();
-    LBLinterpol = new QLabel(tr("Interpolation points: "));
-    LBLtemplateindex = new QLabel(tr("Template: "));
-    LBLtemplateindex->setVisible(false);
-    LBLtemplatename = new QLabel();
     LBLtemplatename->setVisible(false);
 
     QLabel *LBLmespimizerpath = new QLabel(tr("Folder: "));
     QLabel *LBLclusterfile = new QLabel(tr("File: "));
+
 
     QHBoxLayout *layout1a = new QHBoxLayout();
     layout1a->addWidget(LBLmespimizerpath);
@@ -689,28 +895,41 @@ void mespimizer::create_optimize_cluster_layouts(){
     layout3->addWidget(LBLhostname,0,1,Qt::AlignRight);
     layout3->addWidget(SPBhost,0,2,Qt::AlignRight);
 
-    QLabel *LBLtssize = new QLabel(tr("Translation stride (bohr): "));
-    QHBoxLayout *layout4a = new QHBoxLayout();
-    layout4a->addWidget(LBLtssize);
-    layout4a->addWidget(SPBtssize);
+    QHBoxLayout *layout50 = new QHBoxLayout(FRMtemplatecharges);
+    layout50->addWidget(LBLdamchargestemplate);
+    layout50->addWidget(BTNeditchargestemplate);
+    layout50->addWidget(BTNimportchargestemplate);
 
-    QLabel *LBLrssize = new QLabel(tr("Rotation stride (degrees): "));
-    QHBoxLayout *layout4b = new QHBoxLayout();
-    layout4b->addWidget(LBLrssize);
-    layout4b->addWidget(SPBrssize);
+    QGridLayout *layout51 = new QGridLayout();
+    for (int i = 0 ; i < BTNimportchargescanvas.length() ; i++){
+        layout51->addWidget(LBLdamchargescanvas.at(i),i,0,Qt::AlignLeft);
+        layout51->addWidget(BTNeditchargescanvas.at(i),i,1,Qt::AlignRight);
+        layout51->addWidget(BTNimportchargescanvas.at(i),i,2,Qt::AlignRight);
+    }
 
-    QLabel *LBLiterations = new QLabel(tr("Number of iterations: "));
-    QHBoxLayout *layout4c = new QHBoxLayout();
-    layout4c->addWidget(LBLiterations);
-    layout4c->addWidget(SPBiterations);
+    QHBoxLayout *layout52 = new QHBoxLayout();
+    layout52->addLayout(layout51);
+    layout52->addStretch();
+
+    QVBoxLayout *layout53 = new QVBoxLayout();
+    layout53->addWidget(LBLcanvascharges);
+    layout53->addLayout(layout52);
+
+    QHBoxLayout *layout54 = new QHBoxLayout();
+    layout54->addWidget(LBLobcharges);
+    layout54->addWidget(CMBobcharges);
+
+    QVBoxLayout *layout55 = new QVBoxLayout(FRMcharges);
+    layout55->addWidget(RBTusercharges);
+    layout55->addWidget(FRMtemplatecharges);
+    layout55->addLayout(layout53);
+    layout55->addWidget(RBTobabelcharges);
+    layout55->addLayout(layout54);
 
     QVBoxLayout *layout5 = new QVBoxLayout(FRMoptimizeopt);
     layout5->addLayout(layout3);
     layout5->addWidget(RBToptimizecanvas);
     layout5->addWidget(RBToptimizetemplate);
-    layout5->addLayout(layout4a);
-    layout5->addLayout(layout4b);
-    layout5->addLayout(layout4c);
 
     QGridLayout *layout6 = new QGridLayout(FRMtemplate);
     layout6->addWidget(CHKoptimizeselect,0,0,1,3,Qt::AlignLeft);
@@ -718,23 +937,43 @@ void mespimizer::create_optimize_cluster_layouts(){
     layout6->addWidget(LBLtemplatename,1,1,Qt::AlignRight);
     layout6->addWidget(SPBtemplate,1,2,Qt::AlignRight);
 
-    QHBoxLayout *layout7 = new QHBoxLayout();
-    layout7->addStretch();
-    layout7->addWidget(BTNmespimize,Qt::AlignCenter);
-    layout7->addStretch();
+    QHBoxLayout *layout8 = new QHBoxLayout();
+    layout8->addStretch();
+    layout8->addWidget(BTNmespimize,Qt::AlignCenter);
+    layout8->addStretch();
+
+    QLabel *LBLtssize = new QLabel(tr("Translation stride (bohr): "));
+    QHBoxLayout *layout7a = new QHBoxLayout();
+    layout7a->addWidget(LBLtssize);
+    layout7a->addWidget(SPBtssize);
+
+    QLabel *LBLrssize = new QLabel(tr("Rotation stride (degrees): "));
+    QHBoxLayout *layout7b = new QHBoxLayout();
+    layout7b->addWidget(LBLrssize);
+    layout7b->addWidget(SPBrssize);
+
+    QLabel *LBLiterations = new QLabel(tr("Number of iterations: "));
+    QHBoxLayout *layout7c = new QHBoxLayout();
+    layout7c->addWidget(LBLiterations);
+    layout7c->addWidget(SPBiterations);
+
+    QVBoxLayout *layout7 = new QVBoxLayout();
+    layout7->addLayout(layout7a);
+    layout7->addLayout(layout7b);
+    layout7->addLayout(layout7c);
 
     QLabel *LBLframefile = new QLabel(tr("File: "));
-    QHBoxLayout *layout8 = new QHBoxLayout();
-    layout8->addWidget(LBLframefile);
-    layout8->addWidget(TXTframesfile);
-    layout8->addWidget(BTNframefile);
+    QHBoxLayout *layout9 = new QHBoxLayout();
+    layout9->addWidget(LBLframefile);
+    layout9->addWidget(TXTframesfile);
+    layout9->addWidget(BTNframefile);
 
     QLabel *LBLfast = new QLabel(tr("Fast"));
     QLabel *LBLslow = new QLabel(tr("Slow"));
-    QHBoxLayout *layout9 = new QHBoxLayout();
-    layout9->addWidget(LBLslow);
-    layout9->addWidget(SLDspeed);
-    layout9->addWidget(LBLfast);
+    QHBoxLayout *layout10 = new QHBoxLayout();
+    layout10->addWidget(LBLslow);
+    layout10->addWidget(SLDspeed);
+    layout10->addWidget(LBLfast);
 
     QHBoxLayout *layout11 = new QHBoxLayout();
     layout11->addWidget(LBLinterpol);
@@ -782,8 +1021,8 @@ void mespimizer::create_optimize_cluster_layouts(){
     layout19->addLayout(layout18);
 
     QVBoxLayout *layout20 = new QVBoxLayout(FRManimation);
-    layout20->addLayout(layout8);
     layout20->addLayout(layout9);
+    layout20->addLayout(layout10);
     layout20->addLayout(layout11);
     layout20->addLayout(layout13);
     layout20->addWidget(FRMrecord);
@@ -823,7 +1062,9 @@ void mespimizer::create_optimize_cluster_layouts(){
     layout->addLayout(layout1);
     layout->addWidget(FRMoptimizeopt);
     layout->addWidget(FRMtemplate);
+    layout->addWidget(FRMcharges);
     layout->addLayout(layout7);
+    layout->addLayout(layout8);
     layout->addWidget(FRManimation);
     layout->addLayout(layout21);
     layout->addWidget(FRMenergy);
@@ -877,13 +1118,194 @@ void mespimizer::mespath_dialog()
 
 }
 
+void mespimizer::editchargestemplate(){
+    int indguest = gettemplate()-1;
+    chargescanvasDialog *DLGeditcharges = new chargescanvasDialog(chargescanvas->at(indguest),molecules->at(indguest),this);
+    DLGeditcharges->setWindowTitle(QString(tr("Template")).arg(indguest));
+    DLGeditcharges->setAttribute(Qt::WA_DeleteOnClose);
+    DLGeditcharges->setMinimumWidth(300);
+    DLGeditcharges->exec();
+}
+
+void mespimizer::editcharges(int indguest){
+    chargescanvasDialog *DLGeditcharges = new chargescanvasDialog(chargescanvas->at(indguest),molecules->at(indguest),this);
+    DLGeditcharges->setWindowTitle(QString(tr("Guest # %1")).arg(indguest));
+    DLGeditcharges->setAttribute(Qt::WA_DeleteOnClose);
+    DLGeditcharges->setMinimumWidth(300);
+    DLGeditcharges->exec();
+}
+
+void mespimizer::importcharges(int indmol){
+    QFileDialog filedialog(this);
+    filedialog.setWindowFlags(Qt::WindowStaysOnTopHint);
+    QString fileName = filedialog.getOpenFileName(this,tr("Open file ..."),TXTmespimizerpath->text(),
+            tr("DAM charges files")+" (*.mltmod );;"+tr("All files")+" (*)");
+    if (fileName.length()==0) return;
+//    qDebug() << "QFileInfo(fileName).suffix().trimmed() = " << QFileInfo(fileName).suffix().trimmed();
+    if (QFileInfo(fileName).suffix().trimmed() == "mltmod"){
+        importmltmod(fileName,indmol);
+    }
+    else{
+        importchargesfromfile(fileName,indmol);
+    }
+
+}
+
+void mespimizer::importchargesfromfile(QString fileName,int indmol){
+    QFile file(fileName);
+    if (!file.open(QFile::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, tr("MESPIMIZER"),
+            QString(tr("Cannot open file %1\n")).arg(fileName));
+        return;
+    }
+    QVector <double> *charges = new QVector <double>();
+    QTextStream in(&file);
+    QString line;
+    Elements *elem = new Elements();
+    QVector <int> znuc;
+    int temp = gettemplate();
+    znuc =  molecules->at(temp-1)->getcharges();
+    int i = 0;
+    while (!in.atEnd()){
+        line = in.readLine();
+#if QT_VERSION < 0x050E00
+        QStringList fields = line.split(' ',QString::SkipEmptyParts);
+#else
+        QStringList fields = line.split(' ',Qt::SkipEmptyParts);
+#endif
+        if (i >= znuc.length()){
+            delete elem;
+            delete charges;
+            return;
+        }
+        else if (fields[0] != elem->getSymbol(znuc[i]) ){
+            QMessageBox::warning(this, tr("MESPIMIZER"),QString(tr("File %1\n"
+                "does not contain suitable charges for guest template.\n"
+                "Symbol for atom #%2: in molecule: %3, in file: %4"))
+                .arg(fileName).arg(i).arg(fields[0]).arg(elem->getSymbol(znuc[i])));
+            delete elem;
+            delete charges;
+            return;
+        }
+        else{
+            charges->append(fields[1].toDouble());
+            i++;
+        }
+    }
+//    chargescanvas->replace(indmol,charges);
+    replacechargescanvas(indmol,charges);
+    delete elem;
+}
+
+void mespimizer::importmltmod(QString fileName,int indmol){
+    double sqrt2i = 0.707106781187;  // This conversion factor is necessary because charges are multiplied by sqrt(2) in mltmod files
+    QFile file(fileName);
+    if (!file.open(QFile::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, tr("MESPIMIZER"),
+            QString(tr("Cannot open file %1\n")).arg(fileName));
+        return;
+    }
+    QVector <double> *charges = new QVector <double>();
+    QTextStream in(&file);
+    QString line;
+    Elements *elem = new Elements();
+    QVector <int> znuc;
+    int temp = gettemplate();
+    znuc =  molecules->at(temp-1)->getcharges();
+    int i = 0;
+    while (!in.atEnd()){
+        line = in.readLine();
+#if QT_VERSION < 0x050E00
+        QStringList fields = line.split(' ',QString::SkipEmptyParts);
+#else
+        QStringList fields = line.split(' ',Qt::SkipEmptyParts);
+#endif
+        if (i >= znuc.length()){
+            delete elem;
+            delete charges;
+            return;
+        }
+        else if (fields[0] != elem->getSymbol(znuc[i]) ){
+            QMessageBox::warning(this, tr("MESPIMIZER"),QString(tr("File %1\n"
+                "does not contain suitable charges for guest template.\n"
+                "Symbol for atom #%2: in molecule: %3, in file %4"))
+                .arg(fileName).arg(i).arg(fields[0]).arg(elem->getSymbol(znuc[i])));
+            delete elem;
+            delete charges;
+            return;
+        }
+        else{
+            charges->append(double(znuc[i])-fields[2].toDouble() * sqrt2i);
+            i++;
+        }
+    }
+    replacechargescanvas(indmol,charges);
+    delete elem;
+}
+
+void mespimizer::replacechargescanvas(int indmol, QVector<double> *charges){
+    chargescanvas->replace(indmol,charges);
+}
+
+void mespimizer::importchargestemplate(){
+    int temp = gettemplate()-1;
+    importcharges(temp);
+
+
+//    double sqrt2i = 0.707106781187;
+//    QFileDialog filedialog(this);
+//    filedialog.setWindowFlags(Qt::WindowStaysOnTopHint);
+//    QString fileName = filedialog.getOpenFileName(this,tr("Open file ..."),TXTmespimizerpath->text(),
+//                    tr("DAM charges files")+" (*.mltmod );;");
+//    if (fileName.length()==0) return;
+//    QFile file(fileName);
+//    if (!file.open(QFile::ReadOnly | QFile::Text)) {
+//        return;
+//    }
+//    QTextStream in(&file);
+//    QString line;
+//    Elements *elem = new Elements();
+//    QVector <int> znuc;
+//    int temp = gettemplate();
+//    znuc =  molecules->at(temp-1)->getcharges();
+//    int i = 0;
+//    while (!in.atEnd()){
+//        line = in.readLine();
+//#if QT_VERSION < 0x050E00
+//        QStringList fields = line.split(' ',QString::SkipEmptyParts);
+//#else
+//        QStringList fields = line.split(' ',Qt::SkipEmptyParts);
+//#endif
+//        if (i >= znuc.length()){
+//            delete elem;
+//            return;
+//        }
+//        else if (fields[0] != elem->getSymbol(znuc[i]) ){
+//            QMessageBox::warning(this, tr("MESPIMIZER"),QString(tr("File %1\n"
+//                "does not contain suitable charges for guest template.\n"
+//                "Symbol for atom #%2: in molecule: %3, in file %4"))
+//                .arg(fileName).arg(i).arg(fields[0]).arg(elem->getSymbol(znuc[i])));
+//            chargestemplate.clear();
+//            return;
+//        }
+//        else{
+//            chargestemplate << double(znuc[i])-fields[2].toDouble() * sqrt2i;
+//            i++;
+//        }
+
+//    }
+////    qDebug() << "chargestemplate = " << chargestemplate;
+//    delete elem;
+}
+
+
+
 void mespimizer::importRecordDir(){
     QFileDialog filedialog(this);
     filedialog.setWindowFlags(Qt::WindowStaysOnTopHint);
     QString recordir = filedialog.getExistingDirectory(this, tr("Open Directory"),
-                                                    QFileInfo(TXTrecordir->text()).absolutePath(),
-                                                    QFileDialog::ShowDirsOnly
-                                                    | QFileDialog::DontResolveSymlinks);
+            QFileInfo(TXTrecordir->text()).absolutePath(),
+            QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     TXTrecordir->setText(recordir);
     QString recordfilename = TXTrecordir->text().trimmed()+"/"+TXTrecordfile->text().trimmed();
     emit recordfilenamechanged(recordfilename);
@@ -899,25 +1321,44 @@ void mespimizer::RBThartree_changed(){
     emit hartree_units(RBThartree->isChecked());
 }
 
-void mespimizer::RBToptimizecanvas_changed(){
-    guestfromcanvas = RBToptimizecanvas->isChecked();
-    emit optimizecanvas_changed(guestfromcanvas);
+void mespimizer::canvaschargesvisible(bool a){
+    LBLcanvascharges->setVisible(a);
+    for (int i = 0 ; i < BTNimportchargescanvas.length() ; i++){
+        LBLdamchargescanvas.at(i)->setVisible(a);
+        BTNeditchargescanvas.at(i)->setVisible(a);
+        BTNimportchargescanvas.at(i)->setVisible(a);
+    }
 }
 
 void mespimizer::RBToptimizetemplate_changed()
 {
     if (!RBToptimizetemplate->isChecked()){
+        FRMtemplatecharges->setVisible(false);
         LBLtemplateindex->setVisible(false);
         LBLtemplatename->setVisible(false);
         SPBtemplate->setVisible(false);
         FRMtemplate->setVisible(false);
+        if (RBTusercharges->isChecked()){
+            canvaschargesvisible(true);
+        }
+        else{
+            canvaschargesvisible(false);
+        }
         CHKoptimizeselect->setVisible(false);
         SPBhost->setValue(1);
         SPBhost->setEnabled(false);
     }
     else{
+        if (RBTusercharges->isChecked()){
+            FRMtemplatecharges->setVisible(true);
+        }
+        else{
+            FRMtemplatecharges->setVisible(false);
+        }
+        canvaschargesvisible(false);
         if (molecules->length() == 0){
             QMessageBox::warning(this, tr("MESPIMIZER"),tr("At least one molecule must be loaded"));
+            RBToptimizecanvas->setChecked(true);
             return;
         }
         LBLtemplateindex->setVisible(true);
@@ -934,6 +1375,43 @@ void mespimizer::RBToptimizetemplate_changed()
     }
     emit adjustQDL();
     emit movetotop();
+    guestfromcanvas = RBToptimizecanvas->isChecked();
+    emit optimizecanvas_changed(guestfromcanvas);
+}
+
+void mespimizer::RBTcharges_changed(){
+    if (RBTusercharges->isChecked()){
+        if (RBToptimizetemplate->isChecked()){
+            FRMtemplatecharges->setVisible(true);
+            canvaschargesvisible(false);
+        }
+        else{
+            FRMtemplatecharges->setVisible(false);
+            canvaschargesvisible(true);
+        }
+        CMBobcharges->setVisible(false);
+        LBLobcharges->setVisible(false);
+        obabelcharges = false;
+    }
+    else{
+        if (!openbabelinstalled){
+            openbabelinstalled = checkobabelinstall();
+        }
+        if (openbabelinstalled){
+            FRMtemplatecharges->setVisible(false);
+            CMBobcharges->setVisible(true);
+            LBLobcharges->setVisible(true);
+            canvaschargesvisible(false);
+            obabelcharges = true;
+        }
+        else{
+            RBTusercharges->setChecked(true);
+            RBTobabelcharges->setChecked(false);
+        }
+    }
+    emit adjustQDL();
+    emit movetotop();
+    emit obabelcharges_changed(RBTobabelcharges->isChecked());
 }
 
 void mespimizer::endmakingmovie(){
@@ -962,6 +1440,20 @@ void mespimizer::setBTNreset(bool a){
 
 void mespimizer::setCHKrecordoptim(bool a){
     CHKrecordoptim->setChecked(a);
+}
+
+void mespimizer::setchargescanvas(QVector < QVector <double> *> *chrcv){
+    chargescanvas = chrcv;
+
+    QVector <double> *charges = new QVector <double>();
+    for (int i = chargescanvas->length() ; i < molecules->length() ; i++){
+        charges->clear();
+        for (int j = 0 ; j < molecules->at(i)->getnumatoms() ; j++){
+            charges->append(0.);
+        }
+        chargescanvas->append(charges);
+    }
+    delete charges;
 }
 
 void mespimizer::setclustername(QString a){
@@ -1004,9 +1496,10 @@ void mespimizer::setframesfile(QString a){
     TXTframesfile->setText(a);
 }
 
-void mespimizer::setguessfromcanvas(bool a){
+void mespimizer::setguestfromcanvas(bool a){
     guestfromcanvas = a;
     RBToptimizecanvas->setChecked(a);
+    RBToptimizetemplate->setChecked(!a);
     update();
 }
 
@@ -1024,6 +1517,22 @@ void mespimizer::setmespimizerpath(QString a){
 
 void mespimizer::setmolecules(QList<molecule*> *a){
     molecules = a;
+    adjustSize();
+}
+
+void mespimizer::setobabelcharges(bool a){
+    obabelcharges = a;
+    RBTusercharges->setChecked(!a);
+    RBTobabelcharges->setChecked(a);
+    if (obabelcharges && obabelindex < CMBobcharges->count()){
+        CMBobcharges->setCurrentIndex(obabelindex);
+    }
+    update();
+}
+
+void mespimizer::setobabelindex(int i){
+    obabelindex = i;
+    update();
 }
 
 void mespimizer::setspeed(int i){
@@ -1112,5 +1621,107 @@ void mespimizer::TXTframesfile_changed(){
         BTNreplay->setEnabled(false);
     }
     emit framesfile_changed(TXTframesfile->text());
+}
+
+
+/*******************************************************************************************************/
+/********************************  Class chargescanvasDialog  implementation  **************************/
+/*******************************************************************************************************/
+
+chargescanvasDialog::chargescanvasDialog(QVector <double> *guestcharges, molecule *mol, QWidget *parent){
+    charges = *guestcharges;
+    chargespntr = guestcharges;
+    if (charges.length() < 1)
+        return;
+    Elements *elem = new Elements();
+    QVector <int> znuc;
+    znuc =  mol->getcharges();
+
+    QPushButton *BTNaccept = new QPushButton();
+    BTNaccept->setText(tr("Accept"));
+    connections << connect(BTNaccept,SIGNAL(clicked()),this,SLOT(BTNaccept_pressed()));
+    QPushButton *BTNcancel = new QPushButton();
+    BTNcancel->setText(tr("Cancel"));
+    connections << connect(BTNcancel,SIGNAL(clicked()),this,SLOT(BTNcancel_pressed()));
+
+
+    QGroupBox *FRMeditcharges = new QGroupBox();
+    FRMeditcharges->setMinimumWidth(300);
+
+    QLabel *title = new QLabel();
+    title->setText(QString("<span style=\" color:#ff0000;\">%1 %2</span>")
+                   .arg(tr("Atom charges of ")).arg(mol->getname()));
+
+    QHBoxLayout *layout0 = new QHBoxLayout();
+    layout0->addWidget(title,Qt::AlignHCenter);
+
+    QDoubleValidator *myDoubleValidator = new QDoubleValidator(nullpointer);
+    myDoubleValidator->setLocale(QLocale::English);
+
+    QSignalMapper* chargesignalMapper = new QSignalMapper (this) ;
+    QGridLayout *layout1 = new QGridLayout();
+    for (int i = 0 ; i < charges.length() ; i++){
+        QLabel *atom = new QLabel(elem->getSymbol(znuc[i]));
+        QLabel *ipos = new QLabel(QString("%1:").arg(i));
+        QLineEdit *TXTcharge = new QLineEdit();
+        TXTcharge->setText(QString("%1").arg(charges.at(i)));
+        TXTcharge->setValidator(myDoubleValidator);
+        connections << connect(TXTcharge, SIGNAL(textChanged(const QString &)), this,
+                SLOT(charge_changed(QString)), Qt::UniqueConnection);
+        connections << connect(TXTcharge, SIGNAL(textChanged(const QString &)), chargesignalMapper,
+                SLOT(map()), Qt::UniqueConnection);
+        chargesignalMapper -> setMapping(TXTcharge,i);
+        layout1->addWidget(atom,i,0,Qt::AlignLeft);
+        layout1->addWidget(ipos,i,1,Qt::AlignLeft);
+        layout1->addWidget(TXTcharge,i,2,Qt::AlignRight);
+    }
+    connections << connect (chargesignalMapper, SIGNAL(mapped(int)), this,
+                    SLOT(updatecharges(int)), Qt::UniqueConnection) ;
+
+    QHBoxLayout *layout2 = new QHBoxLayout();
+    layout2->addStretch();
+    layout2->addLayout(layout1);
+    layout2->addStretch();
+
+    QHBoxLayout *layout3 = new QHBoxLayout();
+    layout3->addStretch();
+    layout3->addWidget(BTNaccept);
+    layout3->addWidget(BTNcancel);
+    layout3->addStretch();
+
+    QVBoxLayout *layout = new QVBoxLayout(FRMeditcharges);
+    layout->addLayout(layout0);
+    layout->addSpacing(2);
+    layout->addLayout(layout2);
+    layout->addLayout(layout3);
+
+    this->setLayout(layout);
+
+    delete elem;
+}
+
+chargescanvasDialog::~chargescanvasDialog(){
+    for (int i = 0 ; i < connections.size() ; i++){
+        QObject::disconnect(connections.at(i));
+    }
+}
+
+void chargescanvasDialog::BTNaccept_pressed(){
+    for (int i = 0 ; i < charges.length() ; i++){
+        chargespntr->replace(i,charges.at(i));
+    }
+    close();
+}
+
+void chargescanvasDialog::BTNcancel_pressed(){
+    close();
+}
+
+void chargescanvasDialog::charge_changed(QString str){
+    currentcharge = str.trimmed();
+}
+
+void chargescanvasDialog::updatecharges(int i){
+    charges.replace(i,currentcharge.toDouble());
 }
 

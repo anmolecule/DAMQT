@@ -10,15 +10,15 @@
 #define INI_DataDirKey "DataDirectory"
 
 ; IMPORTANT !!! Check that the following variables are pointing to the right addresses (See sources below for details)
-#define DAM320_DIR "D:\rafa\DAMQT_3.2.0_Release\src\DAM320"  
-#define DAMZERNIKE_DIR "D:\rafa\DAMQT_3.2.0_Release\src\DAMZernike320"
-#define DAMGUI320_DIR "D:\rafa\DAMQT_3.2.0_Release\src\DAMGUI320"
-#define IMAGES_DIR "D:\rafa\DAMQT_3.2.0\src\DAMGUI320\images"
-#define INTERFACES_DIR "D:\rafa\DAMQT_3.2.0_Release\src\interfaces_320" 
-;#define INTERFACES_PYTHON_DIR "D:\rafa\DAMQT_3.2.0\src\interfaces_320"
+#define DAM320_DIR "C:\Users\RL.5013659\DAMQT_Release\src\DAM320"  
+#define DAMZERNIKE_DIR "C:\Users\RL.5013659\DAMQT_Release\src\DAMZernike320"
+#define DAMGUI320_DIR "C:\Users\RL.5013659\DAMQT_Release\src\DAMGUI320"
+#define IMAGES_DIR "C:\Users\RL.5013659\DAMQT\src\DAMGUI320\images"
+#define INTERFACES_DIR "C:\Users\RL.5013659\DAMQT_Release\src\interfaces_320" 
+;#define INTERFACES_PYTHON_DIR "C:\Users\RL.5013659\DAMQT\src\interfaces_320"
 #define LIB_FORTRAN_DIR "C:\Qt\Tools\mingw730_64\bin"
-#define LICENSE_DIR "D:\rafa\DAMQT_3.2.0\license"
-#define MANUAL_DIR "D:\rafa\DAMQT_3.2.0\doc\manual"
+#define LICENSE_DIR "C:\Users\RL.5013659\DAMQT\license"
+#define MANUAL_DIR "C:\Users\RL.5013659\DAMQT\doc\manual"
 #define MINGW_DLL_DIR "C:\msys64\mingw64\bin"
 #define MINGW_LIB_DIR "C:\msys64\mingw64\lib"
 ;#define OPENBABEL_DIR "C:\Program Files\OpenBabel-3.1.1"
@@ -28,9 +28,9 @@
 ;#define MSYS64_DLL_DIR "C:\msys64\usr\bin"
 ;#define PYTHON_DIR "C:\msys64\usr\bin"
 ;#define PYTHON_LIB_DIR "C:\msys64\mingw64\bin\"
-#define OUTPUT_DIR "D:\rafa\DAMQT_3.2.0\windows"
-#define SAMPLES_DIR "D:\rafa\DAMQT_3.2.0\samples"
-#define TDAM320_DIR "D:\rafa\DAMQT_3.2.0_Release\src\TDAM320"
+#define OUTPUT_DIR "C:\Users\RL.5013659\DAMQT\windows"
+#define SAMPLES_DIR "C:\Users\RL.5013659\DAMQT\samples"
+#define TDAM320_DIR "C:\Users\RL.5013659\DAMQT_Release\src\TDAM320"
 #define QT_BIN_DIR "C:\msys64\mingw64\bin"
 #define QT_LIB_DIR "C:\msys64\mingw64\lib"
 #define QT_PLATFORMS_DIR "C:\msys64\mingw64\share\qt5\plugins\platforms"
@@ -43,7 +43,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId= {{A8FCC082-8A5B-48E6-B046-B433D697149C}
+AppId= {{B1BD0A2B-40F0-4586-8CA2-852A4F491154}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -69,17 +69,17 @@ Name: "dutch"; MessagesFile: "compiler:Languages\Dutch.isl"
 Name: "finnish"; MessagesFile: "compiler:Languages\Finnish.isl"
 Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "german"; MessagesFile: "compiler:Languages\German.isl"
-Name: "greek"; MessagesFile: "compiler:Languages\Greek.isl"
-Name: "hebrew"; MessagesFile: "compiler:Languages\Hebrew.isl"
-Name: "hungarian"; MessagesFile: "compiler:Languages\Hungarian.isl"
+;Name: "greek"; MessagesFile: "compiler:Languages\Greek.isl"
+;Name: "hebrew"; MessagesFile: "compiler:Languages\Hebrew.isl"
+;Name: "hungarian"; MessagesFile: "compiler:Languages\Hungarian.isl"
 Name: "italian"; MessagesFile: "compiler:Languages\Italian.isl"
 Name: "japanese"; MessagesFile: "compiler:Languages\Japanese.isl"
 Name: "norwegian"; MessagesFile: "compiler:Languages\Norwegian.isl"
 Name: "polish"; MessagesFile: "compiler:Languages\Polish.isl"
 Name: "portuguese"; MessagesFile: "compiler:Languages\Portuguese.isl"
 Name: "russian"; MessagesFile: "compiler:Languages\Russian.isl"
-Name: "serbiancyrillic"; MessagesFile: "compiler:Languages\SerbianCyrillic.isl"
-Name: "serbianlatin"; MessagesFile: "compiler:Languages\SerbianLatin.isl"
+;Name: "serbiancyrillic"; MessagesFile: "compiler:Languages\SerbianCyrillic.isl"
+;Name: "serbianlatin"; MessagesFile: "compiler:Languages\SerbianLatin.isl"
 Name: "slovenian"; MessagesFile: "compiler:Languages\Slovenian.isl"
 Name: "ukrainian"; MessagesFile: "compiler:Languages\Ukrainian.isl"
 
@@ -156,14 +156,15 @@ Source: "{#MINGW_DLL_DIR}\libharfbuzz-0.dll"; DestDir: "{app}"; Flags: ignorever
 Source: "{#MINGW_DLL_DIR}\libbrotlicommon.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libbrotlidec.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libiconv-2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MINGW_DLL_DIR}\libicudt68.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MINGW_DLL_DIR}\libicuin68.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MINGW_DLL_DIR}\libicuuc68.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libicudt69.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libicuin69.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libicuuc69.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libintl-8.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libpcre-1.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libpcre16-0.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libpcre2-16-0.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libpng16-16.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libmd4c.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 Source: "{#MINGW_DLL_DIR}\libquadmath-0.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libstdc++-6.dll"; DestDir: "{app}"; Flags: ignoreversion

@@ -69,7 +69,7 @@
 #include "widgetsubclasses.h"
 
 #define ANGSTROM_TO_BOHR 1.889725989
-//#define BOHR_TO_ANGSTROM 0.529177249
+//#define BOHR_TO_A        QVector <double> charges;NGSTROM 0.529177249
 //#define INIT_BOND_THRESHOLD 1.2
 #define MAX_FRAMES 1000
 #define MAX_INTERVAL 220.
@@ -244,6 +244,8 @@ private slots:
     void exec_mespimizer();
     void framesfile_changed(QString);
     void interpol_changed(int);
+    void obabelcharges_changed(bool);
+    void obabelindex_changed(int);
     void optimizecanvas_changed(bool);
     void optimizeselect_changed(bool);
     void processError(QProcess::ProcessError);
@@ -285,6 +287,7 @@ private:
     bool guestfromcanvas;
     bool hartree;
     bool recordoptim;
+    bool obabelcharges;
     bool onlyselcp;
     bool optimvisible;
     bool scaleradii;
@@ -311,6 +314,7 @@ private:
     int kntframes;
     int ninterpol;
     int numframes;
+    int obabelindex;
     int templateindex;
     int speed;
     int windownumber;
@@ -409,7 +413,7 @@ private:
 
     QTimer *timer;
 
-
+    QVector < QVector <double> *> *chargescanvas;  // charges for EPIC optimization (mespimizer)
     QVector<QVector3D > xyz;                // Cartesian coordinates of centers
     QVector<QVector3D > xyzinit;            // Initial cartesian coordinates of centers for cluster optimization
     QVector<int> indmols;
@@ -438,7 +442,7 @@ class moleculeDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit moleculeDialog(QWidget *parent = 0);
+    explicit moleculeDialog(QList<molecule*> *, QWidget *parent = 0);
     ~moleculeDialog();
 
     axes *axesdialog;

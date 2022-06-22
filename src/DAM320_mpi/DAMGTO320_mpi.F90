@@ -116,7 +116,7 @@
             ioptaj = 2
         endif
 
-        leninamelist = 2
+        leninamelist = 3
         lenrnamelist = 2
         icfaux(1) = leninamelist
         icfaux(2) = lenrnamelist
@@ -175,7 +175,7 @@
     if (myrank .eq. 0 .and. longoutput) write(6,"('Size of inamelist   = ', i15, ' bytes')") size(inamelist)
     if (myrank .eq. 0 .and. longoutput) write(6,"('Size of rnamelist   = ', i15, ' bytes')") size(rnamelist)
     if (myrank .eq. 0)	then
-        inamelist(1:2) = (/ lmaxexp, ioptaj /)
+        inamelist(1:3) = (/ lmaxexp, ioptaj, lmultmx /)
         rnamelist(1) = umbral
         rnamelist(2) = umbralres
     endif
@@ -184,7 +184,7 @@
     if (myrank .ne. 0) then
         longoutput = lnamelist(1); iswindows = lnamelist(2); ltimeprocs = lnamelist(3)
         lvalence = lnamelist(4); lzdo = lnamelist(5)
-        lmaxexp = inamelist(1); ioptaj = inamelist(2)
+        lmaxexp = inamelist(1); ioptaj = inamelist(2); lmultmx = inamelist(3)
         umbral = rnamelist(1)
         umbralres = rnamelist(2)
     endif
@@ -1681,7 +1681,7 @@
                     enddo
                     rmultipmod(l) = sqrt(aux)
                 enddo
-                write(19,"(a, 2x, i5, 2x, 6(e22.15,1x))") atmnam(ia), ia, rmultipmod(0:lmultmx)
+                write(19,"(a, 2x, i5, 2x, 25(e22.15,1x))") atmnam(ia), ia, rmultipmod(0:lmultmx)
             endif
         endif
 !

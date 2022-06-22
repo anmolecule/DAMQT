@@ -163,89 +163,90 @@
 \indexentry{3D graphics!cluster builder|hyperpage}{36}
 \indexentry{optimize cluster|hyperpage}{36}
 \indexentry{optimize cluster!strides|hyperpage}{36}
+\indexentry{3D graphics!cluster guest charges|hyperpage}{36}
 \indexentry{3D graphics!cluster animation|hyperpage}{37}
 \indexentry{3D graphics!cluster recording|hyperpage}{37}
-\indexentry{3D graphics!geometry saving|hyperpage}{37}
-\indexentry{save geometry|hyperpage}{37}
-\indexentry{3D graphics!save/retrieve settings|hyperpage}{37}
-\indexentry{save settings|hyperpage}{37}
-\indexentry{retrieve settings|hyperpage}{37}
-\indexentry{3D graphics!clusters retrieve|hyperpage}{37}
-\indexentry{3D graphics!molecule editor|hyperpage}{37}
-\indexentry{3D graphics!edit molecule|hyperpage}{38}
-\indexentry{3D graphics!show molecule editor|hyperpage}{38}
-\indexentry{3D graphics!molecular skeleton|hyperpage}{38}
-\indexentry{3D graphics!labels|hyperpage}{38}
-\indexentry{3D graphics!molecule rotations|hyperpage}{39}
-\indexentry{3D graphics!animate rotations|hyperpage}{39}
-\indexentry{3D graphics!record animation|hyperpage}{39}
-\indexentry{3D graphics!translations|hyperpage}{39}
-\indexentry{3D graphics!axes|hyperpage}{39}
-\indexentry{3D graphics!Hellmann-Feyman forces|hyperpage}{39}
-\indexentry{3D graphics!3D lines|hyperpage}{40}
-\indexentry{3D graphics!electric field|hyperpage}{40}
-\indexentry{3D graphics!density gradient|hyperpage}{40}
-\indexentry{3D graphics!gradient path|hyperpage}{40}
-\indexentry{3D graphics!critical points|hyperpage}{41}
-\indexentry{3D graphics!MED critical points|hyperpage}{41}
-\indexentry{3D graphics!MESP critical points|hyperpage}{41}
-\indexentry{3D graphics!surfaces|hyperpage}{41}
-\indexentry{3D graphics!sigma hole surfaces|hyperpage}{41}
-\indexentry{3D graphics!basins|hyperpage}{41}
-\indexentry{3D graphics!high quality isosurfaces|hyperpage}{42}
-\indexentry{3D graphics!isosurfaces|hyperpage}{42}
-\indexentry{3D graphics!MED isosurfaces|hyperpage}{42}
-\indexentry{3D graphics!MESP isosurfaces|hyperpage}{42}
-\indexentry{3D graphics!molecular orbitals|hyperpage}{42}
-\indexentry{3D graphics!surface color|hyperpage}{43}
-\indexentry{3D graphics!solid surfaces|hyperpage}{43}
-\indexentry{3D graphics!wired surfaces|hyperpage}{43}
-\indexentry{3D graphics!transparency|hyperpage}{43}
-\indexentry{3D graphics!translucency correction|hyperpage}{43}
-\indexentry{3D graphics!high quality isosurfaces|hyperpage}{44}
-\indexentry{3D graphics!analytical normals|hyperpage}{44}
-\indexentry{isoden@\textsl{isoden} file|hyperpage}{44}
-\indexentry{isopot@\textsl{isopot} file|hyperpage}{44}
-\indexentry{3D graphics!mouse|hyperpage}{44}
-\indexentry{mouse operations|hyperpage}{44}
-\indexentry{3D graphics!rotations|hyperpage}{44}
-\indexentry{3D graphics!translations|hyperpage}{44}
-\indexentry{3D graphics!molecule zooming|hyperpage}{44}
-\indexentry{3D graphics!molecule activation|hyperpage}{44}
-\indexentry{3D graphics!!atom selection|hyperpage}{44}
-\indexentry{3D graphics!!critical point selection|hyperpage}{44}
-\indexentry{3D graphics!!extremum selection|hyperpage}{44}
-\indexentry{3D graphics!!atom selection|hyperpage}{44}
-\indexentry{3D graphics!!critical point selection|hyperpage}{44}
-\indexentry{3D graphics!!geometry measures|hyperpage}{45}
-\indexentry{interfaces|hyperpage}{46}
-\indexentry{GAUSSIAN!interface|hyperpage}{46}
-\indexentry{MOLPRO!interface|hyperpage}{46}
-\indexentry{MOLPRO interface!UHF orbitals|hyperpage}{47}
-\indexentry{ADF!interface|hyperpage}{47}
-\indexentry{TURBOMOLE!interface|hyperpage}{48}
-\indexentry{MOPAC!interface|hyperpage}{48}
-\indexentry{NWCHEM!interface|hyperpage}{48}
-\indexentry{MOLEKEL!interface|hyperpage}{48}
-\indexentry{gallery|hyperpage}{49}
-\indexentry{Dunning|hyperpage}{49}
-\indexentry{molecular density|hyperpage}{49}
-\indexentry{atoms in molecules|hyperpage}{50}
-\indexentry{density deformation|hyperpage}{51}
-\indexentry{electrostatic potential|hyperpage}{52}
-\indexentry{molecular topography|hyperpage}{53}
-\indexentry{MESP CPs|hyperpage}{53}
-\indexentry{MESP sigma hole|hyperpage}{55}
-\indexentry{electric field|hyperpage}{55}
-\indexentry{Hellmann-Feynman!forces|hyperpage}{56}
-\indexentry{Hellmann-Feynman!forces!internal|hyperpage}{56}
-\indexentry{Hellmann-Feynman!forces!self-pulling|hyperpage}{56}
-\indexentry{Hellmann-Feynman!forces!external|hyperpage}{56}
-\indexentry{Zernike-Canterakis expansion of MED|hyperpage}{56}
-\indexentry{ggbs@\textsl{ggbs} file|hyperpage}{58}
-\indexentry{den@\textsl{den} file|hyperpage}{58}
-\indexentry{damqt@\textsl{damqt} file|hyperpage}{59}
-\indexentry{plt@\textsl{plt} file|hyperpage}{59}
-\indexentry{plt@\textsl{pltd} file|hyperpage}{59}
-\indexentry{cnt@\textsl{cnt} file|hyperpage}{59}
-\indexentry{MESP statistics|hyperpage}{60}
+\indexentry{3D graphics!geometry saving|hyperpage}{38}
+\indexentry{save geometry|hyperpage}{38}
+\indexentry{3D graphics!save/retrieve settings|hyperpage}{38}
+\indexentry{save settings|hyperpage}{38}
+\indexentry{retrieve settings|hyperpage}{38}
+\indexentry{3D graphics!clusters retrieve|hyperpage}{38}
+\indexentry{3D graphics!molecule editor|hyperpage}{38}
+\indexentry{3D graphics!edit molecule|hyperpage}{39}
+\indexentry{3D graphics!show molecule editor|hyperpage}{39}
+\indexentry{3D graphics!molecular skeleton|hyperpage}{39}
+\indexentry{3D graphics!labels|hyperpage}{39}
+\indexentry{3D graphics!molecule rotations|hyperpage}{40}
+\indexentry{3D graphics!animate rotations|hyperpage}{40}
+\indexentry{3D graphics!record animation|hyperpage}{40}
+\indexentry{3D graphics!translations|hyperpage}{40}
+\indexentry{3D graphics!axes|hyperpage}{40}
+\indexentry{3D graphics!Hellmann-Feyman forces|hyperpage}{40}
+\indexentry{3D graphics!3D lines|hyperpage}{41}
+\indexentry{3D graphics!electric field|hyperpage}{41}
+\indexentry{3D graphics!density gradient|hyperpage}{41}
+\indexentry{3D graphics!gradient path|hyperpage}{41}
+\indexentry{3D graphics!critical points|hyperpage}{42}
+\indexentry{3D graphics!MED critical points|hyperpage}{42}
+\indexentry{3D graphics!MESP critical points|hyperpage}{42}
+\indexentry{3D graphics!surfaces|hyperpage}{42}
+\indexentry{3D graphics!sigma hole surfaces|hyperpage}{42}
+\indexentry{3D graphics!basins|hyperpage}{42}
+\indexentry{3D graphics!high quality isosurfaces|hyperpage}{43}
+\indexentry{3D graphics!isosurfaces|hyperpage}{43}
+\indexentry{3D graphics!MED isosurfaces|hyperpage}{43}
+\indexentry{3D graphics!MESP isosurfaces|hyperpage}{43}
+\indexentry{3D graphics!molecular orbitals|hyperpage}{43}
+\indexentry{3D graphics!surface color|hyperpage}{44}
+\indexentry{3D graphics!solid surfaces|hyperpage}{44}
+\indexentry{3D graphics!wired surfaces|hyperpage}{44}
+\indexentry{3D graphics!transparency|hyperpage}{44}
+\indexentry{3D graphics!translucency correction|hyperpage}{44}
+\indexentry{3D graphics!high quality isosurfaces|hyperpage}{45}
+\indexentry{3D graphics!analytical normals|hyperpage}{45}
+\indexentry{isoden@\textsl{isoden} file|hyperpage}{45}
+\indexentry{isopot@\textsl{isopot} file|hyperpage}{45}
+\indexentry{3D graphics!mouse|hyperpage}{45}
+\indexentry{mouse operations|hyperpage}{45}
+\indexentry{3D graphics!rotations|hyperpage}{45}
+\indexentry{3D graphics!translations|hyperpage}{45}
+\indexentry{3D graphics!molecule zooming|hyperpage}{45}
+\indexentry{3D graphics!molecule activation|hyperpage}{45}
+\indexentry{3D graphics!!atom selection|hyperpage}{45}
+\indexentry{3D graphics!!critical point selection|hyperpage}{45}
+\indexentry{3D graphics!!extremum selection|hyperpage}{45}
+\indexentry{3D graphics!!atom selection|hyperpage}{45}
+\indexentry{3D graphics!!critical point selection|hyperpage}{45}
+\indexentry{3D graphics!!geometry measures|hyperpage}{46}
+\indexentry{interfaces|hyperpage}{47}
+\indexentry{GAUSSIAN!interface|hyperpage}{47}
+\indexentry{MOLPRO!interface|hyperpage}{47}
+\indexentry{MOLPRO interface!UHF orbitals|hyperpage}{48}
+\indexentry{ADF!interface|hyperpage}{48}
+\indexentry{TURBOMOLE!interface|hyperpage}{49}
+\indexentry{MOPAC!interface|hyperpage}{49}
+\indexentry{NWCHEM!interface|hyperpage}{49}
+\indexentry{MOLEKEL!interface|hyperpage}{49}
+\indexentry{gallery|hyperpage}{50}
+\indexentry{Dunning|hyperpage}{50}
+\indexentry{molecular density|hyperpage}{50}
+\indexentry{atoms in molecules|hyperpage}{51}
+\indexentry{density deformation|hyperpage}{52}
+\indexentry{electrostatic potential|hyperpage}{53}
+\indexentry{molecular topography|hyperpage}{54}
+\indexentry{MESP CPs|hyperpage}{54}
+\indexentry{MESP sigma hole|hyperpage}{56}
+\indexentry{electric field|hyperpage}{56}
+\indexentry{Hellmann-Feynman!forces|hyperpage}{57}
+\indexentry{Hellmann-Feynman!forces!internal|hyperpage}{57}
+\indexentry{Hellmann-Feynman!forces!self-pulling|hyperpage}{57}
+\indexentry{Hellmann-Feynman!forces!external|hyperpage}{57}
+\indexentry{Zernike-Canterakis expansion of MED|hyperpage}{57}
+\indexentry{ggbs@\textsl{ggbs} file|hyperpage}{59}
+\indexentry{den@\textsl{den} file|hyperpage}{59}
+\indexentry{damqt@\textsl{damqt} file|hyperpage}{60}
+\indexentry{plt@\textsl{plt} file|hyperpage}{60}
+\indexentry{plt@\textsl{pltd} file|hyperpage}{60}
+\indexentry{cnt@\textsl{cnt} file|hyperpage}{60}
+\indexentry{MESP statistics|hyperpage}{61}

@@ -118,10 +118,6 @@ protected:
     virtual void reject();
 };
 
-// Class measures
-//
-
-
 //--------------------------------------------------
 //
 //          class measures

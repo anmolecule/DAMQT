@@ -113,13 +113,13 @@ class DialogSPB : public QDialog
 		QSpinBox *SPBatomsel;
 };
 
-class DialogSPBinfo : public QDialog
+class DialogDisplayInfo : public QDialog
 {
 	Q_OBJECT
 
 	public:
-		DialogSPBinfo(QString *title, QString *info, QString *text, QWidget *parent = 0);
-		~DialogSPBinfo();
+        DialogDisplayInfo(QString *title, QString *info, QString *text, QWidget *parent = 0);
+        ~DialogDisplayInfo();
 		
 	public slots:	
 		void setinfo(QString *info);
