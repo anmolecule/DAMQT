@@ -111,6 +111,12 @@ sudo apt-get install build-essential
 sudo apt-get install qt5-default
 ```
 
+For Ubuntu 21 and above:
+
+```
+sudo apt-get install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
+```
+
 3. Check OpenGL version in your computer. OpenGL 3.3 or higher is required and most machines with a dedicated GPU from AMD or NVIDIA support OpenGL 3.3 and above as long as this GPU was released within the last 4-5 years. If the GPU is 5 or more years old, there is a possibility that it does not support OpenGL 3.3. In this case you will need to check the specifications for your GPU model on the manufacturer’s website.
   
 ```
