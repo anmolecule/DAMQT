@@ -475,7 +475,7 @@ bool mespimizer::create_mespimizer_input(){
     QFile(fileName).remove();
     fileName = mespimizerpath + "/" + TXTclusterfile->text().trimmed() + ".xyz_frames";
     QFile(fileName).remove();
-    fileName = mespimizerpath + "/" + TXTclusterfile->text().trimmed() + ".curr_frame";
+    fileName = mespimizerpath + "/" + TXTclusterfile->text().trimmed() + ".xyz_curr_frame";
     QFile(fileName).remove();
     fileName = mespimizerpath + "/" + TXTclusterfile->text().trimmed() + ".kntframes";
     QFile(fileName).remove();
