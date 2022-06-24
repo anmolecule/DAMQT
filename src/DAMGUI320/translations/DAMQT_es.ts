@@ -6191,17 +6191,17 @@ Comprobar el archivo.</translation>
 <context>
     <name>chargescanvasDialog</name>
     <message>
-        <location filename="../mespimizer.cpp" line="1634"/>
+        <location filename="../mespimizer.cpp" line="1648"/>
         <source>Accept</source>
         <translation>Aceptar</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1637"/>
+        <location filename="../mespimizer.cpp" line="1651"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1646"/>
+        <location filename="../mespimizer.cpp" line="1660"/>
         <source>Atom charges of </source>
         <translation>Cargas atómicas del </translation>
     </message>
@@ -6333,13 +6333,13 @@ Al hacerlo, el visor y las ventanas auxiliares se destruirán</translation>
     </message>
     <message>
         <location filename="../glWidget.cpp" line="205"/>
-        <location filename="../glWidget.cpp" line="401"/>
+        <location filename="../glWidget.cpp" line="405"/>
         <source>Yes</source>
         <translation>Sí</translation>
     </message>
     <message>
         <location filename="../glWidget.cpp" line="206"/>
-        <location filename="../glWidget.cpp" line="402"/>
+        <location filename="../glWidget.cpp" line="406"/>
         <source>No</source>
         <translation>No</translation>
     </message>
@@ -6384,7 +6384,7 @@ Al hacerlo, el visor y las ventanas auxiliares se destruirán</translation>
         <translation>Mostrar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="398"/>
+        <location filename="../glWidget.cpp" line="402"/>
         <source>Do you want to remove </source>
         <translation>¿Desea eliminar </translation>
     </message>
@@ -6393,8 +6393,8 @@ Al hacerlo, el visor y las ventanas auxiliares se destruirán</translation>
         <translation type="vanished">Captura de imagen</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="512"/>
-        <location filename="../glWidget.cpp" line="1226"/>
+        <location filename="../glWidget.cpp" line="517"/>
+        <location filename="../glWidget.cpp" line="1231"/>
         <source>Manage capture</source>
         <translation>Capturador</translation>
     </message>
@@ -6459,8 +6459,8 @@ Al hacerlo, el visor y las ventanas auxiliares se destruirán</translation>
         <translation type="vanished">Propiedades de las luces</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="524"/>
-        <location filename="../glWidget.cpp" line="1299"/>
+        <location filename="../glWidget.cpp" line="529"/>
+        <location filename="../glWidget.cpp" line="1304"/>
         <source>Manage lights</source>
         <translation>Iluminación</translation>
     </message>
@@ -6493,7 +6493,7 @@ Al hacerlo, el visor y las ventanas auxiliares se destruirán</translation>
         <translation type="vanished">Luz reflejada</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="677"/>
+        <location filename="../glWidget.cpp" line="682"/>
         <source>Background color</source>
         <translation>Color de fondo</translation>
     </message>
@@ -6506,8 +6506,8 @@ Al hacerlo, el visor y las ventanas auxiliares se destruirán</translation>
         <translation type="vanished">Tamaño de radios</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="556"/>
-        <location filename="../glWidget.cpp" line="1321"/>
+        <location filename="../glWidget.cpp" line="561"/>
+        <location filename="../glWidget.cpp" line="1326"/>
         <source>Manage balls and sticks</source>
         <translation>Esferas y barras</translation>
     </message>
@@ -6536,8 +6536,8 @@ Al hacerlo, el visor y las ventanas auxiliares se destruirán</translation>
         <translation type="vanished">Visor</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="571"/>
-        <location filename="../glWidget.cpp" line="1361"/>
+        <location filename="../glWidget.cpp" line="576"/>
+        <location filename="../glWidget.cpp" line="1366"/>
         <source>Manage viewport</source>
         <translation>Manejo del visor</translation>
     </message>
@@ -6574,124 +6574,124 @@ Al hacerlo, el visor y las ventanas auxiliares se destruirán</translation>
         <translation type="vanished">Lejano:</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="660"/>
+        <location filename="../glWidget.cpp" line="665"/>
         <source>Settings</source>
         <translation>Configuración</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="664"/>
-        <location filename="../glWidget.cpp" line="2639"/>
+        <location filename="../glWidget.cpp" line="669"/>
+        <location filename="../glWidget.cpp" line="2613"/>
         <source>Save/retrieve settings</source>
         <translation>Guardar/recuperar la configuración</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="668"/>
+        <location filename="../glWidget.cpp" line="673"/>
         <source>Save</source>
         <translation>Guardar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="671"/>
+        <location filename="../glWidget.cpp" line="676"/>
         <source>Retrieve</source>
         <translation>Recuperar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="673"/>
+        <location filename="../glWidget.cpp" line="678"/>
         <source>Position</source>
         <translation>Posición</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="675"/>
+        <location filename="../glWidget.cpp" line="680"/>
         <source>Rotation</source>
         <translation>Rotación</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="679"/>
+        <location filename="../glWidget.cpp" line="684"/>
         <source>Lights</source>
         <translation>Luces</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="681"/>
+        <location filename="../glWidget.cpp" line="686"/>
         <source>Balls and sticks</source>
         <translation>Barras y esferas</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="683"/>
+        <location filename="../glWidget.cpp" line="688"/>
         <source>Viewport</source>
         <translation>Visor</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="685"/>
+        <location filename="../glWidget.cpp" line="690"/>
         <source>Molecules</source>
         <translation>Moléculas</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="688"/>
+        <location filename="../glWidget.cpp" line="693"/>
         <source>Surfaces</source>
         <translation>Superficies</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="690"/>
+        <location filename="../glWidget.cpp" line="695"/>
         <source>Grids</source>
         <translation>Mallas</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="693"/>
+        <location filename="../glWidget.cpp" line="698"/>
         <source>Isosurfaces</source>
         <translation>Isosuperficies</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1032"/>
+        <location filename="../glWidget.cpp" line="1037"/>
         <source>Hide rotations manager</source>
         <translation>Ocultar gestor de rotaciones</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1123"/>
+        <location filename="../glWidget.cpp" line="1128"/>
         <source>Hide translations manager</source>
         <translation>Ocultar gestor de traslaciones</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1143"/>
-        <location filename="../glWidget.cpp" line="1159"/>
+        <location filename="../glWidget.cpp" line="1148"/>
+        <location filename="../glWidget.cpp" line="1164"/>
         <source>capture</source>
         <translation>Capturar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1144"/>
+        <location filename="../glWidget.cpp" line="1149"/>
         <source>You must display the image to enable capture</source>
         <translation>Debe mostrar la imagen para capturarla</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1154"/>
+        <location filename="../glWidget.cpp" line="1159"/>
         <source>Save image as ...</source>
         <translation>Salvar imagen como ...</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1155"/>
+        <location filename="../glWidget.cpp" line="1160"/>
         <source>Image files</source>
         <translation>Archivos de imagen</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1156"/>
-        <location filename="../glWidget.cpp" line="2556"/>
-        <location filename="../glWidget.cpp" line="2566"/>
-        <location filename="../glWidget.cpp" line="2651"/>
-        <location filename="../glWidget.cpp" line="2896"/>
-        <location filename="../glWidget.cpp" line="3261"/>
+        <location filename="../glWidget.cpp" line="1161"/>
+        <location filename="../glWidget.cpp" line="2530"/>
+        <location filename="../glWidget.cpp" line="2540"/>
+        <location filename="../glWidget.cpp" line="2625"/>
+        <location filename="../glWidget.cpp" line="2870"/>
+        <location filename="../glWidget.cpp" line="3235"/>
         <source>All files</source>
         <translation>Todos los archivos</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1160"/>
+        <location filename="../glWidget.cpp" line="1165"/>
         <source>A file name must be supplied for image saving</source>
         <translation>Debe suministrar un nombre de archivo para salvar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1201"/>
+        <location filename="../glWidget.cpp" line="1206"/>
         <source>Hide axes manager</source>
         <translation>Ocultar gestor de ejes</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1222"/>
+        <location filename="../glWidget.cpp" line="1227"/>
         <source>Hide capture manager</source>
         <translation>Ocultar capturador</translation>
     </message>
@@ -6700,95 +6700,95 @@ Al hacerlo, el visor y las ventanas auxiliares se destruirán</translation>
         <translation type="vanished">Ocultar grabador</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2555"/>
-        <location filename="../glWidget.cpp" line="2565"/>
-        <location filename="../glWidget.cpp" line="2650"/>
-        <location filename="../glWidget.cpp" line="2895"/>
+        <location filename="../glWidget.cpp" line="2529"/>
+        <location filename="../glWidget.cpp" line="2539"/>
+        <location filename="../glWidget.cpp" line="2624"/>
+        <location filename="../glWidget.cpp" line="2869"/>
         <source>Open file ...</source>
         <translation>Abrir archivo ...</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1295"/>
+        <location filename="../glWidget.cpp" line="1300"/>
         <source>Hide lights manager</source>
         <translation>Ocultar gestor de iluminación</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1317"/>
+        <location filename="../glWidget.cpp" line="1322"/>
         <source>Hide balls and sticks manager</source>
         <translation>Ocultar gestor de esceras y barras</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1357"/>
+        <location filename="../glWidget.cpp" line="1362"/>
         <source>Hide viewport manager</source>
         <translation>Ocultar gestor de visor</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1799"/>
+        <location filename="../glWidget.cpp" line="1804"/>
         <source>Cluster optimization failed.
 Cannot open file: %1</source>
         <translation>Falló la optimización.
 No pudo abrir el archivo: %1</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1827"/>
+        <location filename="../glWidget.cpp" line="1832"/>
         <source>Cluster optimization failed</source>
         <translation>Falló la optimización</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1861"/>
+        <location filename="../glWidget.cpp" line="1851"/>
         <source>Open Babel failed in cluster optimization</source>
         <translation>Falló la ejecucion de Open Babel en la optimización</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2635"/>
+        <location filename="../glWidget.cpp" line="2609"/>
         <source>Hide save/retrieve settings</source>
         <translation>Ocultar gestor de salvar/recuperar</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2556"/>
-        <location filename="../glWidget.cpp" line="2566"/>
-        <location filename="../glWidget.cpp" line="2650"/>
-        <location filename="../glWidget.cpp" line="2896"/>
+        <location filename="../glWidget.cpp" line="2530"/>
+        <location filename="../glWidget.cpp" line="2540"/>
+        <location filename="../glWidget.cpp" line="2624"/>
+        <location filename="../glWidget.cpp" line="2870"/>
         <source>Settings saving files</source>
         <translation>Archivos para salvar opciones</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="460"/>
-        <location filename="../glWidget.cpp" line="1036"/>
+        <location filename="../glWidget.cpp" line="465"/>
+        <location filename="../glWidget.cpp" line="1041"/>
         <source>Rotations</source>
         <translation>Rotaciones</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="480"/>
-        <location filename="../glWidget.cpp" line="1127"/>
+        <location filename="../glWidget.cpp" line="485"/>
+        <location filename="../glWidget.cpp" line="1132"/>
         <source>Translations</source>
         <translation>Traslaciones</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="492"/>
-        <location filename="../glWidget.cpp" line="1205"/>
+        <location filename="../glWidget.cpp" line="497"/>
+        <location filename="../glWidget.cpp" line="1210"/>
         <source>Axes</source>
         <translation>Ejes</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="608"/>
-        <location filename="../glWidget.cpp" line="1545"/>
+        <location filename="../glWidget.cpp" line="613"/>
+        <location filename="../glWidget.cpp" line="1550"/>
         <source>Optimize cluster</source>
         <translation>Optimizar el clúster</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="643"/>
-        <location filename="../glWidget.cpp" line="647"/>
+        <location filename="../glWidget.cpp" line="648"/>
+        <location filename="../glWidget.cpp" line="652"/>
         <source>Save geometry</source>
         <translation>Guardar geometría</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1540"/>
+        <location filename="../glWidget.cpp" line="1545"/>
         <source>Hide optimize cluster</source>
         <translation>Ocultar optimización</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1653"/>
+        <location filename="../glWidget.cpp" line="1658"/>
         <source>Executable file %1 does not exist
 
 </source>
@@ -6797,7 +6797,7 @@ No pudo abrir el archivo: %1</translation>
 </translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1654"/>
+        <location filename="../glWidget.cpp" line="1659"/>
         <source>Check that the program is installed in any of the following directories: 
 
  %1 
@@ -6812,37 +6812,37 @@ No pudo abrir el archivo: %1</translation>
 </translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1657"/>
+        <location filename="../glWidget.cpp" line="1662"/>
         <source>or in any other directory available in your $PATH</source>
         <translation>o en cualquier otro directorio contenido en $PATH</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1766"/>
-        <location filename="../glWidget.cpp" line="1790"/>
+        <location filename="../glWidget.cpp" line="1771"/>
+        <location filename="../glWidget.cpp" line="1795"/>
         <source>End of computation</source>
         <translation>Findel cálculo</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1771"/>
+        <location filename="../glWidget.cpp" line="1776"/>
         <source>Could not start running program %1</source>
         <translation>No pudo empezar a ejecutar el programa %1</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1774"/>
+        <location filename="../glWidget.cpp" line="1779"/>
         <source>Error when running program %1</source>
         <translation>Error al ejecutar el programa %1</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1798"/>
-        <location filename="../glWidget.cpp" line="1826"/>
+        <location filename="../glWidget.cpp" line="1803"/>
+        <location filename="../glWidget.cpp" line="1831"/>
+        <location filename="../glWidget.cpp" line="1850"/>
+        <location filename="../glWidget.cpp" line="1855"/>
         <location filename="../glWidget.cpp" line="1860"/>
-        <location filename="../glWidget.cpp" line="1881"/>
-        <location filename="../glWidget.cpp" line="1886"/>
-        <location filename="../glWidget.cpp" line="2130"/>
-        <location filename="../glWidget.cpp" line="2252"/>
-        <location filename="../glWidget.cpp" line="2289"/>
-        <location filename="../glWidget.cpp" line="2420"/>
-        <location filename="../glWidget.cpp" line="2436"/>
+        <location filename="../glWidget.cpp" line="2104"/>
+        <location filename="../glWidget.cpp" line="2226"/>
+        <location filename="../glWidget.cpp" line="2263"/>
+        <location filename="../glWidget.cpp" line="2394"/>
+        <location filename="../glWidget.cpp" line="2410"/>
         <source>MESPIMIZER</source>
         <translation></translation>
     </message>
@@ -6853,102 +6853,102 @@ reached in molecule %2</source>
 alzanzado en la molécula %2</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1881"/>
+        <location filename="../glWidget.cpp" line="1855"/>
         <source>Cluster optimization finished</source>
         <translation>Optimización de clúster terminada</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="1902"/>
+        <location filename="../glWidget.cpp" line="1876"/>
         <source>Computing...</source>
         <translation>Calculando...</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2130"/>
+        <location filename="../glWidget.cpp" line="2104"/>
         <source>Case not expected in quaternion interpolation: %1</source>
         <translation>Caso no esperado en la interpolación de cuaterniones: %1</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2252"/>
-        <location filename="../glWidget.cpp" line="2420"/>
-        <location filename="../glWidget.cpp" line="2572"/>
-        <location filename="../glWidget.cpp" line="2901"/>
+        <location filename="../glWidget.cpp" line="2226"/>
+        <location filename="../glWidget.cpp" line="2394"/>
+        <location filename="../glWidget.cpp" line="2546"/>
+        <location filename="../glWidget.cpp" line="2875"/>
         <source>File %1 cannot be opened</source>
         <translation>No se pudo abrir el archivo %1</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2264"/>
+        <location filename="../glWidget.cpp" line="2238"/>
         <source>Animating...</source>
         <translation>Animando...</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2289"/>
-        <location filename="../glWidget.cpp" line="2436"/>
+        <location filename="../glWidget.cpp" line="2263"/>
+        <location filename="../glWidget.cpp" line="2410"/>
         <source>Error in file %1</source>
         <translation>Error en el archivo %1</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2290"/>
-        <location filename="../glWidget.cpp" line="2437"/>
+        <location filename="../glWidget.cpp" line="2264"/>
+        <location filename="../glWidget.cpp" line="2411"/>
         <source>wrong format</source>
         <translation>formato erróneo</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2397"/>
+        <location filename="../glWidget.cpp" line="2371"/>
         <source>End of animation</source>
         <translation>Fin de la animación</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2561"/>
-        <location filename="../glWidget.cpp" line="2572"/>
-        <location filename="../glWidget.cpp" line="2654"/>
-        <location filename="../glWidget.cpp" line="2901"/>
+        <location filename="../glWidget.cpp" line="2535"/>
+        <location filename="../glWidget.cpp" line="2546"/>
+        <location filename="../glWidget.cpp" line="2628"/>
+        <location filename="../glWidget.cpp" line="2875"/>
         <source>DAMQT</source>
         <translation>DAMQT</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2561"/>
+        <location filename="../glWidget.cpp" line="2535"/>
         <source>No molecule available to save geometry</source>
         <translation>No hay molécula para salvar su geometría</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="2654"/>
-        <location filename="../glWidget.cpp" line="3309"/>
-        <location filename="../glWidget.cpp" line="3379"/>
+        <location filename="../glWidget.cpp" line="2628"/>
+        <location filename="../glWidget.cpp" line="3283"/>
+        <location filename="../glWidget.cpp" line="3353"/>
         <source>File %1 cannot be read</source>
         <translation>No se puede leer el archivo %1</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="3216"/>
+        <location filename="../glWidget.cpp" line="3190"/>
         <source>addmoleculeTowindow</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="3217"/>
+        <location filename="../glWidget.cpp" line="3191"/>
         <source>last system is a cluster.
 You must delete it before adding a new molecule.</source>
         <translation>el último sistema es un clúster.
 Debe borrarse antes de pode añadir una nueva molécula.</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="3260"/>
+        <location filename="../glWidget.cpp" line="3234"/>
         <source>Open geometry file ...</source>
         <translation>Abrir el archivo con la geometría ...</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="3260"/>
+        <location filename="../glWidget.cpp" line="3234"/>
         <source>Geometry and basis set files</source>
         <translation>Archivos de geometría y base</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="3269"/>
-        <location filename="../glWidget.cpp" line="3281"/>
-        <location filename="../glWidget.cpp" line="3292"/>
+        <location filename="../glWidget.cpp" line="3243"/>
+        <location filename="../glWidget.cpp" line="3255"/>
+        <location filename="../glWidget.cpp" line="3266"/>
         <source>loadmoleculargeometry</source>
         <translation>loadmoleculargeometry</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="3270"/>
-        <location filename="../glWidget.cpp" line="3282"/>
+        <location filename="../glWidget.cpp" line="3244"/>
+        <location filename="../glWidget.cpp" line="3256"/>
         <source>Error reading file %1</source>
         <translation>Erro al leer el archivo %1</translation>
     </message>
@@ -6957,33 +6957,33 @@ Debe borrarse antes de pode añadir una nueva molécula.</translation>
         <translation type="vanished">Error al leer el archivo %1</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="3293"/>
+        <location filename="../glWidget.cpp" line="3267"/>
         <source>Extension of file %1 must be ggbs or xyz</source>
         <translation>La extensión del archivo %1 debe ser .ggbs o .xyz</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="3308"/>
-        <location filename="../glWidget.cpp" line="3321"/>
-        <location filename="../glWidget.cpp" line="3360"/>
+        <location filename="../glWidget.cpp" line="3282"/>
+        <location filename="../glWidget.cpp" line="3295"/>
+        <location filename="../glWidget.cpp" line="3334"/>
         <source>readggbs</source>
         <translation>readggbs</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="3322"/>
-        <location filename="../glWidget.cpp" line="3392"/>
+        <location filename="../glWidget.cpp" line="3296"/>
+        <location filename="../glWidget.cpp" line="3366"/>
         <source>First line of file %1 does not contain the number of centers</source>
         <translation>La primera línea del archivo %1 no contiene el número de centros</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="3361"/>
-        <location filename="../glWidget.cpp" line="3426"/>
+        <location filename="../glWidget.cpp" line="3335"/>
+        <location filename="../glWidget.cpp" line="3400"/>
         <source>Wrong number of coordinates</source>
         <translation>Número decoordenadas erróneo</translation>
     </message>
     <message>
-        <location filename="../glWidget.cpp" line="3378"/>
-        <location filename="../glWidget.cpp" line="3391"/>
-        <location filename="../glWidget.cpp" line="3425"/>
+        <location filename="../glWidget.cpp" line="3352"/>
+        <location filename="../glWidget.cpp" line="3365"/>
+        <location filename="../glWidget.cpp" line="3399"/>
         <source>readxyz</source>
         <translation>readxyz</translation>
     </message>
@@ -7931,18 +7931,20 @@ no coincide con el número de vectores normales (%1).</translation>
         <location filename="../mespimizer.cpp" line="424"/>
         <location filename="../mespimizer.cpp" line="495"/>
         <location filename="../mespimizer.cpp" line="502"/>
-        <location filename="../mespimizer.cpp" line="546"/>
-        <location filename="../mespimizer.cpp" line="555"/>
-        <location filename="../mespimizer.cpp" line="603"/>
-        <location filename="../mespimizer.cpp" line="627"/>
-        <location filename="../mespimizer.cpp" line="652"/>
-        <location filename="../mespimizer.cpp" line="776"/>
-        <location filename="../mespimizer.cpp" line="787"/>
-        <location filename="../mespimizer.cpp" line="1150"/>
-        <location filename="../mespimizer.cpp" line="1175"/>
-        <location filename="../mespimizer.cpp" line="1197"/>
-        <location filename="../mespimizer.cpp" line="1222"/>
-        <location filename="../mespimizer.cpp" line="1353"/>
+        <location filename="../mespimizer.cpp" line="526"/>
+        <location filename="../mespimizer.cpp" line="553"/>
+        <location filename="../mespimizer.cpp" line="562"/>
+        <location filename="../mespimizer.cpp" line="610"/>
+        <location filename="../mespimizer.cpp" line="634"/>
+        <location filename="../mespimizer.cpp" line="659"/>
+        <location filename="../mespimizer.cpp" line="690"/>
+        <location filename="../mespimizer.cpp" line="790"/>
+        <location filename="../mespimizer.cpp" line="801"/>
+        <location filename="../mespimizer.cpp" line="1164"/>
+        <location filename="../mespimizer.cpp" line="1189"/>
+        <location filename="../mespimizer.cpp" line="1211"/>
+        <location filename="../mespimizer.cpp" line="1236"/>
+        <location filename="../mespimizer.cpp" line="1367"/>
         <source>MESPIMIZER</source>
         <translation></translation>
     </message>
@@ -7976,7 +7978,15 @@ File %1 cannot be opened</source>
 El archivo %1 no se puede abrir</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="546"/>
+        <source>No critical point selected in host
+Cannot create cluster
+To solve the problem, edit the host molecule and open Critical Points editor</source>
+        <translation type="vanished">No se han seleccionado puntos críticos en la molécula anfitriona
+No puede crear el clúster
+Para resolver el problema, edite la molécula anfitriona y abra el editor de puntos críticos</translation>
+    </message>
+    <message>
+        <location filename="../mespimizer.cpp" line="553"/>
         <source>Unable to create preproc file for cluster optimization
 Two molecules are necessary at least for clustering:
 First molecule will be the host</source>
@@ -7985,66 +7995,73 @@ Son necesarias al menos dos moléculas para crear el clúster:
 La primera molécula debe ser la anfitriona</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="555"/>
+        <location filename="../mespimizer.cpp" line="562"/>
         <source>Unable to create preproc file for cluster optimization
 File %1 cannot be opened</source>
         <translation>No pudo crear el archivo preproc para la optimización del clúster
 El archivo %1 no se puede abrir</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="604"/>
+        <location filename="../mespimizer.cpp" line="611"/>
         <source>Making preproc file:
 charges on atoms of guest molecule # %1 are all zero</source>
         <translation>Creando el archivo preproc:
 todas las cargas atómicas en la molécula invitada # %1 son nulas</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="627"/>
+        <location filename="../mespimizer.cpp" line="634"/>
         <source>To create a cluster from a template, two molecules must appear in the canvas at most
 Remove extra molecules and try again.</source>
         <translation>Para crear un clúster a partir de una plantilla, no puede haber más de dos moléculas en la pantalla.</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="634"/>
+        <location filename="../mespimizer.cpp" line="641"/>
         <source>Template and host molecules are the same: </source>
         <translation>La molécula anfitriona es la misma que la de la plantilla: </translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="635"/>
+        <location filename="../mespimizer.cpp" line="642"/>
         <source>
 Do you want to continue?</source>
         <translation>
 ¿Desea continuar?</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="638"/>
+        <location filename="../mespimizer.cpp" line="645"/>
         <source>Yes</source>
         <translation>Sí</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="639"/>
+        <location filename="../mespimizer.cpp" line="646"/>
         <source>No</source>
         <translation>No</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="640"/>
+        <location filename="../mespimizer.cpp" line="647"/>
         <source>Cancel</source>
         <translation>Cancelar</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="652"/>
+        <location filename="../mespimizer.cpp" line="659"/>
         <source>Unable to create template file for cluster optimization.
 File %1 cannot be opened</source>
         <translation>No pudo crear el archivo con la plantilla para la optimización de clúster
 El archivo %1 no se puede abrir</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="777"/>
+        <location filename="../mespimizer.cpp" line="691"/>
+        <source>Making template file:
+charges on atoms of template molecule # %1 are all zero</source>
+        <translation>Creando el archivo de plantilla:
+las cargas de los átomos de la molécula de plantilla # %1 son todas nulas</translation>
+    </message>
+    <message>
+        <location filename="../mespimizer.cpp" line="791"/>
         <source>You must delete the existing cluster to make a new optimization</source>
         <translation>Debe eliminar el cluster existente para poder hacer una nueva optimización</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="787"/>
+        <location filename="../mespimizer.cpp" line="801"/>
         <source>Could not create folder %1</source>
         <translation>No pudo crear el directorio %1</translation>
     </message>
@@ -8064,28 +8081,37 @@ El archivo %1 no se puede abrir</translation>
         <translation>Plantilla: </translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="869"/>
+        <location filename="../mespimizer.cpp" line="526"/>
+        <source>No critical point selected in host
+Cannot create cluster
+To solve the problem, edit the host molecule and open the Critical Points editor</source>
+        <translation>No se seleccionó ningún punto crítico en el anfitrión
+No puede crear el clúster
+Para resolver el problema, edite la molécula anfitriona y abra el menú de puntos críticos</translation>
+    </message>
+    <message>
+        <location filename="../mespimizer.cpp" line="883"/>
         <source>Folder: </source>
         <translation>Directorio: </translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="870"/>
-        <location filename="../mespimizer.cpp" line="958"/>
+        <location filename="../mespimizer.cpp" line="884"/>
+        <location filename="../mespimizer.cpp" line="972"/>
         <source>File: </source>
         <translation>Archivo: </translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="938"/>
+        <location filename="../mespimizer.cpp" line="952"/>
         <source>Translation stride (bohr): </source>
         <translation>Paso para la traslación (bohr): </translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="943"/>
+        <location filename="../mespimizer.cpp" line="957"/>
         <source>Rotation stride (degrees): </source>
         <translation>Paso para la rotación (grados): </translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="948"/>
+        <location filename="../mespimizer.cpp" line="962"/>
         <source>Number of iterations: </source>
         <translation>Número de iteraciones: </translation>
     </message>
@@ -8094,87 +8120,87 @@ El archivo %1 no se puede abrir</translation>
         <translation type="vanished">Máximo número de iteraciones: </translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="964"/>
+        <location filename="../mespimizer.cpp" line="978"/>
         <source>Fast</source>
         <translation>Rápido</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="965"/>
+        <location filename="../mespimizer.cpp" line="979"/>
         <source>Slow</source>
         <translation>Lento</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="975"/>
+        <location filename="../mespimizer.cpp" line="989"/>
         <source>Record optimization</source>
         <translation>Grabar la optimización</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="986"/>
+        <location filename="../mespimizer.cpp" line="1000"/>
         <source>Command for converting frames to film</source>
         <translation>Instrucción para juntar los fotogramas en una película</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="991"/>
+        <location filename="../mespimizer.cpp" line="1005"/>
         <source>Record file</source>
         <translation>Archivo de grabación</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="992"/>
+        <location filename="../mespimizer.cpp" line="1006"/>
         <source>Folder:</source>
         <translation>Directorio:</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="993"/>
+        <location filename="../mespimizer.cpp" line="1007"/>
         <source>File:</source>
         <translation>Archivo:</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1090"/>
-        <location filename="../mespimizer.cpp" line="1108"/>
+        <location filename="../mespimizer.cpp" line="1104"/>
+        <location filename="../mespimizer.cpp" line="1122"/>
         <source>Open file with frames</source>
         <translation>Abrir archivo con fotogramas</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1090"/>
+        <location filename="../mespimizer.cpp" line="1104"/>
         <source>Allowed files</source>
         <translation>Archivos permitidos</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1091"/>
-        <location filename="../mespimizer.cpp" line="1135"/>
+        <location filename="../mespimizer.cpp" line="1105"/>
+        <location filename="../mespimizer.cpp" line="1149"/>
         <source>All files</source>
         <translation>Todos los archivos</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1117"/>
+        <location filename="../mespimizer.cpp" line="1131"/>
         <source>Template</source>
         <translation>Plantilla</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1125"/>
+        <location filename="../mespimizer.cpp" line="1139"/>
         <source>Guest # %1</source>
         <translation>Invitado # %1</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1134"/>
+        <location filename="../mespimizer.cpp" line="1148"/>
         <source>Open file ...</source>
         <translation>Abrir archivo ...</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1135"/>
+        <location filename="../mespimizer.cpp" line="1149"/>
         <source>DAM charges files</source>
         <translation>Cargas definidas por DAM</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1151"/>
-        <location filename="../mespimizer.cpp" line="1198"/>
+        <location filename="../mespimizer.cpp" line="1165"/>
+        <location filename="../mespimizer.cpp" line="1212"/>
         <source>Cannot open file %1
 </source>
         <translation>No puede abrir el archivo %1
 </translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1175"/>
+        <location filename="../mespimizer.cpp" line="1189"/>
         <source>File %1
 does not contain suitable charges for guest template.
 Symbol for atom #%2: in molecule: %3, in file: %4</source>
@@ -8183,7 +8209,7 @@ no contiene cargas válidas para la plantilla.
 Símbolo del átomo # %2, en la molécula: %3, en el archivo: %4</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1222"/>
+        <location filename="../mespimizer.cpp" line="1236"/>
         <source>File %1
 does not contain suitable charges for guest template.
 Symbol for atom #%2: in molecule: %3, in file %4</source>
@@ -8192,12 +8218,12 @@ no contiene cargas válidas para la plantilla.
 Símbolo del átomo # %2, en la molécula: %3, en el archivo: %4</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1299"/>
+        <location filename="../mespimizer.cpp" line="1313"/>
         <source>Open Directory</source>
         <translation>Abrir directorio</translation>
     </message>
     <message>
-        <location filename="../mespimizer.cpp" line="1353"/>
+        <location filename="../mespimizer.cpp" line="1367"/>
         <source>At least one molecule must be loaded</source>
         <translation>Debe cargarse al menos una molécula</translation>
     </message>

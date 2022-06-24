@@ -642,6 +642,7 @@ void criticalpoints::createCPseigen(){
 //}
 
 bool criticalpoints::getcpsactive(int i, int j){
+    if (cpsactive[i].isEmpty() || cpsactive[i].length() < j+1) return false;
     return cpsactive[i].at(j);
 }
 
