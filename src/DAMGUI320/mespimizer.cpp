@@ -475,7 +475,7 @@ bool mespimizer::create_mespimizer_input(){
     QFile(fileName).remove();
     fileName = mespimizerpath + "/" + TXTclusterfile->text().trimmed() + ".xyz_frames";
     QFile(fileName).remove();
-    fileName = mespimizerpath + "/" + TXTclusterfile->text().trimmed() + ".curr_frame";
+    fileName = mespimizerpath + "/" + TXTclusterfile->text().trimmed() + ".xyz_curr_frame";
     QFile(fileName).remove();
     fileName = mespimizerpath + "/" + TXTclusterfile->text().trimmed() + ".kntframes";
     QFile(fileName).remove();
@@ -511,7 +511,8 @@ bool mespimizer::create_insertlocfile(){
         if (line.contains("x")){
             if (getoptimizeselect()){
                 int host = gethost();
-                if (molecules->at(host-1)->cps->getcpsactive(0,knt)){
+                if ( molecules->at(host-1)->cps &&
+                     molecules->at(host-1)->cps->getcpsactive(0,knt)){
                     inputlist << line;
                 }
             }
@@ -520,6 +521,12 @@ bool mespimizer::create_insertlocfile(){
             }
             knt++;
         }
+    }
+    if (inputlist.length() < 1){
+        QMessageBox::warning(this, tr("MESPIMIZER"),tr("No critical point selected in host\n"
+            "Cannot create cluster\n"
+            "To solve the problem, edit the host molecule and open the Critical Points editor"));
+        return false;
     }
     fileinp.close();
     QTextStream outfile(&fileout); // Buffer for writing to fileout

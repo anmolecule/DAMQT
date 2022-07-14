@@ -51,6 +51,7 @@ const int MXPRIMCNTR = 20;        // Maximum number of primitives per contractio
 const int MXCONTR = 10;            // Maximum number of contractions sharing the same primitives
 const int MXREPIRRED = 8;        // Maximum number of irreducible representations
 const int MXLBAS = 7;            //    Maximum value of l quantum number in the basis set (for the moment up to "h" functions)
+const int MXSIMCENT = 8;        // Maximum number of centers per symmetry function
 
 const double PI = 3.141592653589793;
 static int i,j,k,ii,jj,ki;
@@ -84,17 +85,18 @@ int coefsim(string s);
 bool pairCompare(const std::pair<int, double>& firstElem, const std::pair<int, double>& secondElem);
 
 // Structures
-struct basesim{
+struct basesimstr{
     int numcen;
-    int centers[4];
+    int centers[MXSIMCENT];
     int icontr;
     int lval;
     int mval;
     int sign[4];
     string repirred;
 };
-static struct basesim basesim[MXFUN];
+//static struct basesimstr basesim[MXFUN];
 
+basesimstr *basesim = new basesimstr [MXFUN];
 
 #if defined(_WIN32) || defined(WIN32) 
     static const std::string slash = "\\";    
@@ -219,17 +221,6 @@ int main(int argc,char *argv[])
         cerr << "In MOLPRO_out_interface: unable to open file " << s << endl ;
         exit(1);
     }
-    
-//s = outpath + newprojectname + ".debug";
-//ofstream debugfile(s.c_str(),ios::out);
-//if (!debugfile){
-// cerr << "In MOLPRO_out_interface: unable to open file " << s << endl ;
-// exit(1);
-//}
-//debugfile << "projectname = " << projectname << endl;
-//debugfile << "newprojectname = " << newprojectname << endl;
-//debugfile << "mden = " << mden << endl;
-//debugfile.flush();
 
     MOLPROfiles = inpath + projectname;
     s = MOLPROfiles + ".out";
@@ -463,6 +454,7 @@ int main(int argc,char *argv[])
                 norbbir[0] = 0;
         }
         int *iorbaord = new int[norba];
+
         if (norba > 0){
             std::vector<std::pair<int,double> > orben;
             int ishft = 0;
@@ -482,6 +474,7 @@ int main(int argc,char *argv[])
             }
         }
         int *iorbbord = new int[norbb];
+
         if (norbb > 0){
             std::vector<std::pair<int,double> > orben;
             int ishft = 0;
@@ -531,6 +524,7 @@ int main(int argc,char *argv[])
                 int indrepirold = -1;
                 indrepir = 0;
                 while(getline(inputfile,s)){
+//cerr << rtrim(s).length() << " s = " << s << endl;
                     if (s.length() == 0) continue;
                     if (!(s.find("***")==string::npos)){ 
                         // Stores the block of the previous IR
@@ -568,7 +562,7 @@ int main(int argc,char *argv[])
                         // Stores the block of the previous IR
                         if (indrepir > 0){
                             if (kntir != kntrepirred[indrepirold]*kntrepirred[indrepirold]){
-                                cerr << "Error reading block no. " << indrepir<< " of MO matrix of state " << indstateaMO << "." << orbasim
+                                cerr << "Error reading block no. " << indrepir << " of MO matrix of state " << indstateaMO << "." << orbasim
                                     << endl ;
                                 lorba = true;
                                 break;      // desists reading alpha orbitals
@@ -593,7 +587,7 @@ int main(int argc,char *argv[])
                         }
                         orbsim = new double[kntrepirred[indrepir]*kntrepirred[indrepir]];
                     }
-                    else if (rtrim(s).length() > 14){      // Reads the block of the current IR
+                    else if (rtrim(s).length() > 12){      // Reads the block of the current IR
                         len = s.length();
                         char *tokenPrt, *ptr = new char [len+1], *newtoken;
                         s.copy(ptr,len,0);
@@ -742,7 +736,7 @@ int main(int argc,char *argv[])
                         }
                         orbsim = new double[kntrepirred[indrepir]*kntrepirred[indrepir]];
                     }
-                    else if (rtrim(s).length() > 14){      // Reads the block of the current IR
+                    else if (rtrim(s).length() > 12){      // Reads the block of the current IR
                         len = s.length();
                         char *tokenPrt, *ptr = new char [len+1], *newtoken;
                         s.copy(ptr,len,0);
@@ -838,6 +832,7 @@ int main(int argc,char *argv[])
                 int indrepirold = -1;
                 indrepir = 0;
                 while(getline(inputfile,s)){ 
+//cerr << rtrim(s).length() << " s = " << s << endl;
                     if (s.length() == 0) continue;
                     if (!(s.find("***")==string::npos)){ 
                         // Stores the block of the last IR
@@ -970,6 +965,7 @@ int main(int argc,char *argv[])
         outimportfile << kntrepirred[i] << " " << trim(basesim[knt].repirred) << " + "; 
         knt += kntrepirred[i];
     }
+
     outimportfile << flush ;
     outimportfile << kntrepirred[numrepir-1] << " " << trim(basesim[knt].repirred) << ")" << endl;
     outimportfile << "Number of basis functions: " << nfun << endl;
@@ -1112,7 +1108,7 @@ void readbasisset(ifstream * inputfile, ofstream * outimportfile, ofstream * ggb
             }
 
             nbasis = 0;
-            int ncontr = 0, kprim = 0, kcntbas = 1;
+            int kprim = 0, kcntbas = 1;
             primexp = new double [ncen*MXPRIMCENT];
             cfcontr = new double [ncen*MXPRIMCENT];
             pntprimit = new int [ncen*(MXSHELLAT+1)];
@@ -1216,6 +1212,15 @@ void readbasisset(ifstream * inputfile, ofstream * outimportfile, ofstream * ggb
                 }
 
                 kntcen++;
+                if (kntcen > MXSIMCENT){
+                    cerr << "Number of centers in symmetry function = " << kntcen
+                         << " greater than maximum allowed = " << MXSIMCENT << endl;
+                    cerr << "Increase value of parameter MXSIMCENT and recompile " << endl;
+                    *outimportfile << "Number of centers in symmetry function = " << kntcen
+                                   << " greater than maximum allowed = " << MXSIMCENT << endl;
+                    *outimportfile << "Increase value of parameter MXSIMCENT and recompile " << endl;
+                    exit(1);
+                }
                 for (j = 0 ; j < nfn-1 ; j++){
                     if (skipgetline){
                         s = ss;
@@ -1256,6 +1261,15 @@ void readbasisset(ifstream * inputfile, ofstream * outimportfile, ofstream * ggb
                             }
                             sgncen[kntcen] = coefsim(s.substr(posbasis[3],1));
                             kntcen++;
+                            if (kntcen > MXSIMCENT){
+                                cerr << "Number of centers in symmetry function = " << kntcen
+                                     << " greater than maximum allowed = " << MXSIMCENT << endl;
+                                cerr << "Increase value of parameter MXSIMCENT and recompile " << endl;
+                                *outimportfile << "Number of centers in symmetry function = " << kntcen
+                                               << " greater than maximum allowed = " << MXSIMCENT << endl;
+                                *outimportfile << "Increase value of parameter MXSIMCENT and recompile " << endl;
+                                exit(1);
+                            }
                         }
                         s.copy(ptr,len-posbasis[4]+2,posbasis[4]-2);
                         ptr[len-posbasis[4]+2] = 0;
@@ -1327,13 +1341,22 @@ void readbasisset(ifstream * inputfile, ofstream * outimportfile, ofstream * ggb
                             }
                             sgncen[kntcen] = coefsim(s.substr(posbasis[3],1));
                             kntcen++;
+                            if (kntcen > MXSIMCENT){
+                                cerr << "Number of centers in symmetry function = " << kntcen
+                                     << " greater than maximum allowed = " << MXSIMCENT << endl;
+                                cerr << "Increase value of parameter MXSIMCENT and recompile " << endl;
+                                *outimportfile << "Number of centers in symmetry function = " << kntcen
+                                               << " greater than maximum allowed = " << MXSIMCENT << endl;
+                                *outimportfile << "Increase value of parameter MXSIMCENT and recompile " << endl;
+                                exit(1);
+                            }
                         }
                         s.copy(ptr,len-posbasis[4]+2,posbasis[4]-2);
                         ptr[len-posbasis[4]+2] = 0;
                         knt = 0;
                         tokenPrt[knt] = strtok_s(ptr," ",&newtoken);
                         while (tokenPrt[knt] != NULL) {
-                            knt++;
+                            if (strlen(tokenPrt[knt]) > 2) knt++;
                             if (knt > MXCONTR+1){
                                 cerr << "Error reading exponents and coefficients: number of contractions in line "
                                     << kntline << " higher than maximum allowed: MXCONTR = " << MXCONTR << endl ;
@@ -1410,7 +1433,6 @@ void readbasisset(ifstream * inputfile, ofstream * outimportfile, ofstream * ggb
                         }
                     }
                 }
-
                 nfun = nfun + nfn;
                 kntrepirred[indrepir] += nfn;
                 if (!lbasis){
@@ -1444,6 +1466,7 @@ void readbasisset(ifstream * inputfile, ofstream * outimportfile, ofstream * ggb
             writebasisset(ggbsfile);
         }
     }
+
 }
 
 void writebasisset(ofstream * ggbsfile){

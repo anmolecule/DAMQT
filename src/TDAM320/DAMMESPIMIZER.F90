@@ -386,8 +386,6 @@
 
     write(iout,*) "Number of guest molecules in input file ",nmols
 
-    call removeclash(nmols)
-
     if (.not. iswindows) then
         call system ("rm -f "//mespimizerinit)
         call system ("rm -f "//mespimizervis)
@@ -408,6 +406,7 @@
     if (ierr .ne. 0) call error(ierr,"Error in creating new file for &
     frames counter.")
 
+    call removeclash(nmols)
 
     call writeclustergeom(mespimizerinit,nmols,0.0d0)
 
@@ -1238,7 +1237,6 @@
         integer(kint):: iu,ju,ku,dmdist
         real(kreal),allocatable:: DIST(:,:)
         integer,allocatable::dary(:)
-        
         do iu = 1,nmols
             allocate(dist(ncen,molecules(iu)%natoms))
             do ju=1,ncen
@@ -1275,6 +1273,13 @@
                 shifty = tcoy-hcoy
                 shiftz = tcoz-hcoz
                 norm=max(abs(shiftx),abs(shifty),abs(shiftz))
+                if (norm .lt. 1.e-3) then
+                    write(5678,"('Centers of masses of host and guest # ',i2, ' coincide')") iu
+                    write(5678,"('Displace one of these molecules and try again.')")
+                    close(5678)
+                    write(iout,"('Centers of masses of host and guest # ',i2, ' coincide')") iu
+                    call error(1280,"Displace one of these molecules and try again.")
+                endif
                 shiftx=shiftx/norm;shifty=shifty/norm;shiftz=shiftz/norm
                 write(iout,*) "shiftx,shifty,shiftz"
                 write(iout,*) shiftx,shifty,shiftz

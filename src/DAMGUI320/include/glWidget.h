@@ -216,7 +216,7 @@ public slots:
     void CHKsettingsgrids_changed();
     void CHKsettingsmolecs_changed();
     void deletecluster();
-    void deletemolecule(int);
+    void deletemolecule(int, bool showmsg=true);
     void emitmovetotop();
     void rotation_changed();
     void showmolecule(int);

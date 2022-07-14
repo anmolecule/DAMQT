@@ -368,42 +368,47 @@ void glWidget::create_molecules_menu_and_layouts(){
 //  Function deletecluster: removes cluster from molecules list
 //
 void glWidget::deletecluster(){
-    delete molecules->at(molecules->length()-1);
-    molecules->removeLast();
-    molecule_names.removeLast();
-    window->resetmeasures();
-    window->setdisplayEPIC(false);
-    for (int i = 0 ; i < molecules->length() ; i++) {
-        molecules->at(i)->setvisible(true);
-        BTNshowlist.at(i)->setText("Hide");
-    }
-    if (msrs){
-        msrs->reset_all();
-        msrs->set_molecules(molecule_names);
-    }
-    if (molecules->isEmpty()){
-        QDLwindow->rotationsdialog->reset_rotation();
-        QDLwindow->translationsdialog->reset_translation();
-    }
-    if (window && window->isVisible()){
-        updatedisplay();
-    }
+    if (!molecules->last()->getiscluster())
+        return;
+    deletemolecule(molecules->length()-1,false);
+//    delete molecules->at(molecules->length()-1);
+//    molecules->removeLast();
+//    molecule_names.removeLast();
+//    window->resetmeasures();
+//    window->setdisplayEPIC(false);
+//    for (int i = 0 ; i < molecules->length() ; i++) {
+//        molecules->at(i)->setvisible(true);
+//        BTNshowlist.at(i)->setText("Hide");
+//    }
+//    if (msrs){
+//        msrs->reset_all();
+//        msrs->set_molecules(molecule_names);
+//    }
+//    if (molecules->isEmpty()){
+//        QDLwindow->rotationsdialog->reset_rotation();
+//        QDLwindow->translationsdialog->reset_translation();
+//    }
+//    if (window && window->isVisible()){
+//        updatedisplay();
+//    }
 }
 //  End of function deletecluster
 //  --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-void glWidget::deletemolecule(int i){
-    QMessageBox msgBox;
-    msgBox.setInformativeText(tr("Do you want to remove ")+molecules->at(i)->getname()+"?");
-    msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    msgBox.setDefaultButton(QMessageBox::Yes);
-    msgBox.setButtonText(QMessageBox::Yes, tr("Yes"));
-    msgBox.setButtonText(QMessageBox::No, tr("No"));
-    msgBox.setIcon(QMessageBox::Question);
-    int ret = msgBox.exec();
-    if (ret == QMessageBox::No)
-        return;
+void glWidget::deletemolecule(int i, bool showmsg){
+    if (showmsg){
+        QMessageBox msgBox;
+        msgBox.setInformativeText(tr("Do you want to remove ")+molecules->at(i)->getname()+"?");
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+        msgBox.setButtonText(QMessageBox::Yes, tr("Yes"));
+        msgBox.setButtonText(QMessageBox::No, tr("No"));
+        msgBox.setIcon(QMessageBox::Question);
+        int ret = msgBox.exec();
+        if (ret == QMessageBox::No)
+            return;
+    }
     bool iscluster = molecules->at(i)->getiscluster();
     delete molecules->at(i);
     chargescanvas->removeAt(i);
@@ -1825,22 +1830,7 @@ void glWidget::processOutput(int exitCode, QProcess::ExitStatus exitStatus)
 //                qDebug() << "msg = " << msg;
                 QMessageBox::information(this, tr("MESPIMIZER"),
                         tr("Cluster optimization failed"),msg);
-//#if QT_VERSION < 0x050E00
-//                QStringList fields = line.split(' ',QString::SkipEmptyParts);
-//#else
-//                QStringList fields = line.split(' ',Qt::SkipEmptyParts);
-//#endif
-//                if (fields.count() < 2)
-//                    QMessageBox::information(this, tr("MESPIMIZER"),
-//                        QString(tr("Cluster optimization failed.\nContent of mespimizer error file: %1\n %2"))
-//                                 .arg(mespimizerpath+"/mespimizer.err").arg(line));
-//                else{
-//                    int iter = fields.takeFirst().toInt();
-//                    int molec = fields.takeFirst().toInt();
-//                    QMessageBox::information(this, tr("MESPIMIZER"),
-//                        QString(tr("Cluster optimization aborted, highest number of iterations: %1\nreached in molecule %2"))
-//                                .arg(iter).arg(molec));
-//                }
+                deletecluster();
             }
         }
         else{
@@ -1860,22 +1850,6 @@ void glWidget::processOutput(int exitCode, QProcess::ExitStatus exitStatus)
                 QMessageBox::information(this, tr("MESPIMIZER"),
                         tr("Open Babel failed in cluster optimization"),msg);
             }
-//            else if(QFileInfo(mespimizerpath+"/mespimizer.err").exists()){
-//                QFile file(mespimizerpath+"/mespimizer.err");
-//                QString msg = "";
-//                if (file.open(QFile::ReadOnly | QFile::Text)) {
-//                    QTextStream in(&file);
-//                    QString line;
-//                    while (!in.atEnd()){
-//                        line = in.readLine();
-//                        msg.append("\n"+line);
-////                        qDebug() << "line = " << line;
-//                    }
-//                }
-//                qDebug() << "msg = " << msg;
-//                QMessageBox::information(this, tr("MESPIMIZER"),
-//                        tr("Cluster optimization failed"),msg);
-//            }
             else{
 //                qDebug() << "Cluster optimization finished";
                 QMessageBox::information(this, tr("MESPIMIZER"),tr("Cluster optimization finished"));
