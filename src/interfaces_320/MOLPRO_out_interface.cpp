@@ -45,7 +45,7 @@ int min(int,int);
 const int MXCEN = 10000;            // Maximum number of centers
 const int MXSHELL = 20000;        // Maximum total number of contractions
 const int MXSHELLAT = 50;        // Maximum number of contractions per atom
-const int MXPRIMCENT = 200;       // Maximum number of primitives per center
+const int MXPRIMCENT = 300;       // Maximum number of primitives per center
 const int MXFUN = 30000;            // Maximum number of contracted basis functions
 const int MXPRIMCNTR = 20;        // Maximum number of primitives per contraction
 const int MXCONTR = 10;            // Maximum number of contractions sharing the same primitives
@@ -1426,6 +1426,14 @@ void readbasisset(ifstream * inputfile, ofstream * outimportfile, ofstream * ggb
                                         primexp[vcen[k]*MXPRIMCENT+kntprimit[vcen[k]]] = primexpaux[j];
                                         cfcontr[vcen[k]*MXPRIMCENT+kntprimit[vcen[k]]] = cfcontraux[i][j];
                                         kntprimit[vcen[k]] += 1;
+                                        if (kntprimit[vcen[k]] > MXPRIMCENT){
+                                             cerr << "Highest number of primitives per center (" << MXPRIMCENT << ") exceeded " << endl ;
+                                             cerr << "Increase parameter MXPRIMCENT in Molpro_out_interface.cpp and recompile " << endl ;
+                                             *outimportfile << "Highest number of primitives per center (" << MXPRIMCENT << ") exceeded " << endl ;
+                                             *outimportfile << "Increase parameter MXPRIMCENT in Molpro_out_interface.cpp and recompile " << endl ;
+                                             exit(1);
+
+                                        }
                                     }
                                 }
                                 pntprimit[vcen[k]*(MXSHELLAT+1)+kntshellat[vcen[k]]] = kntprimit[vcen[k]];
