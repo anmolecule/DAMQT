@@ -1797,13 +1797,13 @@
                         bux = (xxg(i1p)+xxg(i2p))*rra2
                         xinv = uno / (xxg(i1p)+xxg(i2p))
                         expbux = exp(-bux)
-                        gammaG(1) = expbux * xinv    ! gammaG(i) = Gamma[i,xcc*r] / xcc**i
+                        gammaG(1) = expbux * xinv    ! gammaG(i) = Gamma[i,xcc*r^2] / xcc**i
                         cux = expbux * rra2
                         do i = 1, kmax
                             gammaG(i+1) = xinv * (re(i) * gammaG(i) + cux)
                             cux = cux * rra2
                         end do
-!                           fv(i) = rra**(2i) * Gamma[i+1/2,0,(xx(i1p)+xx(i2p))*rra] / (xx(i1p)+xx(i2p))**i
+!                           fv(i) = rra**(2i) * Gamma[i+1/2,0,(xx(i1p)+xx(i2p))*rra^2] / (xx(i1p)+xx(i2p))**i
                         aux = rra*rra
                         if (rra .lt. 1.e-20) then
                             fv = cero
