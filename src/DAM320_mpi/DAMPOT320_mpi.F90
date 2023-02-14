@@ -1876,7 +1876,7 @@
     implicit none
     integer(KINT) :: i, i1, i1p, i2, i2p, ia, ib, ierr, indf1, k, k1, k12, k2, kmax, km1, km2
     integer(KINT) :: l, l1, l12, l2, l1l1, l2l2, lk, lm, lmax, ltop, m, m1, m1a, m2, m2a, ms, msa, md, mda
-    real(KREAL) :: angnorm, aux, bux, c1, c2, cosal, cosbet, cosga, cux, expbux, funcF0, potaux, potia, potiab
+    real(KREAL) :: angnorm, bux, c1, c2, cosal, cosbet, cosga, cux, expbux, funcF0, potaux, potia, potiab
     real(KREAL) :: rabinv, rra, rra2, rrab, rrab2, rrai, rrp, rrp2, rrpi, rn, rn1
     real(KREAL) :: umur, ur, saux, sinal, sinbet, singa, suma, ss, sd
     real(KREAL) :: vel, vnucl, vtot, x, xinv, xp, xx0, xxa, xxab, xxp, xy
@@ -1943,12 +1943,11 @@
                             gammaG(i+1) = xinv * (re(i) * gammaG(i) + cux)
                             cux = cux * rra2
                         end do
-!                           fv(i) = rra**(2i) * Gamma[i+1/2,0,(xx(i1p)+xx(i2p))*rra] / (xx(i1p)+xx(i2p))**i
-                        aux = rra*rra
+!                           fv(i) = rra**(2i) * Gamma[i+1/2,0,(xx(i1p)+xx(i2p))*rra**2] / (xx(i1p)+xx(i2p))**i
                         if (rra .lt. 1.e-20) then
                             fv = cero
                         else
-                            call freq20(aux,bux,fv)
+                            call freq20(rra2,bux,fv)
                         endif
                         do k = 0, kmax
                             Qg(k) = Qg(k) + cfcontr(i1p) * cfcontr(i2p) * fv(l1+l2-k+1)
@@ -2095,12 +2094,11 @@
                                 gammaG(i+1) = xinv * (re(i) * gammaG(i) + cux)
                                 cux = cux * rrp2
                             end do
-                            aux = rrp*rrp
-!                           fv(i) = rra**(2i) * Gamma[i+1/2,0,(xx(i1p)+xx(i2p))*rra] / (xx(i1p)+xx(i2p))**i
+!                           fv(i) = rrp**(2i) * Gamma[i+1/2,0,(xx(i1p)+xx(i2p))*rrp**2] / (xx(i1p)+xx(i2p))**i
                             if (rrp .lt. 1.e-20) then
                                 fv = cero
                             else
-                                call freq20(aux,bux,fv)
+                                call freq20(rrp2,bux,fv)
                             endif
 
                             do m2 = -l2, l2
@@ -2776,10 +2774,11 @@
     end
 ! This file has been generated with the notebook:
 !	<</home/rafa/math/notebooks/pargamma25_D_2.nb>>
-! and modified to introduce a factor y^n
-!	Functions Fn = y^n * Integrate[Exp[-x*t]* t**(n-1/2),{t,0,1}]
-!		= ( Gamma(n+1/2) - Gamma(n+1/2,x) * x**(Gamma(-n-1/2) 
-!	 with n <= 20
+! and modified to introduce a factor r^n
+!	Functions fv(n) = r^n * Integrate[Exp[-x*t]* t**(n-1/2),{t,0,1}]
+!		= r^n * ( Gamma(n+1/2) - Gamma(n+1/2,x) ) * x**(Gamma(-n-1/2)
+!               = r^n * gamma(n+1/2,x) * x**(Gamma(-n-1/2)
+!	 with 0 <= n <= 20
 !  ********************************************************
  
   subroutine freq20(r, x, fv)
@@ -2790,6 +2789,14 @@
     real(KREAL) :: ex, fv, r, x, y, z
     dimension fv(0:20)
     z = abs(x)
+    if (z .gt. 200.d0) then
+       y = 1.d0 / sqrt(z)
+       fv(0) = sqrt(pi) * y
+       do i = 1, 20
+         fv(i) = fv(i-1) * (i+i-1.d0) * 0.5d0 * y * y
+       enddo
+       go to 3000
+    endif
     iz = z
     ex = exp(-x)
     if (iz .lt. 25) then
@@ -2931,6 +2938,7 @@
     fv(2)  = (ex + z * fv(3) )  * 4.000000000000000D-1
     fv(1)  = (ex + z * fv(2) )  * 6.666666666666667D-1
     fv(0)  = (ex + z * fv(1) )  * 2.000000000000000D0
+3000 continue
     z = r
     do i = 1, 20
        fv(i) = fv(i) * z
