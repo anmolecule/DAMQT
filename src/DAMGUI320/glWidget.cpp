@@ -2893,6 +2893,7 @@ void glWidget::BTNsaveSettings_clicked(){
     }
     if (CHKsettingsbkg->isChecked()){
         buff.append("[V3DBKG]\n");
+        bkgcolor = window->getBkgColor();
         buff.append("bkgcolor="+QString("%1,%2,%3\n").arg(bkgcolor.red())
                     .arg(bkgcolor.green()).arg(bkgcolor.blue()));
     }
