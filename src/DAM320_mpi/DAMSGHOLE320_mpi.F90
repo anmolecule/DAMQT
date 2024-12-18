@@ -37,8 +37,9 @@ MODULE DAMSGHOLE320_D
     character(300) :: gridname, indfile, outsgholename, outcolorname, outrootname, straux, vertfile
     integer(KINT) :: i, i1, i2, ia, iaux, ierr, icube, iopt(5), iuni, ix, iy, iz, j, k, knt, kntgrid
     integer(KINT) :: kntgroupmax, kntgroupmin, kntind, kntmax, kntmin, kntvert, l, maxhist, minhist, npoints, nx, ny, nz
-    integer(KINT), allocatable ::  indices(:), interpolmat(:,:), kntlocal(:), localaux(:,:), localmax(:,:), localmin(:,:)
-    integer(KINT), allocatable ::  nind(:), nvert(:), numlocalmax(:), numlocalmin(:), tritable(:,:)
+    integer(KINT), allocatable ::  indices(:), indicesmax(:), indicesmin(:), interpolmat(:,:), kntlocal(:), localaux(:,:)
+    integer(KINT), allocatable ::  localmax(:,:), localmin(:,:), nind(:), nvert(:), numlocalmax(:), numlocalmin(:)
+    integer(KINT), allocatable ::  tritable(:,:)
     real(KREAL), parameter :: angstromtobohr = 1.889725989d0
     real(KREAL) :: a, aux, b, blue, bux, c, contourval, cux, d, den, denrep, dendrvx, disthresq, dlthist, dlthistinv, drvxtot
     real(KREAL) :: dendrvy, drvytot, dendrvz, drvztot, errabs, fpos, fneg, green, s, red, surfneg, surfpos, surftot, surftrian
@@ -440,7 +441,7 @@ END MODULE
     dltz = (zfin - zini) / (nz - 1)
     volvoxel = dltx * dlty * dltz
     disthresq = 4.d0 * (dltx*dltx+dlty*dlty+dltz*dltz)
-    if (myrank .eq. 0) write(6,*) 'disthresq = ', disthresq
+    if (myrank .eq. 0) write(6,"(/'disthresq = ',e12.5,/)") disthresq
     if (myrank .eq. 0) then
         if (min(dltx, dlty, dltz) .lt. 1.d-5) then
             write(6,"('Lowest dimension step size = ', e12.5)") min(dltx, dlty, dltz)
@@ -533,7 +534,7 @@ END MODULE
     endif
         
     call consta     !   Computes auxiliary constants
-    
+
 !     Compute triangles surface
     volume = cero
     surftot = cero
@@ -661,7 +662,7 @@ END MODULE
     CALL MPI_REDUCE(abort,abortroot,1,MPI_INTEGER,MPI_SUM,0,MPI_COMM_WORLD,ierr)
     CALL MPI_BCAST(abortroot,1,MPI_LOGICAL,0,MPI_COMM_WORLD,ierr)
     if (abortroot .gt. 0) then
-        call error(1,'Stop')
+        call error(ierr,'Stop')
     endif
 
     idimzlm = (lmaxexp+2)**2
@@ -1087,6 +1088,7 @@ END MODULE
             endif
             write(6,"(/3x,i9,' triangles generated for contour ',e12.5)") kntind/3, contourval 
             write(6,"(3x,'Number of vertices = ',i9)") kntvert
+            write(6,"(3x,'Number of indices = ',i9)") kntind
             write(straux,"(e9.2)") contourval
             write(6,"(/'For density contour ', e12.5,':', &
                 &/5x,'Molecular volume / bohr^3 = ', e12.5, 5x,' Molecular volume / A^3 = ', e12.5, &
@@ -1148,28 +1150,19 @@ END MODULE
                 do jaux = 1, kntgroupmax
                     surfpos = cero
                     call makehistmax(jaux)
-                    vmax = 0.d0
-                    i1 = 0
-                    do i = 1, numlocalmax(jaux)
-                        do k = 0, 2
-                            if (vtot4(indices(localmax(i,jaux)+k)) .gt. vmax) then
-                                i1 = localmax(i,jaux)+k
-                                vmax = vtot4(indices(localmax(i,jaux)+k))
-                            endif
-                        enddo
-                    enddo
+                    i1 = indicesmax(jaux)
+                    vmax = vtot4(i1)
                     vmaxabs = max(vmaxabs,vmax)
-                    if (i1 .lt. 1) cycle
                     write(6,"('x = ', e12.5, ' y = ', e12.5, ' z = ', e12.5, ' mesp = ', e12.5, ' area / bohr^2 = ', &
-                        e12.5, ' area / A^2 = ', e12.5)") vertices4(:,indices(i1)), vmax, surfpos, surfpos * 0.280028297329d0
+                    e12.5, ' area / A^2 = ', e12.5)") vertices4(:,i1), vtot4(i1), surfpos, surfpos * 0.280028297329d0
 !     Writes position of local maximum and value to file
                     if (lbinary) then
                         v4 = vmax
-                        if (lcolor) write(iuni+2*nprocs) vertices4(:,indices(i1)), v4
-                        if (lsghole) write(iuni+2*nprocs+1) vertices4(:,indices(i1)), v4
+                        if (lcolor) write(iuni+2*nprocs) vertices4(:,i1), v4
+                        if (lsghole) write(iuni+2*nprocs+1) vertices4(:,i1), v4
                     else
-                        if (lcolor) write(iuni+2*nprocs,"(4(e12.5,1x))") vertices4(:,indices(i1)), vmax
-                        if (lsghole) write(iuni+2*nprocs+1,"(4(e12.5,1x))") vertices4(:,indices(i1)), vmax
+                        if (lcolor) write(iuni+2*nprocs,"(4(e12.5,1x))") vertices4(:,i1), vmax
+                        if (lsghole) write(iuni+2*nprocs+1,"(4(e12.5,1x))") vertices4(:,i1), vmax
                     endif
                 enddo
             endif
@@ -1177,7 +1170,7 @@ END MODULE
 !     Searches local minima in the mesh and computes local histogram
 
             write(6,"(/'Number of local minima (lower than mesp = ', e9.2, ') found = ', i3)") thresmin, kntgroupmin
-!write(6,*) 'kntgroupmin = ', kntgroupmin
+
 !     Writes number of regions with local minima to file
             if (lbinary) then
                 if (lcolor) write(iuni+2*nprocs) kntgroupmin
@@ -1192,28 +1185,19 @@ END MODULE
                 do jaux = 1, kntgroupmin
                     surfneg = cero
                     call makehistmin(jaux)
-                    vmin = 0.d0
-                    i1 = 0
-                    do i = 1, numlocalmin(jaux)
-                        do k = 0, 2
-                            if (vtot4(indices(localmin(i,jaux)+k)) .lt. vmin) then
-                                i1 = localmin(i,jaux)+k
-                                vmin = vtot4(indices(localmin(i,jaux)+k))
-                            endif
-                        enddo
-                    enddo
+                    i1 = indicesmin(jaux)
+                    vmin = vtot4(i1)
                     vminabs = min(vminabs,vmin)
-                    if (i1 .lt. 1) cycle
                     write(6,"('x = ', e12.5, ' y = ', e12.5, ' z = ', e12.5, ' mesp = ', e12.5, ' area / bohr^2 = ', &
-                        e12.5, ' area / A^2 = ', e12.5)") vertices4(:,indices(i1)), vmin, surfneg, surfneg * 0.280028297329d0
+                    e12.5, ' area / A^2 = ', e12.5)") vertices4(:,i1), vtot4(i1), surfneg, surfneg * 0.280028297329d0
 !     Writes position of local minimum and value to file
                     if (lbinary) then
                         v4 = vmin
-                        if (lcolor) write(iuni+2*nprocs) vertices4(:,indices(i1)), v4
-                        if (lsghole) write(iuni+2*nprocs+1) vertices4(:,indices(i1)), v4
+                        if (lcolor) write(iuni+2*nprocs) vertices4(:,i1), v4
+                        if (lsghole) write(iuni+2*nprocs+1) vertices4(:,i1), v4
                     else
-                        if (lcolor) write(iuni+2*nprocs,"(4(e12.5,1x))") vertices4(:,indices(i1)), vmin
-                        if (lsghole) write(iuni+2*nprocs+1,"(4(e12.5,1x))") vertices4(:,indices(i1)), vmin
+                        if (lcolor) write(iuni+2*nprocs,"(4(e12.5,1x))") vertices4(:,i1), vmin
+                        if (lsghole) write(iuni+2*nprocs+1,"(4(e12.5,1x))") vertices4(:,i1), vmin
                     endif
                 enddo
             endif
@@ -1369,14 +1353,17 @@ END MODULE
     end
 !
 !**********************************************************************
+!   Old version of the subroutine for locating extrema
 !
-  subroutine localextrema
+  subroutine localextrema_ori
+    USE DAM320_DATA_D, only: ncen
     USE DAMSGHOLE320_D, vold => vtot, vtot => vtot4, verticesold => vertices, vertices => vertices4
     USE PARALELO
     implicit none   
     integer(KINT) :: ii, jj, jaux, kntcoincid, maxaux, minaux
+!    integer(KINT), allocatable :: indicesmax(:), indicesmin(:)
     real(KREAL), allocatable :: vmaxarray(:), vminarray(:)
-    real(KREAL) :: vauxmax, vauxmin
+    real(KREAL) :: vaux, vauxmax, vauxmin, vt
     kntmax = 0
     kntmin = 0
     do i = 1, kntind, 3
@@ -1470,9 +1457,10 @@ END MODULE
 
     if (kntmax .gt. 0) then
         allocate (localaux(kntmax,kntgroupmax), kntlocal(kntgroupmax), vmaxarray(kntgroupmax), &
-                            stat = ierr)
+                indicesmax(kntgroupmax), &
+                stat = ierr)
         if (ierr .ne. 0) then
-            write(6,"('Error ', i5,' when allocating localaux, kntlocal and vmaxarray')") ierr
+            write(6,"('Error ', i5,' when allocating localaux, kntlocal, vmaxarray and indicesmax')") ierr
             abort = 1
             return
         endif
@@ -1499,6 +1487,7 @@ END MODULE
             enddo
             vmaxarray(jaux) = vmax
             if (i1 .lt. 1) cycle
+            indicesmax(jaux) = indices(i1)
             write(6,"('x = ', e12.5, ' y = ', e12.5, ' z = ', e12.5, ' mesp = ', e12.5, e12.5)") vertices(:,indices(i1)), vmax
         enddo
 
@@ -1523,12 +1512,26 @@ END MODULE
                                 enddo
                             enddo doii1
                             if (kntcoincid .gt. 0) then
-                                do i1 = 1, numlocalmax(j)
-                                    localaux(numlocalmax(i)+i1,i) = localaux(i1,j)
+!write(6,"('overlapping regions = ', i3, 3x, i3)") j, i
+                                xyz = umed * (vertices(:,indicesmax(j)) + vertices(:,indicesmax(i)) )
+                                vaux = cero
+                                do ii = 1, ncen
+                                    call mesp(ii, xyz(1), xyz(2), xyz(3), vn, ve, vt)
+                                    vaux = vaux + vt
                                 enddo
-                                numlocalmax(i) = numlocalmax(i) + numlocalmax(j)
-                                numlocalmax(j) = 0
-                                exit dok1
+!write(6,"('vmax0 = ', e22.15, ' vmax1 = ', e22.15, ' vauxmed = ', e22.15)") vtot(indicesmax(j)), vtot(indicesmax(i)), vaux
+!         checks if there is a minimum between the maxima of both regions, if true keep both regions separated
+!               otherwise merges both regions and keeps just one maximum
+                                if ( (vtot(indicesmax(j)) + vtot(indicesmax(i)) - 2 * vaux) .lt. 0) then
+!write(6,"('merges overlapping regions ', i3, 3x, i3, ' and keeps just one maximum: ', e12.5)")
+!i, j, max(vtot(indicesmax(j)), vtot(indicesmax(i)))
+                                    do i1 = 1, numlocalmax(j)
+                                        localaux(numlocalmax(i)+i1,i) = localaux(i1,j)
+                                    enddo
+                                    numlocalmax(i) = numlocalmax(i) + numlocalmax(j)
+                                    numlocalmax(j) = 0
+                                    exit dok1
+                                endif
                             endif
                         endif
                     enddo
@@ -1580,8 +1583,10 @@ END MODULE
     endif
 
     if (kntmin .gt. 0) then
-        allocate (localaux(kntmin,kntgroupmin), kntlocal(kntgroupmin), vminarray(kntgroupmin), stat = ierr)
-        if (ierr .ne. 0) call error(1,'Memory error when allocating localaux, kntlocal and vminarray. Stop')
+        allocate (localaux(kntmin,kntgroupmin), kntlocal(kntgroupmin), vminarray(kntgroupmin), &
+                indicesmin(kntgroupmin), &
+                stat = ierr)
+        if (ierr .ne. 0) call error(1,'Memory error when allocating localaux, kntlocal, vminarray and indicesmin. Stop')
         kntlocal = 0
         do i = 1, kntmin
             kntlocal(localmin(i,2)) = kntlocal(localmin(i,2))+1
@@ -1604,6 +1609,7 @@ END MODULE
             enddo
             vminarray(jaux) = vmin
             if (i1 .lt. 1) cycle
+            indicesmin(jaux) = indices(i1)
             write(6,"('x = ', e12.5, ' y = ', e12.5, ' z = ', e12.5, ' mesp = ', e12.5, e12.5)") vertices(:,indices(i1)), vmin
         enddo
 
@@ -1628,12 +1634,26 @@ END MODULE
                                 enddo
                             enddo doii2
                             if (kntcoincid .gt. 0) then
-                                do i1 = 1, numlocalmin(j)
-                                    localaux(numlocalmin(i)+i1,i) = localaux(i1,j)
+!write(6,"('overlapping regions = ', i3, 3x, i3)") j, i
+                                xyz = umed * (vertices(:,indicesmin(j)) + vertices(:,indicesmin(i)) )
+                                vaux = cero
+                                do ii = 1, ncen
+                                    call mesp(ii, xyz(1), xyz(2), xyz(3), vn, ve, vt)
+                                    vaux = vaux + vt
                                 enddo
-                                numlocalmin(i) = numlocalmin(i) + numlocalmin(j)
-                                numlocalmin(j) = 0
-                                exit dok2
+!write(6,"('vmin0 = ', e22.15, ' vmin1 = ', e22.15, ' vauxmed = ', e22.15)") vtot(indicesmin(j)), vtot(indicesmin(i)), vaux
+!         checks if there is a minimum between the minima of both regions, if true keep both regions separated
+!               otherwise merges both regions and keeps just one minimum
+                                if ( (vtot(indicesmin(j)) + vtot(indicesmin(i)) - 2 * vaux) .gt. 0) then
+!write(6,"('merges overlapping regions ', i3, 3x, i3, ' and keeps just one minimum: ', e12.5)")
+!i, j, min(vtot(indicesmin(j)), vtot(indicesmin(i))
+                                    do i1 = 1, numlocalmin(j)
+                                        localaux(numlocalmin(i)+i1,i) = localaux(i1,j)
+                                    enddo
+                                    numlocalmin(i) = numlocalmin(i) + numlocalmin(j)
+                                    numlocalmin(j) = 0
+                                    exit dok2
+                                endif
                             endif
                         endif
                     enddo
@@ -1674,9 +1694,226 @@ END MODULE
 !
 !**********************************************************************
 !
+  subroutine localextrema
+    USE DAM320_DATA_D, only: ncen
+    USE DAMSGHOLE320_D, vold => vtot, vtot => vtot4, verticesold => vertices, vertices => vertices4
+    USE PARALELO
+    implicit none
+    integer, parameter :: maxlinks = 10
+    integer(KINT) :: ii, ij, ik, indaux(0:2), jj, jaux, kk
+    integer(KINT), allocatable :: indiceslinks(:,:), kntindiceslinks(:)
+    real(KREAL) :: xyzaux, xyzmin
+    real(KREAL), parameter :: dstthr = 1.d-5, dsqthr = 1.d-10
+    logical :: lfrontier, lvertfound(0:2)
+
+    allocate (indiceslinks(kntind,maxlinks), kntindiceslinks(kntind), indicesmax(kntind/3), indicesmin(kntind/3), &
+        stat = ierr)
+    if (ierr .ne. 0) then
+        write(6,"('Error ', i5,' when allocating indiceslinks and kntindiceslinks')") ierr
+        abort = 1
+        return
+    endif
+    kntmax = 0
+    kntmin = 0
+    kntindiceslinks = 0
+    indiceslinks = 0
+    do i = 1, kntind, 3
+        if (max(vtot(indices(i)), vtot(indices(i+1)), vtot(indices(i+2))) .gt. thresmax) then
+            indaux(:) = (/ i, i+1, i+2 /)
+            lvertfound(:) = .false.
+            do j = 1, i-1
+                if (min(abs(vertices(3,indices(i))-vertices(3,indices(j))), &
+                        abs(vertices(3,indices(i+1))-vertices(3,indices(j))), &
+                        abs(vertices(3,indices(i+2))-vertices(3,indices(j)))) .gt. dstthr) cycle
+                if (.not. lvertfound(0) .and. dot_product(vertices(:,indices(i))-vertices(:,indices(j)), &
+                                vertices(:,indices(i))-vertices(:,indices(j)) ) .lt. dsqthr ) then
+                    indaux(0) = j
+                    lvertfound(0) = .true.
+                else if (.not. lvertfound(1) .and. dot_product(vertices(:,indices(i+1))-vertices(:,indices(j)), &
+                                vertices(:,indices(i+1))-vertices(:,indices(j)) ) .lt. dsqthr ) then
+                    indaux(1) = j
+                    lvertfound(1) = .true.
+                else if (.not. lvertfound(2) .and. dot_product(vertices(:,indices(i+2))-vertices(:,indices(j)), &
+                                vertices(:,indices(i+2))-vertices(:,indices(j)) ) .lt. dsqthr ) then
+                    indaux(2) = j
+                    lvertfound(2) = .true.
+                endif
+            enddo
+            kntmax = kntmax + 1
+            do j = 0, 2
+                ij = indaux(j)
+                dokk1: do kk = 1, 2
+                    ik = indaux(mod(j+kk,3))
+                    do k = 1, kntindiceslinks(indices(ij))
+                        if (indiceslinks(indices(ij),k) .eq. indices(ik) ) cycle dokk1
+                    enddo
+                    kntindiceslinks(indices(ij)) = kntindiceslinks(indices(ij)) + 1
+                    if (kntindiceslinks(indices(ij)) .gt. 10) then
+                        write(6,"('vertex of index ', i8, ' connected to more than 10 vertices. Stop')") indices(ij)
+                        abort = 1
+                        return
+                    endif
+                    indiceslinks(indices(ij),kntindiceslinks(indices(ij))) = indices(ik)
+                enddo dokk1
+            enddo
+        elseif (min(vtot(indices(i)), vtot(indices(i+1)), vtot(indices(i+2))) .lt. thresmin) then
+            indaux(:) = (/ i, i+1, i+2 /)
+            lvertfound(:) = .false.
+            do j = 1, i-1
+                if (min(abs(vertices(3,indices(i))-vertices(3,indices(j))), &
+                    abs(vertices(3,indices(i+1))-vertices(3,indices(j))), &
+                    abs(vertices(3,indices(i+2))-vertices(3,indices(j)))) .gt. dstthr) cycle
+                if (.not. lvertfound(0) .and. dot_product(vertices(:,indices(i))-vertices(:,indices(j)), &
+                                vertices(:,indices(i))-vertices(:,indices(j)) ) .lt. dsqthr ) then
+                    indaux(0) = j
+                    lvertfound(0) = .true.
+                else if (.not. lvertfound(1) .and. dot_product(vertices(:,indices(i+1))-vertices(:,indices(j)), &
+                                vertices(:,indices(i+1))-vertices(:,indices(j)) ) .lt. dsqthr ) then
+                    indaux(1) = j
+                    lvertfound(1) = .true.
+                else if (.not. lvertfound(2) .and. dot_product(vertices(:,indices(i+2))-vertices(:,indices(j)), &
+                                vertices(:,indices(i+2))-vertices(:,indices(j)) ) .lt. dsqthr ) then
+                    indaux(2) = j
+                    lvertfound(2) = .true.
+                endif
+            enddo
+            kntmin = kntmin + 1
+            do j = 0, 2
+                ij = indaux(j)
+                dokk2: do kk = 1, 2
+                    ik = indaux(mod(j+kk,3))
+                    do k = 1, kntindiceslinks(indices(ij))
+                        if (indiceslinks(indices(ij),k) .eq. indices(ik) ) cycle dokk2
+                    enddo
+                    kntindiceslinks(indices(ij)) = kntindiceslinks(indices(ij)) + 1
+                    if (kntindiceslinks(indices(ij)) .gt. 10) then
+                        write(6,"('vertex of index ', i8, ' connected to more than ', i2,' vertices. Stop')") &
+                            maxlinks, indices(ij)
+                        abort = 1
+                        return
+                    endif
+                    indiceslinks(indices(ij),kntindiceslinks(indices(ij))) = indices(ik)
+                enddo dokk2
+            enddo
+        endif
+    enddo
+    kntgroupmax = 0
+    kntgroupmin = 0
+    doi: do i = 1, kntind
+        if (kntindiceslinks(i) .le. 0) cycle
+        do j = 1, kntindiceslinks(i)
+            if (vtot(i) .gt. thresmax .and. vtot(indiceslinks(i,j)) .gt. vtot(i)) cycle doi
+            if (vtot(i) .lt. thresmin .and. vtot(indiceslinks(i,j)) .lt. vtot(i)) cycle doi
+        enddo
+        if (vtot(i) .gt. thresmax) then
+            if (kntgroupmax .eq. 0) then
+                kntgroupmax = kntgroupmax + 1
+                indicesmax(kntgroupmax) = i
+            else
+                do j = 1, kntgroupmax
+                    if (i .eq. indicesmax(j)) cycle doi
+                    if (dot_product(vertices(:,i)-vertices(:,indicesmax(j)),vertices(:,i)-vertices(:,indicesmax(j))) &
+                            .le. disthresq) then
+                        if (vtot(i) .gt. vtot(indicesmax(j))) indicesmax(j) = i
+                        cycle doi
+                    endif
+                enddo
+                kntgroupmax = kntgroupmax + 1
+                indicesmax(kntgroupmax) = i
+            endif
+        elseif (vtot(i) .lt. thresmin) then
+            if (kntgroupmin .eq. 0) then
+                kntgroupmin = kntgroupmin + 1
+                indicesmin(kntgroupmin) = i
+            else
+                do j = 1, kntgroupmin
+                    if (i .eq. indicesmin(j)) cycle doi
+                    if (dot_product(vertices(:,i)-vertices(:,indicesmin(j)),vertices(:,i)-vertices(:,indicesmin(j))) &
+                            .le. disthresq) then
+                        if (vtot(i) .lt. vtot(indicesmin(j))) indicesmin(j) = i
+                        cycle doi
+                    endif
+                enddo
+                kntgroupmin = kntgroupmin + 1
+                indicesmin(kntgroupmin) = i
+            endif
+        endif
+    enddo doi
+
+    allocate (localmax(max(1,kntmax),kntgroupmax), localmin(max(1,kntmin),kntgroupmin), numlocalmax(kntgroupmax), &
+        numlocalmin(kntgroupmin), stat = ierr)
+    if (ierr .ne. 0) then
+        write(6,"('Error ', i5,' when allocating localmax, localmin, numlocalmax and numlocalmin')") ierr
+        abort = 1
+        return
+    endif
+    kntmax = 0
+    kntmin = 0
+    numlocalmax = 0
+    numlocalmin = 0
+    do i = 1, kntind, 3
+        if (max(vtot(indices(i)), vtot(indices(i+1)), vtot(indices(i+2))) .gt. thresmax) then
+            kntmax = kntmax + 1
+            centroid = ri(3) * ( vertices(:,indices(i)) + vertices(:,indices(i+1)) + vertices(:,indices(i+2)) )
+            xyzmin = dot_product(centroid-vertices(:,indicesmax(1)),centroid-vertices(:,indicesmax(1)))
+            jj = 1
+            do j = 2, kntgroupmax
+                xyzaux = dot_product(centroid-vertices(:,indicesmax(j)),centroid-vertices(:,indicesmax(j)))
+                if (xyzaux .lt. xyzmin) then
+                    jj = j
+                    xyzmin = xyzaux
+                endif
+            enddo
+            numlocalmax(jj) = numlocalmax(jj) + 1
+            localmax(numlocalmax(jj),jj) = i
+        else if (min(vtot(indices(i)), vtot(indices(i+1)), vtot(indices(i+2))) .lt. thresmin) then
+            kntmin = kntmin + 1
+            centroid = ri(3) * ( vertices(:,indices(i)) + vertices(:,indices(i+1)) + vertices(:,indices(i+2)) )
+            xyzmin = dot_product(centroid-vertices(:,indicesmin(1)),centroid-vertices(:,indicesmin(1)))
+            jj = 1
+            do j = 2, kntgroupmin
+                xyzaux = dot_product(centroid-vertices(:,indicesmin(j)),centroid-vertices(:,indicesmin(j)))
+                if (xyzaux .lt. xyzmin) then
+                    jj = j
+                    xyzmin = xyzaux
+                endif
+            enddo
+            numlocalmin(jj) = numlocalmin(jj) + 1
+            localmin(numlocalmin(jj),jj) = i
+        endif
+    enddo
+
+    if (kntmax .eq. 0) kntgroupmax = 0
+    if (kntmin .eq. 0) kntgroupmin = 0
+
+    if (kntmax .gt. 0) then
+        write(6,"(/'Number of regions with local maxima = ', i3)") kntgroupmax
+        call flush(6)
+        do i = 1, kntgroupmax
+            write(6,"('Number triangles in region ', i3 '  = ', i7)") i, numlocalmax(i)
+        enddo
+    else
+        write(6,"(/'No regions with local maxima')")
+    endif
+
+    if (kntmin .gt. 0) then
+        write(6,"(/111('-'),/'Number of regions with local minima = ', i3)") kntgroupmin
+        do i = 1, kntgroupmin
+            write(6,"('Number triangles in region ', i3 '  = ', i7)") i, numlocalmin(i)
+        enddo
+    else
+        write(6,"(/'No regions with local minima')")
+    endif
+    deallocate(indiceslinks, kntindiceslinks)
+
+    return
+    end
+!
+!**********************************************************************
+!
   subroutine makehistogram
     USE DAMSGHOLE320_D, vold => vtot, vtot => vtot4, verticesold => vertices, vertices => vertices4
-    implicit none    
+    implicit none
     allocate (histogram(minhist:maxhist), stat = ierr)
     if (ierr .ne. 0) then
         call error(ierr,'Memory error when allocating histogram. Stop')
@@ -1704,7 +1941,7 @@ END MODULE
             fpos = uno
         else if (aux .le. thresmin) then
             fneg = uno
-        else 
+        else
             if( aux .gt. thresmax) then
                 if (cux .gt. thresmax) then
                     fpos = dos * ri(3)
@@ -1723,7 +1960,7 @@ END MODULE
                     fneg = umed
                 endif
             endif
-        endif 
+        endif
         surfpos = surfpos + fpos * surftrian
         surfneg = surfneg + fneg * surftrian
     enddo
@@ -1777,7 +2014,7 @@ END MODULE
     USE DAMSGHOLE320_D, vold => vtot, vtot => vtot4, verticesold => vertices, vertices => vertices4
     implicit none    
     integer(KINT) :: jaux
-    
+
     j = jaux
     do i = 1, numlocalmin(j)
         bux = min(vtot(indices(localmin(i,j))), vtot(indices(localmin(i,j)+1)), vtot(indices(localmin(i,j)+2)))
@@ -1809,6 +2046,7 @@ END MODULE
         endif 
         surfneg = surfneg + fneg * surftrian
     enddo
+
     return
     end
 !

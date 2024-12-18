@@ -78,6 +78,7 @@ static double *cfcontr;
 // Function prototypes
 void readbasisset(ifstream * inputfile, ofstream * outimportfile, ofstream * ggbsfile, int * indbases, string MOLPROfiles);
 void readcoordinates(ifstream * inputfile, ofstream * outimportfile, ofstream * ggbsfile, string MOLPROfiles);
+void readoptimizedgeometry(ifstream * inputfile, ofstream * outimportfile, ofstream * ggbsfile, string MOLPROfiles);
 void writebasisset(ofstream * ggbsfile);
 int seekl(string s);
 int seekm(string s);
@@ -334,6 +335,19 @@ int main(int argc,char *argv[])
             lcoord = false;
             lzn = false;
             readcoordinates(&inputfile, &outimportfile, &ggbsfile, MOLPROfiles);
+            writebasisset(&ggbsfile);
+            ggbsfile.close();
+        }
+        if (!(s.find("end of geometry optimization")==string::npos)){
+            ofstream ggbsfile(ggbsfilename.c_str(),ios::out);
+            if (!ggbsfile) {
+                cerr << "In MOLPRO_out_interface: unable to open file " << ggbsfilename << endl ;
+                outimportfile << "In MOLPRO_out_interface: unable to open file " << ggbsfilename << endl ;
+                exit(1);
+            }
+            lcoord = false;
+            lzn = false;
+            readoptimizedgeometry(&inputfile, &outimportfile, &ggbsfile, MOLPROfiles);
             writebasisset(&ggbsfile);
             ggbsfile.close();
         }
@@ -1047,6 +1061,87 @@ void readcoordinates(ifstream * inputfile, ofstream * outimportfile, ofstream * 
                         y[ncen] = atof(tokenPrt);
                         tokenPrt = strtok_s(NULL," ",&newtoken);
                         z[ncen] = atof(tokenPrt);
+                        zntot += zn[ncen];
+                        xc += zn[ncen] * x[ncen];
+                        yc += zn[ncen] * y[ncen];
+                        zc += zn[ncen] * z[ncen];
+                        ncen++;
+                    }
+                }
+            }
+//            redefines the coordinates with respect to the center of positive charges and writes them to file .ggbs
+//             xc = xc / zntot; yc = yc / zntot; zc = zc / zntot;
+            xc = 0.; yc = 0.; zc = 0.;  // Keeps original coordinates without translation of origin to center of positive charges
+            *ggbsfile << ncen << endl ;
+            (*ggbsfile).setf(ios::scientific,ios::floatfield);
+            for(i=0; i<ncen;i++){
+                izn = int(round(zn[i]));
+                *ggbsfile << setprecision(10) << x[i]-xc << " " << y[i]-yc << " " << z[i]-zc << " " ;
+                *ggbsfile << izn << endl ;
+            }
+        }
+    }
+    if (!lcoord){
+        cerr << "Geometry data not included in " <<  MOLPROfiles + ".out file " << endl;
+        *outimportfile << "Geometry data not included in " <<  MOLPROfiles + ".out file "  << endl;
+        exit(1);
+    }
+}
+
+
+//     SEEK AND READ OPTIMIZED GEOMETRY
+
+void readoptimizedgeometry(ifstream * inputfile, ofstream * outimportfile, ofstream * ggbsfile, string MOLPROfiles){
+    string s;
+    float unitsconversion = 1.;
+    while(getline(*inputfile,s) && !lcoord){
+/*    seek for atomic numbers and coordinates of the centers */
+        if( !(s.find("Current geometry")==string::npos) ) {
+            lcoord = true;
+            ncen = 0;
+            double xc=0., yc=0., zc=0., zntot=0.;
+            if (!(s.find("Angstrom")==string::npos)) unitsconversion = 1.88973;
+            getline(*inputfile,s);  // Reads blank line
+            getline(*inputfile,s);  // Reads number of centers
+            getline(*inputfile,s);  // Reads comment
+            while(!lzn){
+                getline(*inputfile,s);
+                len = s.length();
+                if (len == 0) {
+                    continue;
+                }
+                else{
+                    char *tokenPrt, *ptr = new char [len+1], *newtoken;
+                    s.copy(ptr,len,0);
+                    ptr[len] = 0;
+                    tokenPrt = strtok_s(ptr," ",&newtoken);
+                    tokenPrt = strtok_s(NULL," ",&newtoken);
+                    x[ncen] = atof(tokenPrt) * unitsconversion;
+                    tokenPrt = strtok_s(NULL," ",&newtoken);
+                    y[ncen] = atof(tokenPrt) * unitsconversion;
+                    tokenPrt = strtok_s(NULL," ",&newtoken);
+                    z[ncen] = atof(tokenPrt) * unitsconversion;
+                    zntot += zn[ncen];
+                    xc += zn[ncen] * x[ncen];
+                    yc += zn[ncen] * y[ncen];
+                    zc += zn[ncen] * z[ncen];
+                    ncen++;
+                    while(getline(*inputfile,s)&&!lzn){
+                        len = s.length();
+                        if (len == 0) {
+                            lzn = true;
+                            delete [] ptr;
+                            break;
+                        }
+                        s.copy(ptr,len,0);
+                        ptr[len] = 0;
+                        tokenPrt = strtok_s(ptr," ",&newtoken);
+                        tokenPrt = strtok_s(NULL," ",&newtoken);
+                        x[ncen] = atof(tokenPrt) * unitsconversion;
+                        tokenPrt = strtok_s(NULL," ",&newtoken);
+                        y[ncen] = atof(tokenPrt) * unitsconversion;
+                        tokenPrt = strtok_s(NULL," ",&newtoken);
+                        z[ncen] = atof(tokenPrt) * unitsconversion;
                         zntot += zn[ncen];
                         xc += zn[ncen] * x[ncen];
                         yc += zn[ncen] * y[ncen];
