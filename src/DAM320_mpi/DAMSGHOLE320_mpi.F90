@@ -37,8 +37,9 @@ MODULE DAMSGHOLE320_D
     character(300) :: gridname, indfile, outsgholename, outcolorname, outrootname, straux, vertfile
     integer(KINT) :: i, i1, i2, ia, iaux, ierr, icube, iopt(5), iuni, ix, iy, iz, j, k, knt, kntgrid
     integer(KINT) :: kntgroupmax, kntgroupmin, kntind, kntmax, kntmin, kntvert, l, maxhist, minhist, npoints, nx, ny, nz
-    integer(KINT), allocatable ::  indices(:), interpolmat(:,:), kntlocal(:), localaux(:,:), localmax(:,:), localmin(:,:)
-    integer(KINT), allocatable ::  nind(:), nvert(:), numlocalmax(:), numlocalmin(:), tritable(:,:)
+    integer(KINT), allocatable ::  indices(:), indicesmax(:), indicesmin(:), interpolmat(:,:), kntlocal(:), localaux(:,:)
+    integer(KINT), allocatable ::  localmax(:,:), localmin(:,:), nind(:), nvert(:), numlocalmax(:), numlocalmin(:)
+    integer(KINT), allocatable ::  tritable(:,:)
     real(KREAL), parameter :: angstromtobohr = 1.889725989d0
     real(KREAL) :: a, aux, b, blue, bux, c, contourval, cux, d, den, denrep, dendrvx, disthresq, dlthist, dlthistinv, drvxtot
     real(KREAL) :: dendrvy, drvytot, dendrvz, drvztot, errabs, fpos, fneg, green, s, red, surfneg, surfpos, surftot, surftrian
@@ -440,7 +441,7 @@ END MODULE
     dltz = (zfin - zini) / (nz - 1)
     volvoxel = dltx * dlty * dltz
     disthresq = 4.d0 * (dltx*dltx+dlty*dlty+dltz*dltz)
-    if (myrank .eq. 0) write(6,*) 'disthresq = ', disthresq
+    if (myrank .eq. 0) write(6,"(/'disthresq = ',e12.5,/)") disthresq
     if (myrank .eq. 0) then
         if (min(dltx, dlty, dltz) .lt. 1.d-5) then
             write(6,"('Lowest dimension step size = ', e12.5)") min(dltx, dlty, dltz)
@@ -533,7 +534,7 @@ END MODULE
     endif
         
     call consta     !   Computes auxiliary constants
-    
+
 !     Compute triangles surface
     volume = cero
     surftot = cero
@@ -661,7 +662,7 @@ END MODULE
     CALL MPI_REDUCE(abort,abortroot,1,MPI_INTEGER,MPI_SUM,0,MPI_COMM_WORLD,ierr)
     CALL MPI_BCAST(abortroot,1,MPI_LOGICAL,0,MPI_COMM_WORLD,ierr)
     if (abortroot .gt. 0) then
-        call error(1,'Stop')
+        call error(ierr,'Stop')
     endif
 
     idimzlm = (lmaxexp+2)**2
@@ -1087,6 +1088,7 @@ END MODULE
             endif
             write(6,"(/3x,i9,' triangles generated for contour ',e12.5)") kntind/3, contourval 
             write(6,"(3x,'Number of vertices = ',i9)") kntvert
+            write(6,"(3x,'Number of indices = ',i9)") kntind
             write(straux,"(e9.2)") contourval
             write(6,"(/'For density contour ', e12.5,':', &
                 &/5x,'Molecular volume / bohr^3 = ', e12.5, 5x,' Molecular volume / A^3 = ', e12.5, &
@@ -1148,28 +1150,19 @@ END MODULE
                 do jaux = 1, kntgroupmax
                     surfpos = cero
                     call makehistmax(jaux)
-                    vmax = 0.d0
-                    i1 = 0
-                    do i = 1, numlocalmax(jaux)
-                        do k = 0, 2
-                            if (vtot4(indices(localmax(i,jaux)+k)) .gt. vmax) then
-                                i1 = localmax(i,jaux)+k
-                                vmax = vtot4(indices(localmax(i,jaux)+k))
-                            endif
-                        enddo
-                    enddo
+                    i1 = indicesmax(jaux)
+                    vmax = vtot4(i1)
                     vmaxabs = max(vmaxabs,vmax)
-                    if (i1 .lt. 1) cycle
                     write(6,"('x = ', e12.5, ' y = ', e12.5, ' z = ', e12.5, ' mesp = ', e12.5, ' area / bohr^2 = ', &
-                        e12.5, ' area / A^2 = ', e12.5)") vertices4(:,indices(i1)), vmax, surfpos, surfpos * 0.280028297329d0
+                    e12.5, ' area / A^2 = ', e12.5)") vertices4(:,i1), vtot4(i1), surfpos, surfpos * 0.280028297329d0
 !     Writes position of local maximum and value to file
                     if (lbinary) then
                         v4 = vmax
-                        if (lcolor) write(iuni+2*nprocs) vertices4(:,indices(i1)), v4
-                        if (lsghole) write(iuni+2*nprocs+1) vertices4(:,indices(i1)), v4
+                        if (lcolor) write(iuni+2*nprocs) vertices4(:,i1), v4
+                        if (lsghole) write(iuni+2*nprocs+1) vertices4(:,i1), v4
                     else
-                        if (lcolor) write(iuni+2*nprocs,"(4(e12.5,1x))") vertices4(:,indices(i1)), vmax
-                        if (lsghole) write(iuni+2*nprocs+1,"(4(e12.5,1x))") vertices4(:,indices(i1)), vmax
+                        if (lcolor) write(iuni+2*nprocs,"(4(e12.5,1x))") vertices4(:,i1), vmax
+                        if (lsghole) write(iuni+2*nprocs+1,"(4(e12.5,1x))") vertices4(:,i1), vmax
                     endif
                 enddo
             endif
@@ -1177,7 +1170,7 @@ END MODULE
 !     Searches local minima in the mesh and computes local histogram
 
             write(6,"(/'Number of local minima (lower than mesp = ', e9.2, ') found = ', i3)") thresmin, kntgroupmin
-!write(6,*) 'kntgroupmin = ', kntgroupmin
+
 !     Writes number of regions with local minima to file
             if (lbinary) then
                 if (lcolor) write(iuni+2*nprocs) kntgroupmin
@@ -1192,28 +1185,19 @@ END MODULE
                 do jaux = 1, kntgroupmin
                     surfneg = cero
                     call makehistmin(jaux)
-                    vmin = 0.d0
-                    i1 = 0
-                    do i = 1, numlocalmin(jaux)
-                        do k = 0, 2
-                            if (vtot4(indices(localmin(i,jaux)+k)) .lt. vmin) then
-                                i1 = localmin(i,jaux)+k
-                                vmin = vtot4(indices(localmin(i,jaux)+k))
-                            endif
-                        enddo
-                    enddo
+                    i1 = indicesmin(jaux)
+                    vmin = vtot4(i1)
                     vminabs = min(vminabs,vmin)
-                    if (i1 .lt. 1) cycle
                     write(6,"('x = ', e12.5, ' y = ', e12.5, ' z = ', e12.5, ' mesp = ', e12.5, ' area / bohr^2 = ', &
-                        e12.5, ' area / A^2 = ', e12.5)") vertices4(:,indices(i1)), vmin, surfneg, surfneg * 0.280028297329d0
+                    e12.5, ' area / A^2 = ', e12.5)") vertices4(:,i1), vtot4(i1), surfneg, surfneg * 0.280028297329d0
 !     Writes position of local minimum and value to file
                     if (lbinary) then
                         v4 = vmin
-                        if (lcolor) write(iuni+2*nprocs) vertices4(:,indices(i1)), v4
-                        if (lsghole) write(iuni+2*nprocs+1) vertices4(:,indices(i1)), v4
+                        if (lcolor) write(iuni+2*nprocs) vertices4(:,i1), v4
+                        if (lsghole) write(iuni+2*nprocs+1) vertices4(:,i1), v4
                     else
-                        if (lcolor) write(iuni+2*nprocs,"(4(e12.5,1x))") vertices4(:,indices(i1)), vmin
-                        if (lsghole) write(iuni+2*nprocs+1,"(4(e12.5,1x))") vertices4(:,indices(i1)), vmin
+                        if (lcolor) write(iuni+2*nprocs,"(4(e12.5,1x))") vertices4(:,i1), vmin
+                        if (lsghole) write(iuni+2*nprocs+1,"(4(e12.5,1x))") vertices4(:,i1), vmin
                     endif
                 enddo
             endif
@@ -1369,14 +1353,17 @@ END MODULE
     end
 !
 !**********************************************************************
+!   Old version of the subroutine for locating extrema
 !
-  subroutine localextrema
+  subroutine localextrema_ori
+    USE DAM320_DATA_D, only: ncen
     USE DAMSGHOLE320_D, vold => vtot, vtot => vtot4, verticesold => vertices, vertices => vertices4
     USE PARALELO
     implicit none   
     integer(KINT) :: ii, jj, jaux, kntcoincid, maxaux, minaux
+!    integer(KINT), allocatable :: indicesmax(:), indicesmin(:)
     real(KREAL), allocatable :: vmaxarray(:), vminarray(:)
-    real(KREAL) :: vauxmax, vauxmin
+    real(KREAL) :: vaux, vauxmax, vauxmin, vt
     kntmax = 0
     kntmin = 0
     do i = 1, kntind, 3
@@ -1470,9 +1457,10 @@ END MODULE
 
     if (kntmax .gt. 0) then
         allocate (localaux(kntmax,kntgroupmax), kntlocal(kntgroupmax), vmaxarray(kntgroupmax), &
-                            stat = ierr)
+                indicesmax(kntgroupmax), &
+                stat = ierr)
         if (ierr .ne. 0) then
-            write(6,"('Error ', i5,' when allocating localaux, kntlocal and vmaxarray')") ierr
+            write(6,"('Error ', i5,' when allocating localaux, kntlocal, vmaxarray and indicesmax')") ierr
             abort = 1
             return
         endif
@@ -1499,6 +1487,7 @@ END MODULE
             enddo
             vmaxarray(jaux) = vmax
             if (i1 .lt. 1) cycle
+            indicesmax(jaux) = indices(i1)
             write(6,"('x = ', e12.5, ' y = ', e12.5, ' z = ', e12.5, ' mesp = ', e12.5, e12.5)") vertices(:,indices(i1)), vmax
         enddo
 
@@ -1523,12 +1512,26 @@ END MODULE
                                 enddo
                             enddo doii1
                             if (kntcoincid .gt. 0) then
-                                do i1 = 1, numlocalmax(j)
-                                    localaux(numlocalmax(i)+i1,i) = localaux(i1,j)
+!write(6,"('overlapping regions = ', i3, 3x, i3)") j, i
+                                xyz = umed * (vertices(:,indicesmax(j)) + vertices(:,indicesmax(i)) )
+                                vaux = cero
+                                do ii = 1, ncen
+                                    call mesp(ii, xyz(1), xyz(2), xyz(3), vn, ve, vt)
+                                    vaux = vaux + vt
                                 enddo
-                                numlocalmax(i) = numlocalmax(i) + numlocalmax(j)
-                                numlocalmax(j) = 0
-                                exit dok1
+!write(6,"('vmax0 = ', e22.15, ' vmax1 = ', e22.15, ' vauxmed = ', e22.15)") vtot(indicesmax(j)), vtot(indicesmax(i)), vaux
+!         checks if there is a minimum between the maxima of both regions, if true keep both regions separated
+!               otherwise merges both regions and keeps just one maximum
+                                if ( (vtot(indicesmax(j)) + vtot(indicesmax(i)) - 2 * vaux) .lt. 0) then
+!write(6,"('merges overlapping regions ', i3, 3x, i3, ' and keeps just one maximum: ', e12.5)")
+!i, j, max(vtot(indicesmax(j)), vtot(indicesmax(i)))
+                                    do i1 = 1, numlocalmax(j)
+                                        localaux(numlocalmax(i)+i1,i) = localaux(i1,j)
+                                    enddo
+                                    numlocalmax(i) = numlocalmax(i) + numlocalmax(j)
+                                    numlocalmax(j) = 0
+                                    exit dok1
+                                endif
                             endif
                         endif
                     enddo
@@ -1580,8 +1583,10 @@ END MODULE
     endif
 
     if (kntmin .gt. 0) then
-        allocate (localaux(kntmin,kntgroupmin), kntlocal(kntgroupmin), vminarray(kntgroupmin), stat = ierr)
-        if (ierr .ne. 0) call error(1,'Memory error when allocating localaux, kntlocal and vminarray. Stop')
+        allocate (localaux(kntmin,kntgroupmin), kntlocal(kntgroupmin), vminarray(kntgroupmin), &
+                indicesmin(kntgroupmin), &
+                stat = ierr)
+        if (ierr .ne. 0) call error(1,'Memory error when allocating localaux, kntlocal, vminarray and indicesmin. Stop')
         kntlocal = 0
         do i = 1, kntmin
             kntlocal(localmin(i,2)) = kntlocal(localmin(i,2))+1
@@ -1604,6 +1609,7 @@ END MODULE
             enddo
             vminarray(jaux) = vmin
             if (i1 .lt. 1) cycle
+            indicesmin(jaux) = indices(i1)
             write(6,"('x = ', e12.5, ' y = ', e12.5, ' z = ', e12.5, ' mesp = ', e12.5, e12.5)") vertices(:,indices(i1)), vmin
         enddo
 
@@ -1628,12 +1634,26 @@ END MODULE
                                 enddo
                             enddo doii2
                             if (kntcoincid .gt. 0) then
-                                do i1 = 1, numlocalmin(j)
-                                    localaux(numlocalmin(i)+i1,i) = localaux(i1,j)
+!write(6,"('overlapping regions = ', i3, 3x, i3)") j, i
+                                xyz = umed * (vertices(:,indicesmin(j)) + vertices(:,indicesmin(i)) )
+                                vaux = cero
+                                do ii = 1, ncen
+                                    call mesp(ii, xyz(1), xyz(2), xyz(3), vn, ve, vt)
+                                    vaux = vaux + vt
                                 enddo
-                                numlocalmin(i) = numlocalmin(i) + numlocalmin(j)
-                                numlocalmin(j) = 0
-                                exit dok2
+!write(6,"('vmin0 = ', e22.15, ' vmin1 = ', e22.15, ' vauxmed = ', e22.15)") vtot(indicesmin(j)), vtot(indicesmin(i)), vaux
+!         checks if there is a minimum between the minima of both regions, if true keep both regions separated
+!               otherwise merges both regions and keeps just one minimum
+                                if ( (vtot(indicesmin(j)) + vtot(indicesmin(i)) - 2 * vaux) .gt. 0) then
+!write(6,"('merges overlapping regions ', i3, 3x, i3, ' and keeps just one minimum: ', e12.5)")
+!i, j, min(vtot(indicesmin(j)), vtot(indicesmin(i))
+                                    do i1 = 1, numlocalmin(j)
+                                        localaux(numlocalmin(i)+i1,i) = localaux(i1,j)
+                                    enddo
+                                    numlocalmin(i) = numlocalmin(i) + numlocalmin(j)
+                                    numlocalmin(j) = 0
+                                    exit dok2
+                                endif
                             endif
                         endif
                     enddo
@@ -1674,9 +1694,226 @@ END MODULE
 !
 !**********************************************************************
 !
+  subroutine localextrema
+    USE DAM320_DATA_D, only: ncen
+    USE DAMSGHOLE320_D, vold => vtot, vtot => vtot4, verticesold => vertices, vertices => vertices4
+    USE PARALELO
+    implicit none
+    integer, parameter :: maxlinks = 10
+    integer(KINT) :: ii, ij, ik, indaux(0:2), jj, jaux, kk
+    integer(KINT), allocatable :: indiceslinks(:,:), kntindiceslinks(:)
+    real(KREAL) :: xyzaux, xyzmin
+    real(KREAL), parameter :: dstthr = 1.d-5, dsqthr = 1.d-10
+    logical :: lfrontier, lvertfound(0:2)
+
+    allocate (indiceslinks(kntind,maxlinks), kntindiceslinks(kntind), indicesmax(kntind/3), indicesmin(kntind/3), &
+        stat = ierr)
+    if (ierr .ne. 0) then
+        write(6,"('Error ', i5,' when allocating indiceslinks and kntindiceslinks')") ierr
+        abort = 1
+        return
+    endif
+    kntmax = 0
+    kntmin = 0
+    kntindiceslinks = 0
+    indiceslinks = 0
+    do i = 1, kntind, 3
+        if (max(vtot(indices(i)), vtot(indices(i+1)), vtot(indices(i+2))) .gt. thresmax) then
+            indaux(:) = (/ i, i+1, i+2 /)
+            lvertfound(:) = .false.
+            do j = 1, i-1
+                if (min(abs(vertices(3,indices(i))-vertices(3,indices(j))), &
+                        abs(vertices(3,indices(i+1))-vertices(3,indices(j))), &
+                        abs(vertices(3,indices(i+2))-vertices(3,indices(j)))) .gt. dstthr) cycle
+                if (.not. lvertfound(0) .and. dot_product(vertices(:,indices(i))-vertices(:,indices(j)), &
+                                vertices(:,indices(i))-vertices(:,indices(j)) ) .lt. dsqthr ) then
+                    indaux(0) = j
+                    lvertfound(0) = .true.
+                else if (.not. lvertfound(1) .and. dot_product(vertices(:,indices(i+1))-vertices(:,indices(j)), &
+                                vertices(:,indices(i+1))-vertices(:,indices(j)) ) .lt. dsqthr ) then
+                    indaux(1) = j
+                    lvertfound(1) = .true.
+                else if (.not. lvertfound(2) .and. dot_product(vertices(:,indices(i+2))-vertices(:,indices(j)), &
+                                vertices(:,indices(i+2))-vertices(:,indices(j)) ) .lt. dsqthr ) then
+                    indaux(2) = j
+                    lvertfound(2) = .true.
+                endif
+            enddo
+            kntmax = kntmax + 1
+            do j = 0, 2
+                ij = indaux(j)
+                dokk1: do kk = 1, 2
+                    ik = indaux(mod(j+kk,3))
+                    do k = 1, kntindiceslinks(indices(ij))
+                        if (indiceslinks(indices(ij),k) .eq. indices(ik) ) cycle dokk1
+                    enddo
+                    kntindiceslinks(indices(ij)) = kntindiceslinks(indices(ij)) + 1
+                    if (kntindiceslinks(indices(ij)) .gt. 10) then
+                        write(6,"('vertex of index ', i8, ' connected to more than 10 vertices. Stop')") indices(ij)
+                        abort = 1
+                        return
+                    endif
+                    indiceslinks(indices(ij),kntindiceslinks(indices(ij))) = indices(ik)
+                enddo dokk1
+            enddo
+        elseif (min(vtot(indices(i)), vtot(indices(i+1)), vtot(indices(i+2))) .lt. thresmin) then
+            indaux(:) = (/ i, i+1, i+2 /)
+            lvertfound(:) = .false.
+            do j = 1, i-1
+                if (min(abs(vertices(3,indices(i))-vertices(3,indices(j))), &
+                    abs(vertices(3,indices(i+1))-vertices(3,indices(j))), &
+                    abs(vertices(3,indices(i+2))-vertices(3,indices(j)))) .gt. dstthr) cycle
+                if (.not. lvertfound(0) .and. dot_product(vertices(:,indices(i))-vertices(:,indices(j)), &
+                                vertices(:,indices(i))-vertices(:,indices(j)) ) .lt. dsqthr ) then
+                    indaux(0) = j
+                    lvertfound(0) = .true.
+                else if (.not. lvertfound(1) .and. dot_product(vertices(:,indices(i+1))-vertices(:,indices(j)), &
+                                vertices(:,indices(i+1))-vertices(:,indices(j)) ) .lt. dsqthr ) then
+                    indaux(1) = j
+                    lvertfound(1) = .true.
+                else if (.not. lvertfound(2) .and. dot_product(vertices(:,indices(i+2))-vertices(:,indices(j)), &
+                                vertices(:,indices(i+2))-vertices(:,indices(j)) ) .lt. dsqthr ) then
+                    indaux(2) = j
+                    lvertfound(2) = .true.
+                endif
+            enddo
+            kntmin = kntmin + 1
+            do j = 0, 2
+                ij = indaux(j)
+                dokk2: do kk = 1, 2
+                    ik = indaux(mod(j+kk,3))
+                    do k = 1, kntindiceslinks(indices(ij))
+                        if (indiceslinks(indices(ij),k) .eq. indices(ik) ) cycle dokk2
+                    enddo
+                    kntindiceslinks(indices(ij)) = kntindiceslinks(indices(ij)) + 1
+                    if (kntindiceslinks(indices(ij)) .gt. 10) then
+                        write(6,"('vertex of index ', i8, ' connected to more than ', i2,' vertices. Stop')") &
+                            maxlinks, indices(ij)
+                        abort = 1
+                        return
+                    endif
+                    indiceslinks(indices(ij),kntindiceslinks(indices(ij))) = indices(ik)
+                enddo dokk2
+            enddo
+        endif
+    enddo
+    kntgroupmax = 0
+    kntgroupmin = 0
+    doi: do i = 1, kntind
+        if (kntindiceslinks(i) .le. 0) cycle
+        do j = 1, kntindiceslinks(i)
+            if (vtot(i) .gt. thresmax .and. vtot(indiceslinks(i,j)) .gt. vtot(i)) cycle doi
+            if (vtot(i) .lt. thresmin .and. vtot(indiceslinks(i,j)) .lt. vtot(i)) cycle doi
+        enddo
+        if (vtot(i) .gt. thresmax) then
+            if (kntgroupmax .eq. 0) then
+                kntgroupmax = kntgroupmax + 1
+                indicesmax(kntgroupmax) = i
+            else
+                do j = 1, kntgroupmax
+                    if (i .eq. indicesmax(j)) cycle doi
+                    if (dot_product(vertices(:,i)-vertices(:,indicesmax(j)),vertices(:,i)-vertices(:,indicesmax(j))) &
+                            .le. disthresq) then
+                        if (vtot(i) .gt. vtot(indicesmax(j))) indicesmax(j) = i
+                        cycle doi
+                    endif
+                enddo
+                kntgroupmax = kntgroupmax + 1
+                indicesmax(kntgroupmax) = i
+            endif
+        elseif (vtot(i) .lt. thresmin) then
+            if (kntgroupmin .eq. 0) then
+                kntgroupmin = kntgroupmin + 1
+                indicesmin(kntgroupmin) = i
+            else
+                do j = 1, kntgroupmin
+                    if (i .eq. indicesmin(j)) cycle doi
+                    if (dot_product(vertices(:,i)-vertices(:,indicesmin(j)),vertices(:,i)-vertices(:,indicesmin(j))) &
+                            .le. disthresq) then
+                        if (vtot(i) .lt. vtot(indicesmin(j))) indicesmin(j) = i
+                        cycle doi
+                    endif
+                enddo
+                kntgroupmin = kntgroupmin + 1
+                indicesmin(kntgroupmin) = i
+            endif
+        endif
+    enddo doi
+
+    allocate (localmax(max(1,kntmax),kntgroupmax), localmin(max(1,kntmin),kntgroupmin), numlocalmax(kntgroupmax), &
+        numlocalmin(kntgroupmin), stat = ierr)
+    if (ierr .ne. 0) then
+        write(6,"('Error ', i5,' when allocating localmax, localmin, numlocalmax and numlocalmin')") ierr
+        abort = 1
+        return
+    endif
+    kntmax = 0
+    kntmin = 0
+    numlocalmax = 0
+    numlocalmin = 0
+    do i = 1, kntind, 3
+        if (max(vtot(indices(i)), vtot(indices(i+1)), vtot(indices(i+2))) .gt. thresmax) then
+            kntmax = kntmax + 1
+            centroid = ri(3) * ( vertices(:,indices(i)) + vertices(:,indices(i+1)) + vertices(:,indices(i+2)) )
+            xyzmin = dot_product(centroid-vertices(:,indicesmax(1)),centroid-vertices(:,indicesmax(1)))
+            jj = 1
+            do j = 2, kntgroupmax
+                xyzaux = dot_product(centroid-vertices(:,indicesmax(j)),centroid-vertices(:,indicesmax(j)))
+                if (xyzaux .lt. xyzmin) then
+                    jj = j
+                    xyzmin = xyzaux
+                endif
+            enddo
+            numlocalmax(jj) = numlocalmax(jj) + 1
+            localmax(numlocalmax(jj),jj) = i
+        else if (min(vtot(indices(i)), vtot(indices(i+1)), vtot(indices(i+2))) .lt. thresmin) then
+            kntmin = kntmin + 1
+            centroid = ri(3) * ( vertices(:,indices(i)) + vertices(:,indices(i+1)) + vertices(:,indices(i+2)) )
+            xyzmin = dot_product(centroid-vertices(:,indicesmin(1)),centroid-vertices(:,indicesmin(1)))
+            jj = 1
+            do j = 2, kntgroupmin
+                xyzaux = dot_product(centroid-vertices(:,indicesmin(j)),centroid-vertices(:,indicesmin(j)))
+                if (xyzaux .lt. xyzmin) then
+                    jj = j
+                    xyzmin = xyzaux
+                endif
+            enddo
+            numlocalmin(jj) = numlocalmin(jj) + 1
+            localmin(numlocalmin(jj),jj) = i
+        endif
+    enddo
+
+    if (kntmax .eq. 0) kntgroupmax = 0
+    if (kntmin .eq. 0) kntgroupmin = 0
+
+    if (kntmax .gt. 0) then
+        write(6,"(/'Number of regions with local maxima = ', i3)") kntgroupmax
+        call flush(6)
+        do i = 1, kntgroupmax
+            write(6,"('Number triangles in region ', i3 '  = ', i7)") i, numlocalmax(i)
+        enddo
+    else
+        write(6,"(/'No regions with local maxima')")
+    endif
+
+    if (kntmin .gt. 0) then
+        write(6,"(/111('-'),/'Number of regions with local minima = ', i3)") kntgroupmin
+        do i = 1, kntgroupmin
+            write(6,"('Number triangles in region ', i3 '  = ', i7)") i, numlocalmin(i)
+        enddo
+    else
+        write(6,"(/'No regions with local minima')")
+    endif
+    deallocate(indiceslinks, kntindiceslinks)
+
+    return
+    end
+!
+!**********************************************************************
+!
   subroutine makehistogram
     USE DAMSGHOLE320_D, vold => vtot, vtot => vtot4, verticesold => vertices, vertices => vertices4
-    implicit none    
+    implicit none
     allocate (histogram(minhist:maxhist), stat = ierr)
     if (ierr .ne. 0) then
         call error(ierr,'Memory error when allocating histogram. Stop')
@@ -1704,7 +1941,7 @@ END MODULE
             fpos = uno
         else if (aux .le. thresmin) then
             fneg = uno
-        else 
+        else
             if( aux .gt. thresmax) then
                 if (cux .gt. thresmax) then
                     fpos = dos * ri(3)
@@ -1723,7 +1960,7 @@ END MODULE
                     fneg = umed
                 endif
             endif
-        endif 
+        endif
         surfpos = surfpos + fpos * surftrian
         surfneg = surfneg + fneg * surftrian
     enddo
@@ -1777,7 +2014,7 @@ END MODULE
     USE DAMSGHOLE320_D, vold => vtot, vtot => vtot4, verticesold => vertices, vertices => vertices4
     implicit none    
     integer(KINT) :: jaux
-    
+
     j = jaux
     do i = 1, numlocalmin(j)
         bux = min(vtot(indices(localmin(i,j))), vtot(indices(localmin(i,j)+1)), vtot(indices(localmin(i,j)+2)))
@@ -1809,6 +2046,7 @@ END MODULE
         endif 
         surfneg = surfneg + fneg * surftrian
     enddo
+
     return
     end
 !
@@ -3455,11 +3693,12 @@ END MODULE
     return
     end
 ! This file has been generated with the notebook:
-!	<</home/rafa/math/notebooks/pargamma25_D_2.nb>>
-! and modified to introduce a factor y^n
-!	Functions Fn = y^n * Integrate[Exp[-x*t]* t**(n-1/2),{t,0,1}]
-!		= ( Gamma(n+1/2) - Gamma(n+1/2,x) * x**(Gamma(-n-1/2)
-!	 with n <= 20
+!	<</home/rafa/math/notebooks/pargamma25_D_3.nb>>
+! and modified to introduce a factor r^n
+!	Functions fv(n) = r^n * Integrate[Exp[-x*t]* t**(n-1/2),{t,0,1}]
+!		= r^n * ( Gamma(n+1/2) - Gamma(n+1/2,x) ) * x**(Gamma(-n-1/2)
+!               = r^n * gamma(n+1/2,x) * x**(Gamma(-n-1/2)
+!	 with 0 <= n <= 20
 !  ********************************************************
 
   subroutine freq20(r, x, fv)
@@ -3470,127 +3709,141 @@ END MODULE
     real(KREAL) :: ex, fv, r, x, y, z
     dimension fv(0:20)
     z = abs(x)
+    if (z .gt. 200.d0) then
+       y = 1.d0 / sqrt(z)
+       fv(0) = sqrt(pi) * y
+       do i = 1, 20
+         fv(i) = fv(i-1) * (i+i-1.d0) * 0.5d0 * y * y
+       enddo
+       go to 3000
+    endif
     iz = z
     ex = exp(-x)
-    if (iz .lt. 25) then
-            go to (5,10,15,20,25) iz/5+1
-5		continue
-!	Interval  0 <= z <= 5   ( eps = 1.916D-17 )
-!	polynomial approximation of F20(z)
-            fv(20) = (4.8780487804878048D-2+z            &
-                    *(-4.6511627906976616D-2+z*(2.2222222222219208D-2+z*(-7.0921985815316068D-3+z    &
-                    *(1.7006802719618550D-3+z*(-3.2679738515298565D-4+z*(5.2410900461138484D-5+z     &
-                    *(-7.2150056709346961D-6+z*(8.7022937944453839D-7+z*(-9.3413127864992509D-8+z    &
-                    *(9.0341765026013756D-9+z*(-7.9477750647592279D-10+z*(6.4019156095112397D-11+z   &
-                    *(-4.7232683275372959D-12+z*(3.1446647223867795D-13+z*(-1.7942609417785333D-14+z &
-                    *(7.5594370023985866D-16+z*(-1.0859764932712809D-17+z*(-1.3577300442739411D-18+z &
-                    *(1.1258133087359119D-19+z*(-3.1078282520470412D-21)))))))))))))))))))))
-            go to 2000
-10		continue
-!		Interval  5 <= z <= 10   ( eps = 1.360D-16 )
-!		polynomial approximation of Exp[x] * F20(z)
-            fv(20) = ex * (4.8780523607920746D-2+z   &
-                    *(2.2687949516701193D-3+z*(1.0089218810483327D-4+z*(4.2638000853699621D-6+z      &
-                    *(1.8439794950170495D-7+z*(4.6223943411867869D-9+z*(6.5815410035004138D-10+z     &
-                    *(-4.2969248943043529D-11+z*(5.3950760658262024D-12+z*(-3.4191372957330341D-13+z &
-                    *(1.7368928116802409D-14+z*(-5.0438414248714736D-16+z*(8.1969351643649301D-18)))))))))))))
-            go to 2000
-15		continue
-!		Interval  10 <= z <= 15   ( eps = 1.851D-18 )
-!		polynomial approximation of Exp[x] * F20(z)
-            fv(20) = ex * (4.8841694978314296D-2+z   &
-                    *(2.1952612298984881D-3+z*(1.4197437389228347D-4+z*(-9.8786540053342240D-6+z     &
-                    *(3.5368648978184568D-6+z*(-5.7450024066913360D-7+z*(7.5878158972779751D-8+z     &
-                    *(-7.5109257899927147D-9+z*(5.7546785517165086D-10+z*(-3.3687901762469887D-11+z  &
-                    *(1.4918741683111878D-12+z*(-4.8451102282376191D-14+z*(1.0969631911429229D-15+z  &
-                    *(-1.5550170752478661D-17+z*(1.0620901118859267D-19)))))))))))))))
-            go to 2000
-20		continue
-!		Interval  15 <= z <= 20   ( eps = 2.813D-20 )
-!		polynomial approximation of Exp[x] * F20(z)
-            fv(20) = ex * (9.6026515044316689D-2+z   &
-                    *(-4.3166209794092771D-2+z*(2.0602239582622524D-2+z*(-5.7582054167261001D-3+z    &
-                    *(1.1296518257164943D-3+z*(-1.6371999527316147D-4+z*(1.8161294813656418D-5+z     &
-                    *(-1.5728398492941456D-6+z*(1.0752043107951713D-7+z*(-5.8231954957349261D-9+z    &
-                    *(2.4915484933233244D-10+z*(-8.3383411682966011D-12+z*(2.1414249476219437D-13+z  &
-                    *(-4.0839112977641997D-15+z*(5.4623096440148860D-17+z*(-4.5874914857129447D-19+z &
-                    *(1.8295571542161169D-21)))))))))))))))))
-            go to 2000
-25		continue
-!		Interval  20 <= z <= 25   ( eps = 4.030D-22 )
-!		polynomial approximation of Exp[x] * F20(z)
-            fv(20) = ex * (3.3224438260503371D1+z  &
-                    *(-2.7603662264922665D1+z*(1.0855563769831582D1+z*(-2.6805503362623642D0+z       &
-                    *(4.6582428660998887D-1+z*(-6.0503010428719655D-2+z*(6.0875879597865257D-3+z     &
-                    *(-4.8521941163595912D-4+z*(3.1063234536669398D-5+z*(-1.6094515995913748D-6+z    &
-                    *(6.7662136341545240D-8+z*(-2.3031265455170785D-9+z*(6.3019542936826522D-11+z    &
-                    *(-1.3678219667355413D-12+z*(2.3040658855046203D-14+z*(-2.9078867616752635D-16+z &
-                    *(2.5909392709711021D-18+z*(-1.4556134182691300D-20+z*(3.8853572116505235D-23)))))))))))))))))))
+    if (iz .lt. 15) then
+       if (z .lt. uno) then
+ !   Interval  0 <= z <= 1   ( eps = 1.233D-23 )
+ !   polynomial approximation of F20(z)
+       fv(20) = (4.8780487804878049D-2+z            &
+          *(-4.6511627906976744D-2+z*(2.2222222222222222D-2+z*(-7.0921985815602829D-3+z    &
+          *(1.7006802721088306D-3+z*(-3.2679738562078113D-4+z*(5.2410901466593768D-5+z     &
+          *(-7.2150072107054325D-6+z*(8.7023111885020894D-7+z*(-9.3414605558779118D-8+z    &
+          *(9.0351213814743503D-9+z*(-7.9521759542980011D-10+z*(6.4150755129047891D-11+z   &
+          *(-4.7343391649764174D-12+z*(3.0436531511475638D-13+z*(-1.3202921548315112D-14))))))))))))))))
+       go to 2000
+       endif
+       go to (5,10,15) iz/5+1
+ 5      continue
+ !      Interval  1 <= z < 5   ( eps = 1.330D-18 )
+ !      polynomial approximation of Exp[x] * F20(z)
+       fv(20) = ex * (4.8780487804887270D-2+z   &
+          *(2.2688598978478804D-3+z*(1.0083821782313802D-4+z*(4.2909877732148515D-6+z      &
+          *(1.7514258408881220D-7+z*(6.8681734495339967D-9+z*(2.5926134770018764D-10+z     &
+          *(9.3953223491830761D-12+z*(3.3867973398004913D-13+z*(9.6616173655492100D-15+z   &
+          *(5.7513908577916034D-16+z*(-6.2419044563656976D-18+z*(1.1998040254144381D-18)))))))))))))
+       go to 2000
+ 10      continue
+ !      Interval  5 <= z < 10   ( eps = 2.197D-19 )
+ !      polynomial approximation of Exp[x] * F20(z)
+       fv(20) = ex * (4.8780489794684994D-2+z   &
+          *(2.2688557223858922D-3+z*(1.0084228213483975D-4+z*(4.2885543942049550D-6+z      &
+          *(1.7614425798911456D-7+z*(6.5681000211449926D-9+z*(3.2677371327339277D-10+z     &
+          *(-2.2026297716826657D-12+z*(1.8688737085070686D-12+z*(-1.4483765011674838D-13+z &
+          *(1.2354396010917641D-14+z*(-6.6752016236177459D-16+z*(2.7402216839405727D-17+z  &
+          *(-6.7707030795245797D-19+z*(9.1143746166955684D-21)))))))))))))))
+       go to 2000
+ 15      continue
+ !      Interval  10 <= z < 15   ( eps = 1.851D-18 )
+ !      polynomial approximation of Exp[x] * F20(z)
+       fv(20) = ex * (4.8841694978314296D-2+z   &
+          *(2.1952612298984881D-3+z*(1.4197437389228347D-4+z*(-9.8786540053342240D-6+z     &
+          *(3.5368648978184568D-6+z*(-5.7450024066913360D-7+z*(7.5878158972779751D-8+z     &
+          *(-7.5109257899927147D-9+z*(5.7546785517165086D-10+z*(-3.3687901762469887D-11+z  &
+          *(1.4918741683111878D-12+z*(-4.8451102282376191D-14+z*(1.0969631911429229D-15+z  &
+          *(-1.5550170752478661D-17+z*(1.0620901118859267D-19)))))))))))))))
+       go to 2000
     else
-            go to (35,45,55,65,75,85,95) (iz-25)/10+1
-!		If z > 95: asymptotical expression
-            fv(20) = 5.406242982335075D17 / sqrt(z)**41
-            go to 2000
-35   	continue
-!		Interval  25 <= z <= 35   ( eps = 3.089D-18 )
-!	polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
-            y = uno / z
-            fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (5.8747691846974363D-5+y       &
-                    *(9.7764465514125199D-1+y*(2.3413516830415170D1+y*(-5.6335933979497473D1+y       &
-                    *(3.6483404782967801D4+y*(-1.4583609380850435D6+y*(6.1127998541254078D7+y        &
-                    *(-1.6602879996934203D9+y*(3.5553799778962732D10+y*(-5.3096505923262290D11+y     &
-                    *(5.6870782720347124D12+y*(-3.7315170959956712D13+y*(1.3243661404335882D14)))))))))))))
-            go to 2000
-45   	continue
-!		Interval  35 <= z <= 45   ( eps = 1.547D-19 )
-!	polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
-            y = uno / z
-            fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (1.5989754165300373D-5+y       &
-                    *(9.9312556185710981D-1+y*(2.0838150065672113D1+y*(2.0523027473807872D2+y        &
-                    *(1.8285896271688041D4+y*(-5.3545710391705998D5+y*(2.5719413843168101D7+y        &
-                    *(-6.1308064271060475D8+y*(1.1700760809463463D10+y*(-1.2321136681771141D11+y     &
-                    *(7.6107340878398950D11)))))))))))
-            go to 2000
-55   	continue
-!		Interval  45 <= z <= 55   ( eps = 4.160D-20 )
-!	polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
-            y = uno / z
-            fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (1.7437254480506169D-5+y       &
-                    *(9.9235105114453346D-1+y*(2.0982789209186459D1+y*(1.9436556162147273D2+y        &
-                    *(1.8182243066041124D4+y*(-4.5064318513701511D5+y*(1.8402159511206095D7+y        &
-                    *(-2.8453651344225732D8+y*(3.1367646260747387D9)))))))))
-            go to 2000
-65   	continue
-!		Interval  55 <= z <= 65   ( eps = 3.182D-20 )
-!	polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
-            y = uno / z
-            fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (4.4813294293896279D-5+y       &
-                    *(9.8176159665610593D-1+y*(2.2650698969190298D1+y*(6.2837162193241420D1+y        &
-                    *(2.2790603420436922D4+y*(-4.1574900536061811D5+y*(9.5985867522416429D6)))))))
-            go to 2000
-75   	continue
-!		Interval  65 <= z <= 75   ( eps = 5.328D-20 )
-!	polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
-            y = uno / z
-            fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (2.0651610448975019D-4+y       &
-                    *(9.3080337375748514D-1+y*(2.8584764207936303D1+y*(-2.1182416824959043D2+y       &
-                    *(2.2555785714611651D4)))))
-            go to 2000
-85   	continue
-!		Interval  75 <= z <= 85   ( eps = 1.660D-19 )
-!	polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
-            y = uno / z
-            fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (1.4546785444263069D-3+y       &
-                    *(6.7563946245566736D-1+y*(4.1886052644826494D1)))
-            go to 2000
-95   	continue
-!		Interval  85 <= z <= 95   ( eps = 6.308D-21 )
-!	polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
-            y = uno / z
-            fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (-3.7912464139565155D-3+y      &
-                    *(1.6136443019529395D0))
+       go to (25,35,45,55,65,75,85,95,105) (iz-15)/10+1
+ !      If z > 105: asymptotical expression
+       fv(20) = 5.406242982335075D17 / sqrt(z)**41
+       go to 2000
+ 25      continue
+ !      Interval  15 <= z < 25   ( eps = 6.625D-15 )
+ !   polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
+       y = uno / z
+       fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (3.0503304845140581D-3+y       &
+          *(1.1486927303924751D-1+y*(1.3891510674628955D2+y*(-9.5722910256661872D3+y       &
+          *(5.7578266413379715D5+y*(-2.3718074066048430D7+y*(7.5220959099166695D8+y        &
+          *(-1.8095278252442547D10+y*(3.3759474357408302D11+y*(-4.8252519908180661D12+y    &
+          *(5.2571946506189288D13+y*(-4.2249439839665580D14+y*(2.4081147377852433D15+y     &
+          *(-8.7280423804452341D15+y*(1.6439985245835246D16)))))))))))))))
+       go to 2000
+ 35      continue
+ !      Interval  25 <= z < 35   ( eps = 3.089D-18 )
+ !   polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
+       y = uno / z
+       fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (5.8747691846974363D-5+y       &
+          *(9.7764465514125199D-1+y*(2.3413516830415170D1+y*(-5.6335933979497473D1+y       &
+          *(3.6483404782967801D4+y*(-1.4583609380850435D6+y*(6.1127998541254078D7+y        &
+          *(-1.6602879996934203D9+y*(3.5553799778962732D10+y*(-5.3096505923262290D11+y     &
+          *(5.6870782720347124D12+y*(-3.7315170959956712D13+y*(1.3243661404335882D14)))))))))))))
+       go to 2000
+ 45      continue
+ !      Interval  35 <= z < 45   ( eps = 1.547D-19 )
+ !   polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
+       y = uno / z
+       fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (1.5989754165300373D-5+y       &
+          *(9.9312556185710981D-1+y*(2.0838150065672113D1+y*(2.0523027473807872D2+y        &
+          *(1.8285896271688041D4+y*(-5.3545710391705998D5+y*(2.5719413843168101D7+y        &
+          *(-6.1308064271060475D8+y*(1.1700760809463463D10+y*(-1.2321136681771141D11+y     &
+          *(7.6107340878398950D11)))))))))))
+       go to 2000
+ 55      continue
+ !      Interval  45 <= z < 55   ( eps = 4.160D-20 )
+ !   polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
+       y = uno / z
+       fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (1.7437254480506169D-5+y       &
+          *(9.9235105114453346D-1+y*(2.0982789209186459D1+y*(1.9436556162147273D2+y        &
+          *(1.8182243066041124D4+y*(-4.5064318513701511D5+y*(1.8402159511206095D7+y        &
+          *(-2.8453651344225732D8+y*(3.1367646260747387D9)))))))))
+       go to 2000
+ 65      continue
+ !      Interval  55 <= z < 65   ( eps = 3.182D-20 )
+ !   polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
+       y = uno / z
+       fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (4.4813294293896279D-5+y       &
+          *(9.8176159665610593D-1+y*(2.2650698969190298D1+y*(6.2837162193241420D1+y        &
+          *(2.2790603420436922D4+y*(-4.1574900536061811D5+y*(9.5985867522416429D6)))))))
+       go to 2000
+ 75      continue
+ !      Interval  65 <= z < 75   ( eps = 5.328D-20 )
+ !   polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
+       y = uno / z
+       fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (2.0651610448975019D-4+y       &
+          *(9.3080337375748514D-1+y*(2.8584764207936303D1+y*(-2.1182416824959043D2+y       &
+          *(2.2555785714611651D4)))))
+       go to 2000
+ 85      continue
+ !      Interval  75 <= z < 85   ( eps = 1.660D-19 )
+ !   polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
+       y = uno / z
+       fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (1.4546785444263069D-3+y       &
+          *(6.7563946245566736D-1+y*(4.1886052644826494D1)))
+       go to 2000
+ 95      continue
+ !      Interval  85 <= z < 95   ( eps = 6.308D-21 )
+ !   polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
+       y = uno / z
+       fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (-3.7912464139565155D-3+y      &
+          *(1.6136443019529395D0))
+       go to 2000
+ 105     continue
+ !      Interval  95 <= z < Infinity   ( eps = 1.692D-24 )
+ !   polynomial approximation of Exp[x] * (Fasympt20 - F20(z))
+       y = uno / z
+       fv(20) = 5.406242982335075D17 * sqrt(y)**41 - ex * (-2.9220486969845953D-3+y      &
+          *(1.5312675193464893D0))
     endif
-2000 continue
+ 2000 continue
     fv(19) = (ex + z * fv(20) ) * 5.128205128205128D-2
     fv(18) = (ex + z * fv(19) ) * 5.405405405405405D-2
     fv(17) = (ex + z * fv(18) ) * 5.714285714285714D-2
@@ -3611,6 +3864,7 @@ END MODULE
     fv(2)  = (ex + z * fv(3) )  * 4.000000000000000D-1
     fv(1)  = (ex + z * fv(2) )  * 6.666666666666667D-1
     fv(0)  = (ex + z * fv(1) )  * 2.000000000000000D0
+ 3000 continue
     z = r
     do i = 1, 20
        fv(i) = fv(i) * z

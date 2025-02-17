@@ -117,7 +117,7 @@ MODULE DAM320_DATA_D
     integer(KINT) :: ioptaj, lmaxbase, lmaxexp, lmtop, lmultmx, mxltot, mxtpw, nbas, ncaps, ncen, nfitpar, nintstd, numdvec
     character(2), allocatable :: atmnam(:)
     character(300) :: projectname
-    logical :: lgbsgz, lden, ldengz, ldensprsbin, lm2c, longoutput, lsto, lvalence, lzdo
+    logical :: lgbsgz, lden, ldengz, ldensprsbin, lm2c, longoutput, lsto, lvalence, lzdo, lgencontract
     real(KREAL) :: roblk(-mxl:mxl,-mxl:mxl)
     logical, allocatable :: lblock(:,:), lblockproc(:)
     logical*1, allocatable :: lsdisf(:,:)

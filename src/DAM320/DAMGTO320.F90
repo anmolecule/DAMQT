@@ -43,8 +43,39 @@
 !
 ! Requires the file DAM320_GLOBAL.F90 which must be compiled first (contains the modules)
 !
-! Version of April 2019
+! Version of July 2023
 !
+ !===============================================================================================
+ !                 MODULE GENCONTRACTMOD
+ !===============================================================================================
+MODULE GENCONTRACTMOD
+   USE DAM320_D
+   IMPLICIT NONE
+   type basishell
+       integer(KINT) :: ncontr
+       integer(KINT) :: nexp       ! number of exponents
+       integer(KINT) :: lval
+       integer(KINT) :: nprim
+       real(KREAL), allocatable :: exp(:)
+       integer(KINT), allocatable :: offset(:)  ! offset for functions index in molecular basis set
+       real(KREAL), allocatable :: norm
+       real(KREAL), allocatable :: coef(:,:)   ! contraction coefficients: first index: # primitives, second: # contractions
+   end type
+   type basisgencontr
+       integer(KINT) :: lmax
+       integer(KINT) :: nshells    ! number of shells (lmax+1)
+       integer(KINT) :: nfuncs     ! number of basis functions
+       integer(KINT) :: ncontractions     ! number of contractions
+       type(basishell), allocatable :: shells(:)   ! shells (set of contracted functions with same l value)
+   end type
+   type(basisgencontr), allocatable :: basis(:)
+   real(KREAL), allocatable :: biv(:,:)
+   integer(KINT), allocatable :: knti1i2v(:,:)
+   integer(KINT) :: kntcoefa(0:mxl), kntcoefb(0:mxl)
+END MODULE
+!
+!                 END OF MODULE GENCONTRACTMOD
+!...............................................................................................
   program DAMGTO320
     USE DAM320_D
     USE DAM320_CONST_D
@@ -177,7 +208,13 @@
 
 
 !	Piecewise fitting of the radial factors and calculation of multipolar moments
-    call ajusta
+
+    if (lgencontract) then
+       call gencontract
+       call ajustagencontract
+    else
+       call ajusta
+    endif
 
 !	Computes the total molecular multipolar moments from the atomic moments directly computed
     call multmolec(qlm, qlmnuc)
@@ -209,15 +246,90 @@
 !
 !	***************************************************************
 !
+  subroutine gencontract
+    USE DAM320_D
+    USE DAM320_CONST_D
+    USE DAM320_DATA_D
+    USE GAUSS
+    USE GENCONTRACTMOD
+    implicit none
+    logical lfound
+    integer(KINT) :: i, icaps, ierr, j, k, m, n
+    integer(KINT)  :: iexprim(lmaxbase+1), kcontrshell(lmaxbase+1), ncontrshell(lmaxbase+1), nprimshell(lmaxbase+1)
+!    write(6,*) 'entra en gencontract'
+
+    allocate(basis(ncen), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating basis. Stop')
+    icaps = 0
+    do i = 1, ncen
+       basis(i)%nshells = 1
+       ncontrshell = 0
+       nprimshell = 0
+       do j = 1, ncontr(i)
+          basis(i)%nshells = max(basis(i)%nshells,ll(icaps+j)+1)
+          ncontrshell(ll(icaps+j)+1) = ncontrshell(ll(icaps+j)+1) + 1
+          if (nprimit(icaps+j) .gt. nprimshell(ll(icaps+j)+1)) then
+             nprimshell(ll(icaps+j)+1) = max(nprimshell(ll(icaps+j)+1), nprimit(icaps+j))
+             iexprim(ll(icaps+j)+1) = icaps+j
+          endif
+       enddo
+       basis(i)%lmax = basis(i)%nshells - 1
+       basis(i)%ncontractions = ncontr(i)
+       allocate(basis(i)%shells(basis(i)%nshells), stat = ierr)
+       if (ierr .ne. 0) call error(1,'Memory error when allocating basis(i)%shells. Stop')
+       do j = 1, basis(i)%nshells
+          basis(i)%shells(j)%nprim = nprimshell(j)
+          basis(i)%shells(j)%lval = j-1
+          allocate(basis(i)%shells(j)%exp(nprimshell(j)), &
+             basis(i)%shells(j)%coef(nprimshell(j),ncontrshell(j)), &
+             stat = ierr)
+          if (ierr .ne. 0) call error(1,'Memory error when allocating basis(i)%shells(j)%(exp and coef). Stop')
+          basis(i)%shells(j)%coef = cero
+          basis(i)%shells(j)%ncontr = 0
+          k = iexprim(j)
+          basis(i)%shells(j)%exp = xxg(ipntprim(k):ipntprim(k) + nprimit(k) - 1)
+       enddo
+       do j = 1, ncontr(i)
+          k = ll(icaps+j)+1
+          basis(i)%shells(k)%ncontr = basis(i)%shells(k)%ncontr + 1
+          dom: do m = 1, nprimit(icaps+j)
+             lfound = .false.
+             do n = 1, size(basis(i)%shells(k)%exp)
+                if (abs(xxg(ipntprim(icaps + j)+m-1) - basis(i)%shells(k)%exp(n)) .lt. 1.d-10) then
+                   basis(i)%shells(k)%coef(n,basis(i)%shells(k)%ncontr) = cfcontr(ipntprim(icaps+j)+m-1)
+                   lfound = .true.
+                   cycle dom
+                endif
+             enddo
+             if (.not. lfound) then
+                call error(1,'Error identifying primitive exponent. Stop')
+             endif
+          enddo dom
+       enddo
+!        do j = 1, basis(i)%nshells
+!           write(6,"('atom # ', i3, '    shell # ', i3)") i, j
+!           do k = 1, basis(i)%shells(j)%ncontr
+!              write(6,"('coeficients of contraction # ', i2, ' = ', 10(1x,e12.5))") k, basis(i)%shells(j)%coef(:,k)
+!           enddo
+!        enddo
+       icaps = icaps + ncontr(i)
+    enddo
+
+    return
+    end
+!
+!	***************************************************************
+!
   subroutine readggbs
     USE DAM320_D
     USE DAM320_CONST_D
     USE DAM320_DATA_D
     USE GAUSS
     implicit none
-    integer(KINT) :: i, ia, icarga, ierr, indnf, indng, ios, j, k, k1, k2, knt, nbasis, ncapserr
+    integer(KINT) :: i, ia, icaps, icarga, ierr, indnf, indng, ios, j, k, k1, k2, knt, nbasis, ncapserr
     real(KREAL) :: aux, bux
     real(KREAL) :: xaux(mxprimit), cfaux(mxprimit)
+    logical     :: lfound
 !	Reads the number of centers
     open(15,file=trim(projectname)//".ggbs",form='formatted', iostat=ierr)
     if (ierr .ne. 0) then
@@ -389,22 +501,50 @@
                 ia, rcen(1,ia), rcen(2,ia), rcen(3,ia) , zn(ia), ngfin(ia)-ngini(ia)+1
     enddo
     write(6,"(27x,'GTO BASIS SET')")
-    if (longoutput) then
-        icarga = 0
-        knt = 0
-        do ia = 1, ncen
-            if (ncontr(ia) .le. 0) cycle
-            write(6,"(/1x,'atom no.',1x,i8,'(',a2,')')") ia, atmnam(ia)
-            write(6,"(1x,'number of contractions = ',i4)") ncontr(ia)
-            do j = 1, ncontr(ia)
-                knt = knt + 1
-                write(6,"(/1x,'contraction no. ',i4,' ; l = ',i2)") j,  ll(knt)
-                write(6,"('exponents: ', 8(1x,e12.5))") (xxg(icarga+k), k = 1, nprimit(knt))
-                write(6,"('coefficients: ', 8(1x,e12.5))") (cfcontr(icarga+k),k=1,nprimit(knt))
+
+    lgencontract = .true.
+    icarga = 0
+    knt = 0
+    doia: do ia = 1, ncen
+       if (ncontr(ia) .le. 0) cycle
+       if (allocated(xxg0)) deallocate(xxg0)
+       allocate(xxg0(nprimit(knt+1)))
+       xxg0 = xxg(icarga+1:icarga+nprimit(knt+1))
+       do j = 1, ncontr(ia)
+          knt = knt + 1
+          if (longoutput) then
+             write(6,"(/1x,'contraction no. ',i4,' ; l = ',i2)") j,  ll(knt)
+             write(6,"('exponents: ', 8(1x,e12.5))") (xxg(icarga+k), k = 1, nprimit(knt))
+             write(6,"('coefficients: ', 8(1x,e12.5))") (cfcontr(icarga+k),k=1,nprimit(knt))
+             call flush(6)
+          endif
+          if (j .gt. 1) then
+             if (ll(knt) .ne. ll(knt-1)) then
+                deallocate(xxg0)
+                allocate(xxg0(nprimit(knt)))
+                xxg0 = xxg(icarga+1:icarga+nprimit(knt+1))
                 icarga = icarga+nprimit(knt)
-            enddo
-        enddo
-    endif
+                cycle
+             endif
+             dok: do k = 1, nprimit(knt)
+                lfound = .false.
+                do k1 = 1, size(xxg0)
+                   if (abs(xxg0(k1)-xxg(icarga+k)) .lt. 1.e-10) then
+                      lfound = .true.
+                      cycle dok
+                   endif
+                enddo
+                if (.not. lfound) then
+                   lgencontract = .false.
+                   exit doia
+                endif
+             enddo dok
+          endif
+          icarga = icarga+nprimit(knt)
+       enddo
+    enddo doia
+
+    write(6,"(/'Is a general contracted BS: ',l)") lgencontract
     write(6,"('Number of basis functions = ', i8)") nbas
     write(6,"('Number of primitive functions = ', i8)") nprimitot
     
@@ -690,8 +830,8 @@
         write(6,"(5x,'of the long-range potential multiplied by sqrt((1+delta(m,0)) * (l+|m|)! / (l-|m|)!) to keep them')")
         write(6,"(5x,'rotationally invariantexcept in case of l = 0, in which case the electron charge is quoted')")
     endif
-    write(6,"(/3x,'  atom     la    ma  ', 13x, 'value',14x,'from radial factors' &
-            ,/3x,8('-'),2x,4('-'),2x,4('-'),4x,24('-'),3x,24('-'))")
+    write(6,"(/3x,'  atom        la    ma  ', 13x, 'value',14x,'from radial factors' &
+                ,/3x,11('-'),2x,4('-'),2x,4('-'),4x,24('-'),3x,24('-'))")
     do ia = 1, ncen	! Do over centers (ia)
         if (ngini(ia) .le. 0) cycle	! If center without associated basis set, cycles
 !	Initializes vectors and matrices
@@ -864,7 +1004,550 @@
 !	Tabulation of A fragment
                         lf0 = .true.	! null f0 -> lf0 = .false.  (set in frgsiggauss)
                         call frgsiggauss(lf0, i1, i2, rab)	! Sigma part
-                        if (lf0) call dsczazbnew(la, lb, rab)	! Factors for La,Ma,Lb,Mb
+                        if (lf0) then
+                           call dsczazbnew(la, lb, rab)   ! Factors for La,Ma,Lb,Mb
+                        endif
+                    enddo
+                enddo
+!  Rotates the radial factors back to the molecular axis system
+                lm = 0
+                kml = 0
+                do l = 0, lmaxexp
+                    do m = -l, l
+                        lm = lm + 1
+                        lk = l*(l+1)+1
+                        do k = -l, l
+                            kml = kml + 1
+                            rmultip(lm,ia) = rmultip(lm,ia) + qlm2c(lk+k) * rlt(kml)
+                            ftab(1:npntaj,lm) = ftab(1:npntaj,lm) + fa(1:npntaj,lk+k) * rlt(kml)
+                        enddo
+                    enddo
+                enddo
+            enddo    ! End of Do over centers (ib)
+
+!        Computes the modules of multipolar moments and stores them in file  filename.mltmod
+!        Since the multipolar moments, are defined as the coefficients that multiply the unnormalized irregular spherical harmonics
+!        in the long-range potential, they are multipied here by sqrt((1+delta(m,0)) * (l+|m|)!/(l-|m|)! ) to keep them invariant under rotations
+            if (lmultmod) then
+                lm = 0
+                do l = 0, lmultmx
+                    aux = 0.d0
+                    do m = -l, l
+                        lm = lm + 1
+                        if (m .eq. 0) then
+                            bux = dos
+                        else
+                            bux = uno
+                        endif
+                        aux = aux + rmultip(lm,ia) *  rmultip(lm,ia) * bux * fact(l+abs(m)) * facti(l-abs(m))
+                    enddo
+                    rmultipmod(l) = sqrt(aux)
+                enddo
+                    write(19,"(a, 2x, i5, 2x, 6(e22.15,1x))") atmnam(ia), ia, rmultipmod(0:lmultmx)
+            endif
+        endif
+
+!   Fits the radial factors
+
+        knticf = 1
+        icfpos(1) = 1
+        do i = 1, nintervaj
+            irshft = (i-1) * npntintr
+!         Optimizes exponent
+            if (min(abs(ftab(irshft+npntintr,1)),abs(ftab(irshft+1,1))) .lt. umbral) then
+                xajust(i) = cero
+            else
+                xajust(i) = (log(abs(ftab(irshft+npntintr,1)))-log(abs(ftab(irshft+1,1)))) &
+                        / (rpntaj(irshft+1)-rpntaj(irshft+npntintr))
+            endif
+            if (xajust(i) .lt. uno) then
+                xajust(i) = cero
+                expvec = uno
+                expvinv = uno
+            else
+                expvec = exp(rpntaj(irshft+1:irshft+npntintr) * xajust(i))
+                expvinv = uno / expvec
+            endif
+            kntlm = 0
+            r2v = rpntaj(irshft+1:irshft+npntintr) * rpntaj(irshft+1:irshft+npntintr)
+            r2l2 = uno
+            do l = 0, lmaxexp
+                r2l2 = r2l2 * r2v
+                do m = -l, l
+                    kntlm = kntlm+1
+                    knticf = knticf + 1
+!   Checks whether the radial factor is negligible or not. If it is, marks it and avoids fitting.
+                    aux = maxval(abs(ftab(irshft+1:irshft+npntintr,kntlm)))
+                    bux = maxval(abs(ftab(irshft+1:irshft+npntintr,kntlm))*r2l2)
+                    cux = fact(l+abs(m)) * umedpow(abs(m)) * facti(l-abs(m)) * facti(abs(m))
+                    fmax = max(aux,bux) * cux
+                    if (fmax .lt. umbral) then    ! Test: is the fragment negligible ?
+                        icfpos(knticf) = icfpos(knticf-1)
+                    else
+                        lenpol = 0
+                        fk0 = ftab(irshft+1:irshft+npntintr,kntlm) * expvec
+                        tchvec0 = uno
+                        tchvec1 = xcheb
+                        bvec(0) = sum(fk0) * ri(npntintr)
+                        bvec(1) = dot_product(fk0,tchvec1) * dos * ri(npntintr)
+                        fkvec0 = bvec(0) * tchvec0 + bvec(1) * tchvec1
+                        if (aux .gt. bux) then
+                            faux = ftab(irshft+1:irshft+npntintr,kntlm)
+                            fbux = expvinv
+                        else
+                            faux = ftab(irshft+1:irshft+npntintr,kntlm) * r2l2
+                            fbux = expvinv * r2l2
+                        endif
+                        do j = 2, mxlenpol-1
+                            tchvec0a = tchvec0
+                            tchvec0 = tchvec1
+                            tchvec1 = dosxcheb * tchvec1 - tchvec0a
+                            bvec(j) = dot_product(fk0,tchvec1) * dos * ri(npntintr)
+                            fkvec0 = fkvec0 + bvec(j) * tchvec1
+                            res = cux * cux * dot_product( ( faux - fkvec0 * fbux), (faux - fkvec0 * fbux))
+                            if (res .lt. umbralres2) then
+                                lenpol = j+1
+                                exit
+                            endif
+                        enddo
+                        if (lenpol .eq. 0) then
+                            lenpol = mxlenpol
+                        endif
+                        icfpos(knticf) = icfpos(knticf-1) + lenpol
+                        cfajust(icfpos(knticf-1):icfpos(knticf)-1) = bvec(0:lenpol-1)
+                    endif   ! End of Test: is the fragment negligible ?
+                enddo   ! End of loop on m
+            enddo      ! End of loop on l
+        enddo   ! End of loop on intervals
+
+!   Computes the atomic multipolar moments from the fit and some auxiliary integrals
+        call multipolos(ia)
+
+!   Fitting coefficients
+
+!   Allocates memory for arrays cfrint1, cfrint2l2
+        allocate(cfrint1(icfpos(knticf)-1), cfrint2l2(icfpos(knticf)-1), stat = ierr)
+        if (ierr .ne. 0) call error(1,'Memory error when allocating cfrint1 and cfrint2l2. Stop ')
+        if (longoutput) write(6,"('Size of cfrint1 and cfrint2l2  = ', i15, ' bytes')") size(cfrint1)
+!   Fits the auxiliary integrals
+!         rintr1(la,ma) =  Integrate[ r * fradtr[la,ma,r], {r,r0,l_k}]
+!         rintr2l2 = Integrate[ r**(2*la+2) * fradtr[la,ma,r], {r,l_(k-1),r0}]
+        call fitrint(ia)
+!    writes data of center ia to file 'projectname'_2016.damqt
+        write(10) icfpos(1:knticf)   ! pointers to expansion coefficients of radial factors of center ia
+        write(10) xajust(1:nintervaj)   ! fitting exponents
+!    fitting coeficients
+        write(10) cfajust(1:icfpos(knticf)-1)   ! Expansion coefficients
+!   multipolar moments
+        write(11) rmultip(1:lmtop,ia)      ! multipolar moments of center ia
+!   Partial integrals for electrostatic potential and field
+        write(11) QGpart(1:nintervaj*lmtop)
+        write(11) qppart(1:nintervaj*lmtop)
+!    fitting coeficients of auxiliary integrals for electrostatic potential and field
+        write(11) cfrint1(1:icfpos(knticf)-1)   ! Expansion coefficients of auxiliary integrals rint1
+        write(11) cfrint2l2(1:icfpos(knticf)-1)   ! Expansion coefficients of auxiliary integrals rint2l2
+        deallocate (cfrint1,cfrint2l2)
+
+!   Prints the atomic multipolar moments directly computed and those obtained from the radial factors
+
+        lprint = .true.
+        kntlm = 0
+        do l = 0, lmultmx
+            do m = -l, l
+                kntlm = kntlm+1
+                if (m .eq. 0 .and. l .ne. 0) then
+                    bux = dos
+                else
+                    bux = uno
+                endif
+                aux = sqrt(bux * fact(l+abs(m)) * facti(l-abs(m)))
+                if (abs(rmultip(kntlm,ia)) * aux .gt. 1.d-10) then
+                    if (lprint) then
+                        write(6,"(/3x,a2, 1x, i8, 2x, i3, 3x, i3, 1x, 2(5x,e22.15))") &
+                                atmnam(ia), ia, l, m, -rmultip(kntlm,ia) * aux, -rmultipfr(kntlm,ia) * aux
+                        lprint = .false.
+                    else
+                        write(6,"(16x, i3, 3x, i3, 1x, 2(5x,e22.15))") l, m, -rmultip(kntlm,ia) * aux, &
+                                -rmultipfr(kntlm,ia) * aux
+                    endif
+                endif
+            enddo
+        enddo
+
+    enddo   ! End of Do over centers (ia)
+    close(10)
+    close(11)
+    deallocate(besselint, cf12, dl, dosxcheb, expvec, expvinv, f0, fa, faux, fk0, ftab, fkvec0, h2f1, ha, qlm2c, &
+            r2pow, rintr1, rintr2l2, rl, rlt, rpntaj, rpow, sint, tchvec0, tchvec1, tchvec0a, vaux1c, x12, xcheb, ymat1, ymat2)
+    return
+    end
+!
+!   ***************************************************************
+!
+!   Subroutine for the piecewise fitting of the density of an atom in a molecule. Version for general contractions.
+!      ioptaj .eq. 1: fits the total density
+!      ioptaj .eq. 2: fits only the one-center terms of the density
+!      otherwise:     fits only the two-center terms of the density
+  subroutine ajustagencontract
+    USE DAM320_D
+    USE DAM320_CONST_D
+    USE DAM320_DATA_D
+    USE GAUSS
+    USE GENCONTRACTMOD
+    implicit none
+    integer(KINT) :: i, i1, i12p, i1aux, i1p, i1pini, i1pfin, i2, i2aux
+    integer(KINT) :: i2p, i2pini, i2pfin, ia, ib, ierr, ii, ir, irinf, irshft, irsup
+    integer(KINT) :: ishift, j, k, klmi, kml, knt, knticf, kntlm
+    integer(KINT) :: l, la, lb, lenpol, lk, lm, lma, lmax, lmb, lmin, lrotar, m, ma, mb
+    integer(KINT) :: n, na, nb, nfa, nfb, nga1, nga2, ngb1, ngb2
+    real(KREAL) :: aux, bux, cosal, cosbet, cosga, cux, den, dosx, exa, exb, expajust, fabs, factor, fmax
+    real(KREAL) :: rab, rabinv, rdif, res, rn, rna, rnab, rnb, rp2, sinal, sinbet, singa, suma, tchb0, tchb1
+    real(KREAL) :: x, x12inv, xa, xab, xb, xinv, xy, ya, yab, yb, za, zab, zb, umbraux, umbralres2
+    logical :: lf0, lprint, lmultmod
+    real(KREAL), allocatable :: cf12(:), faux(:), fbux(:), fk0(:), r2l2(:), r2v(:), x12(:)
+    real(KREAL) :: roaux(-mxl:mxl,-mxl:mxl), bvec(0:mxlenpol-1), qlm1c(0:mxldst)
+
+    lrotar = max(lmaxbase,lmaxexp)
+    umbralres2 = umbralres * umbralres
+
+!   Allocates memory for arrays icfpos, cfajust, rmultip, rmultipfr and xajust
+    allocate(icfpos(nintervaj*lmtop+1), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating icfpos. Stop')
+    if (longoutput) write(6,"('Estimated highest size of icfpos   = ', i15, ' bytes')") size(icfpos)
+    allocate(cfajust(lmtop * nintervaj * mxlenpol), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating cfajust. Stop')
+    if (longoutput) write(6,"('Estimated highest size of cfajust   = ', i15, ' bytes')") size(cfajust)
+    allocate(rmultip(max(25,lmtop),ncen), rmultipfr(lmtop,ncen), rmultipmod(0:lmultmx), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating rmultip, rmultipfr and rmultipmod. Stop')
+    if (longoutput) write(6,"('Size of rmultip    = ', i15, ' bytes')") size(rmultip)
+    if (longoutput) write(6,"('Size of rmultipfr    = ', i15, ' bytes')") size(rmultipfr)
+    allocate(xajust(nintervaj), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating xajust. Stop')
+    if (longoutput) write(6,"('Size of xajust    = ', i15, ' bytes')") size(xajust)
+
+!   Allocates memory for Hypergeometrics 2F1 and overlap integrals between generalized gaussians < g(n,L,M)| g(0,L',M') >
+    allocate(h2f1(-mxl:(lmaxexp+mxl)/2,0:lmaxexp+mxl+(lmaxexp+mxl)/2,-(lmaxexp+mxl)/2:0), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Error allocating h2f1. Stop')
+    allocate(sint(0:(lmaxexp+mxl)/2,(lmaxexp+mxl+1)**2,0:mxl), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Error allocating sint. Stop')
+
+!   Allocates memory for arrays QGpart, qppart
+    allocate(QGpart(nintervaj*lmtop), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating QGpart. Stop')
+    if (longoutput) write(6,"('Size of QGpart    = ', i15, ' bytes')") size(QGpart)
+    allocate(qppart(nintervaj*lmtop), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating qppart. Stop')
+    if (longoutput) write(6,"('Size of qppart    = ', i15, ' bytes')") size(qppart)
+
+!   Allocates memory for arrays dl, fa, ftab, rl, rlt
+    allocate(dl(-lrotar:lrotar,-lrotar:lrotar,0:lrotar), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating dl. Stop')
+    allocate(fa(npntaj,(lmaxexp + 2*lmaxbase+1)**2), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating fa. Stop')
+    if (longoutput) write(6,"('Size of fa   = ', i15, ' bytes')") size(fa)
+    allocate(ftab(npntaj,(max(2*lmaxbase,lmaxexp)+1)**2), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating ftab. Stop')
+    if (longoutput) write(6,"('Size of ftab   = ', i15, ' bytes')") size(ftab)
+    allocate(rl(-lrotar:lrotar,-lrotar:lrotar,0:lrotar), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating rl. Stop')
+    allocate(rlt((lrotar+1)*(2*lrotar+1)*(2*lrotar+3)/3), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating rlt. Stop')
+
+!   Allocates memory for arrays tchvec0, tchvec1, tchvec0a, xcheb, fkvec0
+    allocate(tchvec0(npntintr), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating tchvec0. Stop')
+    if (longoutput) write(6,"('Size of tchvec0    = ', i15, ' bytes')") size(tchvec0)
+    allocate(tchvec1(npntintr), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating tchvec1. Stop')
+    if (longoutput) write(6,"('Size of tchvec1    = ', i15, ' bytes')") size(tchvec1)
+    allocate(tchvec0a(npntintr), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating tchvec0a. Stop')
+    if (longoutput) write(6,"('Size of tchvec0a    = ', i15, ' bytes')") size(tchvec0a)
+    allocate(xcheb(npntintr), dosxcheb(npntintr), fk0(npntintr), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating xcheb, dosxcheb and fk0. Stop')
+    if (longoutput) write(6,"('Size of xcheb    = ', i15, ' bytes')") size(xcheb)
+    allocate(fkvec0(npntintr), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating fkvec0. Stop')
+    if (longoutput) write(6,"('Size of fkvec0    = ', i15, ' bytes')") size(fkvec0)
+
+    allocate(cf12(mxprimit*mxprimit), expvec(npntintr), expvinv(npntintr), f0(npntaj,0:mxltot), faux(npntintr), &
+            fbux(npntintr), r2l2(npntintr), r2v(npntintr), residuals(nintervaj), rpntaj(npntaj), rpow(npntaj,0:2*mxn), &
+            vaux1c(npntaj,0:mxldst), x12(mxprimit*mxprimit), stat = ierr )
+    if (ierr .ne. 0) call error(1,'Memory error when allocating: cf12, expvec, expvinv, f0, faux, fbux, r2l2, r2v, residuals, &
+    &rpntaj, rpow, vaux1c, x12. Stop')
+    allocate(ha(npntaj,(lmaxexp+mxl+1)*(lmaxexp+mxl+1)), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating ha. Stop')
+    if (longoutput) write(6,"('Size of ha   = ', i15, ' bytes')") size(ha)
+    allocate(r2pow(npntaj,0:(lmaxexp+3*mxl)/2), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating r2pow. Stop')
+    if (longoutput) write(6,"('Size of r2pow   = ', i15, ' bytes')") size(r2pow)
+    allocate(qlm2c(lmtop), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating qlm2c. Stop')
+    if (longoutput) write(6,"('Size of qlm2c   = ', i15, ' bytes')") size(qlm2c)
+
+    allocate(ymat1(npntintr,lmtop), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating ymat1. Stop')
+    if (longoutput) write(6,"('Size of ymat1   = ', i15, ' bytes')") size(ymat1)
+    allocate(ymat2(npntintr,lmtop), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating ymat2. Stop')
+    if (longoutput) write(6,"('Size of ymat2   = ', i15, ' bytes')") size(ymat2)
+    allocate(rintr1(lmtop), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating rintr1. Stop')
+    if (longoutput) write(6,"('Size of rintr1   = ', i15, ' bytes')") size(rintr1)
+    allocate(rintr2l2(lmtop), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating rintr2l2. Stop')
+    if (longoutput) write(6,"('Size of rintr2l2   = ', i15, ' bytes')") size(rintr2l2)
+
+!   opens files 'projectname'_2016.damqt and 'projectname'_2016.dmqtv to store data for the remaining programs
+!   The files are unformatted. The content of 'projectname'_2016.damqt can be retrieved int a plain text file with the program
+!      readdamqt.exe included in the package
+#if _WIN32
+    open (unit=10, file=trim(projectname)//"_2016.damqt", form='binary', action = 'write', carriagecontrol='NONE', iostat=ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when opening file '//trim(projectname)//"_2016.damqt")
+    open (unit=11, file=trim(projectname)//"_2016.dmqtv", form='binary', action = 'write', carriagecontrol='NONE', iostat=ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when opening file '//trim(projectname)//"_2016.dmqtv")
+#elif __INTEL_COMPILER
+    open (unit=10, file=trim(projectname)//"_2016.damqt", form='binary', action = 'write', carriagecontrol='NONE', iostat=ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when opening file '//trim(projectname)//"_2016.damqt")
+    open (unit=11, file=trim(projectname)//"_2016.dmqtv", form='binary', action = 'write', carriagecontrol='NONE', iostat=ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when opening file '//trim(projectname)//"_2016.dmqtv")
+#else
+    open (unit=10, file=trim(projectname)//"_2016.damqt", form='unformatted', action = 'write', access='stream', iostat=ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when opening file '//trim(projectname)//"_2016.damqt")
+    open (unit=11, file=trim(projectname)//"_2016.dmqtv", form='unformatted', action = 'write', access='stream', iostat=ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when opening file '//trim(projectname)//"_2016.dmqtv")
+#endif
+    write(6,"('file 10 = ', a)") trim(projectname)//"_2016.damqt"
+    write(6,"('file 11 = ', a)") trim(projectname)//"_2016.dmqtv"
+!   writes basis set to 'projectname'_2016.damqt
+    call escribebase
+
+    allocate(besselint(0:mxldst,0:lmaxexp+mxldst), stat = ierr )
+    if (ierr .ne. 0) call error(1,'Memory error when allocating: besselint. Stop')
+
+!    writes lmaxexp to file 'projectname'_2016.damqt
+    write(10) lmaxexp   ! length of expansions on l of the atomic fragments
+
+    xcheb(1:npntintr) = - cos(pi*(re(1:npntintr)-umed) * ri(npntintr))
+    dosxcheb = dos * xcheb
+!    Tabulation points
+    do i = 1, nintervaj
+        rpntaj((i-1)*npntintr+1:i*npntintr) = (rinterv(i) - rinterv(i-1)) * umed * (uno + xcheb) + rinterv(i-1)
+    enddo
+! write(6,"('rpntaj = ', 7(1x,e17.10))") rpntaj(1:npntintr)
+    rpow(1:npntaj,0) = uno
+    do j = 1, 2*mxl
+        rpow(1:npntaj,j) = rpow(1:npntaj,j-1) * rpntaj
+    enddo
+
+    rmultip = cero
+    rmultipfr = cero
+
+    open(19,file=trim(projectname)//".mltmod",form='formatted', iostat=ierr)
+    if (ierr .ne. 0) then
+        write(6,"('Cannot open file ', a)") trim(projectname)//".mltmod"
+        lmultmod = .false.
+    else
+        lmultmod = .true.
+    endif
+
+    if (lvalence) then
+        write(6,"(/,5x,'Non-vanishing atomic multipolar moments of electron valence (absolute value higher than 10^-10)')")
+        write(6,"(5x,'defined as the coefficients that multiply the UNNORMALIZED irregular harmonics in the expansion')")
+        write(6,"(5x,'of the long-range potential multiplied by sqrt((1+delta(m,0)) * (l+|m|)! / (l-|m|)!) to keep them')")
+        write(6,"(5x,'rotationally invariant except in case of l = 0, in which case the valence electron charge is quoted')")
+    else
+        write(6,"(/,5x,'Non-vanishing atomic multipolar moments of electron cloud (absolute value higher than 10^-10)')")
+        write(6,"(5x,'defined as the coefficients that multiply the UNNORMALIZED irregular harmonics in the expansion')")
+        write(6,"(5x,'of the long-range potential multiplied by sqrt((1+delta(m,0)) * (l+|m|)! / (l-|m|)!) to keep them')")
+        write(6,"(5x,'rotationally invariantexcept in case of l = 0, in which case the electron charge is quoted')")
+    endif
+    write(6,"(/3x,'  atom        la    ma  ', 13x, 'value',14x,'from radial factors' &
+            ,/3x,11('-'),2x,4('-'),2x,4('-'),4x,24('-'),3x,24('-'))")
+    do ia = 1, ncen   ! Do over centers (ia)
+        if (ngini(ia) .le. 0) cycle   ! If center without associated basis set, cycles
+!   Initializes vectors and matrices
+        ftab = cero
+        fa = cero
+        nga1 = ngini(ia)
+        nga2 = ngfin(ia)
+        xa = rcen(1,ia)
+        ya = rcen(2,ia)
+        za = rcen(3,ia)
+!   ONE-CENTER CONTRIBUTIONS
+        if (ioptaj .ne. 3) then
+            do i1 = nga1, nga2
+                la = ll(i1)
+                rna = rnor(i1)
+                nfa = nf(i1)
+                do i2 = nga1, nga2
+                    lb = ll(i2)
+                    rn = rnor(i2) * rna
+                    nfb = nf(i2)
+                    lmin = abs(la-lb)
+                    lmax = la + lb
+                    i1pini = ipntprim(i1)
+                    i2pini = ipntprim(i2)
+                    i1pfin = ipntprim(i1)+nprimit(i1)-1
+                    i2pfin = ipntprim(i2)+nprimit(i2)-1
+                    i12p = 0
+                    qlm1c = cero
+                    do i1p = i1pini, i1pfin
+                        do i2p = i2pini, i2pfin
+                            i12p = i12p + 1
+                            cf12(i12p) = cfcontr(i1p)*cfcontr(i2p)
+                            x12(i12p) = xxg(i1p)+xxg(i2p)
+                            x12inv = uno / x12(i12p)
+                            aux = cf12(i12p) * facts(0) * x12inv * sqrt(x12inv)
+                            qlm1c(0) = qlm1c(0) + aux
+                            do l = 1, la+lb
+                                aux = aux * umed * dosl1(l) * x12inv
+                                qlm1c(l) = qlm1c(l) + aux
+                            enddo
+                        enddo
+                    enddo
+                    qlm1c(0:la+lb) = rn * dos * pi * qlm1c(0:la+lb)    ! includes the factor 1/2 of the radial integrals
+                    do ir = 1 , npntaj
+                        rp2 = rpow(ir,2)
+                        factor = cero
+                        do j = 1, i12p
+                            factor = factor + cf12(j) * exp(-x12(j)*rp2)
+                        enddo
+                        factor = factor * rn
+                        do l = 0, min(la,lb)
+                            vaux1c(ir,l) = factor * rpow(ir,l+l)
+                        enddo
+                    enddo
+                    do mb = -lb, lb
+                        lmb = lb*(lb+1)+mb+1
+                        doma: do ma = -la, la
+                            lma = la*(la+1)+ma+1
+                            aux = ang(ind(la)+abs(ma)+1) * ang(ind(lb)+abs(mb)+1) * dmat(nf(i1)+la+ma,nf(i2)+lb+mb)
+                            do j = i1l1l2(lma,lmb), i2l1l2(lma,lmb)
+                                if (lml1l2(j) .gt. lmtop) cycle doma
+                                bux = ccl1l2(j) * aux
+                                rmultip(lml1l2(j),ia) = rmultip(lml1l2(j),ia) + bux * qlm1c((llm(lml1l2(j))+la+lb)/2) &
+                                        * dosl1i(llm(lml1l2(j)))
+                                fa(1:npntaj,lml1l2(j)) = fa(1:npntaj,lml1l2(j)) + bux * vaux1c(1:npntaj,npl1l2(j))
+                            enddo
+                        enddo doma
+                    enddo
+                enddo
+            enddo
+            ftab(1:npntaj,1:(2*lmaxc(ia)+1)*(2*lmaxc(ia)+1)) = fa(1:npntaj,1:(2*lmaxc(ia)+1)*(2*lmaxc(ia)+1))
+        endif
+!   TWO-CENTER CONTRIBUTIONS
+        if (ioptaj .ne. 2) then      ! In case ioptaj .eq. 2, only takes one-center distributions
+            do ib = 1, ncen                ! Do over centers (ib)
+                if (ia .eq. ib .or. ngini(ib) .le. 0) cycle       ! skips to next center ib
+
+                fa = cero
+                ngb1 = ngini(ib)
+                ngb2 = ngfin(ib)
+                xb = rcen(1,ib)
+                yb = rcen(2,ib)
+                zb = rcen(3,ib)
+!   Computes Euler angles and rotation matrices from the AB aligned axis system to the molecular system and conversely
+                xab = xb - xa
+                yab = yb - ya
+                zab = zb - za
+                xy = sqrt(xab*xab + yab*yab)
+                rab = sqrt(xab*xab + yab*yab + zab*zab)
+                if (rab .lt. 1.d-10) then
+                    write(6,"('Centers ',i8,' and ',i8,' coincide. Stop')") ia, ib
+                    call error(1,' Stop')
+                endif
+
+                call bivsub(ia, ib, rab)
+
+                if (xy .gt. 1.d-10) then
+                    sinal = yab / xy
+                    cosal = xab / xy
+                else
+                    sinal = cero
+                    cosal = uno
+                endif
+                rabinv = uno / rab
+                sinbet = xy * rabinv
+                cosbet = zab * rabinv
+                singa = cero
+                cosga = uno
+                call rotar (lrotar, cosal, sinal, cosbet, sinbet, cosga, singa)
+                knt = 0
+                do i = 0, lmaxexp   ! Stores the transpose of rl multiplied and divided by suitable normalization factors
+                    do k = -i, i
+                        do j = -i, i
+                            knt = knt + 1
+                            rlt(knt) = rl(k,j,i) * ang(ind(i)+abs(k)+1) / ang(ind(i)+abs(j)+1)
+                        enddo
+                    enddo
+                enddo
+                qlm2c = cero   ! Initializes qlm2c
+
+                kntcoefa = 0
+                do i1 = nga1, nga2
+                    la = ll(i1)
+                    kntcoefa(la) = kntcoefa(la)+1
+                    rna= rnor(i1)
+                    nfa = nf(i1)
+                    kntcoefb = 0
+                    do i2 = ngb1, ngb2
+                        lb = ll(i2)
+                        kntcoefb(lb) = kntcoefb(lb)+1
+                        rnb= rnor(i2)
+                        nfb = nf(i2)
+!   Determines an approximation to the sigma overlap to see whether the integrals can be neglected
+                        i1pini = ipntprim(i1)
+                        i2pini = ipntprim(i2)
+                        i1pfin = ipntprim(i1) + nprimit(i1) - 1
+                        i2pfin = ipntprim(i2) + nprimit(i2) - 1
+                        aux = cero
+                        bux = la + lb + 1.5d0
+                        do i1p = i1pini, i1pfin
+                            do i2p = i2pini, i2pfin
+                                cux = xxg(i1p) * xxg(i2p) * rab * rab / (xxg(i1p)+xxg(i2p))
+                                if(cux .le. 300.d0) aux = aux+cfcontr(i1p)*cfcontr(i2p)*exp(-cux)/(xxg(i1p)+xxg(i2p))**bux
+                            enddo
+                        enddo
+                        if (mod(la+lb,2) .eq. 0) then
+                            aux = facts(la+lb) * abs(aux) * rna * rnb
+                        else
+                            aux = fact((la+lb+1)/2) * abs(aux) * rna * rnb
+                        endif
+                        if (abs(aux) .lt. 1.d-20) cycle
+!   Reads the pertinent block of density matrix and rotates it to the AB aligned system. Loads the result in array roblk.
+!   Angular normalization factors are introduced at the end of the loading process.
+                        do i = -la, la
+                            ishift = i+la+nfa
+                            do j = -lb, lb
+                                roblk(i,j) = dmat(ishift,j+lb+nfb)
+                            enddo
+                        enddo
+!   Rotation on center B
+                        do i = -la, la
+                            do j = -lb, lb
+                                roaux(i,j) = dot_product(roblk(i,-lb:lb),rl(-lb:lb,j,lb))
+                            enddo
+                        enddo
+!   Rotation on center A and introduction of the angular normalization
+                        rnab = rna * rnor(i2) * dos
+                        do i = -la, la
+                            do j = -lb, lb
+                                roblk(i,j) = ang(ind(la)+abs(i)+1) * ang(ind(lb)+abs(j)+1) * rnab &
+                                        * dot_product(roaux(-la:la,j), rl(-la:la,i,la))
+                            enddo
+                        enddo
+!   Computes the multipolar moments in the lined-up axis system:
+!      multfrg2cgauss: translation method (Bessel I expansion)
+!      multfrg2cgaussnw: shift operators method (overlap between generalized Gaussians)
+                        call multfrg2cgauss(i1, i2, rab)
+!                   call multfrg2cgaussnw(i1, i2, rab)
+!   Tabulation of A fragment
+                        lf0 = .true.
+                        call frgsiggencontr(lf0, ia, ib, i1, i2, rab)   ! Sigma part
+                        if (lf0) then
+                           call dsczazbnew(la, lb, rab)   ! Factors for La,Ma,Lb,Mb
+                        endif
                     enddo
                 enddo
 !	Rotates the radial factors back to the molecular axis system
@@ -882,9 +1565,9 @@
                     enddo
                 enddo
             enddo    ! End of Do over centers (ib)
-!			Computes the modules of multipolar moments and stores them in file  filename.mltmod
-!			Since the multipolar moments, are defined as the coefficients that multiply the unnormalized irregular spherical harmonics 
-!			in the long-range potential, they are multipied here by sqrt((1+delta(m,0)) * (l+|m|)!/(l-|m|)! ) to keep them invariant under rotations
+!   Computes the modules of multipolar moments and stores them in file  filename.mltmod
+!   Since the multipolar moments, are defined as the coefficients that multiply the unnormalized irregular spherical harmonics
+!   in the long-range potential, they are multipied here by sqrt((1+delta(m,0)) * (l+|m|)!/(l-|m|)! ) to keep them invariant under rotations
             if (lmultmod) then
                 lm = 0
                 do l = 0, lmultmx
@@ -1150,7 +1833,7 @@
 
 !   ***************************************************************
 
-   subroutine frgsiggauss(lf0, i1, i2, rab)
+  subroutine frgsiggauss(lf0, i1, i2, rab)
     USE DAM320_D
     USE DAM320_CONST_D
     USE DAM320_DATA_D
@@ -1172,7 +1855,7 @@
     i1fin = ipntprim(i1)+nprimi-1
     i2fin = ipntprim(i2)+nprimj-1
     do ii = 1, nprimj
-            igtj(ii) = nprimi+1
+        igtj(ii) = nprimi+1
     enddo
     k = 0
     rieqj = cero
@@ -1265,6 +1948,222 @@
                 enddo
             endif    ! End of Test on the argument of the exponential
         enddo     ! End of loop on jj
+        rinv = 1.d0 / r
+        aux = 0.5d0
+        do l = 0, lsup
+            f0(ipunt,l) = vbux(l) * aux * re(l+l+1)
+            aux = aux * rinv
+        enddo
+    enddo     ! End of loop on ipunt
+    return
+    end
+
+!   ***************************************************************
+
+  subroutine bivsub(ia, ib, rab)
+    USE DAM320_D
+    USE DAM320_CONST_D
+    USE DAM320_DATA_D
+    USE GAUSS
+    USE GENCONTRACTMOD
+    implicit none
+    integer(KINT) :: i, ia, iashells, ib, ibshells, ierr, ii, ipunt, j, ja, jb, jfinal
+    integer(KINT) :: k, knti1i2, kmax, lsup, lsup2, lsupbi, nprimi, nprimj
+    integer(KINT) :: igtj(mxprimit)
+    real(KREAL)   :: argcorte, argi, arginv, aux, bux, expaux, r, r2, rab, sum0, sum1
+    real(KREAL)   :: bi(0:mxltot)
+    logical       :: lf0
+
+    iashells = basis(ia)%nshells
+    ibshells = basis(ib)%nshells
+    lsup = lmaxexp + basis(ia)%lmax + basis(ib)%lmax
+    lsupbi = max(lsup,5)
+
+    if(allocated(biv)) deallocate(biv)
+    if(allocated(knti1i2v)) deallocate(knti1i2v)
+    allocate(biv(0:lsupbi,npntaj*iashells*ibshells*mxprimit), knti1i2v(iashells,ibshells), stat = ierr)
+    if (ierr .ne. 0) call error(1,'Memory error when allocating biv. Stop')
+
+    knti1i2 = 0
+    do ja = 1, iashells
+       do jb = 1, ibshells
+          knti1i2v(ja,jb) = knti1i2
+          lsup2 = lsupbi+lsupbi
+          nprimi = basis(ia)%shells(ja)%nprim
+          nprimj = basis(ib)%shells(jb)%nprim
+          do ii = 1, nprimj
+             igtj(ii) = nprimi+1
+          enddo
+          k = 0
+          lf0 = .false.
+          do i = 1, nprimi
+             k = k + 1
+             if (basis(ib)%shells(jb)%exp(1) .le. basis(ia)%shells(ja)%exp(i)) then
+                igtj(1) = k
+                lf0 = .true.
+                exit
+             endif
+          enddo
+          if (.not. lf0) then   ! No xxg(i,ia) >= xxg(j,ib) => Null radial factor => returns  lf0 = .false.
+             knti1i2v(ja,jb) = -1
+             cycle
+          endif
+          jfinal = nprimj
+          doj: do j = 2, nprimj
+             do i = max(1,igtj(j-1)), nprimi
+                if (basis(ib)%shells(jb)%exp(j) .le. basis(ia)%shells(ja)%exp(i)) then
+                   igtj(j) = i
+                   cycle doj
+                endif
+             enddo
+             jfinal = j-1     ! last value of j for which some xxg(i) >= xxg(j) exists
+             exit
+          enddo doj
+          do ipunt = 1, npntaj
+!   Loads vaux with the values of the primitives of A in the tabulation point
+             r = rpntaj(ipunt)
+             r2 = r*r
+!    Computes Bessel I functions of argument 2*r*rab*xxg(j) times the factor
+!       Exp(-xxg(j)*(r**2+rab**2) * Sqrt[Pi/(r*rab*xxg(j))]
+             argcorte = 3.d0 * max(lsup,10)
+             do j = 1, jfinal
+                knti1i2 = knti1i2 + 1
+                aux = basis(ib)%shells(jb)%exp(j) * (r-rab)*(r-rab)
+                if (aux .ge. 100.d0) then   ! Test on the argument of the exponential
+                   biv(:,knti1i2) = cero
+                else
+                   argi = 2.d0 * basis(ib)%shells(jb)%exp(j) * r * rab
+                   arginv = 1.d0 / argi
+                   if (argi .ge. argcorte) then   ! Usa la formula cerrada
+                      expaux = dexp(-aux)
+                      sum1 = 1.d0 - arginv
+                      sum0 = 1.d0 - arginv
+                      bux = .5d0 * arginv
+                      do k = 1, lsupbi-2
+                            sum1 = facti(k+1) - re(lsup2-k) * ri(lsupbi-k) * sum1 * bux
+                            sum0 = facti(k+1) - re(lsup2-2-k)* ri(lsupbi-1-k) * sum0 * bux
+                      enddo
+                      sum0 = fact(lsupbi-1) * sum0
+                      sum1 = 1.d0-fact(lsupbi)*re(lsupbi+1)*sum1*bux
+                      biv(lsupbi,knti1i2) = sum1 * arginv * expaux
+                      biv(lsupbi-1,knti1i2) = sum0 * arginv * expaux
+                   else                           ! Usa la serie
+                      expaux = dexp(-basis(ib)%shells(jb)%exp(j)*(r*r+rab*rab))
+                      bux = .5d0 * argi * argi
+                      sum1 = 1.d0
+                      sum0 = 1.d0
+                      kmax = lsupbi + 41
+                      do k = 0, kmax-1
+                            sum1 = 1.d0 + ri(kmax-k)* ri(2*(lsupbi+kmax-k)+1) * bux * sum1
+                            sum0 = 1.d0 + ri(kmax-k)* ri(2*(lsupbi-1+kmax-k)+1) * bux * sum0
+                      enddo
+                      aux = (.5d0 * argi)**(lsupbi-1)*expaux*raizpi
+                      biv(lsupbi,knti1i2)=(.5d0*argi)*aux*sum1/facts(lsupbi)
+                      biv(lsupbi-1,knti1i2)=aux*sum0/facts(lsupbi-1)
+                   endif
+                   do k = lsupbi-1, 1, -1
+                      biv(k-1,knti1i2) = biv(k+1,knti1i2) + re(k+k+1) * arginv * biv(k,knti1i2)
+                   enddo
+                endif    ! End of Test on the argument of the exponential
+             enddo     ! End of loop on j
+          enddo     ! End of loop on ipunt
+       enddo     ! End of loop on ib
+    enddo     ! End of loop on ia
+    return
+    end
+
+!   ***************************************************************
+
+  subroutine frgsiggencontr(lf0, ia, ib, i1, i2, rab)
+    USE DAM320_D
+    USE DAM320_CONST_D
+    USE DAM320_DATA_D
+    USE GAUSS
+    USE GENCONTRACTMOD
+    implicit none
+    integer(KINT) :: i, i1, i2, ia, ib, ii, ipunt, j, ja, jb, jini, jfinal
+    integer(KINT) :: k, knti1i2, l, la, lb, lsup, lsup2, lsupbi, nprimi, nprimj
+    real(KREAL) :: aux, r, r2, rab, rinv
+    logical :: lf0
+    real(KREAL) :: vaux(mxprimit), vbux(0:mxltot), bi(0:mxltot), rieqj(mxprimit)
+    integer(KINT) :: igtj(mxprimit)
+
+    la = ll(i1)
+    lb = ll(i2)
+
+
+    knti1i2 = knti1i2v(la+1,lb+1)
+    if (knti1i2 .lt. 0) then
+       lf0 = .false.
+       return
+    endif
+
+    ja = kntcoefa(la)
+    jb = kntcoefb(lb)
+
+    lsup = lmaxexp + la + lb
+    lsupbi = max(lsup,5)
+
+    nprimi = basis(ia)%shells(la+1)%nprim
+    nprimj = basis(ib)%shells(lb+1)%nprim
+
+    jini = 0
+    do ii = 1, nprimj
+       igtj(ii) = nprimi+1
+       if (jini .eq. 0 .and. abs(basis(ib)%shells(lb+1)%coef(ii,jb)) .gt. 1.d-20) then
+          jini = ii
+       endif
+    enddo
+
+    k = 0
+    rieqj = cero
+    rieqj(1) = uno
+    lf0 = .false.
+    do i = 1, nprimi
+       k = k + 1
+       if (abs(basis(ia)%shells(la+1)%coef(i,ja)) .lt.  1.d-20) cycle
+       if (basis(ib)%shells(lb+1)%exp(jini) .le. basis(ia)%shells(la+1)%exp(i)) then
+          if (basis(ib)%shells(lb+1)%exp(jini) .eq. basis(ia)%shells(la+1)%exp(i)) rieqj(jini) = umed
+          igtj(jini) = k
+          lf0 = .true.
+          exit
+       endif
+    enddo
+    if (.not. lf0)    return   ! No xxg(i,ia) >= xxg(j,ib) => Null radial factor => returns  lf0 = .false.
+
+    jfinal = nprimj
+    doj: do j = jini+1, nprimj
+       rieqj(j) = uno
+       do i = max(1,igtj(j-1)), nprimi
+          if (basis(ib)%shells(lb+1)%exp(j) .le. basis(ia)%shells(la+1)%exp(i)) then
+             if (basis(ib)%shells(lb+1)%exp(j) .eq. basis(ia)%shells(la+1)%exp(i)) rieqj(j) = umed
+             igtj(j) = i
+             cycle doj
+          endif
+       enddo
+       jfinal = j-1     ! last value of j for which some xxg(i) >= xxg(j) exists
+       exit
+    enddo doj
+
+    do ipunt = 1, npntaj
+!   Loads vaux with the values of the primitives of A in the tabulation point
+        r = rpntaj(ipunt)
+        r2 = r*r
+        vaux(1:nprimi) = basis(ia)%shells(la+1)%coef(:,ja)  * exp(-basis(ia)%shells(la+1)%exp(:)*r2)
+!   Loads zeroes in the array of partial sums
+        vbux(0:lsup) = 0.d0
+        if (jini .gt. 1) knti1i2 = knti1i2 + jini - 1
+        do j = jini, jfinal
+            knti1i2 = knti1i2 + 1
+            if (igtj(j) .gt. nprimi .or. abs(basis(ib)%shells(lb+1)%coef(j,jb)) .lt. 1.d-20) cycle
+            if (basis(ib)%shells(lb+1)%exp(j) * (r-rab)*(r-rab) .lt. 100.d0) then   ! Test on the argument of the exponential
+                bi(0:lsup) = biv(0:lsup,knti1i2) * basis(ib)%shells(lb+1)%coef(j,jb)
+                vbux(0:lsup) = vbux(0:lsup) + rieqj(j) * vaux(igtj(j)) * bi(0:lsup)
+                do i = igtj(j)+1, nprimi
+                   vbux(0:lsup) = vbux(0:lsup) + vaux(i) * bi(0:lsup)
+                enddo
+            endif    ! End of Test on the argument of the exponential
+        enddo     ! End of loop on j
         rinv = 1.d0 / r
         aux = 0.5d0
         do l = 0, lsup
