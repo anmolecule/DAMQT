@@ -10,40 +10,38 @@
 #define INI_DataDirKey "DataDirectory"
 
 ; IMPORTANT !!! Check that the following variables are pointing to the right addresses (See sources below for details)
-#define DAM320_DIR "C:\Users\RL.5013659\DAMQT_Release\src\DAM320"  
-#define DAMZERNIKE_DIR "C:\Users\RL.5013659\DAMQT_Release\src\DAMZernike320"
-#define DAMGUI320_DIR "C:\Users\RL.5013659\DAMQT_Release\src\DAMGUI320"
-#define IMAGES_DIR "C:\Users\RL.5013659\DAMQT\src\DAMGUI320\images"
-#define INTERFACES_DIR "C:\Users\RL.5013659\DAMQT_Release\src\interfaces_320" 
-;#define INTERFACES_PYTHON_DIR "C:\Users\RL.5013659\DAMQT\src\interfaces_320"
-#define LIB_FORTRAN_DIR "C:\Qt\Tools\mingw730_64\bin"
-#define LICENSE_DIR "C:\Users\RL.5013659\DAMQT\license"
-#define MANUAL_DIR "C:\Users\RL.5013659\DAMQT\doc\manual"
-#define MINGW_DLL_DIR "C:\msys64\mingw64\bin"
-#define MINGW_LIB_DIR "C:\msys64\mingw64\lib"
+#define DAM320_DIR "D:\DAMQT\build\src\DAM320"  
+#define DAMZERNIKE_DIR "D:\DAMQT\build\src\DAMZernike320"
+#define DAMGUI320_DIR "D:\DAMQT\build\src\DAMGUI320"
+#define IMAGES_DIR "D:\DAMQT\src\DAMGUI320\images"
+#define INTERFACES_DIR "D:\DAMQT\build\src\interfaces_320" 
+;#define INTERFACES_PYTHON_DIR "D:\DAMQT\src\interfaces_320"
+#define LIB_FORTRAN_DIR "D:\msys64\mingw64\lib"
+#define LICENSE_DIR "D:\DAMQT\license"
+#define MANUAL_DIR "D:\DAMQT\doc\manual"
+#define MINGW_DLL_DIR "D:\msys64\mingw64\bin"
+#define MINGW_LIB_DIR "D:\msys64\mingw64\lib"
 ;#define OPENBABEL_DIR "C:\Program Files\OpenBabel-3.1.1"
 ;#define OPENBABEL_DATA_DIR "C:\Users\rafa\AppData\Roaming\OpenBabel-3.1.1\data"
 ;#define OPENBABEL_DOC_DIR "C:\Users\rafa\AppData\Roaming\OpenBabel-3.1.1\doc"
 ;#define OPENBABEL_EXAMPLES_DIR "C:\Users\rafa\AppData\Roaming\OpenBabel-3.1.1\examples"
 ;#define MSYS64_DLL_DIR "C:\msys64\usr\bin"
 ;#define PYTHON_DIR "C:\msys64\usr\bin"
-;#define PYTHON_LIB_DIR "C:\msys64\mingw64\bin\"
-#define OUTPUT_DIR "C:\Users\RL.5013659\DAMQT\windows"
-#define SAMPLES_DIR "C:\Users\RL.5013659\DAMQT\samples"
-#define TDAM320_DIR "C:\Users\RL.5013659\DAMQT_Release\src\TDAM320"
-#define QT_BIN_DIR "C:\msys64\mingw64\bin"
-#define QT_LIB_DIR "C:\msys64\mingw64\lib"
-#define QT_PLATFORMS_DIR "C:\msys64\mingw64\share\qt5\plugins\platforms"
-;#define QT_BIN_DIR "C:\Qt\5.12.3\mingw73_64\bin"
-;#define QT_LIB_DIR "C:\Qt\5.12.3\mingw73_64\lib"
-;#define QT_PLATFORMS_DIR "C:\Qt\5.12.3\mingw73_64\plugins\platforms"
-#define OPENGL32_DIR "C:\WINDOWS\SYSTEM32"
+;#define PYTHON_LIB_DIR "D:\msys64\mingw64\bin\"
+#define OUTPUT_DIR "D:\DAMQT\windows"
+#define SAMPLES_DIR "D:\DAMQT\samples"
+#define TDAM320_DIR "D:\DAMQT\build\src\TDAM320"
+#define QT_BIN_DIR "D:\msys64\mingw64\bin"
+#define QT_LIB_DIR "D:\msys64\mingw64\lib"
+#define QT_PLATFORMS_DIR "D:\msys64\mingw64\share\qt5\plugins\platforms"
+;#define OPENGL32_DIR "D:\msys64\mingw64\bin"
+#define OPENGL32_DIR  "C:\Windows\SYSTEM32"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId= {{E3B22E36-1B93-4A74-A65B-ADAF68B3CE57}
+AppId= {{353DEA0A-8ED9-43E7-BF3F-B67061088F8C}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -156,16 +154,16 @@ Source: "{#MINGW_DLL_DIR}\libharfbuzz-0.dll"; DestDir: "{app}"; Flags: ignorever
 Source: "{#MINGW_DLL_DIR}\libbrotlicommon.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libbrotlidec.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libiconv-2.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MINGW_DLL_DIR}\libicudt69.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MINGW_DLL_DIR}\libicuin69.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MINGW_DLL_DIR}\libicuuc69.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libicudt76.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libicuin76.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libicuuc76.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libintl-8.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_DLL_DIR}\libmd4c.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libpcre-1.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libpcre16-0.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libpcre2-16-0.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libpng16-16.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "{#MINGW_DLL_DIR}\libmd4c.dll"; DestDir: "{app}"; Flags: ignoreversion
-
+Source: "{#MINGW_DLL_DIR}\libpcre2-8-0.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libquadmath-0.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libstdc++-6.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MINGW_DLL_DIR}\libwinpthread-1.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -192,7 +190,7 @@ Source: "{#QT_BIN_DIR}\Qt5PrintSupport.dll"; DestDir: "{app}"; Flags: ignorevers
 Source: "{#QT_BIN_DIR}\Qt5Widgets.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Static libraries for Qt5
-Source: "{#QT_LIB_DIR}\libQt5PlatformCompositorSupport.a"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#MINGW_LIB_DIR}\libQt5PlatformCompositorSupport.a"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Plugin for windows platform
 Source: "{#QT_PLATFORMS_DIR}\qwindows.dll"; DestDir: "{app}\platforms"; Flags: ignoreversion 
