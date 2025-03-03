@@ -1070,8 +1070,8 @@ void readcoordinates(ifstream * inputfile, ofstream * outimportfile, ofstream * 
                 }
             }
 //            redefines the coordinates with respect to the center of positive charges and writes them to file .ggbs
-//             xc = xc / zntot; yc = yc / zntot; zc = zc / zntot;
-            xc = 0.; yc = 0.; zc = 0.;  // Keeps original coordinates without translation of origin to center of positive charges
+             xc = xc / zntot; yc = yc / zntot; zc = zc / zntot;
+//            xc = 0.; yc = 0.; zc = 0.;  // Keeps original coordinates without translation of origin to center of positive charges
             *ggbsfile << ncen << endl ;
             (*ggbsfile).setf(ios::scientific,ios::floatfield);
             for(i=0; i<ncen;i++){
