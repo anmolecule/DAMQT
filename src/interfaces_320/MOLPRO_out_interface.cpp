@@ -1070,13 +1070,13 @@ void readcoordinates(ifstream * inputfile, ofstream * outimportfile, ofstream * 
                 }
             }
 //            redefines the coordinates with respect to the center of positive charges and writes them to file .ggbs
-//             xc = xc / zntot; yc = yc / zntot; zc = zc / zntot;
-            xc = 0.; yc = 0.; zc = 0.;  // Keeps original coordinates without translation of origin to center of positive charges
+             xc = xc / zntot; yc = yc / zntot; zc = zc / zntot;
+//            xc = 0.; yc = 0.; zc = 0.;  // Keeps original coordinates without translation of origin to center of positive charges
             *ggbsfile << ncen << endl ;
             (*ggbsfile).setf(ios::scientific,ios::floatfield);
             for(i=0; i<ncen;i++){
                 izn = int(round(zn[i]));
-                *ggbsfile << setprecision(10) << x[i]-xc << " " << y[i]-yc << " " << z[i]-zc << " " ;
+                *ggbsfile << setprecision(15) << x[i]-xc << " " << y[i]-yc << " " << z[i]-zc << " " ;
                 *ggbsfile << izn << endl ;
             }
         }
@@ -1157,7 +1157,7 @@ void readoptimizedgeometry(ifstream * inputfile, ofstream * outimportfile, ofstr
             (*ggbsfile).setf(ios::scientific,ios::floatfield);
             for(i=0; i<ncen;i++){
                 izn = int(round(zn[i]));
-                *ggbsfile << setprecision(10) << x[i]-xc << " " << y[i]-yc << " " << z[i]-zc << " " ;
+                *ggbsfile << setprecision(15) << x[i]-xc << " " << y[i]-yc << " " << z[i]-zc << " " ;
                 *ggbsfile << izn << endl ;
             }
         }
@@ -1579,7 +1579,7 @@ void writebasisset(ofstream * ggbsfile){
         for (j = 0 ; j < kntshellat[i] ; j++){
             *ggbsfile << pntprimit[i*(MXSHELLAT+1)+j+1]-pntprimit[i*(MXSHELLAT+1)+j] << " " << lvec[i*MXSHELLAT+j] << endl;
             (*ggbsfile).setf(ios::scientific,ios::floatfield);
-            *ggbsfile << setprecision(10);
+            *ggbsfile << setprecision(15);
             for (k = pntprimit[i*(MXSHELLAT+1)+j] ; k < pntprimit[i*(MXSHELLAT+1)+j+1] ; k++){
                 *ggbsfile << primexp[i*MXPRIMCENT+k] << " " ;
                 if ((k-pntprimit[i*(MXSHELLAT+1)+j]+1)%5==0) *ggbsfile << endl;
