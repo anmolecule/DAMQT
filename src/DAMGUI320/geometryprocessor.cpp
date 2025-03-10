@@ -40,6 +40,8 @@ geomProcessor::geomProcessor(QList<molecule*> *m)
       indexBuf3(QOpenGLBuffer::IndexBuffer)
 {
     initializeOpenGLFunctions();
+    glFuncs = QOpenGLContext::currentContext()->versionFunctions<QOpenGLFunctions_4_5_Core>();
+    glFuncs->glGenQueries(1, &queryID);
 
     // Generate 4 VBOs
     arrayBuf.create();
@@ -60,6 +62,7 @@ geomProcessor::geomProcessor(QList<molecule*> *m)
     alllineswidth = new QVector<GLfloat>();
     alltypeelement = new QVector<GLuint>();
     allsolidsurface = new QVector<GLboolean>();
+    allsurfindices = new QVector<GLuint>();
     alltranslucence = new QVector<GLboolean>();
     moleculesoffsetindex = new QVector<GLuint>();
     mol = m;
@@ -164,8 +167,9 @@ void geomProcessor::drawLabAxes(QOpenGLShaderProgram *program, QVector <GLuint> 
     arrayBuf3.release();
 }
 
-void geomProcessor::drawStructure(QOpenGLShaderProgram *program, int indmol)
+void geomProcessor::drawStructure(QOpenGLShaderProgram *program, QList<molecule*> *m, int indmol)
 {
+    GLuint visibleSamples = 0;
     // Tell OpenGL which VBOs to use
     arrayBuf.bind();
     indexBuf.bind();
@@ -200,6 +204,8 @@ void geomProcessor::drawStructure(QOpenGLShaderProgram *program, int indmol)
 
     if (moleculesoffsetindex->length() < indmol+2) // To prevent a nasty error when resizing some dialog windows
         return;
+    int kntmax = 0;
+    int kntmin = 0;
     for (int i = moleculesoffsetindex->at(indmol) ; i < moleculesoffsetindex->at(indmol+1); i++){
         if (allsolidsurface->at(i+1)){
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -240,6 +246,42 @@ void geomProcessor::drawStructure(QOpenGLShaderProgram *program, int indmol)
                 (GLvoid *) (allindicesoffset->at(i) * sizeof(GLuint)));
             glEnable(GL_CULL_FACE);
         }
+        if (alltypeelement->at(i+1) == 4){  // Draws structures
+            glEnable(GL_CULL_FACE);
+            glFuncs->glBeginQuery(GL_SAMPLES_PASSED, queryID);
+            glDrawElements(GL_TRIANGLES, allindicesoffset->at(i+1)-allindicesoffset->at(i), GL_UNSIGNED_INT,
+                (GLvoid *) (allindicesoffset->at(i) * sizeof(GLuint)));
+            glFuncs->glEndQuery(GL_SAMPLES_PASSED);
+            glFuncs->glGetQueryObjectuiv(queryID, GL_QUERY_RESULT, &visibleSamples);
+            if (visibleSamples > 0){
+//                std::cout << "visible maximum" << "\n";
+                m->at(indmol)->surfaces->at(allsurfindices->at(i+1))->setextremhidden(0,kntmax++,false);
+                glDrawElements(GL_TRIANGLES, allindicesoffset->at(i+1)-allindicesoffset->at(i), GL_UNSIGNED_INT,
+                    (GLvoid *) (allindicesoffset->at(i) * sizeof(GLuint)));
+            }
+            else {
+//                std::cout << "hidden maximum" << "\n";
+                m->at(indmol)->surfaces->at(allsurfindices->at(i+1))->setextremhidden(0,kntmax++,true);
+            }
+        }
+        if (alltypeelement->at(i+1) == 5){  // Draws structures
+            glEnable(GL_CULL_FACE);
+            glFuncs->glBeginQuery(GL_SAMPLES_PASSED, queryID);
+            glDrawElements(GL_TRIANGLES, allindicesoffset->at(i+1)-allindicesoffset->at(i), GL_UNSIGNED_INT,
+                (GLvoid *) (allindicesoffset->at(i) * sizeof(GLuint)));
+            glFuncs->glEndQuery(GL_SAMPLES_PASSED);
+            glFuncs->glGetQueryObjectuiv(queryID, GL_QUERY_RESULT, &visibleSamples);
+            if (visibleSamples > 0){
+//                std::cout << "visible minimum" << "\n";
+                m->at(indmol)->surfaces->at(allsurfindices->at(i+1))->setextremhidden(1,kntmin++,false);
+                glDrawElements(GL_TRIANGLES, allindicesoffset->at(i+1)-allindicesoffset->at(i), GL_UNSIGNED_INT,
+                    (GLvoid *) (allindicesoffset->at(i) * sizeof(GLuint)));
+            }
+            else {
+//                std::cout << "hidden minimum" << "\n";
+                m->at(indmol)->surfaces->at(allsurfindices->at(i+1))->setextremhidden(1,kntmin++,true);
+            }
+        }
     }
     indexBuf.release();
     arrayBuf.release();
@@ -252,6 +294,7 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
     alllineswidth->clear();
     alltypeelement->clear();
     allsolidsurface->clear();
+    allsurfindices->clear();
     alltranslucence->clear();
     moleculesoffsetindex->clear();
     moleculesoffsetindex->append(0);
@@ -270,6 +313,7 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
             for (int j = 0; j < m->at(i)->allindicesoffset.count() ; j++){
                 allindicesoffset->append(m->at(i)->allindicesoffset.at(j) + ioffset);
                 alltypeelement->append(0);
+                allsurfindices->append(0);
                 allsolidsurface->append(true);
                 alltranslucence->append(true);
                 alllineswidth->append(0.);
@@ -286,6 +330,7 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
                 ioffset = allindices->count();
                 allindicesoffset->append(ioffset);
                 alltypeelement->append(0);
+                allsurfindices->append(0);
                 allsolidsurface->append(true);
                 alltranslucence->append(true);
                 alllineswidth->append(0.);
@@ -303,6 +348,7 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
                     ioffset = allindices->count();
                     allindicesoffset->append(ioffset);
                     alltypeelement->append(1);
+                    allsurfindices->append(j);
                     if (m->at(i)->surfaces->at(j)->getsolidsurf()){
                         allsolidsurface->append(true);
                     }
@@ -328,6 +374,7 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
                         for (int l = 1; l < m->at(i)->surfaces->at(j)->gridindicesoffset.count() ; l++){
                             allindicesoffset->append(m->at(i)->surfaces->at(j)->gridindicesoffset.at(l) + ioffset);
                             alltypeelement->append(2);
+                            allsurfindices->append(j);
                             allsolidsurface->append(false);
                             alltranslucence->append(false);
                             alllineswidth->append(1.);
@@ -344,7 +391,8 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
                         }
                         for (int l = 1; l < m->at(i)->surfaces->at(j)->allindicesoffsetextrema[0].count() ; l++){
                             allindicesoffset->append(m->at(i)->surfaces->at(j)->allindicesoffsetextrema[0].at(l) + ioffset);
-                            alltypeelement->append(0);
+                            alltypeelement->append(4);
+                            allsurfindices->append(j);
                             allsolidsurface->append(true);
                             alltranslucence->append(true);
                             alllineswidth->append(1.);
@@ -361,7 +409,8 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
                         }
                         for (int l = 1; l < m->at(i)->surfaces->at(j)->allindicesoffsetextrema[1].count() ; l++){
                             allindicesoffset->append(m->at(i)->surfaces->at(j)->allindicesoffsetextrema[1].at(l) + ioffset);
-                            alltypeelement->append(0);
+                            alltypeelement->append(5);
+                            allsurfindices->append(j);
                             allsolidsurface->append(true);
                             alltranslucence->append(true);
                             alllineswidth->append(1.);
@@ -383,6 +432,7 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
                         ioffset = allindices->count();
                         allindicesoffset->append(ioffset);
                         alltypeelement->append(1);
+                        allsurfindices->append(k);
                         if (m->at(i)->grids->at(j)->surfaces->at(k)->getsolidsurf()){
                             allsolidsurface->append(true);
                         }
@@ -408,6 +458,7 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
                             for (int l = 1; l < m->at(i)->grids->at(j)->surfaces->at(k)->gridindicesoffset.count() ; l++){
                                 allindicesoffset->append(m->at(i)->grids->at(j)->surfaces->at(k)->gridindicesoffset.at(l) + ioffset);
                                 alltypeelement->append(2);
+                                allsurfindices->append(k);
                                 allsolidsurface->append(false);
                                 alltranslucence->append(false);
                                 alllineswidth->append(1.);
@@ -428,6 +479,7 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
                 ioffset = allindices->count();
                 allindicesoffset->append(ioffset);
                 alltypeelement->append(0);
+                allsurfindices->append(0);
                 allsolidsurface->append(true);
                 alltranslucence->append(true);
                 alllineswidth->append(0.);
@@ -445,6 +497,7 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
                 for (int j = 1; j < m->at(i)->flines->allindicesoffset.count() ; j++){
                     allindicesoffset->append(m->at(i)->flines->allindicesoffset.at(j) + ioffset);
                     alltypeelement->append(2);
+                    allsurfindices->append(0);
                     allsolidsurface->append(true);
                     alltranslucence->append(true);
                     alllineswidth->append(m->at(i)->flines->getlineswidth());
@@ -461,6 +514,7 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
                     for (int j = 1; j < m->at(i)->flines->allarrowsindicesoffset.count() ; j++){
                         allindicesoffset->append(m->at(i)->flines->allarrowsindicesoffset.at(j) + ioffset);
                         alltypeelement->append(3);
+                        allsurfindices->append(0);
                         allsolidsurface->append(true);
                         alltranslucence->append(true);
                         alllineswidth->append(m->at(i)->flines->getlineswidth());
@@ -483,6 +537,7 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
                     for (int j = 1; j < m->at(i)->cps->allindicesoffset[type].count() ; j++){
                         allindicesoffset->append(m->at(i)->cps->allindicesoffset[type].at(j) + ioffset);
                         alltypeelement->append(0);
+                        allsurfindices->append(0);
                         allsolidsurface->append(true);
                         alltranslucence->append(true);
                         alllineswidth->append(0.);
@@ -503,6 +558,7 @@ void geomProcessor::loadbuffers(QList<molecule*> *m){
                         for (int j = 1; j < m->at(i)->cps->alleigindicesoffset[type].count() ; j++){
                             allindicesoffset->append(m->at(i)->cps->alleigindicesoffset[type].at(j) + ioffset);
                             alltypeelement->append(0);
+                            allsurfindices->append(0);
                             allsolidsurface->append(true);
                             alltranslucence->append(true);
                             alllineswidth->append(0.);
@@ -597,3 +653,4 @@ void geomProcessor::applytranslucence(int i){
     glDrawElements(GL_TRIANGLES, allindicesoffset->at(i+1)-allindicesoffset->at(i), GL_UNSIGNED_INT,
             (GLvoid *) (allindicesoffset->at(i) * sizeof(GLuint)));
 }
+

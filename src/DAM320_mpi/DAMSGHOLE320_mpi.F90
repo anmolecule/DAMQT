@@ -33,18 +33,19 @@ MODULE DAMSGHOLE320_D
     USE DAM320_D
     USE DAM320_CONST_D
     IMPLICIT NONE
-    logical :: lbinary, lcolor, lexist, lfound, lsghole
-    character(300) :: gridname, indfile, outsgholename, outcolorname, outrootname, straux, vertfile
+    logical :: lbinary, lcolor, ldebug, lexist, lfound, lsghole
+    character(300) :: gridname, indfile, outsgholename, outcolorname, outdebugname, outrootname, straux, vertfile
     integer(KINT) :: i, i1, i2, ia, iaux, ierr, icube, iopt(5), iuni, ix, iy, iz, j, k, knt, kntgrid
-    integer(KINT) :: kntgroupmax, kntgroupmin, kntind, kntmax, kntmin, kntvert, l, maxhist, minhist, npoints, nx, ny, nz
+    integer(KINT) :: kntgroupmax, kntgroupmin, kntind, kntmax, kntmin, kntvert, l, maxhist, minhist
+    integer(KINT) :: nmaxregions, nminregions, npoints, nx, ny, nz
     integer(KINT), allocatable ::  indices(:), indicesmax(:), indicesmin(:), interpolmat(:,:), kntlocal(:), localaux(:,:)
     integer(KINT), allocatable ::  localmax(:,:), localmin(:,:), nind(:), nvert(:), numlocalmax(:), numlocalmin(:)
     integer(KINT), allocatable ::  tritable(:,:)
     real(KREAL), parameter :: angstromtobohr = 1.889725989d0
     real(KREAL) :: a, aux, b, blue, bux, c, contourval, cux, d, den, denrep, dendrvx, disthresq, dlthist, dlthistinv, drvxtot
-    real(KREAL) :: dendrvy, drvytot, dendrvz, drvztot, errabs, fpos, fneg, green, s, red, surfneg, surfpos, surftot, surftrian
-    real(KREAL) :: thrslocal, thresmax, thresmin, topcolor, ve, vetot, vmax, vmaxabs, vmin, vminabs, vn, vntot, volume
-    real(KREAL) :: voltetrahed, volvoxel, vtotia, x, xini, xinterp, xfin, y, yini, yinterp, yfin, z, zini, zinterp, zfin
+    real(KREAL) :: dendrvy, drvytot, dendrvz, drvztot, errabs, fpos, fneg, green, s, red, separation, surfneg, surfpos, surftot
+    real(KREAL) :: surftrian, thrslocal, thresmax, thresmin, topcolor, ve, vetot, vmax, vmaxabs, vmin, vminabs, vn, vntot
+    real(KREAL) :: volume, voltetrahed, volvoxel, vtotia, x, xini, xinterp, xfin, y, yini, yinterp, yfin, z, zini, zinterp, zfin
     real(KREAL), allocatable :: gradient(:), grid(:), fvoxel(:), vertices(:,:), vertices2(:), vtot(:)
     real(KREAL), allocatable :: histogram(:), histpartial(:,:), xhist(:), xvoxel(:), yvoxel(:), zvoxel(:)
     real(KREAL) :: centroid(3), xyz(3), xyztetr(3,0:3)
@@ -83,8 +84,8 @@ END MODULE
     real(KREAL) :: rnamelist(5)
 
     
-    namelist / options / contourval, filename, gridname, geomthr, iswindows, langstrom, lbinary, lexact, lmaxrep, &
-        longoutput, lsghole, lvalence, thrslocal, topcolor, umbrlargo
+    namelist / options / contourval, filename, gridname, geomthr, iswindows, langstrom, lbinary, ldebug, lexact, &
+        lmaxrep, longoutput, lsghole, lvalence, separation, thrslocal, topcolor, umbrlargo
     call MPI_INIT(ierr)
     call MPI_COMM_SIZE(MPI_COMM_WORLD, nprocs, ierr)
     call MPI_COMM_RANK(MPI_COMM_WORLD, myrank, ierr)
@@ -100,10 +101,12 @@ END MODULE
     langstrom = .true.      ! If false original grid distances in bohr
     lbinary = .true.        ! If true writes a file *.srf with the surface in binary form, otherwise writes a file *.srf_txt text mode
     lcolor = .false.        ! If true generates a file .srf with vertices positions, normals and colors
-    lexact  = .false.		! if .true. "exact" potential is tabulated
+    ldebug = .false.         ! If true prints some information in unit 1234
+    lexact  = .false.	    ! if .true. "exact" potential is tabulated
     lmaxrep = 5             ! highest "l" in the expansion of the density and potential
     longoutput = .false.    ! If true a more detailed output is given
-    lsghole = .true.        ! If true generates a file *.sgh with the vertices positions and normals and mesp values on a med isosurface 
+    lsghole = .true.        ! If true generates a file *.sgh with the vertices positions and normals and mesp values on a med isosurface
+    separation = 0.d0       ! minimal separation between maxima or minima to consider them in separate regions
     thrslocal = 0.9d0       ! Threshold for search of local maxima and minima
     topcolor = 0.05d0       ! parameter for color assignment (blue: -topcolor, red: topcolor)
     umbrlargo = 1.d-9       ! Threshold for determining the short-range radius
@@ -942,6 +945,13 @@ END MODULE
                 straux = trim(straux)//"_exact"
             endif
 
+            outdebugname = trim(outrootname)//"_"//trim(adjustl(straux))//".debug"
+            open (unit=1234, file=trim(outdebugname), iostat=ierr)
+            if (ierr .ne. 0) then
+                write(6,"('Error ', i5,' opening file ',a)") ierr, trim(outdebugname)
+                write(6,"('Debug will be written to file fort.1234')")
+            endif
+
             if (lbinary) then
                 if (lcolor) outcolorname = trim(outrootname)//"_"//trim(adjustl(straux))//".srf"
                 if (lsghole) outsgholename = trim(outrootname)//"_"//trim(adjustl(straux))//".sgh"
@@ -1134,20 +1144,22 @@ END MODULE
 
             write(6,"(//30('*'),2x,'FINAL RESULTS ON LOCAL EXTREMA',2x,30('*'),/)")
 
-            write(6,"(/'Number of local maxima (higher than mesp = ', e9.2, ') found = ', i3)") thresmax, kntgroupmax
+            write(6,"(/'Number of regions with local maxima (higher than mesp = ', e9.2, ') found = ', i3)") &
+                thresmax, nmaxregions
             
 !     Writes number of regions with local maxima to file
             if (lbinary) then
-                if (lcolor) write(iuni+2*nprocs) kntgroupmax
-                if (lsghole) write(iuni+2*nprocs+1) kntgroupmax
+                if (lcolor) write(iuni+2*nprocs) nmaxregions
+                if (lsghole) write(iuni+2*nprocs+1) nmaxregions
             else
-                if (lcolor) write(iuni+2*nprocs,"(i7)") kntgroupmax
-                if (lsghole) write(iuni+2*nprocs,"(i7)") kntgroupmax
+                if (lcolor) write(iuni+2*nprocs,"(i7)") nmaxregions
+                if (lsghole) write(iuni+2*nprocs,"(i7)") nmaxregions
             endif
             if (kntgroupmax .gt. 0) then
                 write(6,"(/,'Positions and mesp values of the local maxima in the mesh, and area for local surface with mesp > '&
                     &,e12.5,/111('-'))") thresmax
                 do jaux = 1, kntgroupmax
+                    if (numlocalmax(jaux) .eq. 0) cycle
                     surfpos = cero
                     call makehistmax(jaux)
                     i1 = indicesmax(jaux)
@@ -1169,20 +1181,22 @@ END MODULE
                   
 !     Searches local minima in the mesh and computes local histogram
 
-            write(6,"(/'Number of local minima (lower than mesp = ', e9.2, ') found = ', i3)") thresmin, kntgroupmin
+            write(6,"(/'Number of regions with local minima (lower than mesp = ', e9.2, ') found = ', i3)") &
+                thresmin, nminregions
 
 !     Writes number of regions with local minima to file
             if (lbinary) then
-                if (lcolor) write(iuni+2*nprocs) kntgroupmin
-                if (lsghole) write(iuni+2*nprocs+1) kntgroupmin
+                if (lcolor) write(iuni+2*nprocs) nminregions
+                if (lsghole) write(iuni+2*nprocs+1) nminregions
             else
-                if (lcolor) write(iuni+2*nprocs,"(i7)") kntgroupmin
-                if (lsghole) write(iuni+2*nprocs,"(i7)") kntgroupmin
+                if (lcolor) write(iuni+2*nprocs,"(i7)") nminregions
+                if (lsghole) write(iuni+2*nprocs,"(i7)") nminregions
             endif
             if (kntgroupmin .gt. 0) then
                 write(6,"(/,'Positions and mesp values of the local minima in the mesh, and area for local surface with mesp < '&
                     &,e12.5,/111('-'))") thresmin
                 do jaux = 1, kntgroupmin
+                    if (numlocalmin(jaux) .eq. 0) cycle
                     surfneg = cero
                     call makehistmin(jaux)
                     i1 = indicesmin(jaux)
@@ -1295,8 +1309,8 @@ END MODULE
             write(69,*) volume
             write(69,*) vmaxabs
             write(69,*) vminabs
-            write(69,*) kntgroupmax
-            write(69,*) kntgroupmin
+            write(69,*) nmaxregions
+            write(69,*) nminregions
             write(69,*) xmin
             write(69,*) xmax
             write(69,*) ymin
@@ -1361,7 +1375,7 @@ END MODULE
     implicit none
     integer, parameter :: maxlinks = 10
     integer(KINT) :: ii, ij, ik, indaux(0:2), jj, jaux, kk
-    integer(KINT), allocatable :: indiceslinks(:,:), kntindiceslinks(:)
+    integer(KINT), allocatable :: indiceslinks(:,:), kntindiceslinks(:), iextremaregions(:)
     real(KREAL) :: xyzaux, xyzmin
     real(KREAL), parameter :: dstthr = 1.d-5, dsqthr = 1.d-10
     logical :: lfrontier, lvertfound(0:2)
@@ -1547,20 +1561,190 @@ END MODULE
     if (kntmin .eq. 0) kntgroupmin = 0
 
     if (kntmax .gt. 0) then
-        write(6,"(/'Number of regions with local maxima = ', i3)") kntgroupmax
-        call flush(6)
-        do i = 1, kntgroupmax
-            write(6,"('Number triangles in region ', i3 '  = ', i7)") i, numlocalmax(i)
+        if (ldebug) then
+            write(1234,"(/'Number of starting regions with possible local maxima = ', i3)") kntgroupmax
+            do i = 1, kntgroupmax
+                write(1234,"('Number triangles in starting region ', i3 '  = ', i7)") i, numlocalmax(i)
+                write(1234,"(/'Maximum no. ', i3, ' vertices = ', 3(' ',e12.5), ' vtot = ', e22.15)") &
+                    i, vertices(:,indicesmax(i)),  vtot(indicesmax(i))
+                write(1234,"('Number of linked vertices = ', i3)") kntindiceslinks(indicesmax(i))
+                do i1 = 1, kntindiceslinks(indicesmax(i))
+                    write(1234,"('link index = ', i7, ' vtot = ', e22.15)") indiceslinks(indicesmax(i),i1), &
+                        vtot(indiceslinks(indicesmax(i),i1))
+                enddo
+            enddo
+            write(1234,"('Distances between maxima')")
+        endif
+        allocate (iextremaregions(kntgroupmax), stat = ierr)
+        if (ierr .ne. 0) then
+            write(6,"('Error ', i5,' when allocating iextremaregions')") ierr
+            abort = 1
+            return
+        endif
+        do i1 = 1, kntgroupmax
+            iextremaregions(i1) = i1
         enddo
+        do i1 = 2, kntgroupmax
+            lfound = .false.
+            do i2 = 1, i1-1
+                xyz = vertices(:,indicesmax(i1)) - vertices(:,indicesmax(i2))
+                aux = sqrt(dot_product(xyz,xyz))
+                if (ldebug) write(1234,"('Maxima: ',i2,',',i2, 3x,' distance = ', e12.5)") i1, i2, aux
+                if (.not. lfound .and. aux .lt. separation) then
+                    if (ldebug) then
+                        write(1234,"(/'Merges triangles of maxima ', i3, ' and ', i3, ' into a single one')") &
+                            i1, i2
+                        write(1234,"('MESP values: V(',i3,') = ', e22.15, ' V(',i3,') = ', e22.15,/)") &
+                            i1, vtot(indicesmax(i1)), i2, vtot(indicesmax(i2))
+                    endif
+                    if (vtot(indicesmax(i2)) .ge. vtot(indicesmax(i1)) ) then
+                        iextremaregions(i1) = iextremaregions(i2)
+                    else
+                        xyz = vertices(:,indicesmax(i1)) - vertices(:,indicesmax(iextremaregions(i2)))
+                        aux = sqrt(dot_product(xyz,xyz))
+                        if (aux .lt. separation) then
+                            do i = 1, i1-1
+                                if (iextremaregions(i) .eq. iextremaregions(i2)) iextremaregions(i) = iextremaregions(i1)
+                            enddo
+                        endif
+                    endif
+                    lfound = .true.
+                endif
+            enddo
+        enddo
+        if (ldebug) then
+            do i1 = 1, kntgroupmax
+                write(1234,"('Original maximum of index ', i3, ' belongs to region of maximum ', i3)") &
+                    i1, iextremaregions(i1)
+                xyz = vertices(:,indicesmax(i1)) - vertices(:,indicesmax(iextremaregions(i1)))
+                aux = sqrt(dot_product(xyz,xyz))
+                write(1234,"('Distance between the two centers = ', e17.10)") aux
+                write(1234,"('Values of the MESP: ', e22.15, 5x, e22.15)") &
+                    vtot(indicesmax(i1)), vtot(indicesmax(iextremaregions(i1)))
+            enddo
+        endif
+        if (ldebug) then
+            write(1234,"(/'Before merging maxima regions')")
+            do i1 = 1, kntgroupmax
+                write(1234,"('Number of triangles in original maximum ', i3, ' = ', i7)") &
+                    i1, numlocalmax(i1)
+            enddo
+        endif
+        nmaxregions = 0
+        do i2 = 1, kntgroupmax
+            if (i2 .eq. iextremaregions(i2)) then
+                nmaxregions = nmaxregions + 1
+            else
+                i1 = iextremaregions(i2)
+                do i = 1, numlocalmax(i2)
+                    localmax(numlocalmax(i1) + i, i1) = localmax(i, iextremaregions(i2))
+                enddo
+                numlocalmax(i1) = numlocalmax(i1) + numlocalmax(i2)
+                numlocalmax(i2) = 0
+            endif
+        enddo
+        if (ldebug) then
+            write(1234,"(/'After merging maxima regions')")
+            do i1 = 1, kntgroupmax
+                write(1234,"('Number of triangles in original maximum ', i3, ' = ', i7)") &
+                    i1, numlocalmax(i1)
+            enddo
+        endif
     else
         write(6,"(/'No regions with local maxima')")
     endif
 
     if (kntmin .gt. 0) then
-        write(6,"(/111('-'),/'Number of regions with local minima = ', i3)") kntgroupmin
-        do i = 1, kntgroupmin
-            write(6,"('Number triangles in region ', i3 '  = ', i7)") i, numlocalmin(i)
+        if (ldebug) then
+            write(1234,"(/111('-'),/'Number of starting regions with possible local minima = ', i3)") kntgroupmin
+            do i = 1, kntgroupmin
+                write(1234,"('Number triangles in region ', i3 '  = ', i7)") i, numlocalmin(i)
+                write(1234,"(/'Minimum no. ', i3, ' vertices = ', 3(' ',e12.5), ' vtot = ', e22.15)") &
+                    i, vertices(:,indicesmin(i)),  vtot(indicesmin(i))
+                write(1234,"('Number of linked vertices = ', i3)") kntindiceslinks(indicesmin(i))
+                do i1 = 1, kntindiceslinks(indicesmin(i))
+                    write(1234,"('link index = ', i7, ' vtot = ', e22.15)") indiceslinks(indicesmin(i),i1), &
+                        vtot(indiceslinks(indicesmin(i),i1))
+                enddo
+            enddo
+            write(1234,"('Distances between minima')")
+        endif
+        if (allocated(iextremaregions)) deallocate(iextremaregions)
+        allocate (iextremaregions(kntgroupmin), stat = ierr)
+        if (ierr .ne. 0) then
+            write(6,"('Error ', i5,' when allocating iextremaregions')") ierr
+            abort = 1
+            return
+        endif
+        do i1 = 1, kntgroupmin
+            iextremaregions(i1) = i1
         enddo
+        do i1 = 2, kntgroupmin
+            lfound = .false.
+            do i2 = 1, i1-1
+                xyz = vertices(:,indicesmin(i1)) - vertices(:,indicesmin(i2))
+                aux = sqrt(dot_product(xyz,xyz))
+                if (ldebug) write(1234,"('Minima: ',i2,',',i2, 3x,' distance = ', e12.5)") i1, i2, aux
+                if (.not. lfound .and. aux .lt. separation) then
+                    if (ldebug) then
+                        write(1234,"(/'Merges triangles of minima ', i3, ' and ', i3, ' into a single one')") &
+                            i1, i2
+                        write(1234,"('MESP values: V(',i3,') = ', e22.15, ' V(',i3,') = ', e22.15,/)") &
+                            i1, vtot(indicesmin(i1)), i2, vtot(indicesmin(i2))
+                    endif
+                    if (vtot(indicesmin(i2)) .le. vtot(indicesmin(i1)) ) then
+                        iextremaregions(i1) = iextremaregions(i2)
+                    else
+                        xyz = vertices(:,indicesmin(i1)) - vertices(:,indicesmin(iextremaregions(i2)))
+                        aux = sqrt(dot_product(xyz,xyz))
+                        if (aux .lt. separation) then
+                            do i = 1, i1-1
+                                if (iextremaregions(i) .eq. iextremaregions(i2)) iextremaregions(i) = iextremaregions(i1)
+                            enddo
+                        endif
+                    endif
+                    lfound = .true.
+                endif
+            enddo
+        enddo
+        if (ldebug) then
+            do i1 = 1, kntgroupmin
+                write(1234,"('Original minimum of index ', i3, ' belongs to region of minimum ', i3)") &
+                    i1, iextremaregions(i1)
+                xyz = vertices(:,indicesmin(i1)) - vertices(:,iextremaregions(i1))
+                aux = sqrt(dot_product(xyz,xyz))
+                write(1234,"('Distance between the two centers = ', e17.10)") aux
+                write(1234,"('Values of the MESP: ', e22.15, 5x, e22.15)") &
+                    vtot(indicesmin(i1)), vtot(indicesmin(iextremaregions(i1)))
+            enddo
+        endif
+        if (ldebug) then
+            write(1234,"(/'Before merging minima regions')")
+            do i1 = 1, kntgroupmin
+                write(1234,"('Number of triangles in original minimum ', i3, ' = ', i7)") &
+                    i1, numlocalmin(i1)
+            enddo
+        endif
+        nminregions = 0
+        do i2 = 1, kntgroupmin
+            if (i2 .eq. iextremaregions(i2)) then
+                nminregions = nminregions + 1
+            else
+                i1 = iextremaregions(i2)
+                do i = 1, numlocalmin(i2)
+                    localmin(numlocalmin(i1) + i, i1) = localmin(i, i2)
+                enddo
+                numlocalmin(i1) = numlocalmin(i1) + numlocalmin(i2)
+                numlocalmin(i2) = 0
+            endif
+        enddo
+        if (ldebug) then
+            write(1234,"(/'After merging minima regions')")
+            do i1 = 1, kntgroupmin
+                write(1234,"('Number of triangles in original minimum ', i3, ' = ', i7)") &
+                    i1, numlocalmin(i1)
+            enddo
+        endif
     else
         write(6,"(/'No regions with local minima')")
     endif
@@ -1940,7 +2124,7 @@ END MODULE
         trim(projectname)//"_2016.dmqtv"
     read(10) ncen, nbas, ncaps
     nsize = nsize - sizeof(ncen) - sizeof(nbas) - sizeof(ncaps)
-    if (myrank .eq. 0) write(6,"('ncen = ', i4, ' nbas = ', i6, ' ncaps = ', i5)") ncen, nbas, ncaps
+    if (myrank .eq. 0) write(6,"('ncen = ', i4, ' nbas = ', i6, ' nshells = ', i5)") ncen, nbas, ncaps
 
 !    Allocates memory for geometry
 

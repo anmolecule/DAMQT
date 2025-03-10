@@ -54,7 +54,7 @@
     if (ierr .ne. 0) call error(1,'Error when opening file '//trim(fnameout)//'.Stop')
 
     read(10) ncen, nbas, ncaps
-    write(7,"('ncen = ', i3, ' nbas = ', i5, ' ncaps = ', i3)") ncen, nbas, ncaps
+    write(7,"('ncen = ', i3, ' nbas = ', i5, ' nshells = ', i3)") ncen, nbas, ncaps
     call flush(7)
 
 !	Geometry and nuclear charges

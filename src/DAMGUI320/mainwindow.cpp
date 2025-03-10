@@ -2957,6 +2957,10 @@ void MainWindow::page_SGhole_widgets()
     LBLSGholecontour->setVisible(true);
     LBLSGholecontour->setEnabled(false);
 
+    LBLSGholeseparation = new QLabel(tr("Extrema separation"));
+    LBLSGholeseparation->setVisible(true);
+    LBLSGholeseparation->setEnabled(false);
+
     QDoubleValidator *myDoubleValidator = new QDoubleValidator(nullpointer);
     myDoubleValidator->setLocale(QLocale::English);
 
@@ -2967,6 +2971,13 @@ void MainWindow::page_SGhole_widgets()
     TXTSGholecontour->setToolTip(tr("Density value on isosurface (it defines molecular boundaries)"));
     TXTSGholecontour->setEnabled(false);
 
+    TXTSGholeseparation = new QLineEdit();
+    TXTSGholeseparation->setVisible(true);
+    TXTSGholeseparation->setText("3.0");
+    TXTSGholeseparation->setValidator(myDoubleValidator);
+    TXTSGholeseparation->setToolTip(tr("Minimum separation allowed between maxima or minima"));
+    TXTSGholeseparation->setEnabled(false);
+
     LBLSGholelocalextrema = new QLabel(tr("Threshold for local extrema"));
     LBLSGholelocalextrema->setVisible(true);
     LBLSGholelocalextrema->setEnabled(false);
@@ -2974,12 +2985,13 @@ void MainWindow::page_SGhole_widgets()
 
     SPBSGholelocalextrema = new QSpinBox();
     SPBSGholelocalextrema->setRange(20, 99);
-    SPBSGholelocalextrema->setValue(90);
+    SPBSGholelocalextrema->setValue(70);
     SPBSGholelocalextrema->setSingleStep(5);
     SPBSGholelocalextrema->setMaximumWidth(60);
     SPBSGholelocalextrema->setEnabled(false);
 
     LBLSGholelocalpower = new QLabel("x 10<sup>-2</sup>");
+    LBLSGholebohr = new QLabel("bohr");
 
 
     LBLSGholegeomthreshold = new QLabel(tr("Geometry threshold:")+" 10^");
@@ -3089,6 +3101,11 @@ void MainWindow::page_SGhole_layouts()
     Layout3b->addWidget(SPBSGholelocalextrema);
     Layout3b->addWidget(LBLSGholelocalpower);
 
+
+    QHBoxLayout *Layout3c=new QHBoxLayout();
+    Layout3c->addWidget(TXTSGholeseparation);
+    Layout3c->addWidget(LBLSGholebohr);
+
     QGridLayout *Layout4 = new QGridLayout();
     Layout4->addWidget(LBLSGholecontour,0,0);
     Layout4->addWidget(TXTSGholecontour,0,1);
@@ -3098,6 +3115,8 @@ void MainWindow::page_SGhole_layouts()
     Layout4->addWidget(SPBSGholelongthreshold,2,1);
     Layout4->addWidget(LBLSGholelocalextrema,3,0);
     Layout4->addLayout(Layout3b,3,1);
+    Layout4->addWidget(LBLSGholeseparation,4,0);
+    Layout4->addLayout(Layout3c,4,1);
 
     QHBoxLayout *Layout5=new QHBoxLayout(FRMSGholelmaxexp);
     Layout5->addWidget(LBLSGholelmaxexp);
@@ -6030,6 +6049,7 @@ void MainWindow::TXTProjectName_changed(const QString &cad)
     TXTeffilename->setText(ProjectName);
     TXTdgfilename->setText(ProjectName);
     TXTpotgdampotfilename->setText(ProjectName);
+    TXTSGholefilename->setText(ProjectName);
     TXTtopofilename->setText(ProjectName);
     TXTfraddamfilename->setText(ProjectName);
     TXTmrotorimultfilename->setText(ProjectName);
@@ -7215,8 +7235,14 @@ void MainWindow::loadDefault_MESP(){   //    page_MESP: Electrostatic potential
 void MainWindow::loadDefault_SGhole(){   //    page_SGhole: HMESP sigma hole
     TXTImportSGholeden->setText("");
     TXTSGholecontour->setText("0.001");
-    TXTSGholefilename->setText("");
-    SPBSGholelocalextrema->setValue(90);
+    if (TXTProjectName){
+        TXTSGholefilename->setText(TXTProjectName->text());
+    }
+    else{
+        TXTSGholefilename->setText("");
+    }
+    TXTSGholeseparation->setText("3.0");
+    SPBSGholelocalextrema->setValue(70);
     SPBSGholegeomthreshold->setValue(-5);
     SPBSGholelongthreshold->setValue(-9);
 }
@@ -7932,7 +7958,7 @@ void MainWindow::read_page_SGhole(string file)
     read_text_to_TXT("filename", "DAMSGHOLESECT", TXTSGholefilename, file);
     read_text_to_TXT("gridname", "DAMSGHOLESECT", TXTImportSGholeden, file);
     read_double_to_TXT("contourval","DAMSGHOLESECT",TXTSGholecontour,file);
-//    read_double_to_TXT("topcolor","DAMSGHOLESECT",TXTSGholecolor,file);
+    read_double_to_TXT("separation","DAMSGHOLESECT",TXTSGholeseparation,file);
 
     v = CIniFile::GetValue("geomthr","DAMSGHOLESECT",file);
     qv = toQString(v.c_str());
@@ -9563,7 +9589,7 @@ void MainWindow::saveOptions_13(string file, bool *printwarns, QString *warns)
     write_option("gridname", "DAMSGHOLESECT", TXTImportSGholeden->text().remove("\"").prepend("\"").append("\""),
                  file, printwarns, warns);
     write_option("contourval", "DAMSGHOLESECT", TXTSGholecontour->text(), file, printwarns, warns);
-//    write_option("topcolor", "DAMSGHOLESECT", TXTSGholecolor->text(), file, printwarns, warns);
+    write_option("separation", "DAMSGHOLESECT", TXTSGholeseparation->text(), file, printwarns, warns);
     write_option("geomthr", "DAMSGHOLESECT",  QString("1.d"+SPBSGholegeomthreshold->text()), file, printwarns, warns);
     write_option("thrslocal", "DAMSGHOLESECT",  QString(SPBSGholelocalextrema->text()+".d-2"), file, printwarns, warns);
     write_option("umbrlargo", "DAMSGHOLESECT",  QString("1.d"+SPBSGholelongthreshold->text()), file, printwarns, warns);
@@ -12228,9 +12254,12 @@ void MainWindow::TXTImportSGholeden_changed(){
     if (TXTImportSGholeden->text().isEmpty()){
         LBLSGholecontour->setEnabled(false);
         TXTSGholecontour->setEnabled(false);
+        LBLSGholeseparation->setEnabled(false);
+        TXTSGholeseparation->setEnabled(false);
         LBLSGholelocalextrema->setEnabled(false);
         SPBSGholelocalextrema->setEnabled(false);
         LBLSGholelocalpower->setEnabled(false);
+        LBLSGholebohr->setEnabled(false);
         LBLSGholegeomthreshold->setEnabled(false);
         SPBSGholegeomthreshold->setEnabled(false);
         LBLSGholelongthreshold->setEnabled(false);
@@ -12250,9 +12279,12 @@ void MainWindow::TXTImportSGholeden_changed(){
     else{
         LBLSGholecontour->setEnabled(true);
         TXTSGholecontour->setEnabled(true);
+        LBLSGholeseparation->setEnabled(true);
+        TXTSGholeseparation->setEnabled(true);
         LBLSGholelocalextrema->setEnabled(true);
         SPBSGholelocalextrema->setEnabled(true);
         LBLSGholelocalpower->setEnabled(true);
+        LBLSGholebohr->setEnabled(true);
         LBLSGholegeomthreshold->setEnabled(true);
         SPBSGholegeomthreshold->setEnabled(true);
         LBLSGholelongthreshold->setEnabled(true);
@@ -14092,11 +14124,13 @@ void MainWindow::initpointers()
     LBLProjectName = nullpointer;
     LBLSGholelocalextrema = nullpointer;
     LBLSGholelocalpower = nullpointer;
+    LBLSGholebohr = nullpointer;
     LBLSGholecontour = nullpointer;
     LBLSGholegeomthreshold = nullpointer;
     LBLSGholelmaxexp = nullpointer;
     LBLSGholelongthreshold = nullpointer;
     LBLSGholempi = nullpointer;
+    LBLSGholeseparation = nullpointer;
     LBLtopoexln = nullpointer;
     LBLtopofdisp = nullpointer;
     LBLtopompi = nullpointer;
@@ -14432,6 +14466,7 @@ void MainWindow::initpointers()
     TXTImportSGholeden = nullpointer;
     TXTSGholecontour = nullpointer;
     TXTSGholefilename = nullpointer;
+    TXTSGholeseparation = nullpointer;
     TXTtopoexln = nullpointer;
     TXTtopofdisp = nullpointer;
     TXTtopoboxb = nullpointer;

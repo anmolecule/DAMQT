@@ -1031,15 +1031,18 @@ private:       // Grouped in blocks according to menu tabs. Block variables grou
 
     QLabel *LBLSGholelocalextrema;
     QLabel *LBLSGholelocalpower;
+    QLabel *LBLSGholebohr;
     QLabel *LBLSGholecontour;
     QLabel *LBLSGholegeomthreshold;
     QLabel *LBLSGholelmaxexp;
     QLabel *LBLSGholelongthreshold;
     QLabel *LBLSGholempi;
+    QLabel *LBLSGholeseparation;
 
     QLineEdit *TXTImportSGholeden;
     QLineEdit *TXTSGholecontour;
     QLineEdit *TXTSGholefilename;
+    QLineEdit *TXTSGholeseparation;
 
     QSpinBox *SPBSGholegeomthreshold;
     QSpinBox *SPBSGholelmaxexp;

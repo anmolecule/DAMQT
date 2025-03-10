@@ -913,7 +913,7 @@
         &trim(projectname)//"_2016.dmqtv"
     read(10) ncen, nbas, ncaps
     nsize = nsize - sizeof(ncen) - sizeof(nbas) - sizeof(ncaps)
-    if (myrank .eq. 0) write(6,"('ncen = ', i4, ' nbas = ', i6, ' ncaps = ', i5)") ncen, nbas, ncaps
+    if (myrank .eq. 0) write(6,"('ncen = ', i4, ' nbas = ', i6, ' nshells = ', i5)") ncen, nbas, ncaps
 
 !	Allocates memory for geometry and basis set
 

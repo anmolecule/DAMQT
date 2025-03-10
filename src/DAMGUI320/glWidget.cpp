@@ -23,7 +23,7 @@
 //
 //	Author: Rafael Lopez    (rafael.lopez@uam.es)
 //
-//	Last version: May 2021
+//	Last version: March 2025
 //
 #include <QPoint>
 #include <QVBoxLayout>

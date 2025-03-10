@@ -136,7 +136,7 @@
 #endif
     if (longoutput) write(6,"('Opens file ', a)") trim(projectname)//"_2016.damqt"
     read(10) ncen, nbas, ncaps
-    write(6,"('ncen = ', i3, ' nbas = ', i5, ' ncaps = ', i3)") ncen, nbas, ncaps
+    write(6,"('ncen = ', i3, ' nbas = ', i5, ' nshells = ', i3)") ncen, nbas, ncaps
 
 !    Allocates memory for geometry and basis set
 

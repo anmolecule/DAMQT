@@ -819,7 +819,7 @@ void glWindow::paintGL()
             program.setUniformValue("Specular_Index", Specular_Index);
             program.setUniformValue("Linear_Attenuation", linearattenuation);
 
-            geometries->drawStructure(&program, i);   
+            geometries->drawStructure(&program, molecules, i);
         }
 
         if (showdihedrals && measures){
@@ -1041,7 +1041,7 @@ void glWindow::paintGLbuff(QSize size)
             program.setUniformValue("Specular_Index", Specular_Index);
             program.setUniformValue("Linear_Attenuation", linearattenuation);
 
-            geometries->drawStructure(&program, i);
+            geometries->drawStructure(&program, molecules, i);
         }
 
         if (showdihedrals && measures){
@@ -1385,6 +1385,8 @@ void glWindow::drawextremalabels(QPainter *painter, QRect viewport, int i){
             painter->setPen(molecules->at(i)->surfaces->at(j)->getfontcolor());
             painter->setFont(molecules->at(i)->surfaces->at(j)->getfont());
             for (int k = 0 ; k < molecules->at(i)->surfaces->at(j)->localextrema[0].length() ; k++){
+                if (molecules->at(i)->surfaces->at(j)->getextremhidden(0,k))
+                    continue;
                 if (molecules->at(i)->surfaces->at(j)->getonlyextremactive() &&
                         !molecules->at(i)->surfaces->at(j)->getextremactive(0,k))
                     continue;
@@ -1461,6 +1463,8 @@ void glWindow::drawextremalabels(QPainter *painter, QRect viewport, int i){
             painter->setPen(molecules->at(i)->surfaces->at(j)->getfontcolor());
             painter->setFont(molecules->at(i)->surfaces->at(j)->getfont());
             for (int k = 0 ; k < molecules->at(i)->surfaces->at(j)->localextrema[1].length() ; k++){
+                if (molecules->at(i)->surfaces->at(j)->getextremhidden(1,k))
+                    continue;
                 if (molecules->at(i)->surfaces->at(j)->getonlyextremactive() &&
                         !molecules->at(i)->surfaces->at(j)->getextremactive(1,k))
                     continue;
