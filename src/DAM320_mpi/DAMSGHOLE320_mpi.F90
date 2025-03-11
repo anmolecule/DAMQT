@@ -705,7 +705,7 @@ END MODULE
 !     writes file with the values of MESP over MED isosurface 
     outrootname = ""
     if (len_trim(filename).ne.0) then
-        outrootname = trim(filename)
+        outrootname = trim(filename)//"-d"
     else
         outrootname = gridname(1:len_trim(gridname)-4)
     endif
@@ -834,7 +834,7 @@ END MODULE
 !     reads temporal files and writes file with the values of MESP over MED isosurface 
         outrootname = ""
         if (len_trim(filename).ne.0) then
-            outrootname = trim(filename)
+            outrootname = trim(filename)//"-d"
         else
             outrootname = gridname(1:len_trim(gridname)-4)
         endif
@@ -936,7 +936,7 @@ END MODULE
             
             outrootname = ""
             if (len_trim(filename).ne.0) then
-                outrootname = trim(filename)
+                outrootname = trim(filename)//"-d"
             else
                 outrootname = gridname(1:len_trim(gridname)-4)
             endif
@@ -1231,7 +1231,7 @@ END MODULE
 
             outrootname = ""
             if (len_trim(filename).ne.0) then
-                outrootname = trim(filename)
+                outrootname = trim(filename)//"-d"
             else
                 outrootname = gridname(1:len_trim(gridname)-4)
             endif
@@ -1280,7 +1280,7 @@ END MODULE
         
         outrootname = ""
         if (len_trim(filename).ne.0) then
-            outrootname = trim(filename)
+            outrootname = trim(filename)//"-d"
         else
             outrootname = gridname(1:len_trim(gridname)-4)
         endif
@@ -1290,7 +1290,7 @@ END MODULE
         call system("rm -f "//trim(indfile))
         outrootname = ""
         if (len_trim(filename).ne.0) then
-            outrootname = trim(filename)
+            outrootname = trim(filename)//"-d"
         else
             outrootname = gridname(1:len_trim(gridname)-6)
         endif
@@ -1597,7 +1597,7 @@ END MODULE
                         write(1234,"('MESP values: V(',i3,') = ', e22.15, ' V(',i3,') = ', e22.15,/)") &
                             i1, vtot(indicesmax(i1)), i2, vtot(indicesmax(i2))
                     endif
-                    if (vtot(indicesmax(i2)) .ge. vtot(indicesmax(i1)) ) then
+                    if (vtot(indicesmax(iextremaregions(i2))) .ge. vtot(indicesmax(i1)) ) then
                         iextremaregions(i1) = iextremaregions(i2)
                     else
                         xyz = vertices(:,indicesmax(i1)) - vertices(:,indicesmax(iextremaregions(i2)))
@@ -1692,7 +1692,7 @@ END MODULE
                         write(1234,"('MESP values: V(',i3,') = ', e22.15, ' V(',i3,') = ', e22.15,/)") &
                             i1, vtot(indicesmin(i1)), i2, vtot(indicesmin(i2))
                     endif
-                    if (vtot(indicesmin(i2)) .le. vtot(indicesmin(i1)) ) then
+                    if (vtot(indicesmin(iextremaregions(i2))) .le. vtot(indicesmin(i1)) ) then
                         iextremaregions(i1) = iextremaregions(i2)
                     else
                         xyz = vertices(:,indicesmin(i1)) - vertices(:,indicesmin(iextremaregions(i2)))

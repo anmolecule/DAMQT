@@ -246,7 +246,7 @@ void geomProcessor::drawStructure(QOpenGLShaderProgram *program, QList<molecule*
                 (GLvoid *) (allindicesoffset->at(i) * sizeof(GLuint)));
             glEnable(GL_CULL_FACE);
         }
-        if (alltypeelement->at(i+1) == 4){  // Draws structures
+        if (alltypeelement->at(i+1) == 4){  // Draws MESP maxima
             glEnable(GL_CULL_FACE);
             glFuncs->glBeginQuery(GL_SAMPLES_PASSED, queryID);
             glDrawElements(GL_TRIANGLES, allindicesoffset->at(i+1)-allindicesoffset->at(i), GL_UNSIGNED_INT,
@@ -264,7 +264,7 @@ void geomProcessor::drawStructure(QOpenGLShaderProgram *program, QList<molecule*
                 m->at(indmol)->surfaces->at(allsurfindices->at(i+1))->setextremhidden(0,kntmax++,true);
             }
         }
-        if (alltypeelement->at(i+1) == 5){  // Draws structures
+        if (alltypeelement->at(i+1) == 5){  // Draws MESP minima
             glEnable(GL_CULL_FACE);
             glFuncs->glBeginQuery(GL_SAMPLES_PASSED, queryID);
             glDrawElements(GL_TRIANGLES, allindicesoffset->at(i+1)-allindicesoffset->at(i), GL_UNSIGNED_INT,
