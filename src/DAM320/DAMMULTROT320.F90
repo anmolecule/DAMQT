@@ -279,7 +279,7 @@
 #endif
     if (longoutput) write(6,"('Opens files ', a, ' and ', a)") trim(projectname)//"_2016.damqt", trim(projectname)//"_2016.dmqtv"
     read(10) ncen, nbas, ncaps
-    write(6,"('ncen = ', i3, ' nbas = ', i5, ' ncaps = ', i3)") ncen, nbas, ncaps
+    write(6,"('ncen = ', i3, ' nbas = ', i5, ' nshells = ', i3)") ncen, nbas, ncaps
     !	Geometry and nuclear charges
 
     allocate(atmnam(ncen), stat = ierr)

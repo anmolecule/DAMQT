@@ -32,6 +32,7 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
 #include <QOpenGLBuffer>
+#include <QOpenGLFunctions_4_5_Core>
 
 #include <math.h>
 #include "molecule.h"
@@ -50,7 +51,7 @@ public:
                        QVector <VertexNormalData> *dihedralvertices);
     void drawLabAxes(QOpenGLShaderProgram *program, QVector <GLuint> *axesindices,
                        QVector <VertexNormalData> *axesvertices);
-    void drawStructure(QOpenGLShaderProgram *program, int indmol);
+    void drawStructure(QOpenGLShaderProgram *program, QList<molecule*> *m, int indmol);
     void loadbuffers(QList<molecule*> *m);
     void checkbuffers();
 //    void setsoliddihedplanes(bool);
@@ -59,11 +60,14 @@ private:
     void initCubeGeometry();
 
 //    bool soliddihedplanes;
+    GLuint queryID;
+    QOpenGLFunctions_4_5_Core *glFuncs;
 
     QVector<GLuint> *allindices;           // Indices of vertices in structure
     QVector<GLuint> *allindicesoffset;     // Offsets of indices in objects (cylinders and spheres of molecules) in structure
     QVector<GLfloat> *alllineswidth;       // Lines width (only for field lines)
     QVector<GLboolean>  *allsolidsurface;        // true: solid isosurface, false wired frame isosurface
+    QVector<GLuint> *allsurfindices;           // Indices of surfaces in structure
     QVector<GLboolean>  *alltranslucence;        // true: solid isosurface, false wired frame isosurface
     QVector<GLuint>  *alltypeelement;         // 0: structure; 1: surface; 2: field lines;
     QVector<GLuint> *moleculesoffsetindex; // Position of indices in allindicesoffset corresponding to each molecule

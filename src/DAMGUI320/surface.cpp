@@ -20,6 +20,8 @@ surface::surface(QWidget *parent) : QWidget(parent)
     connections.clear();
     extremactive[0].clear();
     extremactive[1].clear();
+    extremhidden[0].clear();
+    extremhidden[1].clear();
     griddimensions.clear();
     gridindices.clear();
     gridindicesoffset.clear();
@@ -237,6 +239,10 @@ QPoint surface::getinitialposition(){
 
 bool surface::getextremactive(int i, int j){
     return extremactive[i].at(j);
+}
+
+bool surface::getextremhidden(int i, int j){
+    return extremhidden[i].at(j);
 }
 
 bool surface::getshowcolorrule(){
@@ -694,6 +700,7 @@ bool surface::readsgh(QString filename){
             }
             localextrema[0].append(QVector4D(vaux[0],vaux[1],vaux[2],vaux[3]));
             extremactive[0].append(false);
+            extremhidden[0].append(false);
         }
     }
     localextrema[1].clear();
@@ -727,6 +734,7 @@ bool surface::readsgh(QString filename){
             }
             localextrema[1].append(QVector4D(vaux[0],vaux[1],vaux[2],vaux[3]));
             extremactive[1].append(false);
+            extremhidden[1].append(false);
         }
     }
     createballs();
@@ -889,6 +897,7 @@ bool surface::readsrf(QString filename){
             }
             localextrema[0].append(QVector4D(vaux[0],vaux[1],vaux[2],vaux[3]));
             extremactive[0].append(false);
+            extremhidden[0].append(false);
         }
     }
     localextrema[1].clear();
@@ -922,6 +931,7 @@ bool surface::readsrf(QString filename){
             }
             localextrema[1].append(QVector4D(vaux[0],vaux[1],vaux[2],vaux[3]));
             extremactive[1].append(false);
+            extremhidden[1].append(false);
         }
     }
     createballs();
@@ -1253,6 +1263,7 @@ bool surface::readsghnew(QString filename){
             }
             localextrema[0].append(QVector4D(vaux[0],vaux[1],vaux[2],vaux[3]));
             extremactive[0].append(false);
+            extremhidden[0].append(false);
         }
     }
 
@@ -1281,6 +1292,7 @@ bool surface::readsghnew(QString filename){
             }
             localextrema[1].append(QVector4D(vaux[0],vaux[1],vaux[2],vaux[3]));
             extremactive[1].append(false);
+            extremhidden[1].append(false);
         }
     }
 //qDebug() << "localextrema[1].count() = " << localextrema[1].count();
@@ -1444,6 +1456,7 @@ bool surface::readsrfnew(QString filename){
             }
             localextrema[0].append(QVector4D(vaux[0],vaux[1],vaux[2],vaux[3]));
             extremactive[0].append(false);
+            extremhidden[0].append(false);
         }
     }
     localextrema[1].clear();
@@ -1469,6 +1482,7 @@ bool surface::readsrfnew(QString filename){
             }
             localextrema[1].append(QVector4D(vaux[0],vaux[1],vaux[2],vaux[3]));
             extremactive[1].append(false);
+            extremhidden[1].append(false);
         }
     }
     createballs();
@@ -1642,6 +1656,10 @@ void surface::setcoordprecision(int i){
 
 void surface::setextremactive(int i, int j, bool a){
     extremactive[i][j] = a;
+}
+
+void surface::setextremhidden(int i, int j, bool a){
+    extremhidden[i][j] = a;
 }
 
 void surface::setfullname(QString a){

@@ -801,7 +801,7 @@
     if (myrank .eq. 0 .and. longoutput) write(6,"('Opens file ', a)") trim(projectname)//"_2016.damqt"
     read(10) ncen, nbas, ncaps
     nsize = nsize - sizeof(ncen) - sizeof(nbas) - sizeof(ncaps)
-    if (myrank .eq. 0) write(6,"('ncen = ', i8, ' nbas = ', i8, ' ncaps = ', i8)") ncen, nbas, ncaps
+    if (myrank .eq. 0) write(6,"('ncen = ', i8, ' nbas = ', i8, ' nshells = ', i8)") ncen, nbas, ncaps
 
 !	Allocates memory for geometry
 

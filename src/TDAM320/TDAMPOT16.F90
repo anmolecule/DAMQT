@@ -482,7 +482,7 @@
     if ( longoutput) write(iout,"('Opens files ', a, ' and ', a)") trim(projectname)//"_2016.damqt", &
             trim(projectname)//"_2016.dmqtv"
     read(10) ncen, nbas, ncaps
-    write(iout,"('ncen = ', i4, ' nbas = ', i6, ' ncaps = ', i5)") ncen, nbas, ncaps
+    write(iout,"('ncen = ', i4, ' nbas = ', i6, ' nshells = ', i5)") ncen, nbas, ncaps
 
 !    Allocates memory for geometry
 

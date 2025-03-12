@@ -1,18 +1,18 @@
 //  Copyright 2013-2021, Jaime Fernandez Rico, Rafael Lopez, Ignacio Ema,
 //  Guillermo Ramirez, Anmol Kumar, Sachin D. Yeole, Shridhar R. Gadre
-// 
+//
 //  This file is part of DAM320.
-// 
+//
 //  DAM320 is free software: you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
-// 
+//
 //  DAM320 is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
-// 
+//
 //  You should have received a copy of the GNU General Public License
 //  along with DAM320.  If not, see <http://www.gnu.org/licenses/>.
 //
@@ -30,7 +30,7 @@
 #include <string>
 #include <algorithm>
 #include <ctime>
-#include <functional> 
+#include <functional>
 #include <cctype>
 #include <locale>
 #include <vector>
@@ -99,8 +99,8 @@ struct basesimstr{
 
 basesimstr *basesim = new basesimstr [MXFUN];
 
-#if defined(_WIN32) || defined(WIN32) 
-    static const std::string slash = "\\";    
+#if defined(_WIN32) || defined(WIN32)
+    static const std::string slash = "\\";
 #else
     static const std::string slash = "/";
 #endif
@@ -141,7 +141,7 @@ int round(double a)
         return floor(a+0.5);
 }
 #endif
-    
+
 // trim from start
 static inline std::string &ltrim(std::string &s) {
         s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
@@ -168,7 +168,7 @@ int main(int argc,char *argv[])
     int mden = 0;
     bool seekdenmat = false;
     double *OM, *dmat;
-    
+
     if (argc<2) {
         cout << "Filename (with or without the extension  .out): ";
         cin >> projectname ;
@@ -188,7 +188,7 @@ int main(int argc,char *argv[])
             if (strncmp(argv[2],"?",1)==0){
                 seekdenmat = true;
                 cout << "To choose one of the following available density matrices, "
-                    << "run the interface with the index of the selected matrix as second entry" 
+                    << "run the interface with the index of the selected matrix as second entry"
                     << endl ;
             }
             else{
@@ -214,7 +214,7 @@ int main(int argc,char *argv[])
     cout << "mden = " << mden << endl;
     if (argc < 5)
         newprojectname = projectname;
-    if (mden == 0) 
+    if (mden == 0)
         seekdenmat = true;
     s = outpath + newprojectname + "-MOLPRO_out_interface.out";
     ofstream outimportfile(s.c_str(),ios::out);
@@ -232,7 +232,7 @@ int main(int argc,char *argv[])
         outimportfile << "In MOLPRO_out_interface: unable to open file " << s <<  endl ;
         exit(1);
     }
-    
+
 
     s = outpath + newprojectname + ".ggbs";
     ggbsfilename = s;
@@ -242,7 +242,7 @@ int main(int argc,char *argv[])
         outimportfile << "In MOLPRO_out_interface: unable to open file " << s << endl ;
         exit(1);
     }
-    
+
 
     s = outpath + newprojectname + ".den";
     ofstream denfile(s.c_str(),ios::out);
@@ -257,13 +257,13 @@ int main(int argc,char *argv[])
             lMOLPRO = true;
         }
     }
-    
+
     if (!lMOLPRO){
         cerr << "File " << MOLPROfiles + ".out is not a MOLPRO output file" << endl ;
         outimportfile  << "File " << MOLPROfiles + ".out is not a MOLPRO output file" << endl ;
         exit(1);
     }
-    
+
     if(seekdenmat){    // Seeks for the available density matrices
         string dmatrices[10];
         int nummatrices;
@@ -279,7 +279,7 @@ int main(int argc,char *argv[])
                 len = ssaux.length();
                 char *tokenPrt, *ptr = new char [len+1], *newtoken;
                 ssaux.copy(ptr,len,0);
-                ptr[len] = 0;        
+                ptr[len] = 0;
                 strtok_s(ptr,"=",&newtoken);
                 tokenPrt = strtok_s(NULL,")",&newtoken);
                 dmatrices[nummatrices++] = tokenPrt;
@@ -287,7 +287,7 @@ int main(int argc,char *argv[])
                     outimportfile  << "more than 10 density matrices in " << MOLPROfiles + ".out" << endl
                         << "Only the first 10 available in this interface." << endl ;
             }
-            
+
         }
         cout << nummatrices << " Available matrices in " << MOLPROfiles + ".out" << endl ;
         outimportfile << nummatrices << "  Available matrices in " << MOLPROfiles + ".out" << endl ;
@@ -309,7 +309,7 @@ int main(int argc,char *argv[])
 
     ggbsfile.close();
     bool existorbenera = false;
-    bool existorbenerb = false; 
+    bool existorbenerb = false;
     double (*enerorba) = new double[nbasis];
     double (*enerorbb) = NULL;
     int (*norbair) = new int[numrepir];
@@ -476,12 +476,12 @@ int main(int argc,char *argv[])
             for (i = 0 ; i < numrepir ; i++){
                 for (j = 0 ; j < norbair[i] ; j++){
                     orben.push_back(std::make_pair(j+ishft,enerorba[k]));
-                    k++;   
+                    k++;
                 }
                 ishft += kntrepirred[i];
             }
             std::sort(orben.begin(), orben.end(), pairCompare);    // Sorts the alpha orbitals on ascending energy
-            
+
             i = 0;
             for (std::vector<std::pair<int,double> >::iterator it = orben.begin() ; it != orben.end(); ++it, i++){
                 iorbaord[i] = (*it).first;
@@ -496,18 +496,18 @@ int main(int argc,char *argv[])
             for (i = 0 ; i < numrepir ; i++){
                 for (j = 0 ; j < norbbir[i] ; j++){
                     orben.push_back(std::make_pair(j+ishft,enerorbb[k]));
-                    k++;    
+                    k++;
                 }
                 ishft += kntrepirred[i];
             }
             std::sort(orben.begin(), orben.end(), pairCompare);    // Sorts the beta orbitals on ascending energy
-            
+
             i = 0;
             for (std::vector<std::pair<int,double> >::iterator it = orben.begin() ; it != orben.end(); ++it, i++){
                 iorbbord[i] = (*it).first;
             }
         }
-        
+
 //    ORBITALS
 //         if (!lorba && (!(s.find("orbitals")==string::npos)) && (!(s.find("read from record")==string::npos)) &&  ((s.find("beta")==string::npos))){
         if (!lorba && (!(s.find("orbitals orb read from record")==string::npos)) ||  (!(s.find("orbitals orba read from record")==string::npos))
@@ -540,7 +540,7 @@ int main(int argc,char *argv[])
                 while(getline(inputfile,s)){
 //cerr << rtrim(s).length() << " s = " << s << endl;
                     if (s.length() == 0) continue;
-                    if (!(s.find("***")==string::npos)){ 
+                    if (!(s.find("***")==string::npos)){
                         // Stores the block of the previous IR
                         if (kntir != kntrepirred[indrepir]*kntrepirred[indrepir]){
                             cerr << "Error reading " << indrepir << " block of " << indstateaMO << "." << orbasim
@@ -550,7 +550,7 @@ int main(int argc,char *argv[])
                         }
                         if (!(indrepir == numrepir-1)){
                             cerr << "Number of IR blocks read in alpha orbitals matrix " << indrepir+1 << " wrong, it should be " << numrepir << endl;
-                            outimportfile << "Number of IR blocks read in alpha orbitals matrix " << indrepir+1 << 
+                            outimportfile << "Number of IR blocks read in alpha orbitals matrix " << indrepir+1 <<
                                     " wrong, it should be " << numrepir << endl;
                             lorba = true;
                             break;      // desists reading alpha orbitals
@@ -595,7 +595,7 @@ int main(int argc,char *argv[])
                         }
                         state = atoi(s.substr(ipos+1,1).c_str());
                         kntir = 0;
-                        if (!orbsim){ 
+                        if (!orbsim){
                             delete orbsim;
                             orbsim = NULL;
                         }
@@ -643,7 +643,7 @@ int main(int argc,char *argv[])
             int knt = 0;
             int korbair = 0;
             for (k = 0 ; k < numrepir ; k++){    // Stores the remaining alpha orbitals ordered by IR
-                if (norba > 0) 
+                if (norba > 0)
                     korbair = norbair[k];
                 knt += korbair;
                 for(j=0 ; j < kntrepirred[k]-korbair ; j++){
@@ -658,7 +658,7 @@ int main(int argc,char *argv[])
                 }
             }
             aorbfile.close();
-        }    
+        }
         if (!lorbb && (!(s.find("Orbitals orbb read from record")==string::npos))
                 || (!(s.find("orbitals gaorbb read from record")==string::npos))){
 /*    seeks for beta orbitals */
@@ -682,14 +682,14 @@ int main(int argc,char *argv[])
                 OM[i] = 0.;
             }
             offset = 0;
-            
+
             while (!lorbb){
                 double (*orbsim) = NULL;
                 int indrepirold = -1;
                 indrepir = 0;
                 while(getline(inputfile,s)){
                     if (s.length() == 0) continue;
-                    if (!(s.find("***")==string::npos)){ 
+                    if (!(s.find("***")==string::npos)){
                         // Stores the block of the previous IR
                         if (kntir != kntrepirred[indrepir]*kntrepirred[indrepir]){
                             cerr << "Error reading " << indrepir << " block of " << indstatebMO << "." << orbbsim
@@ -699,7 +699,7 @@ int main(int argc,char *argv[])
                         }
                         if (!(indrepir == numrepir-1)){
                             cerr << "Number of IR blocks read in alpha orbitals matrix " << indrepir+1 << " wrong, it should be " << numrepir << endl;
-                            outimportfile << "Number of IR blocks read in alpha orbitals matrix " << indrepir+1 << 
+                            outimportfile << "Number of IR blocks read in alpha orbitals matrix " << indrepir+1 <<
                                     " wrong, it should be " << numrepir << endl;
                             lorbb = true;
                             break;      // desists reading beta orbitals
@@ -744,7 +744,7 @@ int main(int argc,char *argv[])
                         }
                         state = atoi(s.substr(ipos+1,1).c_str());
                         kntir = 0;
-                        if (!orbsim){ 
+                        if (!orbsim){
                             delete orbsim;
                             orbsim = NULL;
                         }
@@ -766,7 +766,7 @@ int main(int argc,char *argv[])
                         continue;
                     }
                 }
-            }                
+            }
             kntorb = offset;
             ofstream aorbfile;
             s = outpath + newprojectname + ".GAorbb";
@@ -792,7 +792,7 @@ int main(int argc,char *argv[])
             int knt = 0;
             int korbbir = 0;
             for (k = 0 ; k < numrepir ; k++){    // Stores the remaining beta orbitals ordered by IR
-                if (norbb > 0) 
+                if (norbb > 0)
                     korbbir = norbbir[k];
                 knt += korbbir;
                 for(j=0 ; j < kntrepirred[k]-korbbir ; j++){
@@ -808,7 +808,7 @@ int main(int argc,char *argv[])
             }
             aorbfile.close();
         }
-                
+
 //    DENSITY MATRIX
         if (!lden && (!(s.find("density")==string::npos)) && (!(s.find("read from record")==string::npos))){
             string ssaux = s;
@@ -827,7 +827,7 @@ int main(int argc,char *argv[])
             len = ssaux.length();
             char *tokenPrt, *ptr = new char [len+1], *newtoken;
             ssaux.copy(ptr,len,0);
-            ptr[len] = 0;        
+            ptr[len] = 0;
             strtok_s(ptr,"=",&newtoken);
             tokenPrt = strtok_s(NULL," ",&newtoken);
             typeden = tokenPrt;
@@ -845,10 +845,10 @@ int main(int argc,char *argv[])
                 double (*dsim) = NULL;
                 int indrepirold = -1;
                 indrepir = 0;
-                while(getline(inputfile,s)){ 
+                while(getline(inputfile,s)){
 //cerr << rtrim(s).length() << " s = " << s << endl;
                     if (s.length() == 0) continue;
-                    if (!(s.find("***")==string::npos)){ 
+                    if (!(s.find("***")==string::npos)){
                         // Stores the block of the last IR
                         if (kntir != kntrepirred[indrepir]*kntrepirred[indrepir]){
                             cerr << "Error reading " << indrepir << " block of " << indstate << "." << statesim
@@ -869,7 +869,7 @@ int main(int argc,char *argv[])
                                         dmat[(indbases[basesim[i].centers[ii]*MXSHELLAT+basesim[i].icontr]
                                             + basesim[i].mval + basesim[i].lval)
                                             +(indbases[basesim[j].centers[jj]*MXSHELLAT+basesim[j].icontr]
-                                            + basesim[j].mval + basesim[j].lval)*nfun] += 
+                                            + basesim[j].mval + basesim[j].lval)*nfun] +=
                                                 densimet * basesim[i].sign[ii] * basesim[j].sign[jj];
                                     }
                                 }
@@ -882,14 +882,14 @@ int main(int argc,char *argv[])
                         indrepirold = indrepir;
                         ipos = s.find(".");
                         indrepir = atoi(s.substr(ipos-1,1).c_str())-1;
-                        
+
                         // Stores the block of the previous IR
                         if (indrepir > 0){
                             if (kntir != kntrepirred[indrepirold]*kntrepirred[indrepirold]){
                                 cerr << "Error reading " << indrepirold << " block of " << indstate << "." << statesim
                                     << " density matrix" << endl ;
                                 exit(1);
-                            } 
+                            }
                             kntir = 0;
                             for(i = offset ; i < offset+kntrepirred[indrepirold] ; i++){
                                 for (j = offset ; j < offset+kntrepirred[indrepirold] ; j++){
@@ -899,7 +899,7 @@ int main(int argc,char *argv[])
                                             dmat[(indbases[basesim[i].centers[ii]*MXSHELLAT+basesim[i].icontr]
                                                 + basesim[i].mval + basesim[i].lval)
                                                 +(indbases[basesim[j].centers[jj]*MXSHELLAT+basesim[j].icontr]
-                                                + basesim[j].mval + basesim[j].lval)*nfun] += 
+                                                + basesim[j].mval + basesim[j].lval)*nfun] +=
                                                     densimet * basesim[i].sign[ii] * basesim[j].sign[jj];
                                         }
                                     }
@@ -909,7 +909,7 @@ int main(int argc,char *argv[])
                         }
                         state = atoi(s.substr(ipos+1,1).c_str());
                         kntir = 0;
-                        if (!dsim){ 
+                        if (!dsim){
                             delete dsim;
                             dsim = NULL;
                         }
@@ -962,21 +962,21 @@ int main(int argc,char *argv[])
     clock_t endTime = clock();
     clock_t clockTicksTaken = endTime - startTime;
     double timeInSeconds = clockTicksTaken / (double) CLOCKS_PER_SEC;
-    
+
 /*   Prints out some statistics  */
     outimportfile << "MOLPRO_interface output" << endl;
     outimportfile << flush ;
     outimportfile << "==========================" << endl<< endl;
     outimportfile << "inpath = " << inpath << endl;
     outimportfile << "outpath = " << outpath << endl << endl;
-    
+
     outimportfile << "PROJECT NAME: " <<  newprojectname << endl << endl;
     outimportfile << "Number of centers: " << ncen << endl;
     outimportfile << "Number of contractions: " << nfun << " (";
     outimportfile << flush ;
     int knt = 0;
     for (i = 0 ; i < numrepir-1 ; i++){
-        outimportfile << kntrepirred[i] << " " << trim(basesim[knt].repirred) << " + "; 
+        outimportfile << kntrepirred[i] << " " << trim(basesim[knt].repirred) << " + ";
         knt += kntrepirred[i];
     }
 
@@ -1070,13 +1070,13 @@ void readcoordinates(ifstream * inputfile, ofstream * outimportfile, ofstream * 
                 }
             }
 //            redefines the coordinates with respect to the center of positive charges and writes them to file .ggbs
-//             xc = xc / zntot; yc = yc / zntot; zc = zc / zntot;
-            xc = 0.; yc = 0.; zc = 0.;  // Keeps original coordinates without translation of origin to center of positive charges
+             xc = xc / zntot; yc = yc / zntot; zc = zc / zntot;
+//            xc = 0.; yc = 0.; zc = 0.;  // Keeps original coordinates without translation of origin to center of positive charges
             *ggbsfile << ncen << endl ;
             (*ggbsfile).setf(ios::scientific,ios::floatfield);
             for(i=0; i<ncen;i++){
                 izn = int(round(zn[i]));
-                *ggbsfile << setprecision(10) << x[i]-xc << " " << y[i]-yc << " " << z[i]-zc << " " ;
+                *ggbsfile << setprecision(15) << x[i]-xc << " " << y[i]-yc << " " << z[i]-zc << " " ;
                 *ggbsfile << izn << endl ;
             }
         }
@@ -1157,7 +1157,7 @@ void readoptimizedgeometry(ifstream * inputfile, ofstream * outimportfile, ofstr
             (*ggbsfile).setf(ios::scientific,ios::floatfield);
             for(i=0; i<ncen;i++){
                 izn = int(round(zn[i]));
-                *ggbsfile << setprecision(10) << x[i]-xc << " " << y[i]-yc << " " << z[i]-zc << " " ;
+                *ggbsfile << setprecision(15) << x[i]-xc << " " << y[i]-yc << " " << z[i]-zc << " " ;
                 *ggbsfile << izn << endl ;
             }
         }
@@ -1579,7 +1579,7 @@ void writebasisset(ofstream * ggbsfile){
         for (j = 0 ; j < kntshellat[i] ; j++){
             *ggbsfile << pntprimit[i*(MXSHELLAT+1)+j+1]-pntprimit[i*(MXSHELLAT+1)+j] << " " << lvec[i*MXSHELLAT+j] << endl;
             (*ggbsfile).setf(ios::scientific,ios::floatfield);
-            *ggbsfile << setprecision(10);
+            *ggbsfile << setprecision(15);
             for (k = pntprimit[i*(MXSHELLAT+1)+j] ; k < pntprimit[i*(MXSHELLAT+1)+j+1] ; k++){
                 *ggbsfile << primexp[i*MXPRIMCENT+k] << " " ;
                 if ((k-pntprimit[i*(MXSHELLAT+1)+j]+1)%5==0) *ggbsfile << endl;

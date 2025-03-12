@@ -80,6 +80,7 @@ public:
     QFont getfont();
 
     bool getextremactive(int,int);
+    bool getextremhidden(int,int);
     bool getvisible();
     bool getonlyextremactive();
     bool getshowcolorrule();
@@ -134,6 +135,7 @@ public:
     void surfacecolor_changed(QColor);
     void resetsurface();
     void setextremactive(int, int, bool);
+    void setextremhidden(int, int, bool);
     void setinitialposition(QPoint);
     void setfullname(QString);
     void setname(QString);
@@ -238,6 +240,7 @@ private:
     QString name;                         // Name for surface
 
     QVector<bool> extremactive[2];         // extrema points active for label visualization
+    QVector<bool> extremhidden[2];         // extrema points hidden for label visualization
     QVector<float> griddimensions;      // Original grid dimensions: xmin, xmax, ymin, ymax, zmin, zmax
     QVector <GLuint> sphereindices;
     QVector<int> gridnxyz;              // Original grid number of points (nx, ny, nz)
