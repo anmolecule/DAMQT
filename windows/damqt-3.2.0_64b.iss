@@ -10,11 +10,11 @@
 #define INI_DataDirKey "DataDirectory"
 
 ; IMPORTANT !!! Check that the following variables are pointing to the right addresses (See sources below for details)
-#define DAM320_DIR "D:\DAMQT\build\src\DAM320"  
-#define DAMZERNIKE_DIR "D:\DAMQT\build\src\DAMZernike320"
-#define DAMGUI320_DIR "D:\DAMQT\build\src\DAMGUI320"
+#define DAM320_DIR "D:\DAMQT\build_11032025\src\DAM320"  
+#define DAMZERNIKE_DIR "D:\DAMQT\build_11032025\src\DAMZernike320"
+#define DAMGUI320_DIR "D:\DAMQT\build_11032025\src\DAMGUI320"
 #define IMAGES_DIR "D:\DAMQT\src\DAMGUI320\images"
-#define INTERFACES_DIR "D:\DAMQT\build\src\interfaces_320" 
+#define INTERFACES_DIR "D:\DAMQT\build_11032025\src\interfaces_320" 
 ;#define INTERFACES_PYTHON_DIR "D:\DAMQT\src\interfaces_320"
 #define LIB_FORTRAN_DIR "D:\msys64\mingw64\lib"
 #define LICENSE_DIR "D:\DAMQT\license"
@@ -30,7 +30,7 @@
 ;#define PYTHON_LIB_DIR "D:\msys64\mingw64\bin\"
 #define OUTPUT_DIR "D:\DAMQT\windows"
 #define SAMPLES_DIR "D:\DAMQT\samples"
-#define TDAM320_DIR "D:\DAMQT\build\src\TDAM320"
+#define TDAM320_DIR "D:\DAMQT\build_11032025\src\TDAM320"
 #define QT_BIN_DIR "D:\msys64\mingw64\bin"
 #define QT_LIB_DIR "D:\msys64\mingw64\lib"
 #define QT_PLATFORMS_DIR "D:\msys64\mingw64\share\qt5\plugins\platforms"
@@ -41,7 +41,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId= {{353DEA0A-8ED9-43E7-BF3F-B67061088F8C}
+AppId= {{C0569D00-24AC-4505-81CF-010109812DC5}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}

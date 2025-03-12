@@ -1073,16 +1073,18 @@ END MODULE
                     endif
                     if (vtot(indicesmax(iextremaregions(i2))) .ge. vtot(indicesmax(i1)) ) then
                         iextremaregions(i1) = iextremaregions(i2)
+                        lfound = .true.
                     else
                         xyz = vertices(:,indicesmax(i1)) - vertices(:,indicesmax(iextremaregions(i2)))
                         aux = sqrt(dot_product(xyz,xyz))
                         if (aux .lt. separation) then
+                            ii = iextremaregions(i2)
                             do i = 1, i1-1
-                                if (iextremaregions(i) .eq. iextremaregions(i2)) iextremaregions(i) = iextremaregions(i1)
+                                if (iextremaregions(i) .eq. ii) iextremaregions(i) = iextremaregions(i1)
                             enddo
+                            lfound = .true.
                         endif
                     endif
-                    lfound = .true.
                 endif
             enddo
         enddo
@@ -1164,16 +1166,18 @@ END MODULE
                     endif
                     if (vtot(indicesmin(iextremaregions(i2))) .le. vtot(indicesmin(i1)) ) then
                         iextremaregions(i1) = iextremaregions(i2)
+                        lfound = .true.
                     else
                         xyz = vertices(:,indicesmin(i1)) - vertices(:,indicesmin(iextremaregions(i2)))
                         aux = sqrt(dot_product(xyz,xyz))
                         if (aux .lt. separation) then
+                            ii = iextremaregions(i2)
                             do i = 1, i1-1
-                                if (iextremaregions(i) .eq. iextremaregions(i2)) iextremaregions(i) = iextremaregions(i1)
+                                if (iextremaregions(i) .eq. ii) iextremaregions(i) = iextremaregions(i1)
                             enddo
+                            lfound = .true.
                         endif
                     endif
-                    lfound = .true.
                 endif
             enddo
         enddo
