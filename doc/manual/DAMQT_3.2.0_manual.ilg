@@ -1,9 +1,5 @@
 This is makeindex, version 2.15 [TeX Live 2017] (kpathsea + Thai support).
 Scanning input file DAMQT_3.2.0_manual.idx....
-!! Input index error (file = DAMQT_3.2.0_manual.idx, line = 216):
-   -- Illegal null field.
-!! Input index error (file = DAMQT_3.2.0_manual.idx, line = 217):
-   -- Illegal null field.
 !! Input index error (file = DAMQT_3.2.0_manual.idx, line = 218):
    -- Illegal null field.
 !! Input index error (file = DAMQT_3.2.0_manual.idx, line = 219):
@@ -12,8 +8,12 @@ Scanning input file DAMQT_3.2.0_manual.idx....
    -- Illegal null field.
 !! Input index error (file = DAMQT_3.2.0_manual.idx, line = 221):
    -- Illegal null field.
-done (246 entries accepted, 6 rejected).
-Sorting entries.....done (2155 comparisons).
-Generating output file DAMQT_3.2.0_manual.ind....done (295 lines written, 0 warnings).
+!! Input index error (file = DAMQT_3.2.0_manual.idx, line = 222):
+   -- Illegal null field.
+!! Input index error (file = DAMQT_3.2.0_manual.idx, line = 223):
+   -- Illegal null field.
+done (248 entries accepted, 6 rejected).
+Sorting entries.....done (2017 comparisons).
+Generating output file DAMQT_3.2.0_manual.ind....done (300 lines written, 0 warnings).
 Output written in DAMQT_3.2.0_manual.ind.
 Transcript written in DAMQT_3.2.0_manual.ilg.

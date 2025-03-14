@@ -1,295 +1,300 @@
 \begin{theindex}
 
   \item 2D graphics
-    \subitem basins, \hyperpage{27}
-    \subitem capture, \hyperpage{28}
-    \subitem contour plots, \hyperpage{25}
-    \subitem critical points, \hyperpage{27}
-    \subitem field lines, \hyperpage{26}
-    \subitem image capture, \hyperpage{28}
-    \subitem MESP sigma holes, \hyperpage{26}
-    \subitem mouse operation, \hyperpage{28}
-    \subitem options, \hyperpage{28}
-    \subitem radial factors, \hyperpage{27}
-    \subitem save/retrieve settings, \hyperpage{28}
+    \subitem basins, \hyperpage{32}
+    \subitem capture, \hyperpage{33}
+    \subitem contour plots, \hyperpage{30}
+    \subitem critical points, \hyperpage{32}
+    \subitem field lines, \hyperpage{31}
+    \subitem image capture, \hyperpage{33}
+    \subitem MESP sigma holes, \hyperpage{31}
+    \subitem mouse operation, \hyperpage{33}
+    \subitem options, \hyperpage{33}
+    \subitem radial factors, \hyperpage{32}
+    \subitem save/retrieve settings, \hyperpage{33}
   \item 2D grid
     \subitem grid definition, \hyperpage{14}
-  \item 2D plotter, \hyperpage{24}
-    \subitem 2D window, \hyperpage{24}
-    \subitem multicolor, \hyperpage{29}
-    \subitem show 2D menu, \hyperpage{24}
-    \subitem undock 2D menu, \hyperpage{24}
-    \subitem zoom, \hyperpage{29}
-    \subitem zoomin, \hyperpage{29}
+  \item 2D plotter, \hyperpage{29}
+    \subitem 2D window, \hyperpage{29}
+    \subitem multicolor, \hyperpage{34}
+    \subitem show 2D menu, \hyperpage{29}
+    \subitem undock 2D menu, \hyperpage{29}
+    \subitem zoom, \hyperpage{34}
+    \subitem zoomin, \hyperpage{34}
   \item 3D graphics
-    \subitem 3D lines, \hyperpage{41}
-    \subitem  slices, \hyperpage{35}
-    \subitem activate molecule, \hyperpage{31}
-    \subitem add molecule, \hyperpage{30}
-    \subitem analytical normals, \hyperpage{45}
-    \subitem animate rotations, \hyperpage{40}
-    \subitem axes, \hyperpage{40}
-    \subitem background color, \hyperpage{34}
-    \subitem balls and sticks, \hyperpage{35}
-    \subitem basins, \hyperpage{42}
-    \subitem bonding threshold, \hyperpage{35}
-    \subitem capture, \hyperpage{34}
-    \subitem clipping planes, \hyperpage{35}
-    \subitem cluster animation, \hyperpage{37}
-    \subitem cluster builder, \hyperpage{36}
-    \subitem cluster guest charges, \hyperpage{36}
-    \subitem cluster recording, \hyperpage{37}
-    \subitem clusters retrieve, \hyperpage{38}
-    \subitem critical points, \hyperpage{42}
-    \subitem density gradient, \hyperpage{41}
-    \subitem edit molecule, \hyperpage{39}
-    \subitem electric field, \hyperpage{41}
-    \subitem geometry measures, \hyperpage{31}
-    \subitem geometry saving, \hyperpage{38}
-    \subitem gradient path, \hyperpage{41}
-    \subitem Hellmann-Feyman forces, \hyperpage{40}
-    \subitem high quality isosurfaces, \hyperpage{43}, \hyperpage{45}
-    \subitem image capture, \hyperpage{34}
-    \subitem isosurfaces, \hyperpage{43}
-    \subitem lab axes, \hyperpage{34}
-    \subitem lab rotations, \hyperpage{33}
-    \subitem lab translations, \hyperpage{34}
-    \subitem labels, \hyperpage{39}
-    \subitem lights, \hyperpage{34}
-    \subitem MED critical points, \hyperpage{42}
-    \subitem MED isosurfaces, \hyperpage{43}
-    \subitem MESP critical points, \hyperpage{42}
-    \subitem MESP isosurfaces, \hyperpage{43}
-    \subitem molecular orbitals, \hyperpage{43}
-    \subitem molecular skeleton, \hyperpage{39}
-    \subitem molecule activation, \hyperpage{45}
-    \subitem molecule editor, \hyperpage{38}
-    \subitem molecule rotations, \hyperpage{40}
-    \subitem molecule subscript, \hyperpage{32, 33}
-    \subitem molecule zooming, \hyperpage{45}
-    \subitem mouse, \hyperpage{45}
-    \subitem record animation, \hyperpage{40}
-    \subitem record lab rotations, \hyperpage{33}
-    \subitem remove angle, \hyperpage{33}
-    \subitem remove dihedral, \hyperpage{33}
-    \subitem remove distance, \hyperpage{33}
-    \subitem rotation keys, \hyperpage{31}
-    \subitem rotations, \hyperpage{31}, \hyperpage{45}
-    \subitem save/retrieve settings, \hyperpage{38}
-    \subitem show molecule editor, \hyperpage{39}
-    \subitem sigma hole surfaces, \hyperpage{42}
-    \subitem solid surfaces, \hyperpage{44}
-    \subitem surface color, \hyperpage{44}
-    \subitem surfaces, \hyperpage{42}
-    \subitem translation keys, \hyperpage{31}
-    \subitem translations, \hyperpage{31}, \hyperpage{40}, 
-		\hyperpage{45}
-    \subitem translucency correction, \hyperpage{44}
-    \subitem transparency, \hyperpage{44}
-    \subitem viewport, \hyperpage{35}
-    \subitem wired surfaces, \hyperpage{44}
-    \subitem zoom, \hyperpage{31}
+    \subitem 3D lines, \hyperpage{48}
+    \subitem  slices, \hyperpage{41}
+    \subitem activate molecule, \hyperpage{36}
+    \subitem add molecule, \hyperpage{35}
+    \subitem analytical normals, \hyperpage{52}
+    \subitem animate rotations, \hyperpage{46}
+    \subitem axes, \hyperpage{47}
+    \subitem background color, \hyperpage{40}
+    \subitem balls and sticks, \hyperpage{41}
+    \subitem basins, \hyperpage{50}
+    \subitem bonding threshold, \hyperpage{41}
+    \subitem capture, \hyperpage{40}
+    \subitem clipping planes, \hyperpage{41}
+    \subitem cluster animation, \hyperpage{43}
+    \subitem cluster builder, \hyperpage{42}
+    \subitem cluster guest charges, \hyperpage{43}
+    \subitem cluster recording, \hyperpage{43}
+    \subitem clusters retrieve, \hyperpage{45}
+    \subitem critical points, \hyperpage{49}
+    \subitem density gradient, \hyperpage{48}
+    \subitem edit molecule, \hyperpage{45}
+    \subitem electric field, \hyperpage{48}
+    \subitem geometry measures, \hyperpage{37}
+    \subitem geometry saving, \hyperpage{45}
+    \subitem gradient path, \hyperpage{48}
+    \subitem Hellmann-Feyman forces, \hyperpage{47}
+    \subitem high quality isosurfaces, \hyperpage{50}, \hyperpage{52}
+    \subitem image capture, \hyperpage{40}
+    \subitem isosurfaces, \hyperpage{51}
+    \subitem lab axes, \hyperpage{40}
+    \subitem lab rotations, \hyperpage{39}
+    \subitem lab translations, \hyperpage{40}
+    \subitem labels, \hyperpage{46}
+    \subitem lights, \hyperpage{40}
+    \subitem MED critical points, \hyperpage{49}
+    \subitem MED isosurfaces, \hyperpage{51}
+    \subitem MESP critical points, \hyperpage{49}
+    \subitem MESP isosurfaces, \hyperpage{51}
+    \subitem molecular orbitals, \hyperpage{51}
+    \subitem molecular skeleton, \hyperpage{46}
+    \subitem molecule activation, \hyperpage{52}
+    \subitem molecule editor, \hyperpage{45}
+    \subitem molecule rotations, \hyperpage{46}
+    \subitem molecule subscript, \hyperpage{38}
+    \subitem molecule zooming, \hyperpage{52}
+    \subitem mouse, \hyperpage{52}
+    \subitem record animation, \hyperpage{46}
+    \subitem record lab rotations, \hyperpage{39}
+    \subitem remove angle, \hyperpage{39}
+    \subitem remove dihedral, \hyperpage{39}
+    \subitem remove distance, \hyperpage{39}
+    \subitem rotation keys, \hyperpage{37}
+    \subitem rotations, \hyperpage{36}, \hyperpage{52}
+    \subitem save/retrieve settings, \hyperpage{45}
+    \subitem show molecule editor, \hyperpage{45}
+    \subitem sigma hole surfaces, \hyperpage{50}
+    \subitem solid surfaces, \hyperpage{52}
+    \subitem surface color, \hyperpage{51}
+    \subitem surfaces, \hyperpage{50}
+    \subitem translation keys, \hyperpage{36}
+    \subitem translations, \hyperpage{36}, \hyperpage{47}, 
+		\hyperpage{52}
+    \subitem translucency correction, \hyperpage{52}
+    \subitem transparency, \hyperpage{52}
+    \subitem viewport, \hyperpage{41}
+    \subitem wired surfaces, \hyperpage{52}
+    \subitem zoom, \hyperpage{36}
   \item 3D grid
-    \subitem grid definition, \hyperpage{14}
+    \subitem grid definition, \hyperpage{15}
 
   \indexspace
 
   \item ADF
-    \subitem interface, \hyperpage{48}
-  \item ambient light, \hyperpage{34}
-  \item angles measurement, \hyperpage{32}
-  \item atom deformations, \hyperpage{13}
+    \subitem interface, \hyperpage{55}
+  \item ambient light, \hyperpage{40}
+  \item angles measurement, \hyperpage{38}
+  \item atom deformations, \hyperpage{14}
   \item atomic densities, \hyperpage{11}
-    \subitem input only, \hyperpage{11}
+    \subitem input only, \hyperpage{12}
     \subitem options, \hyperpage{11}
-    \subitem parallel computing, \hyperpage{11}
-    \subitem thresholds, \hyperpage{11}
-    \subitem type of fit, \hyperpage{11}
-  \item atoms in molecules, \hyperpage{51}
+    \subitem parallel computing, \hyperpage{12}
+    \subitem thresholds, \hyperpage{12}
+    \subitem type of fit, \hyperpage{12}
+  \item atoms in molecules, \hyperpage{59}
 
   \indexspace
 
-  \item background color, \hyperpage{28}, \hyperpage{34}
-  \item balls and sticks, \hyperpage{35}
-  \item bond skeleton, \hyperpage{13}
+  \item background color, \hyperpage{33}, \hyperpage{40}
+  \item balls and sticks, \hyperpage{41}
+  \item bond skeleton, \hyperpage{14}
 
   \indexspace
 
-  \item clipping, \hyperpage{35}
-  \item \textsl{cnt} file, \hyperpage{60}
+  \item clipping, \hyperpage{41}
+  \item \textsl{cnt} file, \hyperpage{67}
 
   \indexspace
 
-  \item DAM, \hyperpage{4}, \hyperpage{19}
-  \item \textsl{damqt} file, \hyperpage{60}
-  \item \textsl{den} file, \hyperpage{9}, \hyperpage{59}
+  \item DAM, \hyperpage{24}
+  \item \textsl{damqt} file, \hyperpage{67}
+  \item \textsl{den} file, \hyperpage{9}, \hyperpage{66}
   \item density, \hyperpage{13}
-    \subitem 2D basins, \hyperpage{19}
-    \subitem contributions to density, \hyperpage{13}
-    \subitem density deformations, \hyperpage{13}
+    \subitem 2D basins, \hyperpage{24}
+    \subitem contributions to density, \hyperpage{14}
+    \subitem density deformations, \hyperpage{14}
     \subitem fitted density, \hyperpage{13}
-    \subitem full electron density, \hyperpage{13}
-    \subitem gradient, \hyperpage{13}
-    \subitem grid, \hyperpage{13}
+    \subitem full electron density, \hyperpage{14}
+    \subitem gradient, \hyperpage{14}
+    \subitem grid, \hyperpage{14}
     \subitem options, \hyperpage{13}
     \subitem original, \hyperpage{13}
-  \item density deformation, \hyperpage{52}
-  \item density gradient, \hyperpage{19}
-    \subitem lines, \hyperpage{19}
-  \item dihedral angles measurement, \hyperpage{32}
-  \item distances measurement, \hyperpage{32}
-  \item Dunning, \hyperpage{50}
+  \item density deformation, \hyperpage{59}
+  \item density gradient, \hyperpage{24}
+    \subitem lines, \hyperpage{24}
+  \item dihedral angles measurement, \hyperpage{38}
+  \item distances measurement, \hyperpage{38}
+  \item Dunning, \hyperpage{57}
 
   \indexspace
 
-  \item electric field, \hyperpage{18}, \hyperpage{56}
-    \subitem lines, \hyperpage{18}
-    \subitem values on nuclei, \hyperpage{20}
-  \item electron delocalization, \hyperpage{13}
-  \item electrostatic potential, \hyperpage{15}, \hyperpage{53}
-    \subitem 2D basins, \hyperpage{18}
-    \subitem gradient, \hyperpage{15}
-    \subitem grid, \hyperpage{15}
-    \subitem long-range, \hyperpage{15}
-    \subitem values on nuclei, \hyperpage{20}
+  \item electric field, \hyperpage{22}, \hyperpage{63}
+    \subitem lines, \hyperpage{22}
+    \subitem values on nuclei, \hyperpage{25}
+  \item electron delocalization, \hyperpage{14}
+  \item electrostatic potential, \hyperpage{16}, \hyperpage{60}
+    \subitem 2D basins, \hyperpage{22}
+    \subitem gradient, \hyperpage{17}
+    \subitem grid, \hyperpage{17}
+    \subitem long-range, \hyperpage{16}
+    \subitem values on nuclei, \hyperpage{25}
 
   \indexspace
 
-  \item forces, \hyperpage{19}
-    \subitem conformational, \hyperpage{20}
-    \subitem external, \hyperpage{19}
-    \subitem internal, \hyperpage{19}
-    \subitem nonconformational, \hyperpage{20}
-    \subitem spurious, \hyperpage{19}
-    \subitem total, \hyperpage{19}
-    \subitem values on nuclei, \hyperpage{20}
-  \item functional groups, \hyperpage{13}
+  \item forces, \hyperpage{24}
+    \subitem conformational, \hyperpage{24}
+    \subitem external, \hyperpage{24}
+    \subitem internal, \hyperpage{24}
+    \subitem nonconformational, \hyperpage{24}
+    \subitem total, \hyperpage{24}
+    \subitem values on nuclei, \hyperpage{25}
+  \item functional groups, \hyperpage{14}
 
   \indexspace
 
-  \item gallery, \hyperpage{50}
+  \item gallery, \hyperpage{57}
   \item GAUSSIAN, \hyperpage{9}
-    \subitem interface, \hyperpage{47}
+    \subitem interface, \hyperpage{53}
   \item gaussians
     \subitem cartesian, \hyperpage{10}
     \subitem spherical, \hyperpage{10}
-  \item \textsl{ggbs} file, \hyperpage{9}, \hyperpage{59}
-  \item gOpenMol, \hyperpage{14}
+  \item \textsl{ggbs} file, \hyperpage{9}, \hyperpage{66}
+  \item gOpenMol, \hyperpage{15}
   \item graphics
-    \subitem 3Dviewer, \hyperpage{30}
-    \subitem editmolecule, \hyperpage{31}
-  \item GUI, \hyperpage{4}, \hyperpage{24}, \hyperpage{30}
+    \subitem 3Dviewer, \hyperpage{35}
+    \subitem editmolecule, \hyperpage{36}
+  \item GUI, \hyperpage{4}, \hyperpage{29}, \hyperpage{35}
   \item gzip, \hyperpage{9}
 
   \indexspace
 
   \item Hellmann-Feynman
-    \subitem forces, \hyperpage{19}, \hyperpage{57}
-      \subsubitem external, \hyperpage{57}
-      \subsubitem internal, \hyperpage{57}
-      \subsubitem self-pulling, \hyperpage{57}
-    \subitem theorem, \hyperpage{19}
-      \subsubitem fulfillment, \hyperpage{19}
+    \subitem forces, \hyperpage{24}, \hyperpage{64}
+      \subsubitem external, \hyperpage{64}
+      \subsubitem internal, \hyperpage{64}
+      \subsubitem self-pulling, \hyperpage{64}
+    \subitem theorem, \hyperpage{24}
+      \subsubitem fulfillment, \hyperpage{24}
 
   \indexspace
 
   \item installation
     \subitem linux, \hyperpage{6}
     \subitem starting DAMQT, \hyperpage{7}
-    \subitem windows, \hyperpage{6}
-  \item interfaces, \hyperpage{9}, \hyperpage{47}
-  \item \textsl{isoden} file, \hyperpage{45}
-  \item \textsl{isopot} file, \hyperpage{45}
+    \subitem windows, \hyperpage{7}
+  \item interfaces, \hyperpage{10}, \hyperpage{53}
+  \item \textsl{isoden} file, \hyperpage{52}
+  \item \textsl{isopot} file, \hyperpage{52}
 
   \indexspace
 
-  \item light power, \hyperpage{34}
-  \item light source, \hyperpage{34}
-  \item lighting, \hyperpage{34}
-  \item lone pairs, \hyperpage{13}
+  \item light power, \hyperpage{40}
+  \item light source, \hyperpage{40}
+  \item lighting, \hyperpage{40}
+  \item lone pairs, \hyperpage{14}
 
   \indexspace
 
   \item main window, \hyperpage{8}
-  \item MESP CPs, \hyperpage{54}
-  \item MESP sigma hole, \hyperpage{17}, \hyperpage{56}
-    \subitem exact potential, \hyperpage{17}
-    \subitem histogram, \hyperpage{17}
-    \subitem partial histogram, \hyperpage{26}
-  \item MESP statistics, \hyperpage{61}
-  \item molecular density, \hyperpage{50}
-  \item molecular orbitals, \hyperpage{15}
-  \item molecular topography, \hyperpage{16}, \hyperpage{54}
-    \subitem atomic basin, \hyperpage{16}
-    \subitem critical points, \hyperpage{16}
-    \subitem gradient path, \hyperpage{17}
-    \subitem molecular graph, \hyperpage{16}
+  \item MESA, \hyperpage{7}
+  \item MESP CPs, \hyperpage{61}
+  \item MESP sigma hole, \hyperpage{20}, \hyperpage{63}
+    \subitem exact potential, \hyperpage{21}
+    \subitem histogram, \hyperpage{20}
+    \subitem partial histogram, \hyperpage{31}
+  \item MESP statistics, \hyperpage{68}
+  \item molecular density, \hyperpage{57}
+  \item molecular orbitals, \hyperpage{17}
+  \item molecular topography, \hyperpage{17}, \hyperpage{61}
+    \subitem atomic basin, \hyperpage{18}
+    \subitem critical points, \hyperpage{17}
+    \subitem gradient path, \hyperpage{19}
+    \subitem molecular graph, \hyperpage{18}
   \item MOLEKEL, \hyperpage{9}
-    \subitem interface, \hyperpage{49}
-  \item MOLPRO, \hyperpage{9}
-    \subitem interface, \hyperpage{47}
+    \subitem interface, \hyperpage{56}
+  \item MOLPRO, \hyperpage{10}
+    \subitem interface, \hyperpage{53}
   \item MOLPRO interface
-    \subitem UHF orbitals, \hyperpage{48}
-  \item MOPAC, \hyperpage{9}
-    \subitem interface, \hyperpage{49}
-  \item mouse operations, \hyperpage{28}, \hyperpage{45}
-  \item mouse wheel, \hyperpage{31}
-  \item multipole moments, \hyperpage{12}
+    \subitem UHF orbitals, \hyperpage{54}
+  \item MOPAC, \hyperpage{10}
+    \subitem interface, \hyperpage{55}
+  \item mouse operations, \hyperpage{33}, \hyperpage{52}
+  \item mouse wheel, \hyperpage{36}
+  \item multipole moments, \hyperpage{13}
 
   \indexspace
 
-  \item NWCHEM, \hyperpage{9}
-    \subitem interface, \hyperpage{49}
+  \item NWCHEM, \hyperpage{10}
+    \subitem interface, \hyperpage{56}
 
   \indexspace
 
-  \item optimize cluster, \hyperpage{36}
-    \subitem strides, \hyperpage{36}
-  \item oriented multipoles, \hyperpage{20}
+  \item optimize cluster, \hyperpage{42}
+    \subitem strides, \hyperpage{42}
+  \item oriented multipoles, \hyperpage{26}
 
   \indexspace
 
   \item parallel computing, \hyperpage{11}
-  \item \textsl{pltd} file, \hyperpage{60}
-  \item \textsl{plt} file, \hyperpage{60}
+  \item \textsl{pltd} file, \hyperpage{67}
+  \item \textsl{plt} file, \hyperpage{67}
   \item project, \hyperpage{9}
 
   \indexspace
 
-  \item radial factors, \hyperpage{20}
-  \item retrieve settings, \hyperpage{28}, \hyperpage{38}
-  \item rotations, \hyperpage{31}
+  \item radial factors, \hyperpage{25}
+  \item retrieve settings, \hyperpage{33}, \hyperpage{45}
+  \item rotations, \hyperpage{36}
 
   \indexspace
 
-  \item save geometry, \hyperpage{38}
-  \item save settings, \hyperpage{28}, \hyperpage{38}
+  \item save geometry, \hyperpage{45}
+  \item save settings, \hyperpage{33}, \hyperpage{45}
   \item \textsl{sgbs} file, \hyperpage{9}
-  \item smooth surfaces, \hyperpage{13}, \hyperpage{15}
+  \item smooth surfaces, \hyperpage{14}, \hyperpage{17}
 
   \indexspace
 
   \item toolbar, \hyperpage{8}
   \item topography
-    \subitem atomic basins, \hyperpage{17}
-  \item translations, \hyperpage{31}
-  \item TURBOMOLE, \hyperpage{9}
-    \subitem interface, \hyperpage{49}
+    \subitem atomic basins, \hyperpage{19}
+  \item translations, \hyperpage{36}
+  \item TURBOMOLE, \hyperpage{10}
+    \subitem interface, \hyperpage{55}
 
   \indexspace
 
-  \item viewport, \hyperpage{35}
+  \item uninstallation
+    \subitem linux, \hyperpage{7}
 
   \indexspace
 
-  \item \textsl{xyz} file, \hyperpage{30}
+  \item viewport, \hyperpage{41}
 
   \indexspace
 
-  \item Zernike-Canterakis expansion of MED, \hyperpage{57}
-  \item Zernike-Jacobi, \hyperpage{21}
-  \item Zernike-Jacobi density tabulation, \hyperpage{22}
-  \item Zernike-Jacobi expansion, \hyperpage{21}
-  \item zoom, \hyperpage{31}
+  \item \textsl{xyz} file, \hyperpage{36}
+
+  \indexspace
+
+  \item Zernike-Canterakis expansion of MED, \hyperpage{64}
+  \item Zernike-Jacobi, \hyperpage{26}
+  \item Zernike-Jacobi density tabulation, \hyperpage{27}
+  \item Zernike-Jacobi expansion, \hyperpage{26}
+  \item zoom, \hyperpage{36}
 
 \end{theindex}
