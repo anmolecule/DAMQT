@@ -113,7 +113,7 @@ write(7,*) 'ngini = ', ngini, ' ngfin = ', ngfin
     do ia = 1, ncen      ! Do over centers
         if (.not. lSTO .and. ncontr(ia) .lt. 1) cycle
         read(10) icfpos(1:lmtop*nintervaj+1)
-        write(7,"('icfpos(',i6,') = ',/ 15(1x,i9))") ia, icfpos(1:lmtop*nintervaj+1)
+        write(7,"('icfpos(',i6,') = ',/ 11(1x,i9))") ia, icfpos(1:lmtop*nintervaj+1)
         read(10) xajust(1:nintervaj)
         write(7,"('xajust = ', 8(1x,e17.10))") xajust(1:nintervaj)
         allocate(cfajust(icfpos(lmtop*nintervaj+1)-1), stat = ierr)

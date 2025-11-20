@@ -148,7 +148,7 @@
     USE DAMDEN320_D, only: icfposd, xajustd
     USE DAMFORCES320_D
     implicit none
-    integer(KINT) :: i, ia, icflm, ierr, interv, j, kntlm, k, l, m, ntab
+    integer(KINT) :: i, ia, icflm, icflmant, ierr, interv, j, kntlm, k, l, m, ntab
     real(KREAL) :: aux, dost, flm, ra, t, tchb0, tchb1
     real(KREAL), allocatable :: flmtab(:)
     real(KREAL) :: rtab(*)
@@ -174,7 +174,9 @@
             ra = rtab(i)
             if (ra .lt. rinterv(nintervaj)) then
                 interv = indintrv(int(fct*ra)+1)
-                if (icfposd(interv*lmtop,ia) .le. icfposd((interv-1)*lmtop,ia) ) then
+                icflm = icfposd((interv-1)*lmtop+kntlm+1,ia)
+                icflmant = icfposd((interv-1)*lmtop+kntlm,ia)
+                if (icflm .le. icflmant ) then
                     flm = cero
                 else
                     icflm = icfposd((interv-1)*lmtop+kntlm,ia)
@@ -212,7 +214,7 @@
     USE DAMDEN320_D, only: icfposd, xajustd
     USE DAMFORCES320_D
     implicit none
-    integer(KINT) :: i, ia, icflm, ierr, interv, j, k, kntlm, l, m, ntab
+    integer(KINT) :: i, ia, icflm, icflmant, ierr, interv, j, k, kntlm, l, m, ntab
     real(KREAL) :: aux, dost, drvflm, flm, ra, t, tchb0, tchb1, uchb0, uchb1
     real(KREAL), allocatable :: flmtab(:)
     real(KREAL) :: rtab(*)
@@ -238,27 +240,33 @@
             ra = rtab(i)
             if (ra .lt. rinterv(nintervaj)) then
                 interv = indintrv(int(fct*ra)+1)
-                t = dos * (ra - rinterv(interv-1))/(rinterv(interv)-rinterv(interv-1)) - uno
-                icflm = icfposd((interv-1)*lmtop+kntlm,ia)
-                dost = t + t
-                tchb0 = uno
-                tchb1 = t
-                uchb0 = uno
-                uchb1 = dost
-                flm = cfajust(icflm) + cfajust(1+icflm) * tchb1
-                drvflm = cfajust(1+icflm)
-                do j = 2, icfposd((interv-1)*lmtop+kntlm+1,ia)-icflm-1
-                    aux = dost * tchb1 - tchb0
-                    tchb0 = tchb1
-                    tchb1 = aux
-                    flm = flm + cfajust(j+icflm) * tchb1
-                    drvflm = drvflm + cfajust(j+icflm) * re(j) * uchb1
-                    aux = dost * uchb1 - uchb0
-                    uchb0 = uchb1
-                    uchb1 = aux
-                enddo
-                drvflm = drvflm * dos / (rinterv(interv)-rinterv(interv-1)) ! Introduces the factor D[t,r]
-                drvflm = exp(-xajustd(interv,ia)*ra) * (-xajustd(interv,ia) * flm + drvflm)
+                icflm = icfposd((interv-1)*lmtop+kntlm+1,ia)
+                icflmant = icfposd((interv-1)*lmtop+kntlm,ia)
+                if (icflm .le. icflmant ) then
+                    drvflm = cero
+                else
+                    t = dos * (ra - rinterv(interv-1))/(rinterv(interv)-rinterv(interv-1)) - uno
+                    icflm = icfposd((interv-1)*lmtop+kntlm,ia)
+                    dost = t + t
+                    tchb0 = uno
+                    tchb1 = t
+                    uchb0 = uno
+                    uchb1 = dost
+                    flm = cfajust(icflm) + cfajust(1+icflm) * tchb1
+                    drvflm = cfajust(1+icflm)
+                    do j = 2, icfposd((interv-1)*lmtop+kntlm+1,ia)-icflm-1
+                        aux = dost * tchb1 - tchb0
+                        tchb0 = tchb1
+                        tchb1 = aux
+                        flm = flm + cfajust(j+icflm) * tchb1
+                        drvflm = drvflm + cfajust(j+icflm) * re(j) * uchb1
+                        aux = dost * uchb1 - uchb0
+                        uchb0 = uchb1
+                        uchb1 = aux
+                    enddo
+                    drvflm = drvflm * dos / (rinterv(interv)-rinterv(interv-1)) ! Introduces the factor D[t,r]
+                    drvflm = exp(-xajustd(interv,ia)*ra) * (-xajustd(interv,ia) * flm + drvflm)
+                endif
             else
                 drvflm = cero
             endif
@@ -280,7 +288,7 @@
     USE DAMDEN320_D, only: icfposd, xajustd
     USE DAMFORCES320_D
     implicit none
-    integer(KINT) :: i, ia, icflm, ierr, interv, j, k, kntlm, l, m, ntab
+    integer(KINT) :: i, ia, icflm, icflmant, ierr, interv, j, k, kntlm, l, m, ntab
     real(KREAL) :: aux, dost, drvflm, drv2flm, dux, flm, ra, rj2, sgn, t, tchb0, tchb1, uchb0, uchb1, umt2i
     real(KREAL), allocatable :: flmtab(:)
     real(KREAL) :: rtab(*)
@@ -306,41 +314,47 @@
             ra = rtab(i)
             if (ra .lt. rinterv(nintervaj)) then
                 interv = indintrv(int(fct*ra)+1)
-                t = dos * (ra - rinterv(interv-1))/(rinterv(interv)-rinterv(interv-1)) - uno
-                icflm = icfposd((interv-1)*lmtop+kntlm,ia)
-                dost = t + t
-                umt2i = uno / (t*t - uno)
-                tchb0 = uno
-                tchb1 = t
-                uchb0 = uno
-                uchb1 = dost
-                flm = cfajust(icflm) + cfajust(1+icflm) * tchb1
-                drvflm = cfajust(1+icflm)
-                drv2flm = cero
-                sgn = uno
-                do j = 2, icfposd((interv-1)*lmtop+kntlm+1,ia)-icflm-1
-                    aux = dost * tchb1 - tchb0
-                    tchb0 = tchb1
-                    tchb1 = aux
-                    flm = flm + cfajust(j+icflm) * tchb1
-                    drvflm = drvflm + cfajust(j+icflm) * re(j) * uchb1
-                    if (uno-abs(t) .gt. 1.d-7) then
-                        drv2flm = drv2flm + cfajust(j+icflm) * re(j) * umt2i * (re(j-1) * t * uchb1 - re(j) * uchb0)
-                    else	! For values of t very close to 1 or -1, takes a linear approximation (Taylor series)
-                        rj2 = re(j) * re(j)
-                        drv2flm = drv2flm + cfajust(j+icflm) * sgn * ri(3) * (rj2 * (rj2 - uno)  &
-                                + ri(5) * rj2 * (re(4) + rj2 * (-re(5) + rj2)) * (abs(t)-uno) )
-                                if (t .lt. cero) sgn = - sgn
-                    endif
-                    aux = dost * uchb1 - uchb0
-                    uchb0 = uchb1
-                    uchb1 = aux
-                enddo
-                dux = dos / (rinterv(interv)-rinterv(interv-1))
-                drvflm = drvflm * dux
-                drv2flm = drv2flm * dux * dux
-                drv2flm = exp(-xajustd(interv,ia)*ra) * (xajustd(interv,ia) * (xajustd(interv,ia) * flm &
-                        - (drvflm+drvflm)) + drv2flm )
+                icflm = icfposd((interv-1)*lmtop+kntlm+1,ia)
+                icflmant = icfposd((interv-1)*lmtop+kntlm,ia)
+                if (icflm .le. icflmant ) then
+                    drv2flm = cero
+                else
+                    t = dos * (ra - rinterv(interv-1))/(rinterv(interv)-rinterv(interv-1)) - uno
+                    icflm = icfposd((interv-1)*lmtop+kntlm,ia)
+                    dost = t + t
+                    umt2i = uno / (t*t - uno)
+                    tchb0 = uno
+                    tchb1 = t
+                    uchb0 = uno
+                    uchb1 = dost
+                    flm = cfajust(icflm) + cfajust(1+icflm) * tchb1
+                    drvflm = cfajust(1+icflm)
+                    drv2flm = cero
+                    sgn = uno
+                    do j = 2, icfposd((interv-1)*lmtop+kntlm+1,ia)-icflm-1
+                        aux = dost * tchb1 - tchb0
+                        tchb0 = tchb1
+                        tchb1 = aux
+                        flm = flm + cfajust(j+icflm) * tchb1
+                        drvflm = drvflm + cfajust(j+icflm) * re(j) * uchb1
+                        if (uno-abs(t) .gt. 1.d-7) then
+                            drv2flm = drv2flm + cfajust(j+icflm) * re(j) * umt2i * (re(j-1) * t * uchb1 - re(j) * uchb0)
+                        else	! For values of t very close to 1 or -1, takes a linear approximation (Taylor series)
+                            rj2 = re(j) * re(j)
+                            drv2flm = drv2flm + cfajust(j+icflm) * sgn * ri(3) * (rj2 * (rj2 - uno)  &
+                                    + ri(5) * rj2 * (re(4) + rj2 * (-re(5) + rj2)) * (abs(t)-uno) )
+                                    if (t .lt. cero) sgn = - sgn
+                        endif
+                        aux = dost * uchb1 - uchb0
+                        uchb0 = uchb1
+                        uchb1 = aux
+                    enddo
+                    dux = dos / (rinterv(interv)-rinterv(interv-1))
+                    drvflm = drvflm * dux
+                    drv2flm = drv2flm * dux * dux
+                    drv2flm = exp(-xajustd(interv,ia)*ra) * (xajustd(interv,ia) * (xajustd(interv,ia) * flm &
+                            - (drvflm+drvflm)) + drv2flm )
+                endif
             else
                 drv2flm = cero
             endif
