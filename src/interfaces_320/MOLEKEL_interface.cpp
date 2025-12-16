@@ -39,7 +39,7 @@ int min(int,int);
 const int MXCEN = 10000;			// Maximum number of centers
 const int MXSHELL = 20000;		// Maximum total number of contractions
 const int MXSHELLAT = 50;		// Maximum number of contractions per atom
-const int MXPRIMCENT = 200;   	// Maximum number of primitives per center
+const int MXPRIMCENT = 300;   	// Maximum number of primitives per center
 const double PI = 3.141592653589793;
 int i,j,k,ii,jj,ki,kj,i1,j11,klin;
 int len, lastocca, lastoccb, ncen, nbasis, kntshell = 0, izn;
@@ -262,6 +262,15 @@ int main(int argc,char *argv[])
 							char *tokenPrt, *ptr = new char [len+1], *newtoken;
 							s.copy(ptr,len,0);
 							tokenPrt = strtok_s(ptr," ",&newtoken);
+                            if (kprim >= MXPRIMCENT) {
+                                cerr << "Maximum number of primitives per center exceeded." << endl ;
+                                cerr << "Current maximum:  " << MXPRIMCENT << endl ;
+                                cerr << "Increase parameter MXPRIMCENT in MOLEKEL_interface.cpp and compile" << endl ;
+                                outimportfile << "Maximum number of primitives per center exceeded." << endl ;
+                                outimportfile << "Current maximum:  " << MXPRIMCENT << endl ;
+                                outimportfile << "Increase parameter MXPRIMCENT in MOLEKEL_interface.cpp and compile" << endl ;
+                                exit(1);
+                            }
 							primexp[kprim] = atof(tokenPrt);
 							tokenPrt = strtok_s(NULL," ",&newtoken);	
 							cfcontr[kprim++] = atof(tokenPrt);

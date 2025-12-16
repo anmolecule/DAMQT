@@ -49,7 +49,7 @@ int min(int,int);
 const int MXCEN = 10000;
 const int MXSHELL = 20000;
 const int MXBASIS = 45000;
-const int MXPRIMCENT = 20;   // Maximum number of primitives per center
+const int MXPRIMCENT = 300;   // Maximum number of primitives per center
 const int MXPRIMTOT = 30000;  // Maximum total number of primitives
 const double PI = 3.141592653589793;
 int i,j,k,ii,jj,ki,kj,kl,i1,j11,klin;

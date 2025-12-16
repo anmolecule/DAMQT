@@ -47,7 +47,7 @@ string limpia(string);
 const int MXCEN = 10000;            // Maximum number of centers
 const int MXATDIF = 20;            // Maximum number of different atoms
 const int MXSHELLAT = 50;        // Maximum number of contractions per atom
-const int MXPRIMCENT = 200;       // Maximum number of primitives per center
+const int MXPRIMCENT = 300;       // Maximum number of primitives per center
 const int MXFUN = 30000;            // Maximum number of contracted basis functions
 const int MXSHELL = 20000;        // Maximum number of shells
 const double PI = 3.141592653589793L;

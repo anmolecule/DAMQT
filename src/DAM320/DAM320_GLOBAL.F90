@@ -478,7 +478,7 @@ MODULE GAUSS
      USE DAM320_CONST_D
      IMPLICIT NONE
      logical :: lbeta
-     integer(KINT), parameter :: mxprimit = 20
+     integer(KINT), parameter :: mxprimit = 25
      integer(KINT) :: nprimitot, ncontrtot, nocalfa, nocbeta
      integer(KINT), allocatable :: isort(:), ncontr(:), nprimit(:), ipntprim(:)
      real(KREAL), allocatable :: cfcontr(:), cfcontr0(:), xxg(:), xxg0(:)
