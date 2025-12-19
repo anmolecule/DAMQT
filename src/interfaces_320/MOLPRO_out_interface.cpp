@@ -849,8 +849,14 @@ int main(int argc,char *argv[])
             tokenPrt = strtok_s(NULL,")",&newtoken);
             ss = tokenPrt;
             ipos = ss.find(".");
-            indstate = atoi(ss.substr(ipos-1,1).c_str());
-            statesim = atoi(ss.substr(ipos+1,1).c_str());
+            if (ipos < 1){
+                indstate = 1;
+                statesim = 0;
+            } else{
+                indstate = atoi(ss.substr(ipos-1,1).c_str());
+                statesim = atoi(ss.substr(ipos+1,1).c_str());
+            }
+
             for (i = 0 ; i < nfun*nfun ; i++){
                 dmat[i] = 0.;
             }
