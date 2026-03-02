@@ -3006,7 +3006,7 @@ void glWindow::setdistprecision(int a){
     if(showdistances) update();
 }
 
-//  Function setdistprecision: set number of decimals for distances
+//  Function setdistvshift: set vertical shift for distances
 //
 void glWindow::setdistvshift(int a){
     distvshift = a;
@@ -3014,7 +3014,7 @@ void glWindow::setdistvshift(int a){
 }
 
 
-//  Function setdihedrals: set allow/deny transparent background for distances lables
+//  Function setdisttranspbkg: set allow/deny transparent background for distances lables
 //
 void glWindow::setdisttranspbkg(bool a){
     disttranspbkg = a;

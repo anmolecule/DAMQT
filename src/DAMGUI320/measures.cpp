@@ -881,9 +881,12 @@ void measures::update_dihedrals(QVector<centerData> *dihcenters, QVector<QMatrix
         QVector3D B3D = QVector3D(mtrsf->at(dihedralcenters->at(i+1).molecule)*QVector4D(dihedralcenters->at(i+1).xyz,1));
         QVector3D C3D = QVector3D(mtrsf->at(dihedralcenters->at(i+2).molecule)*QVector4D(dihedralcenters->at(i+2).xyz,1));
         QVector3D D3D = QVector3D(mtrsf->at(dihedralcenters->at(i+3).molecule)*QVector4D(dihedralcenters->at(i+3).xyz,1));
+//         QVector3D ABC = QVector3D::crossProduct((C3D-B3D),(A3D-B3D));
+//         QVector3D ABD = QVector3D::crossProduct((D3D-B3D),(A3D-B3D));
+//         double aux = QVector3D::dotProduct(ABC,ABD)/(ABC.length()*ABD.length());
         QVector3D ABC = QVector3D::crossProduct((C3D-B3D),(A3D-B3D));
-        QVector3D ABD = QVector3D::crossProduct((D3D-B3D),(A3D-B3D));
-        double aux = QVector3D::dotProduct(ABC,ABD)/(ABC.length()*ABD.length());
+        QVector3D BCD = QVector3D::crossProduct((D3D-C3D),(B3D-C3D));
+        double aux = QVector3D::dotProduct(ABC,BCD)/(ABC.length()*BCD.length());
         double angle;
         if (qAbs(qAbs(aux)-1.) > 1.e-6)
             angle = 180. * std::acos(aux) / M_PI;
@@ -1030,9 +1033,21 @@ void measures::LBLdihedrals_add(QVector<centerData> *dihcenters, QVector<QMatrix
         QVector3D B3D = QVector3D(mtrsf->at(dihedralcenters->at(i+1).molecule)*QVector4D(dihedralcenters->at(i+1).xyz,1));
         QVector3D C3D = QVector3D(mtrsf->at(dihedralcenters->at(i+2).molecule)*QVector4D(dihedralcenters->at(i+2).xyz,1));
         QVector3D D3D = QVector3D(mtrsf->at(dihedralcenters->at(i+3).molecule)*QVector4D(dihedralcenters->at(i+3).xyz,1));
+//         QVector3D ABC = QVector3D::crossProduct((C3D-B3D),(A3D-B3D));
+//         QVector3D ABD = QVector3D::crossProduct((D3D-B3D),(A3D-B3D));
+//         double angle = 180. * std::acos(QVector3D::dotProduct(ABC,ABD)/(ABC.length()*ABD.length())) / M_PI;
         QVector3D ABC = QVector3D::crossProduct((C3D-B3D),(A3D-B3D));
-        QVector3D ABD = QVector3D::crossProduct((D3D-B3D),(A3D-B3D));
-        double angle = 180. * std::acos(QVector3D::dotProduct(ABC,ABD)/(ABC.length()*ABD.length())) / M_PI;
+        QVector3D BCD = QVector3D::crossProduct((D3D-C3D),(B3D-C3D));
+        double aux = QVector3D::dotProduct(ABC,BCD)/(ABC.length()*BCD.length());
+        double angle;
+        if (qAbs(qAbs(aux)-1.) > 1.e-6)
+            angle = 180. * std::acos(aux) / M_PI;
+        else{
+            if (aux > 0.)
+                angle = 0.;
+            else
+                angle = M_PI;
+        }
         dihedralstext->append("("+lastselectdihedrals.join(",")+") = "
                 + QString::number( std::abs(angle), 'g', SPBdihedralsprecision->value()) + QChar(0260) + QString(" ; "));
         dihedralsprinttext.append(QString("("+lastselectdihedrals.join(",")+")" + " = "
